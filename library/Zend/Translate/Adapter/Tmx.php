@@ -14,23 +14,23 @@
  *
  * @category   Zend
  * @package    Zend_Translate
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Tmx.php 21050 2010-02-13 22:53:40Z thomas $
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id: Tmx.php 23775 2011-03-01 17:25:24Z ralph $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
 
 /** Zend_Locale */
-// require_once 'Zend/Locale.php';
+require_once 'Zend/Locale.php';
 
 /** Zend_Translate_Adapter */
-// require_once 'Zend/Translate/Adapter.php';
+require_once 'Zend/Translate/Adapter.php';
 
 
 /**
  * @category   Zend
  * @package    Zend_Translate
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Translate_Adapter_Tmx extends Zend_Translate_Adapter {
@@ -58,7 +58,7 @@ class Zend_Translate_Adapter_Tmx extends Zend_Translate_Adapter {
     {
         $this->_data = array();
         if (!is_readable($filename)) {
-            // require_once 'Zend/Translate/Exception.php';
+            require_once 'Zend/Translate/Exception.php';
             throw new Zend_Translate_Exception('Translation file \'' . $filename . '\' is not readable.');
         }
 
@@ -78,7 +78,7 @@ class Zend_Translate_Adapter_Tmx extends Zend_Translate_Adapter {
                           xml_error_string(xml_get_error_code($this->_file)),
                           xml_get_current_line_number($this->_file));
             xml_parser_free($this->_file);
-            // require_once 'Zend/Translate/Exception.php';
+            require_once 'Zend/Translate/Exception.php';
             throw new Zend_Translate_Exception($ex);
         }
 

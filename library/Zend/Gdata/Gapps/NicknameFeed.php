@@ -16,20 +16,20 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Gapps
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: NicknameFeed.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: NicknameFeed.php 23775 2011-03-01 17:25:24Z ralph $
  */
 
 /**
  * @see Zend_Gdata_Feed
  */
-// require_once 'Zend/Gdata/Feed.php';
+require_once 'Zend/Gdata/Feed.php';
 
 /**
  * @see Zend_Gdata_Gapps_NicknameEntry
  */
-// require_once 'Zend/Gdata/Gapps/NicknameEntry.php';
+require_once 'Zend/Gdata/Gapps/NicknameEntry.php';
 
 /**
  * Data model for a collection of Google Apps nickname entries, usually
@@ -41,7 +41,7 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Gapps
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Gdata_Gapps_NicknameFeed extends Zend_Gdata_Feed

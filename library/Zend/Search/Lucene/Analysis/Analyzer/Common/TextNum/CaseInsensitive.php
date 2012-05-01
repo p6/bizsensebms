@@ -15,24 +15,24 @@
  * @category   Zend
  * @package    Zend_Search_Lucene
  * @subpackage Analysis
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: CaseInsensitive.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: CaseInsensitive.php 23775 2011-03-01 17:25:24Z ralph $
  */
 
 
 /** Zend_Search_Lucene_Analysis_Analyzer_Common_TextNum */
-// require_once 'Zend/Search/Lucene/Analysis/Analyzer/Common/TextNum.php';
+require_once 'Zend/Search/Lucene/Analysis/Analyzer/Common/TextNum.php';
 
 /** Zend_Search_Lucene_Analysis_TokenFilter_LowerCase */
-// require_once 'Zend/Search/Lucene/Analysis/TokenFilter/LowerCase.php';
+require_once 'Zend/Search/Lucene/Analysis/TokenFilter/LowerCase.php';
 
 
 /**
  * @category   Zend
  * @package    Zend_Search_Lucene
  * @subpackage Analysis
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 

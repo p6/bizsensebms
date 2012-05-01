@@ -15,15 +15,15 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: FormElement.php 22285 2010-05-25 14:22:11Z matthew $
+ * @version    $Id: FormElement.php 24201 2011-07-05 16:22:04Z matthew $
  */
 
 /**
  * @see Zend_View_Helper_HtmlElement
  */
-// require_once 'Zend/View/Helper/HtmlElement.php';
+require_once 'Zend/View/Helper/HtmlElement.php';
 
 /**
  * Base helper for form elements.  Extend this, don't use it on its own.
@@ -31,7 +31,7 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_View_Helper_FormElement extends Zend_View_Helper_HtmlElement
@@ -54,7 +54,7 @@ abstract class Zend_View_Helper_FormElement extends Zend_View_Helper_HtmlElement
     /**
      * Set translator
      *
-     * @param  $translator|null Zend_Translate
+     * @param  Zend_Translate $translator
      * @return Zend_View_Helper_FormElement
      */
     public function setTranslator($translator = null)
@@ -66,7 +66,7 @@ abstract class Zend_View_Helper_FormElement extends Zend_View_Helper_HtmlElement
         } elseif ($translator instanceof Zend_Translate) {
             $this->_translator = $translator->getAdapter();
         } else {
-            // require_once 'Zend/View/Exception.php';
+            require_once 'Zend/View/Exception.php';
             $e = new Zend_View_Exception('Invalid translator specified');
             $e->setView($this->view);
             throw $e;
@@ -115,7 +115,7 @@ abstract class Zend_View_Helper_FormElement extends Zend_View_Helper_HtmlElement
                 }
             }
 
-            // If all helper options are passed as an array, attribs may have 
+            // If all helper options are passed as an array, attribs may have
             // been as well
             if (null === $attribs) {
                 $attribs = $info['attribs'];
@@ -145,6 +145,16 @@ abstract class Zend_View_Helper_FormElement extends Zend_View_Helper_HtmlElement
         } else if ('' !== $info['name']) {
             $info['id'] = trim(strtr($info['name'],
                                      array('[' => '-', ']' => '')), '-');
+        }
+        
+        // Remove NULL name attribute override
+        if (array_key_exists('name', $attribs) && is_null($attribs['name'])) {
+        	unset($attribs['name']);
+        }
+        
+        // Override name in info if specified in attribs
+        if (array_key_exists('name', $attribs) && $attribs['name'] != $info['name']) {
+            $info['name'] = $attribs['name'];
         }
 
         // Determine escaping from attributes
@@ -178,11 +188,9 @@ abstract class Zend_View_Helper_FormElement extends Zend_View_Helper_HtmlElement
      *
      * @access protected
      *
-     * @param $name The element name.
-     *
-     * @param $value The element value.
-     *
-     * @param $attribs Attributes for the element.
+     * @param string $name The element name.
+     * @param string $value The element value.
+     * @param array  $attribs Attributes for the element.
      *
      * @return string A hidden element.
      */

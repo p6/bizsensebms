@@ -15,15 +15,15 @@
  * @category   Zend
  * @package    Zend_Ldap
  * @subpackage Filter
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Filter.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: Filter.php 23775 2011-03-01 17:25:24Z ralph $
  */
 
 /**
  * @see Zend_Ldap_Filter_String
  */
-// require_once 'Zend/Ldap/Filter/String.php';
+require_once 'Zend/Ldap/Filter/String.php';
 
 /**
  * Zend_Ldap_Filter.
@@ -31,7 +31,7 @@
  * @category   Zend
  * @package    Zend_Ldap
  * @subpackage Filter
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Ldap_Filter extends Zend_Ldap_Filter_String
@@ -195,7 +195,7 @@ class Zend_Ldap_Filter extends Zend_Ldap_Filter_String
         /**
          * Zend_Ldap_Filter_Mask
          */
-        // require_once 'Zend/Ldap/Filter/Mask.php';
+        require_once 'Zend/Ldap/Filter/Mask.php';
         return new Zend_Ldap_Filter_Mask($mask, $value);
     }
 
@@ -210,7 +210,7 @@ class Zend_Ldap_Filter extends Zend_Ldap_Filter_String
         /**
          * Zend_Ldap_Filter_And
          */
-        // require_once 'Zend/Ldap/Filter/And.php';
+        require_once 'Zend/Ldap/Filter/And.php';
         return new Zend_Ldap_Filter_And(func_get_args());
     }
 
@@ -225,7 +225,7 @@ class Zend_Ldap_Filter extends Zend_Ldap_Filter_String
         /**
          * Zend_Ldap_Filter_Or
          */
-        // require_once 'Zend/Ldap/Filter/Or.php';
+        require_once 'Zend/Ldap/Filter/Or.php';
         return new Zend_Ldap_Filter_Or(func_get_args());
     }
 
@@ -242,9 +242,9 @@ class Zend_Ldap_Filter extends Zend_Ldap_Filter_String
     private static function _createFilterString($attr, $value, $filtertype, $prepend = null, $append = null)
     {
         $str = $attr . $filtertype;
-        if (!is_null($prepend)) $str .= $prepend;
+        if ($prepend !== null) $str .= $prepend;
         $str .= self::escapeValue($value);
-        if (!is_null($append)) $str .= $append;
+        if ($append !== null) $str .= $append;
         return $str;
     }
 

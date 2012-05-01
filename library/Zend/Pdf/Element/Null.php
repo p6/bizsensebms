@@ -14,14 +14,14 @@
  *
  * @category   Zend
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Null.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: Null.php 23775 2011-03-01 17:25:24Z ralph $
  */
 
 
 /** Zend_Pdf_Element */
-// require_once 'Zend/Pdf/Element.php';
+require_once 'Zend/Pdf/Element.php';
 
 
 /**
@@ -29,7 +29,7 @@
  *
  * @category   Zend
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Pdf_Element_Null extends Zend_Pdf_Element

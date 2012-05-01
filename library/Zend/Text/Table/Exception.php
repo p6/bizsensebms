@@ -14,15 +14,15 @@
  *
  * @category  Zend
  * @package   Zend_Text_Table
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
- * @version   $Id: Exception.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version   $Id: Exception.php 23775 2011-03-01 17:25:24Z ralph $
  */
 
 /**
  * @see Zend_Text_Exception
  */
-// require_once 'Zend/Text/Exception.php';
+require_once 'Zend/Text/Exception.php';
 
 /**
  * Exception class for Zend_Text_Table
@@ -30,7 +30,7 @@
  * @category  Zend
  * @package   Zend_Text_Table
  * @uses      Zend_Text_Exception
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Text_Table_Exception extends Zend_Text_Exception

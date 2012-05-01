@@ -1,0 +1,135 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Post Installation Configuration &mdash; Bizsense v0.3.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.3.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Bizsense v0.3.2 documentation" href="index.html" />
+    <link rel="next" title="Updating Bizsense" href="updatingbizsense.html" />
+    <link rel="prev" title="Installation" href="installation.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="updatingbizsense.html" title="Updating Bizsense"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="installation.html" title="Installation"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Bizsense v0.3.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="post-installation-configuration">
+<h1>Post Installation Configuration<a class="headerlink" href="#post-installation-configuration" title="Permalink to this headline">¶</a></h1>
+<ul>
+<li><p class="first">Navigate to Administer-&gt;BizSense Status-&gt;File Permissions. Verify the file permissions</p>
+</li>
+<li><p class="first">Configure email settings at Administer-&gt;Email Settings</p>
+</li>
+<li><p class="first">Set up cron. Have the command:</p>
+<div class="highlight-python"><pre>     php application/modules/default/services/cli.php --service=Core_Service_Cron
+
+in your crontab entry</pre>
+</div>
+</li>
+<li><p class="first">Set your organization details</p>
+</li>
+<li><p class="first">Add the site logo. This logo appears in the top left corner of the application</p>
+</li>
+<li><p class="first">Add the Document logo. This logo appears in the PDF and other documents</p>
+</li>
+<li><p class="first">Save newsletter settings at Marketing-&gt;Settings-&gt;Message Queue Settings</p>
+</li>
+<li><p class="first">Improve performance by setting Expires header in your Apache virutal host directive or .htaccess. Example:</p>
+<div class="highlight-python"><pre>&lt;FilesMatch "\.(ico|pdf|flv|jpg|jpeg|png|gif|js|css|swf)$"&gt;
+    Header set Expires "Fri, 31 Dec 2011 20:00:00 GMT"
+&lt;/FilesMatch&gt;</pre>
+</div>
+</li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="installation.html"
+                        title="previous chapter">Installation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="updatingbizsense.html"
+                        title="next chapter">Updating Bizsense</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/postinstallationconfiguration.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="updatingbizsense.html" title="Updating Bizsense"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="installation.html" title="Installation"
+             >previous</a> |</li>
+        <li><a href="index.html">Bizsense v0.3.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, Sudheera Satyanarayana.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

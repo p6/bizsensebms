@@ -15,16 +15,16 @@
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Oci.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: Oci.php 23775 2011-03-01 17:25:24Z ralph $
  */
 
 
 /**
  * @see Zend_Db_Adapter_Pdo_Abstract
  */
-// require_once 'Zend/Db/Adapter/Pdo/Abstract.php';
+require_once 'Zend/Db/Adapter/Pdo/Abstract.php';
 
 
 /**
@@ -33,7 +33,7 @@
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Db_Adapter_Pdo_Oci extends Zend_Db_Adapter_Pdo_Abstract
@@ -347,14 +347,14 @@ class Zend_Db_Adapter_Pdo_Oci extends Zend_Db_Adapter_Pdo_Abstract
         $count = intval($count);
         if ($count <= 0) {
             /** @see Zend_Db_Adapter_Exception */
-            // require_once 'Zend/Db/Adapter/Exception.php';
+            require_once 'Zend/Db/Adapter/Exception.php';
             throw new Zend_Db_Adapter_Exception("LIMIT argument count=$count is not valid");
         }
 
         $offset = intval($offset);
         if ($offset < 0) {
             /** @see Zend_Db_Adapter_Exception */
-            // require_once 'Zend/Db/Adapter/Exception.php';
+            require_once 'Zend/Db/Adapter/Exception.php';
             throw new Zend_Db_Adapter_Exception("LIMIT argument offset=$offset is not valid");
         }
 

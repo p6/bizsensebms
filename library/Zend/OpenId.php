@@ -15,15 +15,15 @@
  *
  * @category   Zend
  * @package    Zend_OpenId
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: OpenId.php 22655 2010-07-22 18:47:20Z mabe $
+ * @version    $Id: OpenId.php 24379 2011-08-14 12:01:10Z padraic $
  */
 
 /**
  * @see Zend_Controller_Response_Abstract
  */
-// require_once "Zend/Controller/Response/Abstract.php";
+require_once "Zend/Controller/Response/Abstract.php";
 
 /**
  * Static class that contains common utility functions for
@@ -35,7 +35,7 @@
  *
  * @category   Zend
  * @package    Zend_OpenId
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_OpenId
@@ -285,7 +285,7 @@ class Zend_OpenId
         $port = $reg[4];
         $path = $reg[5];
         $query = $reg[6];
-        $fragment = $reg[7]; /* strip it */
+        $fragment = $reg[7]; /* strip it */ /* ZF-4358 Fragment retained under OpenID 2.0 */
 
         if (empty($scheme) || empty($host)) {
             return false;
@@ -350,7 +350,8 @@ class Zend_OpenId
             . $host
             . (empty($port) ? '' : (':' . $port))
             . $path
-            . $query;
+            . $query
+            . $fragment;
         return true;
     }
 
@@ -425,7 +426,7 @@ class Zend_OpenId
         $url = Zend_OpenId::absoluteUrl($url);
         $body = "";
         if (null === $response) {
-            // require_once "Zend/Controller/Response/Http.php";
+            require_once "Zend/Controller/Response/Http.php";
             $response = new Zend_Controller_Response_Http();
         }
 
@@ -502,7 +503,7 @@ class Zend_OpenId
                 return mhash(MHASH_SHA256 , $data);
             }
         }
-        // require_once "Zend/OpenId/Exception.php";
+        require_once "Zend/OpenId/Exception.php";
         throw new Zend_OpenId_Exception(
             'Unsupported digest algorithm "' . $func . '".',
             Zend_OpenId_Exception::UNSUPPORTED_DIGEST);
@@ -521,7 +522,7 @@ class Zend_OpenId
      */
     static public function hashHmac($macFunc, $data, $secret)
     {
-//        // require_once "Zend/Crypt/Hmac.php";
+//        require_once "Zend/Crypt/Hmac.php";
 //        return Zend_Crypt_Hmac::compute($secret, $macFunc, $data, Zend_Crypt_Hmac::BINARY);
         if (function_exists('hash_hmac')) {
             return hash_hmac($macFunc, $data, $secret, 1);
@@ -558,7 +559,7 @@ class Zend_OpenId
             }
             return $bn;
         }
-        // require_once "Zend/OpenId/Exception.php";
+        require_once "Zend/OpenId/Exception.php";
         throw new Zend_OpenId_Exception(
             'The system doesn\'t have proper big integer extension',
             Zend_OpenId_Exception::UNSUPPORTED_LONG_MATH);
@@ -587,7 +588,7 @@ class Zend_OpenId
             if ($cmp == 0) {
                 return "\0";
             } else if ($cmp < 0) {
-                // require_once "Zend/OpenId/Exception.php";
+                require_once "Zend/OpenId/Exception.php";
                 throw new Zend_OpenId_Exception(
                     'Big integer arithmetic error',
                     Zend_OpenId_Exception::ERROR_LONG_MATH);
@@ -602,7 +603,7 @@ class Zend_OpenId
             }
             return $bin;
         }
-        // require_once "Zend/OpenId/Exception.php";
+        require_once "Zend/OpenId/Exception.php";
         throw new Zend_OpenId_Exception(
             'The system doesn\'t have proper big integer extension',
             Zend_OpenId_Exception::UNSUPPORTED_LONG_MATH);
@@ -705,7 +706,7 @@ class Zend_OpenId
             $bn_secret  = bcpowmod($bn_pub_key, $dh['priv_key'], $dh['p']);
             return self::bigNumToBin($bn_secret);
         }
-        // require_once "Zend/OpenId/Exception.php";
+        require_once "Zend/OpenId/Exception.php";
         throw new Zend_OpenId_Exception(
             'The system doesn\'t have proper big integer extension',
             Zend_OpenId_Exception::UNSUPPORTED_LONG_MATH);

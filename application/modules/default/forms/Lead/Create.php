@@ -1,37 +1,35 @@
 <?php
-/**
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation,  version 3 of the License
+/** Copyright (c) 2010, Sudheera Satyanarayana - http://techchorus.net, 
+     Binary Vibes Information Technologies Pvt. Ltd. and contributors
+ *  All rights reserved.
  *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
  *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
+ *   * Redistributions of source code must retain the above copyright notice,
+ *     this list of conditions and the following disclaimer.
  *
- * You can contact Binary Vibes Information Technologies Pvt. Ltd. by sending 
- * an electronic mail to info@binaryvibes.co.in
+ *   * Redistributions in binary form must reproduce the above copyright notice,
+ *     this list of conditions and the following disclaimer in the documentation
+ *     and/or other materials provided with the distribution.
+ *
+ *   * Neither the names of Sudheera Satyanarayana nor the names of the project
+ *     contributors may be used to endorse or promote products derived from this
+ *     software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ * ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * 
- * Or write paper mail to
- * 
- * #506, 10th B Main Road,
- * 1st Block, Jayanagar,
- * Bangalore - 560 011
- *
- * LICENSE: GNU GPL V3
  */
 
-/**
- * @description Binary Vibes BizSense - web based CRM and ERP software
- * @category   BizSense
- * @package    Core
- * @copyright  Copyright (c) 2008 Binary Vibes Information Technologies Pvt. 
- * Ltd. (http://binaryvibes.co.in)
- * @version    $Id:$
- */
 class Core_Form_Lead_Create extends Zend_Form
 {
     public function init()
@@ -170,28 +168,63 @@ class Core_Form_Lead_Create extends Zend_Form
         $submit = $this->createElement('submit', 'submit')
                         ->setAttrib('class', 'submit_button');
 
-        $this->addElements(array($leadSourceId, $leadStatusId, $firstName, $middleName, $lastName, $companyName, $homePhone,
-            $workPhone, $doNotCall, $mobile, $fax, $email, $emailOptOut, $addressLine1, $addressLine2, $addressLine3, 
-            $addressLine4, $city, $state, $postalCode, $country, $description, $campaignId, $assignedTo, $branchId, $submit));
+        $hash = $this->createElement('hash', 'no_csrf_lead_create', 
+            array(
+                'salt' => 'unique',
+                'ignore' => true,
+            )
+        );
 
-        
+        $this->addElements(
+            array(
+                $leadSourceId, $leadStatusId, $firstName, $middleName, 
+                $lastName, $companyName, $homePhone, $workPhone, $doNotCall, 
+                $mobile, $fax, $email, $emailOptOut, $addressLine1, 
+                $addressLine2, $addressLine3, $addressLine4, $city, $state, 
+                $postalCode, $country, $description, $campaignId, 
+                $assignedTo, $branchId, $hash, $submit
+            )
+        );
 
-        $namesGroup = $this->addDisplayGroup(array('first_name', 'middle_name', 'last_name', 'company_name'), 'names');
+        $namesGroup = $this->addDisplayGroup(
+            array('first_name', 'middle_name', 'last_name', 'company_name'), 
+                'names'
+        );
         $namesGroup->getDisplayGroup('names')->setLegend('Name');
 
-        $contactGroup = $this->addDisplayGroup(array('home_phone', 'work_phone', 'mobile', 'do_not_call', 'fax', 'email', 
-            'email_opt_out'), 'contact');
-        $contactGroup->getDisplayGroup('contact')->setLegend('Contact Information');
+        $contactGroup = $this->addDisplayGroup(
+            array(
+                'home_phone', 'work_phone', 'mobile', 'do_not_call', 
+                'fax', 'email', 'email_opt_out'
+            ), 
+            'contact'
+        );
+        $contactGroup->getDisplayGroup('contact')
+                        ->setLegend('Contact Information');
 
-        $addressGroup = $this->addDisplayGroup(array('address_line_1', 'address_line_2', 'address_line_3', 'address_line_4',
-            'city', 'state', 'postal_code', 'country'), 'address');
+        $addressGroup = $this->addDisplayGroup(
+            array(
+                'address_line_1', 'address_line_2', 'address_line_3', 
+                'address_line_4', 'city', 'state', 'postal_code', 
+                'country'
+            ), 
+            'address'
+        );
+
         $addressGroup->getDisplayGroup('address')->setLegend('Address');
         
-        $metaDataGroup = $this->addDisplayGroup(array('lead_source_id', 'lead_status_id', 'campaign_id', 'assigned_to', 'branch_id', 
-            'description'), 'metaData');
-        $metaDataGroup->getDisplayGroup('metaData')->setLegend('Lead Meta Data');
+        $metaDataGroup = $this->addDisplayGroup(
+            array(
+                'lead_source_id', 'lead_status_id', 'campaign_id', 
+                'assigned_to', 'branch_id', 'description'
+            ), 
+            'metaData'
+        );
 
-        $this->addDisplayGroup(array('submit'), 'submit');
+        $metaDataGroup->getDisplayGroup('metaData')
+                        ->setLegend('Lead Meta Data');
+
+        $this->addDisplayGroup(array('submit', 'no_csrf_lead_create'), 'submit_group');
 
         $this->setElementFilters(array(new Zend_Filter_StringTrim()));
 

@@ -14,20 +14,20 @@
  *
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: StringLength.php 22697 2010-07-26 21:14:47Z alexander $
+ * @version    $Id: StringLength.php 23775 2011-03-01 17:25:24Z ralph $
  */
 
 /**
  * @see Zend_Validate_Abstract
  */
-// require_once 'Zend/Validate/Abstract.php';
+require_once 'Zend/Validate/Abstract.php';
 
 /**
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Validate_StringLength extends Zend_Validate_Abstract
@@ -40,7 +40,7 @@ class Zend_Validate_StringLength extends Zend_Validate_Abstract
      * @var array
      */
     protected $_messageTemplates = array(
-        self::INVALID   => "Invalid type given, value should be a string",
+        self::INVALID   => "Invalid type given. String expected",
         self::TOO_SHORT => "'%value%' is less than %min% characters long",
         self::TOO_LONG  => "'%value%' is more than %max% characters long",
     );
@@ -137,7 +137,7 @@ class Zend_Validate_StringLength extends Zend_Validate_Abstract
             /**
              * @see Zend_Validate_Exception
              */
-            // require_once 'Zend/Validate/Exception.php';
+            require_once 'Zend/Validate/Exception.php';
             throw new Zend_Validate_Exception("The minimum must be less than or equal to the maximum length, but $min >"
                                             . " $this->_max");
         }
@@ -170,7 +170,7 @@ class Zend_Validate_StringLength extends Zend_Validate_Abstract
             /**
              * @see Zend_Validate_Exception
              */
-            // require_once 'Zend/Validate/Exception.php';
+            require_once 'Zend/Validate/Exception.php';
             throw new Zend_Validate_Exception("The maximum must be greater than or equal to the minimum length, but "
                                             . "$max < $this->_min");
         } else {
@@ -202,7 +202,7 @@ class Zend_Validate_StringLength extends Zend_Validate_Abstract
             $orig   = iconv_get_encoding('internal_encoding');
             $result = iconv_set_encoding('internal_encoding', $encoding);
             if (!$result) {
-                // require_once 'Zend/Validate/Exception.php';
+                require_once 'Zend/Validate/Exception.php';
                 throw new Zend_Validate_Exception('Given encoding not supported on this OS!');
             }
 

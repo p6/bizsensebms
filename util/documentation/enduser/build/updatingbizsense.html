@@ -1,0 +1,138 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Updating Bizsense &mdash; Bizsense v0.3.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.3.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Bizsense v0.3.2 documentation" href="index.html" />
+    <link rel="prev" title="Post Installation Configuration" href="postinstallationconfiguration.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="postinstallationconfiguration.html" title="Post Installation Configuration"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Bizsense v0.3.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="updating-bizsense">
+<h1>Updating Bizsense<a class="headerlink" href="#updating-bizsense" title="Permalink to this headline">¶</a></h1>
+<p>Important points to remember:</p>
+<ul class="simple">
+<li>BizSense supports updating from the last version only. For example, if the latest version is 0.2.4 you can only update from 0.2.3. You can repeat the steps below to update from version to version</li>
+<li>It is highly recommended to stay up to date</li>
+<li>Update command should not be run more than once</li>
+</ul>
+<div class="section" id="steps-to-update-bizsense">
+<h2>Steps to update Bizsense<a class="headerlink" href="#steps-to-update-bizsense" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">Take a backup of all the files</p>
+</li>
+<li><p class="first">Take a backup of database. We will need the files from backup in later steps</p>
+</li>
+<li><p class="first">Remove the Bizsense files used in production</p>
+</li>
+<li><p class="first">Download the newer version of Bizsense</p>
+</li>
+<li><p class="first">Upload the files to the web server</p>
+</li>
+<li><p class="first">Extract the archive</p>
+</li>
+<li><p class="first">Copy and overwrite the directories - <cite>application/data</cite>, <cite>application/configs</cite>, <cite>public_html/files</cite> and <cite>public_html/.htaccess</cite> from the backup</p>
+</li>
+<li><p class="first">Run the updater command:</p>
+<div class="highlight-python"><pre>php application/modules/default/services/cli.php --service=Core_Service_Update</pre>
+</div>
+</li>
+<li><p class="first">Manually verify the updated software</p>
+</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Updating Bizsense</a><ul>
+<li><a class="reference internal" href="#steps-to-update-bizsense">Steps to update Bizsense</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="postinstallationconfiguration.html"
+                        title="previous chapter">Post Installation Configuration</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/updatingbizsense.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="postinstallationconfiguration.html" title="Post Installation Configuration"
+             >previous</a> |</li>
+        <li><a href="index.html">Bizsense v0.3.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, Sudheera Satyanarayana.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

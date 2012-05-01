@@ -1,0 +1,41 @@
+<?php
+/**
+ * @file this scipt is designed to run on the command line
+ * This is a distribution file only
+ * Cppy and paste this file to myInstallerValues.php 
+ * And edit the file as per your needs
+ */
+
+/**
+ * The variable containing the values to be posted to the installation URL
+ */
+$myVariables = array(
+    'postValues' => array(
+        'db_driver'          =>  'Pdo_Mysql',
+        'db_hostname'        =>  'localhost',
+        'db_name'            =>  'databaseNameHere',
+        'db_username'        =>  'databaseUsernameHere',
+        'db_password'        =>  'databaseUserPasswordHere',
+        'password'          =>  'admin password here',
+        'password_confirm'   =>  'admin password here',
+        'admin_email'        =>  'the administrator email address here',
+        'username'        =>  'admin',
+        'first_name'        =>  'Your first name here',
+        'middle_name'       =>  'Your middle name here',
+        'last_name'         =>  'Your last name here',
+        'company_name'       =>  'Your company name here',
+        'branch_name'        =>  'Your default branch name here',
+        'address_line_1'      =>  'Address line 1 here',
+        'address_line_2'      =>  'Address line 2 here',
+        'address_line_3'      =>  'Address line 3 here',
+        'address_line_4'      =>  'Addresss line 4 here',
+        'city'              =>  'Your city',
+        'state'             =>  'State',
+        'postal_code'       =>  'postal or zip code',
+        'country'           =>  'country',
+        'submit'            =>  'Submit',
+    ),
+    'url' => 'http://example.com/install/index',
+    'privileged_db_username'  =>  'dbPrivilegedUsername',
+    'privileged_db_user_password' => 'password',
+);

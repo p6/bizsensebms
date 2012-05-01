@@ -3,6 +3,7 @@
     $this->headTitle('View task details');
     $this->headScript()->appendFile('/js/BizSense/Crud.js'); 
     $taskDetails = $this->task;
+    $taskId = $taskDetails['task_id'];
     $acl = $this->acl;
 ?>
 
@@ -84,4 +85,53 @@
         <td><?php echo $this->escape($taskDetails['description']); ?></td>
    </tr>
 </table>
+
+
+<?php if (count($this->notesPaginator)): ?>
+    <table class="data_table">
+        <tr>
+            <th class="long">Notes
+            </th>
+            <th class="short">Created By
+            </th>
+            <th class="short">Created On
+            </th>
+        </tr>
+    
+<?php foreach ($this->notesPaginator as $item) {
+    $itemRow = $item->toArray();
+    $notesId = $this->escape($itemRow['task_notes_id']);
+?>
+    <tr>
+        <td>
+            <?php echo $this->escape($itemRow['notes']); ?>
+        </td>
+        <td>
+            <?php echo $this->userLinkById($itemRow['created_by']); ?>
+        </td>
+        <td>
+            <?php echo $this->escape($this->timestampToHuman($itemRow['created'])); ?>
+        </td>
+
+    </tr>        
+<?php
+    }
+?>
+    </table>
+<?php endif; ?>
+<a href="<?php echo $this->url(array(
+        'module'        => 'activity',
+        'controller'    => 'task',
+        'action'        => 'notes',
+        'task_id'       => $taskId,
+        ), 'default', true); ?>">More Notes</a>
+
+<a href="<?php echo $this->url(array(
+        'module'        => 'activity',
+        'controller'    => 'task',
+        'action'        => 'createnotes',
+        'task_id'       => $taskId,
+        ), 'default', true); ?>">Create Note</a>
+
+
 

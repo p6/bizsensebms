@@ -61,7 +61,7 @@ class Bare_Mail_Protocol_Smtp extends Zend_Mail_Protocol_Smtp
             /**
              * @see Zend_Mail_Protocol_Exception
              */
-            // require_once 'Zend/Mail/Protocol/Exception.php';
+            require_once 'Zend/Mail/Protocol/Exception.php';
             throw new Zend_Mail_Protocol_Exception('A valid session has not been started');
         }
         if ($this->_verpEnabled) {

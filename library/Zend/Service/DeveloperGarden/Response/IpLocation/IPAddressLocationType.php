@@ -15,21 +15,21 @@
  * @category   Zend
  * @package    Zend_Service
  * @subpackage DeveloperGarden
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: IPAddressLocationType.php 20166 2010-01-09 19:00:17Z bkarwin $
+ * @version    $Id: IPAddressLocationType.php 23775 2011-03-01 17:25:24Z ralph $
  */
 
 /**
  * @see Zend_Service_DeveloperGarden_Response_BaseType
  */
-// require_once 'Zend/Service/DeveloperGarden/Response/BaseType.php';
+require_once 'Zend/Service/DeveloperGarden/Response/BaseType.php';
 
 /**
  * @category   Zend
  * @package    Zend_Service
  * @subpackage DeveloperGarden
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @author     Marco Kaiser
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -122,17 +122,17 @@ class Zend_Service_DeveloperGarden_Response_IpLocation_IPAddressLocationType
     {
         parent::parse();
         if ($this->isInCity === null) {
-            // require_once 'Zend/Service/DeveloperGarden/Response/IpLocation/CityType.php';
+            require_once 'Zend/Service/DeveloperGarden/Response/IpLocation/CityType.php';
             $this->isInCity = new Zend_Service_DeveloperGarden_Response_IpLocation_CityType();
         }
 
         if ($this->isInRegion === null) {
-            // require_once 'Zend/Service/DeveloperGarden/Response/IpLocation/RegionType.php';
+            require_once 'Zend/Service/DeveloperGarden/Response/IpLocation/RegionType.php';
             $this->isInRegion = new Zend_Service_DeveloperGarden_Response_IpLocation_RegionType();
         }
 
         if ($this->isInGeo === null) {
-            // require_once 'Zend/Service/DeveloperGarden/Response/IpLocation/GeoCoordinatesType.php';
+            require_once 'Zend/Service/DeveloperGarden/Response/IpLocation/GeoCoordinatesType.php';
             $this->isInGeo = new Zend_Service_DeveloperGarden_Response_IpLocation_GeoCoordinatesType();
         }
 

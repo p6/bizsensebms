@@ -1,0 +1,9 @@
+Running Cron
+#####################
+
+Command to run Bizsense cron::
+
+    php <Bizsense path>/application/modules/default/services/cli.php --service=Core_Service_Cron
+
+
+

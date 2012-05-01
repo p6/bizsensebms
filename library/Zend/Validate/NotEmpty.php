@@ -14,20 +14,20 @@
  *
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: NotEmpty.php 22697 2010-07-26 21:14:47Z alexander $
+ * @version    $Id: NotEmpty.php 23775 2011-03-01 17:25:24Z ralph $
  */
 
 /**
  * @see Zend_Validate_Abstract
  */
-// require_once 'Zend/Validate/Abstract.php';
+require_once 'Zend/Validate/Abstract.php';
 
 /**
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Validate_NotEmpty extends Zend_Validate_Abstract
@@ -70,7 +70,7 @@ class Zend_Validate_NotEmpty extends Zend_Validate_Abstract
      */
     protected $_messageTemplates = array(
         self::IS_EMPTY => "Value is required and can't be empty",
-        self::INVALID  => "Invalid type given, value should be float, string, array, boolean or integer",
+        self::INVALID  => "Invalid type given. String, integer, float, boolean or array expected",
     );
 
     /**
@@ -139,7 +139,7 @@ class Zend_Validate_NotEmpty extends Zend_Validate_Abstract
         }
 
         if (!is_int($type) || ($type < 0) || ($type > self::ALL)) {
-            // require_once 'Zend/Validate/Exception.php';
+            require_once 'Zend/Validate/Exception.php';
             throw new Zend_Validate_Exception('Unknown type');
         }
 

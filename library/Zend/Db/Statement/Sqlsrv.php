@@ -15,15 +15,15 @@
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Statement
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Sqlsrv.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: Sqlsrv.php 23775 2011-03-01 17:25:24Z ralph $
  */
 
 /**
  * @see Zend_Db_Statement
  */
-// require_once 'Zend/Db/Statement.php';
+require_once 'Zend/Db/Statement.php';
 
 /**
  * Extends for Microsoft SQL Server Driver for PHP
@@ -31,7 +31,7 @@
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Statement
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Db_Statement_Sqlsrv extends Zend_Db_Statement
@@ -66,7 +66,7 @@ class Zend_Db_Statement_Sqlsrv extends Zend_Db_Statement
         $this->_stmt = sqlsrv_prepare($connection, $sql);
 
         if (!$this->_stmt) {
-            // require_once 'Zend/Db/Statement/Sqlsrv/Exception.php';
+            require_once 'Zend/Db/Statement/Sqlsrv/Exception.php';
             throw new Zend_Db_Statement_Sqlsrv_Exception(sqlsrv_errors());
         }
 
@@ -202,7 +202,7 @@ class Zend_Db_Statement_Sqlsrv extends Zend_Db_Statement
         $this->_stmt = sqlsrv_query($connection, $this->_originalSQL, $params);
 
         if (!$this->_stmt) {
-            // require_once 'Zend/Db/Statement/Sqlsrv/Exception.php';
+            require_once 'Zend/Db/Statement/Sqlsrv/Exception.php';
             throw new Zend_Db_Statement_Sqlsrv_Exception(sqlsrv_errors());
         }
 
@@ -233,7 +233,7 @@ class Zend_Db_Statement_Sqlsrv extends Zend_Db_Statement
         $values = sqlsrv_fetch_array($this->_stmt, SQLSRV_FETCH_ASSOC);
 
         if (!$values && (null !== $error = sqlsrv_errors())) {
-            // require_once 'Zend/Db/Statement/Sqlsrv/Exception.php';
+            require_once 'Zend/Db/Statement/Sqlsrv/Exception.php';
             throw new Zend_Db_Statement_Sqlsrv_Exception($error);
         }
 
@@ -270,7 +270,7 @@ class Zend_Db_Statement_Sqlsrv extends Zend_Db_Statement
                 $row   = $this->_fetchBound($row);
                 break;
             default:
-                // require_once 'Zend/Db/Statement/Sqlsrv/Exception.php';
+                require_once 'Zend/Db/Statement/Sqlsrv/Exception.php';
                 throw new Zend_Db_Statement_Sqlsrv_Exception("Invalid fetch mode '$style' specified");
                 break;
         }
@@ -293,7 +293,7 @@ class Zend_Db_Statement_Sqlsrv extends Zend_Db_Statement
 
         if (!sqlsrv_fetch($this->_stmt)) {
             if (null !== $error = sqlsrv_errors()) {
-                // require_once 'Zend/Db/Statement/Sqlsrv/Exception.php';
+                require_once 'Zend/Db/Statement/Sqlsrv/Exception.php';
                 throw new Zend_Db_Statement_Sqlsrv_Exception($error);
             }
 
@@ -303,7 +303,7 @@ class Zend_Db_Statement_Sqlsrv extends Zend_Db_Statement
 
         $data = sqlsrv_get_field($this->_stmt, $col); //0-based
         if ($data === false) {
-            // require_once 'Zend/Db/Statement/Sqlsrv/Exception.php';
+            require_once 'Zend/Db/Statement/Sqlsrv/Exception.php';
             throw new Zend_Db_Statement_Sqlsrv_Exception(sqlsrv_errors());
         }
 
@@ -327,7 +327,7 @@ class Zend_Db_Statement_Sqlsrv extends Zend_Db_Statement
         $obj = sqlsrv_fetch_object($this->_stmt);
 
         if ($error = sqlsrv_errors()) {
-            // require_once 'Zend/Db/Statement/Sqlsrv/Exception.php';
+            require_once 'Zend/Db/Statement/Sqlsrv/Exception.php';
             throw new Zend_Db_Statement_Sqlsrv_Exception($error);
         }
 
@@ -373,11 +373,14 @@ class Zend_Db_Statement_Sqlsrv extends Zend_Db_Statement
     public function nextRowset()
     {
         if (sqlsrv_next_result($this->_stmt) === false) {
-            // require_once 'Zend/Db/Statement/Sqlsrv/Exception.php';
+            require_once 'Zend/Db/Statement/Sqlsrv/Exception.php';
             throw new Zend_Db_Statement_Sqlsrv_Exception(sqlsrv_errors());
         }
+        
+        // reset column keys
+        $this->_keys = null;
 
-        //else - moved to next (or there are no more rows)
+        return true;
     }
 
     /**
@@ -402,10 +405,36 @@ class Zend_Db_Statement_Sqlsrv extends Zend_Db_Statement
 
         // Strict check is necessary; 0 is a valid return value
         if ($num_rows === false) {
-            // require_once 'Zend/Db/Statement/Sqlsrv/Exception.php';
+            require_once 'Zend/Db/Statement/Sqlsrv/Exception.php';
             throw new Zend_Db_Statement_Sqlsrv_Exception(sqlsrv_errors());
         }
 
         return $num_rows;
+    }
+    
+    /**
+     * Returns an array containing all of the result set rows.
+     *
+     * @param int $style OPTIONAL Fetch mode.
+     * @param int $col   OPTIONAL Column number, if fetch mode is by column.
+     * @return array Collection of rows, each in a format by the fetch mode.
+     *
+     * Behaves like parent, but if limit()
+     * is used, the final result removes the extra column
+     * 'zend_db_rownum'
+     */
+    public function fetchAll($style = null, $col = null)
+    {
+        $data = parent::fetchAll($style, $col);
+        $results = array();
+        $remove = $this->_adapter->foldCase('ZEND_DB_ROWNUM');
+
+        foreach ($data as $row) {
+            if (is_array($row) && array_key_exists($remove, $row)) {
+                unset($row[$remove]);
+            }
+            $results[] = $row;
+        }
+        return $results;
     }
 }

@@ -15,15 +15,15 @@
  * @category   Zend
  * @package    Zend_Service_Amazon
  * @subpackage Ec2
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Instance.php 22048 2010-04-28 22:23:19Z shahar $
+ * @version    $Id: Instance.php 23775 2011-03-01 17:25:24Z ralph $
  */
 
 /**
  * @see Zend_Service_Amazon_Ec2_Abstract
  */
-// require_once 'Zend/Service/Amazon/Ec2/Abstract.php';
+require_once 'Zend/Service/Amazon/Ec2/Abstract.php';
 
 /**
  * An Amazon EC2 interface that allows yout to run, terminate, reboot and describe Amazon
@@ -32,7 +32,7 @@
  * @category   Zend
  * @package    Zend_Service_Amazon
  * @subpackage Ec2
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Service_Amazon_Ec2_Instance extends Zend_Service_Amazon_Ec2_Abstract
@@ -117,7 +117,7 @@ class Zend_Service_Amazon_Ec2_Instance extends Zend_Service_Amazon_Ec2_Abstract
         $options = array_merge($_defaultOptions, $options);
 
         if(!isset($options['imageId'])) {
-            // require_once 'Zend/Service/Amazon/Ec2/Exception.php';
+            require_once 'Zend/Service/Amazon/Ec2/Exception.php';
             throw new Zend_Service_Amazon_Ec2_Exception('No Image Id Provided');
         }
 

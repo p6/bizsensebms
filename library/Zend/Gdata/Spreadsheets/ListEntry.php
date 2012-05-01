@@ -16,20 +16,20 @@
  * @category     Zend
  * @package      Zend_Gdata
  * @subpackage   Spreadsheets
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: ListEntry.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: ListEntry.php 23775 2011-03-01 17:25:24Z ralph $
  */
 
 /**
  * @see Zend_Gdata_Entry
  */
-// require_once 'Zend/Gdata/Entry.php';
+require_once 'Zend/Gdata/Entry.php';
 
 /**
  * @see Zend_Gdata_Spreadsheets_Extension_Custom
  */
-// require_once 'Zend/Gdata/Spreadsheets/Extension/Custom.php';
+require_once 'Zend/Gdata/Spreadsheets/Extension/Custom.php';
 
 /**
  * Concrete class for working with List entries.
@@ -37,7 +37,7 @@
  * @category     Zend
  * @package      Zend_Gdata
  * @subpackage   Spreadsheets
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Gdata_Spreadsheets_ListEntry extends Zend_Gdata_Entry
@@ -175,7 +175,7 @@ class Zend_Gdata_Spreadsheets_ListEntry extends Zend_Gdata_Entry
             $key = array_search($element, $this->_customByName);
             unset($this->_customByName[$key]);
         } else {
-            // require_once 'Zend/Gdata/App/InvalidArgumentException.php';
+            require_once 'Zend/Gdata/App/InvalidArgumentException.php';
             throw new Zend_Gdata_App_InvalidArgumentException(
                 'Element does not exist.');
         }
@@ -198,7 +198,7 @@ class Zend_Gdata_Spreadsheets_ListEntry extends Zend_Gdata_Entry
             $key = array_search($element, $this->_custom);
             unset($this->_custom[$key]);
         } else {
-            // require_once 'Zend/Gdata/App/InvalidArgumentException.php';
+            require_once 'Zend/Gdata/App/InvalidArgumentException.php';
             throw new Zend_Gdata_App_InvalidArgumentException(
                 'Element does not exist.');
         }

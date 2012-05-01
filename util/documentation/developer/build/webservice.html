@@ -1,0 +1,974 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Web Services &mdash; Bizsense developer v0.3.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.3.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Bizsense developer v0.3.2 documentation" href="index.html" />
+    <link rel="prev" title="Build Checklist" href="buildchecklist.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="buildchecklist.html" title="Build Checklist"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Bizsense developer v0.3.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="web-services">
+<h1>Web Services<a class="headerlink" href="#web-services" title="Permalink to this headline">¶</a></h1>
+<p>Bizsense offers a REST web service API.</p>
+<p>In order to use the web service API a valid key is required. The web service key can be generated from the Bizsense administrative web interface.</p>
+<div class="section" id="lead-api">
+<h2>Lead API<a class="headerlink" href="#lead-api" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="create-lead-resource">
+<h3>Create lead resource<a class="headerlink" href="#create-lead-resource" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Item</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>URL</td>
+<td>/webservice/lead/</td>
+</tr>
+<tr><td>HTTP method</td>
+<td>POST</td>
+</tr>
+<tr><td>HTTP response code on success</td>
+<td>201</td>
+</tr>
+<tr><td>Response data format</td>
+<td>JSON</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="post-parameters">
+<h4>POST Parameters<a class="headerlink" href="#post-parameters" title="Permalink to this headline">¶</a></h4>
+<table border="1" class="docutils">
+<colgroup>
+<col width="19%" />
+<col width="81%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Parameter</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>first_name</td>
+<td>First name</td>
+</tr>
+<tr><td>middle_name</td>
+<td>Middle name</td>
+</tr>
+<tr><td>last_name</td>
+<td>Last name. Either first name or last name must be specified.</td>
+</tr>
+<tr><td>company_name</td>
+<td>Company name</td>
+</tr>
+<tr><td>home_phone</td>
+<td>Home phone number</td>
+</tr>
+<tr><td>work_phone</td>
+<td>Work phone number</td>
+</tr>
+<tr><td>mobile</td>
+<td>Mobile phone number</td>
+</tr>
+<tr><td>fax</td>
+<td>Fax</td>
+</tr>
+<tr><td>email</td>
+<td>Email</td>
+</tr>
+<tr><td>address_line_1</td>
+<td>Address line #1</td>
+</tr>
+<tr><td>address_line_2</td>
+<td>Address line #2</td>
+</tr>
+<tr><td>address_line_3</td>
+<td>Address line #3</td>
+</tr>
+<tr><td>address_line_4</td>
+<td>Address Line #4</td>
+</tr>
+<tr><td>city</td>
+<td>City</td>
+</tr>
+<tr><td>state</td>
+<td>State</td>
+</tr>
+<tr><td>country</td>
+<td>Country</td>
+</tr>
+<tr><td>postal_code</td>
+<td>Postal code</td>
+</tr>
+<tr><td>description</td>
+<td>Description</td>
+</tr>
+<tr><td>do_not_call</td>
+<td>Whether or not to mark as <cite>do not call</cite>. 0 for no, 1 for yes</td>
+</tr>
+<tr><td>email_opt_out</td>
+<td>Whether or not to mark as <cite>email opt out</cite>. 0 for no, 1 for yes</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="section" id="ticketing-api">
+<h2>Ticketing API<a class="headerlink" href="#ticketing-api" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="retrieve-all-tickets">
+<h3>Retrieve all tickets<a class="headerlink" href="#retrieve-all-tickets" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Item</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>URL</td>
+<td>/webservice/ticket</td>
+</tr>
+<tr><td>HTTP method</td>
+<td>GET</td>
+</tr>
+<tr><td>HTTP response code on success</td>
+<td>200</td>
+</tr>
+<tr><td>Response data format</td>
+<td>JSON</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="get-parameters">
+<h4>GET Parameters<a class="headerlink" href="#get-parameters" title="Permalink to this headline">¶</a></h4>
+<table border="1" class="docutils">
+<colgroup>
+<col width="19%" />
+<col width="81%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Parameter</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>criteria</td>
+<td>Comma separated list of criteria. &lt;by_contact_email,&gt;</td>
+</tr>
+<tr><td>contact_email</td>
+<td>Email address of the contact</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="create-ticket-resource">
+<h3>Create ticket resource<a class="headerlink" href="#create-ticket-resource" title="Permalink to this headline">¶</a></h3>
+<p>TBD</p>
+</div>
+</div>
+<div class="section" id="ticket-status-api">
+<h2>Ticket Status API<a class="headerlink" href="#ticket-status-api" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="retrieve-all-ticket-statuses">
+<h3>Retrieve all ticket statuses<a class="headerlink" href="#retrieve-all-ticket-statuses" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Item</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>URL</td>
+<td>/webservice/ticketstatus</td>
+</tr>
+<tr><td>HTTP method</td>
+<td>GET</td>
+</tr>
+<tr><td>HTTP response code on success</td>
+<td>200</td>
+</tr>
+<tr><td>Response data format</td>
+<td>JSON</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="subscriber-api">
+<h2>Subscriber API<a class="headerlink" href="#subscriber-api" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="creating-a-new-subscriber">
+<h3>Creating a new subscriber<a class="headerlink" href="#creating-a-new-subscriber" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Item</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>URL</td>
+<td>/webservice/subscriber</td>
+</tr>
+<tr><td>HTTP method</td>
+<td>POST</td>
+</tr>
+<tr><td>HTTP response code on success</td>
+<td>201</td>
+</tr>
+<tr><td>Response data format</td>
+<td>JSON</td>
+</tr>
+</tbody>
+</table>
+<p>POST Parameters</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="19%" />
+<col width="81%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Parameter</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>email</td>
+<td>Subscriber&#8217;s email address</td>
+</tr>
+<tr><td>first_name</td>
+<td>Subscriber&#8217;s first name</td>
+</tr>
+<tr><td>middle_name</td>
+<td>Subscriber&#8217;s middle name</td>
+</tr>
+<tr><td>last_name</td>
+<td>Subscriber&#8217;s last name</td>
+</tr>
+<tr><td>format</td>
+<td>Subscriber&#8217;s preferred email format. 1 for HTML and 2 for TEXT</td>
+</tr>
+<tr><td>status</td>
+<td>Subscriber&#8217;s status. 1 for confirmed, 2 for unconfirmed, 3 for active, 4 for blocked</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="retrieving-all-subscribers">
+<h3>Retrieving all subscribers<a class="headerlink" href="#retrieving-all-subscribers" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Item</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>URL</td>
+<td>/webservice/subscriber</td>
+</tr>
+<tr><td>HTTP method</td>
+<td>GET</td>
+</tr>
+<tr><td>HTTP response code on success</td>
+<td>200</td>
+</tr>
+<tr><td>Response data format</td>
+<td>JSON</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="retrieving-a-subscriber">
+<h3>Retrieving a subscriber<a class="headerlink" href="#retrieving-a-subscriber" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Item</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>URL</td>
+<td>/webservice/subscriber/&lt;subscriber_id&gt;</td>
+</tr>
+<tr><td>HTTP method</td>
+<td>GET</td>
+</tr>
+<tr><td>HTTP response code on success</td>
+<td>200</td>
+</tr>
+<tr><td>Response data format</td>
+<td>JSON</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="updating-a-subscriber-resource">
+<h3>Updating a subscriber resource<a class="headerlink" href="#updating-a-subscriber-resource" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Item</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>URL</td>
+<td>/webservice/subscriber/&lt;subscriber_id&gt;</td>
+</tr>
+<tr><td>HTTP method</td>
+<td>PUT</td>
+</tr>
+<tr><td>HTTP response code on success</td>
+<td>200</td>
+</tr>
+<tr><td>Response data format</td>
+<td>JSON</td>
+</tr>
+</tbody>
+</table>
+<p>PUT parameters</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="19%" />
+<col width="81%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Parameter</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>email</td>
+<td>Subscriber&#8217;s email address</td>
+</tr>
+<tr><td>first_name</td>
+<td>Subscriber&#8217;s first name</td>
+</tr>
+<tr><td>middle_name</td>
+<td>Subscriber&#8217;s middle name</td>
+</tr>
+<tr><td>last_name</td>
+<td>Subscriber&#8217;s last name</td>
+</tr>
+<tr><td>format</td>
+<td>Subscriber&#8217;s preferred email format. 1 for HTML and 2 for TEXT</td>
+</tr>
+<tr><td>status</td>
+<td>Subscriber&#8217;s status. 1 for confirmed, 2 for unconfirmed, 3 for active, 4 for blocked</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="deleting-a-subscriber">
+<h3>Deleting a subscriber<a class="headerlink" href="#deleting-a-subscriber" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Item</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>URL</td>
+<td>/webservice/subscriber/&lt;subscriber_id&gt;</td>
+</tr>
+<tr><td>HTTP method</td>
+<td>DELETE</td>
+</tr>
+<tr><td>HTTP response code on success</td>
+<td>204</td>
+</tr>
+<tr><td>Response data format</td>
+<td>JSON</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="newsletter-list-api">
+<h2>Newsletter List API<a class="headerlink" href="#newsletter-list-api" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="creating-a-new-list">
+<h3>Creating a new list<a class="headerlink" href="#creating-a-new-list" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Item</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>URL</td>
+<td>/webservice/list</td>
+</tr>
+<tr><td>HTTP method</td>
+<td>POST</td>
+</tr>
+<tr><td>HTTP response code on success</td>
+<td>201</td>
+</tr>
+<tr><td>Response data format</td>
+<td>JSON</td>
+</tr>
+</tbody>
+</table>
+<p>POST parameters</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="19%" />
+<col width="81%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Parameter</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>name</td>
+<td>Name of the list</td>
+</tr>
+<tr><td>description</td>
+<td>Description of the list</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="retrieving-all-the-lists">
+<h3>Retrieving all the lists<a class="headerlink" href="#retrieving-all-the-lists" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Item</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>URL</td>
+<td>/webservice/list</td>
+</tr>
+<tr><td>HTTP method</td>
+<td>GET</td>
+</tr>
+<tr><td>HTTP response code on success</td>
+<td>200</td>
+</tr>
+<tr><td>Response data format</td>
+<td>JSON</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="retrieving-a-list">
+<h3>Retrieving a list<a class="headerlink" href="#retrieving-a-list" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Item</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>URL</td>
+<td>/webservice/list/&lt;list_id&gt;</td>
+</tr>
+<tr><td>HTTP method</td>
+<td>GET</td>
+</tr>
+<tr><td>HTTP response code on success</td>
+<td>200</td>
+</tr>
+<tr><td>Response data format</td>
+<td>JSON</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="updating-a-list">
+<h3>Updating a list<a class="headerlink" href="#updating-a-list" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Item</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>URL</td>
+<td>/webservice/list/&lt;list_id&gt;</td>
+</tr>
+<tr><td>HTTP method</td>
+<td>PUT</td>
+</tr>
+<tr><td>HTTP response code on success</td>
+<td>200</td>
+</tr>
+<tr><td>Response data format</td>
+<td>JSON</td>
+</tr>
+</tbody>
+</table>
+<p>PUT parameters</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="19%" />
+<col width="81%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Parameter</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>name</td>
+<td>Name of the list</td>
+</tr>
+<tr><td>description</td>
+<td>Description of the list</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="deleting-a-list">
+<h3>Deleting a list<a class="headerlink" href="#deleting-a-list" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Item</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>URL</td>
+<td>/webservice/list/&lt;list_id&gt;</td>
+</tr>
+<tr><td>HTTP method</td>
+<td>DELETE</td>
+</tr>
+<tr><td>HTTP response code on success</td>
+<td>204</td>
+</tr>
+<tr><td>Response data format</td>
+<td>JSON</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="message-queue-api">
+<h2>Message Queue API<a class="headerlink" href="#message-queue-api" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="creating-a-message-queue-resource">
+<h3>Creating a message queue resource<a class="headerlink" href="#creating-a-message-queue-resource" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Item</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>URL</td>
+<td>/webservice/messagequeue</td>
+</tr>
+<tr><td>HTTP method</td>
+<td>POST</td>
+</tr>
+<tr><td>HTTP response code on success</td>
+<td>201</td>
+</tr>
+<tr><td>Response data format</td>
+<td>JSON</td>
+</tr>
+</tbody>
+</table>
+<p>POST Parameters</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="19%" />
+<col width="81%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Parameter</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>message_id</td>
+<td>Message id. This message must already exist in the origin server</td>
+</tr>
+<tr><td>lists[]</td>
+<td>One or more values with the same parameter name.  For example <cite>lists%5B%5D=1&amp;lists%5B%5D=2</cite></td>
+</tr>
+</tbody>
+</table>
+<p>You can specify custom text and HTML email bodies for each recipient. In order to send custom email bodies, send the following additional POST parameters:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="19%" />
+<col width="81%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Parameter</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>custom_content</td>
+<td><ol class="first last arabic simple">
+<li>If the parameter is missing or doesn&#8217;t have the value 1, the other custom content parameters will be ignored</li>
+</ol>
+</td>
+</tr>
+<tr><td>first_name</td>
+<td>First name of the subscriber</td>
+</tr>
+<tr><td>middle_name</td>
+<td>Middle name of the subscriber</td>
+</tr>
+<tr><td>last_name</td>
+<td>Last name of the subscriber</td>
+</tr>
+<tr><td>email</td>
+<td>Email address of the subscriber</td>
+</tr>
+<tr><td>format</td>
+<td>Email content type format preference - 1 for HTML and 2 for text</td>
+</tr>
+<tr><td>custom_text_body</td>
+<td>Custom text body</td>
+</tr>
+<tr><td>custom_html_body</td>
+<td>Custom HTML body</td>
+</tr>
+<tr><td>custom_subject</td>
+<td>Custom subject</td>
+</tr>
+</tbody>
+</table>
+<p>You can also have Bizsense send a test email to one recipient instead of sending to the list. This API is being moved to /webservice/testmessagequeue. The following method is deprecated.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="19%" />
+<col width="81%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Parameter</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>message_id</td>
+<td>Message id. This message must already exist in the origin server</td>
+</tr>
+<tr><td>test_message</td>
+<td>1</td>
+</tr>
+<tr><td>recipient</td>
+<td>Email address of the recipient</td>
+</tr>
+<tr><td>first_name</td>
+<td>First name of the recipient</td>
+</tr>
+<tr><td>middle_name</td>
+<td>Middle name of the recipient</td>
+</tr>
+<tr><td>last_name</td>
+<td>Last name of the recipient</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="list-subscriber-api">
+<h2>List Subscriber API<a class="headerlink" href="#list-subscriber-api" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="adding-subscriber-to-list">
+<h3>Adding subscriber to list<a class="headerlink" href="#adding-subscriber-to-list" title="Permalink to this headline">¶</a></h3>
+<p>Another way of thinking about it is creating a <cite>list subscriber</cite> resource.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Item</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>URL</td>
+<td>/webservice/listsubscriber</td>
+</tr>
+<tr><td>HTTP method</td>
+<td>POST</td>
+</tr>
+<tr><td>HTTP response code on success</td>
+<td>201</td>
+</tr>
+<tr><td>Response data format</td>
+<td>JSON</td>
+</tr>
+</tbody>
+</table>
+<p>POST Parameters</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="19%" />
+<col width="81%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Parameter</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>list_id</td>
+<td>List ID</td>
+</tr>
+<tr><td>subscriber_id</td>
+<td>Subscriber ID</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="retrieving-all-subscribers-of-a-list">
+<h3>Retrieving all subscribers of a list<a class="headerlink" href="#retrieving-all-subscribers-of-a-list" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Item</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>URL</td>
+<td>/webservice/listsubscriber/list_subscriber_id/&lt;list subscriber id&gt;</td>
+</tr>
+<tr><td>HTTP method</td>
+<td>GET</td>
+</tr>
+<tr><td>HTTP response code on success</td>
+<td>200</td>
+</tr>
+<tr><td>Response data format</td>
+<td>JSON</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="removing-a-subscriber-from-a-list">
+<h3>Removing a subscriber from a list.<a class="headerlink" href="#removing-a-subscriber-from-a-list" title="Permalink to this headline">¶</a></h3>
+<p>Another way to put it is: deleting a <cite>list subscriber</cite>.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Item</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>URL</td>
+<td>/webservice/listsubscriber/list_subscriber_id/&lt;list subscriber id&gt;</td>
+</tr>
+<tr><td>HTTP method</td>
+<td>DELETE</td>
+</tr>
+<tr><td>HTTP response code on success</td>
+<td>204</td>
+</tr>
+<tr><td>Response data format</td>
+<td>JSON</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Web Services</a><ul>
+<li><a class="reference internal" href="#lead-api">Lead API</a><ul>
+<li><a class="reference internal" href="#create-lead-resource">Create lead resource</a><ul>
+<li><a class="reference internal" href="#post-parameters">POST Parameters</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ticketing-api">Ticketing API</a><ul>
+<li><a class="reference internal" href="#retrieve-all-tickets">Retrieve all tickets</a><ul>
+<li><a class="reference internal" href="#get-parameters">GET Parameters</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#create-ticket-resource">Create ticket resource</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ticket-status-api">Ticket Status API</a><ul>
+<li><a class="reference internal" href="#retrieve-all-ticket-statuses">Retrieve all ticket statuses</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#subscriber-api">Subscriber API</a><ul>
+<li><a class="reference internal" href="#creating-a-new-subscriber">Creating a new subscriber</a></li>
+<li><a class="reference internal" href="#retrieving-all-subscribers">Retrieving all subscribers</a></li>
+<li><a class="reference internal" href="#retrieving-a-subscriber">Retrieving a subscriber</a></li>
+<li><a class="reference internal" href="#updating-a-subscriber-resource">Updating a subscriber resource</a></li>
+<li><a class="reference internal" href="#deleting-a-subscriber">Deleting a subscriber</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#newsletter-list-api">Newsletter List API</a><ul>
+<li><a class="reference internal" href="#creating-a-new-list">Creating a new list</a></li>
+<li><a class="reference internal" href="#retrieving-all-the-lists">Retrieving all the lists</a></li>
+<li><a class="reference internal" href="#retrieving-a-list">Retrieving a list</a></li>
+<li><a class="reference internal" href="#updating-a-list">Updating a list</a></li>
+<li><a class="reference internal" href="#deleting-a-list">Deleting a list</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#message-queue-api">Message Queue API</a><ul>
+<li><a class="reference internal" href="#creating-a-message-queue-resource">Creating a message queue resource</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#list-subscriber-api">List Subscriber API</a><ul>
+<li><a class="reference internal" href="#adding-subscriber-to-list">Adding subscriber to list</a></li>
+<li><a class="reference internal" href="#retrieving-all-subscribers-of-a-list">Retrieving all subscribers of a list</a></li>
+<li><a class="reference internal" href="#removing-a-subscriber-from-a-list">Removing a subscriber from a list.</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="buildchecklist.html"
+                        title="previous chapter">Build Checklist</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/webservice.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="buildchecklist.html" title="Build Checklist"
+             >previous</a> |</li>
+        <li><a href="index.html">Bizsense developer v0.3.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, Sudheera Satyanarayana..
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

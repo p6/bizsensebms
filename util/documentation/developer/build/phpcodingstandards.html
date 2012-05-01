@@ -1,0 +1,671 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PHP Coding Standards &mdash; Bizsense developer v0.3.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.3.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Bizsense developer v0.3.2 documentation" href="index.html" />
+    <link rel="next" title="JavaScript Coding Standards" href="javascriptcodingstandards.html" />
+    <link rel="prev" title="Introduction" href="introduction.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="javascriptcodingstandards.html" title="JavaScript Coding Standards"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="introduction.html" title="Introduction"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Bizsense developer v0.3.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="php-coding-standards">
+<h1>PHP Coding Standards<a class="headerlink" href="#php-coding-standards" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="general">
+<h2>General<a class="headerlink" href="#general" title="Permalink to this headline">¶</a></h2>
+<p>For files that contain only PHP code, the closing tag (&#8221;?&gt;&#8221;) is never permitted. It is not required by PHP, and omitting it prevents the accidental injection of trailing white space into the response.</p>
+</div>
+<div class="section" id="indentation">
+<h2>Indentation<a class="headerlink" href="#indentation" title="Permalink to this headline">¶</a></h2>
+<p>Indentation should consist of four spaces. Tabs are not allowed.</p>
+</div>
+<div class="section" id="maximum-line-length">
+<h2>Maximum Line Length<a class="headerlink" href="#maximum-line-length" title="Permalink to this headline">¶</a></h2>
+<p>The maximimum line length is eighty characters. In rare situations like using heredoc statements, the character length may exceed eighty characters. Please note, you can exceed eighty characters in a line only in exceptional situations.</p>
+</div>
+<div class="section" id="line-termination">
+<h2>Line Termination<a class="headerlink" href="#line-termination" title="Permalink to this headline">¶</a></h2>
+<p>Line termination follows the UNIX text file convention. Lines must end with a single linefeed (LF) character. Linefeed characters are represented as ordinal 10 or hexadecimal 0x0A.</p>
+<p><strong>Note</strong>: Do not use carriage returns (CR) as is the convention in Apple OS&#8217; (0x0D) or the carriage return - linefeed combination (CRLF) as is standard for the Windows OS (0x0D, 0x0A).</p>
+<div class="section" id="naming-conventions">
+<h3>Naming Conventions<a class="headerlink" href="#naming-conventions" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
+<p>Names of the classes directly map to the directories in which they are stored.</p>
+<p>Class names may only contain alphanumeric characters. Numbers are permitted in class names but are discouraged in most cases. Underscores are only permitted in place of the path separator.</p>
+<ul class="simple">
+<li>The BV library is placed in library/BV. BV is now deprecated. The code belonging to Bizsense will be moved to relevant subdirectories in the application directory. Generic code will be moved to Bare Framework.</li>
+<li>The model classes are placed in application/modules/default/models</li>
+<li>The prefix &#8220;Core&#8221; is used for all model classes</li>
+</ul>
+<p>For example, the filename &#8220;application/modules/default/models/Lead/Index.php&#8221; must map to the class name &#8220;Core_Model_Lead_Index&#8221;.</p>
+<p>If a class name is comprised of more than one word, the first letter of each new word must be capitalized. Successive capitalized letters are not allowed, e.g. a class &#8220;URLAccess.php&#8221; is not allowed while &#8220;UrlAccess&#8221; is acceptable.</p>
+<p>These conventions define a pseudo namespace mechanism for Bizsense. Bizsense will adopt the PHP 5.3 namespace feature when we use Zend Framework 2.0.</p>
+<p>See the class names in the models and controllers directories for examples of this class name convention.</p>
+</div>
+<div class="section" id="abstract-classes">
+<h2>Abstract Classes<a class="headerlink" href="#abstract-classes" title="Permalink to this headline">¶</a></h2>
+<p>In general, abstract classes follow the same conventions as classes, with one additional rule: abstract class names must end in the term, &#8220;Abstract&#8221;, and that term must not be preceded by an underscore. As an example, Core_Model_Abstract is considered an invalid name, but Core_Model_ModelAbstract is a valid name.
+Interfaces
+###############
+In general, interfaces follow the same conventions as classes, with one additional rule: interface names may optionally end in the term, &#8220;Interface&#8221;, but that term must not be preceded by an underscore. As an example, Core_Model_Observable_Interface is considered an invalid name, but Core_Model_ObservableInterface or Core_Model_Observable_ObservableInterface would be valid names.</p>
+<p>While this rule is not required, it is strongly recommended, as it provides a good visual cue to developers as to which files contain interfaces rather than classes.</p>
+</div>
+<div class="section" id="filenames">
+<h2>Filenames<a class="headerlink" href="#filenames" title="Permalink to this headline">¶</a></h2>
+<p>Any file that contains PHP code should end with the extension &#8221;.php&#8221;, with the notable exception of view scripts. The following examples show acceptable filenames for Bizsense classes:</p>
+<ul class="simple">
+<li>application/modules/default/models/Acl.php</li>
+<li>application/modules/default/models/SalesStage.php</li>
+<li>application/modules/default/models/Newsletter/Subscriber.php</li>
+</ul>
+<p>File names must map to class names as described above.</p>
+<p>For all other files, only alphanumeric characters, underscores, and the dash character (&#8220;-&#8221;) are permitted. Spaces are strictly prohibited.</p>
+</div>
+<div class="section" id="functions-and-methods">
+<h2>Functions and Methods<a class="headerlink" href="#functions-and-methods" title="Permalink to this headline">¶</a></h2>
+<p>Function names may only contain alphanumeric characters. Underscores are not permitted. Numbers are permitted in function names but are discouraged in most cases.</p>
+<p>Function names must always start with a lowercase letter. When a function name consists of more than one word, the first letter of each new word must be capitalized. This is commonly called &#8220;camelCase&#8221; formatting.</p>
+<p>Verbosity is generally encouraged. Function names should be as verbose as is practical to fully describe their purpose and behavior.</p>
+<p>These are examples of acceptable names for functions:</p>
+<ul class="simple">
+<li>filterInput()</li>
+<li>getElementById()</li>
+<li>widgetFactory()</li>
+</ul>
+<p>For object oriented programming, accessors for instance or static variables should always be prefixed with &#8220;get&#8221; or &#8220;set&#8221;. In implementing design patterns, such as the singleton or factory patterns, the name of the method should contain the pattern name where practical to more thoroughly describe behavior.</p>
+<p>For methods on objects that are declared with the &#8220;private&#8221; or &#8220;protected&#8221; modifier, the first character of the method name must be an underscore. This is the only acceptable application of an underscore in a method name. Methods declared &#8220;public&#8221; should never contain an underscore.</p>
+<p>Functions in the global scope (a.k.a &#8220;floating functions&#8221;) are permitted but discouraged in most cases. Consider wrapping these functions in a static class.</p>
+</div>
+<div class="section" id="variables">
+<h2>Variables<a class="headerlink" href="#variables" title="Permalink to this headline">¶</a></h2>
+<p>Variable names may only contain alphanumeric characters. Underscores are not permitted. Numbers are permitted in variable names but are discouraged in most cases.</p>
+<p>For instance variables that are declared with the &#8220;private&#8221; or &#8220;protected&#8221; modifier, the first character of the variable name must be a single underscore. This is the only acceptable application of an underscore in a variable name. Member variables declared &#8220;public&#8221; should never start with an underscore.</p>
+<p>As with function names, variable names must always start with a lowercase letter and follow the &#8220;camelCaps&#8221; capitalization convention.</p>
+<p>Verbosity is generally encouraged. Variables should always be as verbose as practical to describe the data that the developer intends to store in them. Terse variable names such as &#8220;$i&#8221; and &#8220;$n&#8221; are discouraged for all but the smallest loop contexts. If a loop contains more than 20 lines of code, the index variables should have more descriptive names.</p>
+</div>
+<div class="section" id="constants">
+<h2>Constants<a class="headerlink" href="#constants" title="Permalink to this headline">¶</a></h2>
+<p>Constants may contain both alphanumeric characters and underscores. Numbers are permitted in constant names.</p>
+<p>All letters used in a constant name must be capitalized, while all words in a constant name must be separated by underscore characters.</p>
+<p>For example, EMBED_SUPPRESS_EMBED_EXCEPTION is permitted but EMBED_SUPPRESSEMBEDEXCEPTION is not.</p>
+<p>Constants must be defined as class members with the &#8220;const&#8221; modifier. Defining constants in the global scope with the &#8220;define&#8221; function is permitted but strongly discouraged.</p>
+</div>
+<div class="section" id="php-code-demarcation">
+<h2>PHP Code Demarcation<a class="headerlink" href="#php-code-demarcation" title="Permalink to this headline">¶</a></h2>
+<p>PHP code must always be delimited by the full-form, standard PHP tags:</p>
+<div class="highlight-python"><pre>&lt;?php
+&gt;?</pre>
+</div>
+<p>Short tags are never allowed. For files containing only PHP code, the closing tag must always be omitted.</p>
+<div class="section" id="strings">
+<h3>Strings<a class="headerlink" href="#strings" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="string-literals">
+<h2>String Literals<a class="headerlink" href="#string-literals" title="Permalink to this headline">¶</a></h2>
+<p>When a string is literal, containing no variable substitutions, the apostrophe or single quote should always be used to demarcate the string:</p>
+<div class="highlight-python"><pre>&lt;?php
+    $a = 'Example String';
+?&gt;</pre>
+</div>
+</div>
+<div class="section" id="string-literals-containing-apostrophes">
+<h2>String Literals Containing Apostrophes<a class="headerlink" href="#string-literals-containing-apostrophes" title="Permalink to this headline">¶</a></h2>
+<p>When a literal string itself contains apostrophes, it is permitted to demarcate the string with quotation marks or double quotes. This is especially useful for SQL statements:</p>
+<div class="highlight-python"><pre>&lt;?php
+  $sql = "SELECT `id`, `name` from `people` "
+       . "WHERE `name`='Fred' OR `name`='Susan'";
+?&gt;</pre>
+</div>
+<p>This syntax is preferred over escaping apostrophes as it is much easier to read.</p>
+</div>
+<div class="section" id="variable-substitution">
+<h2>Variable Substitution<a class="headerlink" href="#variable-substitution" title="Permalink to this headline">¶</a></h2>
+<p>Variable substitution is permitted using either of these forms:</p>
+<div class="highlight-python"><pre>&lt;?php
+    $greeting = "Hello $name, welcome back!";
+    $greeting = "Hello {$name}, welcome back!";
+?&gt;</pre>
+</div>
+<p>For consistency, this form is not permitted:</p>
+<div class="highlight-python"><pre>&lt;?php
+    $greeting = "Hello ${name}, welcome back!";
+?&gt;</pre>
+</div>
+</div>
+<div class="section" id="string-concatenation">
+<h2>String Concatenation<a class="headerlink" href="#string-concatenation" title="Permalink to this headline">¶</a></h2>
+<p>Strings must be concatenated using the &#8221;.&#8221; operator. A space must always be added before and after the &#8221;.&#8221; operator to improve readability:</p>
+<div class="highlight-python"><pre>&lt;?php
+    $company = 'Acme' . ' Widgets';
+?&gt;</pre>
+</div>
+<p>When concatenating strings with the &#8221;.&#8221; operator, it is encouraged to break the statement into multiple lines to improve readability. In these cases, each successive line should be padded with white space such that the &#8221;.&#8221;; operator is aligned under the &#8220;=&#8221; operator:</p>
+<div class="highlight-python"><pre>&lt;?php
+  $sql = "SELECT `id`, `name` FROM `people` "
+       . "WHERE `name` = 'Susan' "
+       . "ORDER BY `name` ASC ";
+?&gt;</pre>
+</div>
+<div class="section" id="arrays">
+<h3>Arrays<a class="headerlink" href="#arrays" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="numerically-indexed-arrays">
+<h2>Numerically Indexed Arrays<a class="headerlink" href="#numerically-indexed-arrays" title="Permalink to this headline">¶</a></h2>
+<p>Negative numbers are not permitted as indices.</p>
+<p>An indexed array may start with any non-negative number, however all base indices besides 0 are discouraged.</p>
+<p>When declaring indexed arrays with the Array function, a trailing space must be added after each comma delimiter to improve readability:</p>
+<div class="highlight-python"><pre>&lt;?php
+    $sampleArray = array(1, 2, 3, 'Acme', 'Widgets');
+?&gt;</pre>
+</div>
+<p>It is permitted to declare multi-line indexed arrays using the &#8220;array&#8221; construct. In this case, each successive line must be padded with spaces such that beginning of each line is aligned:</p>
+<div class="highlight-python"><pre>&lt;?php
+  $sampleArray = array(1, 2, 3, 'Acme', 'Widgets',
+                       $a, $b, $c,
+                       56.44, $d, 500);
+?&gt;</pre>
+</div>
+<p>Alternately, the initial array item may begin on the following line. If so, it should be padded at one indentation level greater than the line containing the array declaration, and all successive lines should have the same indentation; the closing paren should be on a line by itself at the same indentation level as the line containing the array declaration:</p>
+<div class="highlight-python"><pre>&lt;?php
+  $sampleArray = array(
+      1, 2, 3, 'Acme', 'Widgets',
+      $a, $b, $c,
+      56.44, $d, 500,
+  );
+?&gt;</pre>
+</div>
+<p>When using this latter declaration, we encourage using a trailing comma for the last item in the array; this minimizes the impact of adding new items on successive lines, and helps to ensure no parse errors occur due to a missing comma.</p>
+</div>
+<div class="section" id="associative-arrays">
+<h2>Associative Arrays<a class="headerlink" href="#associative-arrays" title="Permalink to this headline">¶</a></h2>
+<p>When declaring associative arrays with the Array construct, breaking the statement into multiple lines is encouraged. In this case, each successive line must be padded with white space such that both the keys and the values are aligned:</p>
+<div class="highlight-python"><pre>&lt;?php
+  $sampleArray = array('firstKey'  =&gt; 'firstValue',
+                       'secondKey' =&gt; 'secondValue');
+?&gt;</pre>
+</div>
+<p>Alternately, the initial array item may begin on the following line. If so, it should be padded at one indentation level greater than the line containing the array declaration, and all successive lines should have the same indentation; the closing paren should be on a line by itself at the same indentation level as the line containing the array declaration. For readability, the various &#8220;=&gt;&#8221; assignment operators should be padded such that they align:</p>
+<div class="highlight-python"><pre>&lt;?php
+  $sampleArray = array(
+      'firstKey'  =&gt; 'firstValue',
+      'secondKey' =&gt; 'secondValue',
+  );
+?&gt;</pre>
+</div>
+<p>When using this latter declaration, we encourage using a trailing comma for the last item in the array; this minimizes the impact of adding new items on successive lines, and helps to ensure no parse errors occur due to a missing comma.</p>
+<div class="section" id="id1">
+<h3>Classes<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="class-declaration">
+<h2>Class Declaration<a class="headerlink" href="#class-declaration" title="Permalink to this headline">¶</a></h2>
+<p>Classes must be named according to Bizsense&#8217;s naming conventions.</p>
+<p>The brace should always be written on the line underneath the class name.</p>
+<p>Every class must have a documentation block that conforms to the PHPDocumentor standard.</p>
+<p>All code in a class must be indented with four spaces.</p>
+<p>Only one class is permitted in each PHP file.</p>
+<p>Placing additional code in class files is permitted but discouraged. In such files, two blank lines must separate the class from any additional PHP code in the class file.</p>
+<p>The following is an example of an acceptable class declaration:</p>
+<div class="highlight-python"><pre>&lt;?php
+
+    /**
+    * Documentation Block Here
+    */
+    class SampleClass
+    {
+        // all contents of class
+        // must be indented four spaces
+    }
+?&gt;</pre>
+</div>
+<p>Classes that extend other classes or which implement interfaces should declare their dependencies on the same line when possible:</p>
+<div class="highlight-python"><pre>&lt;?php
+    class SampleClass extends FooAbstract implements BarInterface
+    {
+    }
+?&gt;</pre>
+</div>
+<p>If as a result of such declarations, the line length exceeds the maximum line length, break the line before the &#8220;extends&#8221; and/or &#8220;implements&#8221; keywords, and pad those lines by one indentation level:</p>
+<div class="highlight-python"><pre>&lt;?php
+    class SampleClass
+        extends FooAbstract
+        implements BarInterface
+    {
+    }
+
+?&gt;</pre>
+</div>
+<p>If the class implements multiple interfaces and the declaration exceeds the maximum line length, break after each comma separating the interfaces, and indent the interface names such that they align:</p>
+<div class="highlight-python"><pre>&lt;?php
+    class SampleClass
+        implements BarInterface,
+                   BazInterface
+    {
+    }
+?&gt;</pre>
+</div>
+</div>
+<div class="section" id="class-member-variables">
+<h2>Class Member Variables<a class="headerlink" href="#class-member-variables" title="Permalink to this headline">¶</a></h2>
+<p>Member variables must be named according to Bizsense&#8217;s variable naming conventions.</p>
+<p>Any variables declared in a class must be listed at the top of the class, above the declaration of any methods.</p>
+<p>The var construct is not permitted. Member variables always declare their visibility by using one of the private, protected, or public modifiers. Giving access to member variables directly by declaring them as public is permitted but discouraged in favor of accessor methods (set &amp; get).</p>
+<div class="section" id="id2">
+<h3>Functions and Methods<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="function-and-method-declaration">
+<h2>Function and Method Declaration<a class="headerlink" href="#function-and-method-declaration" title="Permalink to this headline">¶</a></h2>
+<p>Functions must be named according to Bizsense&#8217;s function naming conventions.</p>
+<p>Methods inside classes must always declare their visibility by using one of the private, protected, or public modifiers.</p>
+<p>As with classes, the brace should always be written on the line underneath the function name. Space between the function name and the opening parenthesis for the arguments is not permitted.</p>
+<p>Functions in the global scope are strongly discouraged.</p>
+<p>The following is an example of an acceptable function declaration in a class:</p>
+<div class="highlight-python"><pre>&lt;?php
+    /**
+    * Documentation Block Here
+    */
+    class Foo
+    {
+        /**
+        * Documentation Block Here
+        */
+        public function bar()
+        {
+            // all contents of function
+            // must be indented four spaces
+        }
+    }
+?&gt;</pre>
+</div>
+<p>In cases where the argument list exceeds the maximum line length, you may introduce line breaks. Additional arguments to the function or method must be indented one additional level beyond the function or method declaration. A line break should then occur before the closing argument paren, which should then be placed on the same line as the opening brace of the function or method with one space separating the two, and at the same indentation level as the function or method declaration. The following is an example of one such situation:</p>
+<div class="highlight-python"><pre>&lt;?php
+    /**
+    * Documentation Block Here
+    */
+    class Foo
+    {
+        /**
+        * Documentation Block Here
+        */
+        public function bar($arg1, $arg2, $arg3,
+          $arg4, $arg5, $arg6
+        ) {
+            // all contents of function
+            // must be indented four spaces
+        }
+  }
+?&gt;</pre>
+</div>
+<p>Pass-by-reference is the only parameter passing mechanism permitted in a method declaration. The following snippet is incorrect:</p>
+<div class="highlight-python"><pre>&lt;?php
+    /**
+    * Documentation Block Here
+    */
+    class Foo
+    {
+        /**
+        * Do not use this style of passing parameters
+        */
+        public function bar(&amp;$baz)
+        {}
+    }
+?&gt;</pre>
+</div>
+<p>Call-time pass-by-reference is strictly prohibited.</p>
+<p>The return value must not be enclosed in parentheses. This can hinder readability, in additional to breaking code if a method is later changed to return by reference:</p>
+<div class="highlight-python"><pre>&lt;?php
+    /**
+    * Documentation Block Here
+    */
+    class Foo
+    {
+        /**
+        * WRONG
+        */
+        public function bar()
+        {
+            return($this-&gt;bar);
+        }
+
+        /**
+        * RIGHT
+        */
+        public function bar()
+        {
+            return $this-&gt;bar;
+        }
+    }
+?&gt;</pre>
+</div>
+</div>
+<div class="section" id="function-and-method-usage">
+<h2>Function and Method Usage<a class="headerlink" href="#function-and-method-usage" title="Permalink to this headline">¶</a></h2>
+<p>Function arguments should be separated by a single trailing space after the comma delimiter. The following is an example of an acceptable invocation of a function that takes three arguments:</p>
+<div class="highlight-python"><pre>&lt;?php
+    threeArguments(1, 2, 3);
+?&gt;</pre>
+</div>
+<p>Call-time pass-by-reference is strictly prohibited. See the function declarations section for the proper way to pass function arguments by-reference.</p>
+<p>In passing arrays as arguments to a function, the function call may include the &#8220;array&#8221; hint and may be split into multiple lines to improve readability. In such cases, the normal guidelines for writing arrays still apply:</p>
+<div class="highlight-python"><pre>&lt;?php
+    threeArguments(array(1, 2, 3), 2, 3);
+
+    threeArguments(array(1, 2, 3, 'Binary', 'Vibes',
+                         $a, $b, $c,
+                         56.44, $d, 500), 2, 3);
+
+    threeArguments(array(
+        1, 2, 3, 'Zend', 'Studio',
+        $a, $b, $c,
+        56.44, $d, 500
+    ), 2, 3);
+
+?&gt;</pre>
+</div>
+<div class="section" id="control-statements">
+<h3>Control Statements<a class="headerlink" href="#control-statements" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="if-else-elseif">
+<h2>If/Else/Elseif<a class="headerlink" href="#if-else-elseif" title="Permalink to this headline">¶</a></h2>
+<p>Control statements based on the if and elseif constructs must have a single space before the opening parenthesis of the conditional and a single space after the closing parenthesis.</p>
+<p>Within the conditional statements between the parentheses, operators must be separated by spaces for readability. Inner parentheses are encouraged to improve logical grouping for larger conditional expressions.</p>
+<p>The opening brace is written on the same line as the conditional statement. The closing brace is always written on its own line. Any content within the braces must be indented using four spaces:</p>
+<div class="highlight-python"><pre>&lt;?php
+    if ($a != 2) {
+        $a = 2;
+    }
+?&gt;</pre>
+</div>
+<p>If the conditional statement causes the line length to exceed the maximum line length and has several clauses, you may break the conditional into multiple lines. In such a case, break the line prior to a logic operator, and pad the line such that it aligns under the first character of the conditional clause. The closing paren in the conditional will then be placed on a line with the opening brace, with one space separating the two, at an indentation level equivalent to the opening control statement:</p>
+<div class="highlight-python"><pre>&lt;?php
+    if (($a == $b)
+        &amp;&amp; ($b == $c)
+        || (Foo::CONST == $d)
+    ) {
+        $a = $d;
+    }
+?&gt;</pre>
+</div>
+<p>The intention of this latter declaration format is to prevent issues when adding or removing clauses from the conditional during later revisions.</p>
+<p>For &#8220;if&#8221; statements that include &#8220;elseif&#8221; or &#8220;else&#8221;, the formatting conventions are similar to the &#8220;if&#8221; construct. The following examples demonstrate proper formatting for &#8220;if&#8221; statements with &#8220;else&#8221; and/or &#8220;elseif&#8221; constructs:</p>
+<div class="highlight-python"><pre>&lt;?php
+    if ($a != 2) {
+        $a = 2;
+    } else {
+        $a = 7;
+    }
+
+    if ($a != 2) {
+        $a = 2;
+    } elseif ($a == 3) {
+        $a = 4;
+    } else {
+        $a = 7;
+    }
+
+    if (($a == $b)
+        &amp;&amp; ($b == $c)
+        || (Foo::CONST == $d)
+    ) {
+        $a = $d;
+    } elseif (($a != $b)
+        || ($b != $c)
+    ) {
+        $a = $c;
+        $a = $b;
+    }
+?&gt;</pre>
+</div>
+<p>PHP allows statements to be written without braces in some circumstances. This coding standard makes no differentiation- all &#8220;if&#8221;, &#8220;elseif&#8221; or &#8220;else&#8221; statements must use braces.</p>
+</div>
+<div class="section" id="switch">
+<h2>Switch<a class="headerlink" href="#switch" title="Permalink to this headline">¶</a></h2>
+<p>Control statements written with the &#8220;switch&#8221; statement must have a single space before the opening parenthesis of the conditional statement and after the closing parenthesis.</p>
+<p>All content within the &#8220;switch&#8221; statement must be indented using four spaces. Content under each &#8220;case&#8221; statement must be indented using an additional four spaces:</p>
+<div class="highlight-python"><pre>&lt;?php
+    switch ($numPeople) {
+        case 1:
+            break;
+
+        case 2:
+            break;
+
+        default:
+        break;
+    }
+?&gt;</pre>
+</div>
+<p>The construct default should never be omitted from a switch statement.</p>
+<p>It is sometimes useful to write a case statement which falls through to the next case by not including a break or return within that case. To distinguish these cases from bugs, any case statement where break or return are omitted should contain a comment indicating that the break was intentionally omitted.</p>
+<div class="section" id="inline-documentation">
+<h3>Inline Documentation<a class="headerlink" href="#inline-documentation" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="documentation-format">
+<h2>Documentation Format<a class="headerlink" href="#documentation-format" title="Permalink to this headline">¶</a></h2>
+<p>All documentation blocks (&#8220;docblocks&#8221;) must be compatible with the phpDocumentor format. Describing the phpDocumentor format is beyond the scope of this document. For more information, visit: <a class="reference external" href="http://phpdoc.org/">http://phpdoc.org/</a></p>
+<p>All class files must contain a &#8220;file-level&#8221; docblock at the top of each file and a &#8220;class-level&#8221; docblock immediately above each class. Examples of such docblocks can be found below.
+Files</p>
+<p>Every file that contains PHP code must have a docblock at the top of the file that contains these phpDocumentor tags at a minimum:</p>
+<div class="highlight-python"><pre>&lt;?php
+  /**
+  * Short description for file
+  *
+  * Long description for file (if any)...
+  *
+  * LICENSE: Some license information
+  *
+  * @category   Bizsense
+  * @package    Bizsense
+  * @subpackage Mymodule
+  * @copyright  Copyright (c) 2011 Sudheera Satyanarayana, Bizsense contributors, et all
+  * @license    New BSD
+  * @version    $Id:$
+  * @link       http://code.google.com/p/bizsensebms/
+  * @since      File available since Release 0.3.2
+  */
+?&gt;</pre>
+</div>
+<p>The &#64;category annotation must have a value of &#8220;Zend&#8221;.</p>
+<p>The &#64;package annotation must be assigned, and should be equivalent to the component name of the class contained in the file; typically, this will only have two segments, the &#8220;Zend&#8221; prefix, and the component name.</p>
+<p>The &#64;subpackage annotation is optional. If provided, it should be the subcomponent name, minus the class prefix. In the example above, the assumption is that the class in the file is either &#8220;Zend_Magic_Wand&#8221;, or uses that classname as part of its prefix.</p>
+</div>
+<div class="section" id="id3">
+<h2>Classes<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>Every class must have a docblock that contains these phpDocumentor tags at a minimum:</p>
+<div class="highlight-python"><pre>&lt;?php
+  /**
+  * Short description for class
+  *
+  * Long description for class (if any)...
+  *
+  * @category   Zend
+  * @package    Zend_Magic
+  * @subpackage Wand
+  * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+  * @license    http://framework.zend.com/license   BSD License
+  * @version    Release: @package_version@
+  * @link       http://framework.zend.com/package/PackageName
+  * @since      Class available since Release 1.5.0
+  * @deprecated Class deprecated in Release 2.0.0
+  */
+?&gt;</pre>
+</div>
+<p>The &#64;category annotation must have a value of &#8220;Zend&#8221;.</p>
+<p>The &#64;package annotation must be assigned, and should be equivalent to the component to which the class belongs; typically, this will only have two segments, the &#8220;Zend&#8221; prefix, and the component name.</p>
+<p>The &#64;subpackage annotation is optional. If provided, it should be the subcomponent name, minus the class prefix. In the example above, the assumption is that the class described is either &#8220;Zend_Magic_Wand&#8221;, or uses that classname as part of its prefix.</p>
+</div>
+<div class="section" id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<p>Every function, including object methods, must have a docblock that contains at a minimum:</p>
+<blockquote>
+<div><ul class="simple">
+<li>A description of the function</li>
+<li>All of the arguments</li>
+<li>All of the possible return values</li>
+</ul>
+</div></blockquote>
+<p>It is not necessary to use the &#8220;&#64;access&#8221; tag because the access level is already known from the &#8220;public&#8221;, &#8220;private&#8221;, or &#8220;protected&#8221; modifier used to declare the function.</p>
+<p>If a function or method may throw an exception, use &#64;throws for all known exception classes:</p>
+<div class="highlight-python"><pre>&lt;?php
+    @throws exceptionclass [description]
+?&gt;</pre>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">PHP Coding Standards</a><ul>
+<li><a class="reference internal" href="#general">General</a></li>
+<li><a class="reference internal" href="#indentation">Indentation</a></li>
+<li><a class="reference internal" href="#maximum-line-length">Maximum Line Length</a></li>
+<li><a class="reference internal" href="#line-termination">Line Termination</a><ul>
+<li><a class="reference internal" href="#naming-conventions">Naming Conventions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#classes">Classes</a></li>
+<li><a class="reference internal" href="#abstract-classes">Abstract Classes</a></li>
+<li><a class="reference internal" href="#filenames">Filenames</a></li>
+<li><a class="reference internal" href="#functions-and-methods">Functions and Methods</a></li>
+<li><a class="reference internal" href="#variables">Variables</a></li>
+<li><a class="reference internal" href="#constants">Constants</a></li>
+<li><a class="reference internal" href="#php-code-demarcation">PHP Code Demarcation</a><ul>
+<li><a class="reference internal" href="#strings">Strings</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#string-literals">String Literals</a></li>
+<li><a class="reference internal" href="#string-literals-containing-apostrophes">String Literals Containing Apostrophes</a></li>
+<li><a class="reference internal" href="#variable-substitution">Variable Substitution</a></li>
+<li><a class="reference internal" href="#string-concatenation">String Concatenation</a><ul>
+<li><a class="reference internal" href="#arrays">Arrays</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#numerically-indexed-arrays">Numerically Indexed Arrays</a></li>
+<li><a class="reference internal" href="#associative-arrays">Associative Arrays</a><ul>
+<li><a class="reference internal" href="#id1">Classes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#class-declaration">Class Declaration</a></li>
+<li><a class="reference internal" href="#class-member-variables">Class Member Variables</a><ul>
+<li><a class="reference internal" href="#id2">Functions and Methods</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#function-and-method-declaration">Function and Method Declaration</a></li>
+<li><a class="reference internal" href="#function-and-method-usage">Function and Method Usage</a><ul>
+<li><a class="reference internal" href="#control-statements">Control Statements</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#if-else-elseif">If/Else/Elseif</a></li>
+<li><a class="reference internal" href="#switch">Switch</a><ul>
+<li><a class="reference internal" href="#inline-documentation">Inline Documentation</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#documentation-format">Documentation Format</a></li>
+<li><a class="reference internal" href="#id3">Classes</a></li>
+<li><a class="reference internal" href="#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="introduction.html"
+                        title="previous chapter">Introduction</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="javascriptcodingstandards.html"
+                        title="next chapter">JavaScript Coding Standards</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/phpcodingstandards.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="javascriptcodingstandards.html" title="JavaScript Coding Standards"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="introduction.html" title="Introduction"
+             >previous</a> |</li>
+        <li><a href="index.html">Bizsense developer v0.3.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, Sudheera Satyanarayana..
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

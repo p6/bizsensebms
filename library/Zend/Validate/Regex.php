@@ -14,20 +14,20 @@
  *
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Regex.php 22697 2010-07-26 21:14:47Z alexander $
+ * @version    $Id: Regex.php 23775 2011-03-01 17:25:24Z ralph $
  */
 
 /**
  * @see Zend_Validate_Abstract
  */
-// require_once 'Zend/Validate/Abstract.php';
+require_once 'Zend/Validate/Abstract.php';
 
 /**
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Validate_Regex extends Zend_Validate_Abstract
@@ -40,7 +40,7 @@ class Zend_Validate_Regex extends Zend_Validate_Abstract
      * @var array
      */
     protected $_messageTemplates = array(
-        self::INVALID   => "Invalid type given, value should be string, integer or float",
+        self::INVALID   => "Invalid type given. String, integer or float expected",
         self::NOT_MATCH => "'%value%' does not match against pattern '%pattern%'",
         self::ERROROUS  => "There was an internal error while using the pattern '%pattern%'",
     );
@@ -76,7 +76,7 @@ class Zend_Validate_Regex extends Zend_Validate_Abstract
             if (array_key_exists('pattern', $pattern)) {
                 $pattern = $pattern['pattern'];
             } else {
-                // require_once 'Zend/Validate/Exception.php';
+                require_once 'Zend/Validate/Exception.php';
                 throw new Zend_Validate_Exception("Missing option 'pattern'");
             }
         }
@@ -107,7 +107,7 @@ class Zend_Validate_Regex extends Zend_Validate_Abstract
         $status         = @preg_match($this->_pattern, "Test");
 
         if (false === $status) {
-            // require_once 'Zend/Validate/Exception.php';
+            require_once 'Zend/Validate/Exception.php';
             throw new Zend_Validate_Exception("Internal error while using the pattern '$this->_pattern'");
         }
 

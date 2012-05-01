@@ -47,7 +47,7 @@ class Bare_Autoloader
     public static function autoloader($class)
     {
         $path = str_replace('_', '/', $class);
-        // require_once($path . '.php');
+        require_once($path . '.php');
     }
 
 

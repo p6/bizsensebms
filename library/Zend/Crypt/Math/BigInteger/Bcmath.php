@@ -15,15 +15,15 @@
  * @category   Zend
  * @package    Zend_Crypt
  * @subpackage Math
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Bcmath.php 22655 2010-07-22 18:47:20Z mabe $
+ * @version    $Id: Bcmath.php 23775 2011-03-01 17:25:24Z ralph $
  */
 
 /**
  * @see Zend_Crypt_Math_BigInteger_Interface
  */
-// require_once 'Zend/Crypt/Math/BigInteger/Interface.php';
+require_once 'Zend/Crypt/Math/BigInteger/Interface.php';
 
 /**
  * Support for arbitrary precision mathematics in PHP.
@@ -33,7 +33,7 @@
  *
  * @category   Zend
  * @package    Zend_Crypt
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Crypt_Math_BigInteger_Bcmath implements Zend_Crypt_Math_BigInteger_Interface

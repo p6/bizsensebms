@@ -1,0 +1,16 @@
+<phpunit bootstrap="./application/bootstrap.php"  colors="true">         
+        <testsuite name="MyApp">
+                <directory>./</directory>               
+        </testsuite>
+    <filter>
+        <whitelist>
+            <directory suffix=".php">../application/</directory>
+            <exclude>
+                <file>../application/Bootstrap.php</file>
+                <file>../application/modules/default/controllers/ErrorController.php</file>
+                <directory suffix=".phtml">../application/</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+</phpunit>
+

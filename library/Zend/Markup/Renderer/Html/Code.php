@@ -15,15 +15,15 @@
  * @category   Zend
  * @package    Zend_Markup
  * @subpackage Renderer_Html
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Code.php 20270 2010-01-13 22:37:41Z kokx $
+ * @version    $Id: Code.php 23775 2011-03-01 17:25:24Z ralph $
  */
 
 /**
  * @see Zend_Markup_Renderer_Html_HtmlAbstract
  */
-// require_once 'Zend/Markup/Renderer/Html/HtmlAbstract.php';
+require_once 'Zend/Markup/Renderer/Html/HtmlAbstract.php';
 
 /**
  * Tag interface
@@ -31,7 +31,7 @@
  * @category   Zend
  * @package    Zend_Markup
  * @subpackage Renderer_Html
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Markup_Renderer_Html_Code extends Zend_Markup_Renderer_Html_HtmlAbstract

@@ -14,25 +14,25 @@
  *
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Int.php 22697 2010-07-26 21:14:47Z alexander $
+ * @version    $Id: Int.php 23775 2011-03-01 17:25:24Z ralph $
  */
 
 /**
  * @see Zend_Validate_Abstract
  */
-// require_once 'Zend/Validate/Abstract.php';
+require_once 'Zend/Validate/Abstract.php';
 
 /**
  * @see Zend_Locale_Format
  */
-// require_once 'Zend/Locale/Format.php';
+require_once 'Zend/Locale/Format.php';
 
 /**
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Validate_Int extends Zend_Validate_Abstract
@@ -44,7 +44,7 @@ class Zend_Validate_Int extends Zend_Validate_Abstract
      * @var array
      */
     protected $_messageTemplates = array(
-        self::INVALID => "Invalid type given, value should be string or integer",
+        self::INVALID => "Invalid type given. String or integer expected",
         self::NOT_INT => "'%value%' does not appear to be an integer",
     );
 
@@ -70,7 +70,7 @@ class Zend_Validate_Int extends Zend_Validate_Abstract
         }
 
         if (empty($locale)) {
-            // require_once 'Zend/Registry.php';
+            require_once 'Zend/Registry.php';
             if (Zend_Registry::isRegistered('Zend_Locale')) {
                 $locale = Zend_Registry::get('Zend_Locale');
             }
@@ -96,7 +96,7 @@ class Zend_Validate_Int extends Zend_Validate_Abstract
      */
     public function setLocale($locale = null)
     {
-        // require_once 'Zend/Locale.php';
+        require_once 'Zend/Locale.php';
         $this->_locale = Zend_Locale::findLocale($locale);
         return $this;
     }

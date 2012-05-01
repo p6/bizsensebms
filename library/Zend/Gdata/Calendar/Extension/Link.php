@@ -15,20 +15,20 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Calendar
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Link.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: Link.php 23775 2011-03-01 17:25:24Z ralph $
  */
 
 /**
  * @see Zend_Gdata_Entry
  */
-// require_once 'Zend/Gdata/App/Extension/Link.php';
+require_once 'Zend/Gdata/App/Extension/Link.php';
 
 /**
  * @see Zend_Gdata_Entry
  */
-// require_once 'Zend/Gdata/Calendar/Extension/WebContent.php';
+require_once 'Zend/Gdata/Calendar/Extension/WebContent.php';
 
 
 /**
@@ -37,7 +37,7 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Calendar
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Gdata_Calendar_Extension_Link extends Zend_Gdata_App_Extension_Link

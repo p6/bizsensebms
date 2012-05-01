@@ -15,16 +15,16 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: FormButton.php 22285 2010-05-25 14:22:11Z matthew $
+ * @version    $Id: FormButton.php 23775 2011-03-01 17:25:24Z ralph $
  */
 
 
 /**
  * Abstract class for extension
  */
-// require_once 'Zend/View/Helper/FormElement.php';
+require_once 'Zend/View/Helper/FormElement.php';
 
 
 /**
@@ -33,7 +33,7 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_View_Helper_FormButton extends Zend_View_Helper_FormElement

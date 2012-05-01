@@ -1,107 +1,36 @@
 <?php
-/**
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation,  version 3 of the License
+/** Copyright (c) 2010, Sudheera Satyanarayana - http://techchorus.net, 
+     Binary Vibes Information Technologies Pvt. Ltd. and contributors
+ *  All rights reserved.
  *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
  *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
+ *   * Redistributions of source code must retain the above copyright notice,
+ *     this list of conditions and the following disclaimer.
  *
- * You can contact Binary Vibes Information Technologies Pvt. Ltd. by sending 
- * an electronic mail to info@binaryvibes.co.in
+ *   * Redistributions in binary form must reproduce the above copyright notice,
+ *     this list of conditions and the following disclaimer in the documentation
+ *     and/or other materials provided with the distribution.
+ *
+ *   * Neither the names of Sudheera Satyanarayana nor the names of the project
+ *     contributors may be used to endorse or promote products derived from this
+ *     software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ * ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * 
- * Or write paper mail to
- * 
- * #506, 10th B Main Road,
- * 1st Block, Jayanagar,
- * Bangalore â€“ 560 011
- *
- * LICENSE: GNU GPL V3
  */
 
-/*
- * @description Binary Vibes BizSense - web based CRM and ERP software
- * @category   BizSense
- * @package    Core
- * @copyright  Copyright (c) 2008 Binary Vibes Information Technologies Pvt. 
- * Ltd. (http://binaryvibes.co.in)
- * @version    $Id:$
- */
-
-class Core_Service_WebService_Rest_Ticket_Comment extends Core_Model_Abstract
-{
-   
-    /**
-     * Comment poster is the contact
-     */
-    const COMMENT_POSTER_TYPE_CONTACT = 1;
-
-    /**
-     * Comment poster is a BizSense user
-     */
-    const COMMENT_POSTER_TYPE_USER = 2;
-
-    const STATUS_CREATE = 'comment created';
-    
-    /**
-     * @see BV_Model_Abstract::_dbTableClass
-     */
-    protected $_dbTableClass = 'Core_Model_DbTable_TicketComment';
-
-    /**
-     * @var
-     */
-    protected $_defaultObservers = array(
-        'Core_Service_WebService_Rest_Ticket_Comment_Notify_Email',
-    );
-
-    /**
-     * @var the ticket model
-     */
-    protected $_model;
-
-    public function setModel($model)
-    {
-        $this->_model = $model;
-        return $this;
-    }
-
-    /**
-     * @var the ticket service
-     */
-    protected $_service;
-
-    /**
-     * @var the ticket comment id
-     */
-    protected $_ticketCommentId;
-
-    /**
-     * @param object $service the ticket service
-     * @return fluent interface
-     */
-    public function setService($service)
-    {
-        $this->_service = $service;
-        return $this;
-    }
-
-    /**
-     * @return object Core_Service_Ticket
-     */
-    public function getService()
-    {
-        return $this->_service;
-    }
-
-    /**
-     * @param int $ticketCommentId the ticket comment id
-     * @return fluent interface
+interface
      */
     public function setTicketCommentId($ticketCommentId)
     {

@@ -16,15 +16,15 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Gdata
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Query.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: Query.php 23775 2011-03-01 17:25:24Z ralph $
  */
 
 /**
  * Zend_Gdata_App_Util
  */
-// require_once 'Zend/Gdata/App/Util.php';
+require_once 'Zend/Gdata/App/Util.php';
 
 /**
  * Provides a mechanism to build a query URL for Gdata services.
@@ -34,7 +34,7 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Gdata
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Gdata_Query
@@ -399,7 +399,7 @@ class Zend_Gdata_Query
         if (method_exists($this, $method)) {
             return call_user_func(array(&$this, $method));
         } else {
-            // require_once 'Zend/Gdata/App/Exception.php';
+            require_once 'Zend/Gdata/App/Exception.php';
             throw new Zend_Gdata_App_Exception('Property ' . $name . '  does not exist');
         }
     }
@@ -410,7 +410,7 @@ class Zend_Gdata_Query
         if (method_exists($this, $method)) {
             return call_user_func(array(&$this, $method), $val);
         } else {
-            // require_once 'Zend/Gdata/App/Exception.php';
+            require_once 'Zend/Gdata/App/Exception.php';
             throw new Zend_Gdata_App_Exception('Property ' . $name . '  does not exist');
         }
     }

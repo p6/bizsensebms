@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Ldap
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Default.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: Default.php 23775 2011-03-01 17:25:24Z ralph $
  */
 
 /**
@@ -25,7 +25,7 @@
  *
  * @category   Zend
  * @package    Zend_Ldap
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Ldap_Collection_Iterator_Default implements Iterator, Countable
@@ -85,7 +85,7 @@ class Zend_Ldap_Collection_Iterator_Default implements Iterator, Countable
             /**
              * @see Zend_Ldap_Exception
              */
-            // require_once 'Zend/Ldap/Exception.php';
+            require_once 'Zend/Ldap/Exception.php';
             throw new Zend_Ldap_Exception($this->_ldap, 'counting entries');
         }
     }
@@ -243,7 +243,7 @@ class Zend_Ldap_Collection_Iterator_Default implements Iterator, Countable
             $currentDn = @ldap_get_dn($this->_ldap->getResource(), $this->_current);
             if ($currentDn === false) {
                 /** @see Zend_Ldap_Exception */
-                // require_once 'Zend/Ldap/Exception.php';
+                require_once 'Zend/Ldap/Exception.php';
                 throw new Zend_Ldap_Exception($this->_ldap, 'getting dn');
             }
             return $currentDn;
@@ -263,7 +263,7 @@ class Zend_Ldap_Collection_Iterator_Default implements Iterator, Countable
         if (is_resource($this->_current)) {
             $this->_current = @ldap_next_entry($this->_ldap->getResource(), $this->_current);
             /** @see Zend_Ldap_Exception */
-            // require_once 'Zend/Ldap/Exception.php';
+            require_once 'Zend/Ldap/Exception.php';
             if ($this->_current === false) {
                 $msg = $this->_ldap->getLastError($code);
                 if ($code === Zend_Ldap_Exception::LDAP_SIZELIMIT_EXCEEDED) {
@@ -287,7 +287,7 @@ class Zend_Ldap_Collection_Iterator_Default implements Iterator, Countable
         if (is_resource($this->_resultId)) {
             $this->_current = @ldap_first_entry($this->_ldap->getResource(), $this->_resultId);
             /** @see Zend_Ldap_Exception */
-            // require_once 'Zend/Ldap/Exception.php';
+            require_once 'Zend/Ldap/Exception.php';
             if ($this->_current === false &&
                     $this->_ldap->getLastErrorCode() > Zend_Ldap_Exception::LDAP_SUCCESS) {
                 throw new Zend_Ldap_Exception($this->_ldap, 'getting first entry');

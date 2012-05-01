@@ -15,14 +15,14 @@
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Decorator
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
 /**
  * @see Zend_Form_Decorator_Abstract
  */
-// require_once 'Zend/Form/Decorator/Abstract.php';
+require_once 'Zend/Form/Decorator/Abstract.php';
 
 /**
  * Zend_Form_Decorator_Element_HtmlTag
@@ -43,9 +43,9 @@
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Decorator
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: HtmlTag.php 20104 2010-01-06 21:26:01Z matthew $
+ * @version    $Id: HtmlTag.php 24428 2011-09-02 14:10:03Z matthew $
  */
 class Zend_Form_Decorator_HtmlTag extends Zend_Form_Decorator_Abstract
 {
@@ -84,7 +84,13 @@ class Zend_Form_Decorator_HtmlTag extends Zend_Form_Decorator_Abstract
         foreach ((array) $attribs as $key => $val) {
             $key = htmlspecialchars($key, ENT_COMPAT, $enc);
             if (is_array($val)) {
-                $val = implode(' ', $val);
+                if (array_key_exists('callback', $val)
+                    && is_callable($val['callback'])
+                ) {
+                    $val = call_user_func($val['callback'], $this);
+                } else {
+                    $val = implode(' ', $val);
+                }
             }
             $val    = htmlspecialchars($val, ENT_COMPAT, $enc);
             $xhtml .= " $key=\"$val\"";
@@ -103,9 +109,9 @@ class Zend_Form_Decorator_HtmlTag extends Zend_Form_Decorator_Abstract
     public function normalizeTag($tag)
     {
         if (!isset($this->_tagFilter)) {
-            // require_once 'Zend/Filter.php';
-            // require_once 'Zend/Filter/Alnum.php';
-            // require_once 'Zend/Filter/StringToLower.php';
+            require_once 'Zend/Filter.php';
+            require_once 'Zend/Filter/Alnum.php';
+            require_once 'Zend/Filter/StringToLower.php';
             $this->_tagFilter = new Zend_Filter();
             $this->_tagFilter->addFilter(new Zend_Filter_Alnum())
                              ->addFilter(new Zend_Filter_StringToLower());
@@ -226,7 +232,7 @@ class Zend_Form_Decorator_HtmlTag extends Zend_Form_Decorator_Abstract
 
     /**
      * Get encoding for use with htmlspecialchars()
-     * 
+     *
      * @return string
      */
     protected function _getEncoding()

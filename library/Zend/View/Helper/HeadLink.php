@@ -15,13 +15,13 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: HeadLink.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id: HeadLink.php 23775 2011-03-01 17:25:24Z ralph $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
 /** Zend_View_Helper_Placeholder_Container_Standalone */
-// require_once 'Zend/View/Helper/Placeholder/Container/Standalone.php';
+require_once 'Zend/View/Helper/Placeholder/Container/Standalone.php';
 
 /**
  * Zend_Layout_View_Helper_HeadLink
@@ -30,7 +30,7 @@
  * @uses       Zend_View_Helper_Placeholder_Container_Standalone
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_View_Helper_HeadLink extends Zend_View_Helper_Placeholder_Container_Standalone
@@ -40,7 +40,7 @@ class Zend_View_Helper_HeadLink extends Zend_View_Helper_Placeholder_Container_S
      *
      * @var array
      */
-    protected $_itemKeys = array('charset', 'href', 'hreflang', 'media', 'rel', 'rev', 'type', 'title', 'extras');
+    protected $_itemKeys = array('charset', 'href', 'hreflang', 'id', 'media', 'rel', 'rev', 'type', 'title', 'extras');
 
     /**
      * @var string registry key
@@ -139,7 +139,7 @@ class Zend_View_Helper_HeadLink extends Zend_View_Helper_Placeholder_Container_S
             }
 
             if (1 > $argc) {
-                // require_once 'Zend/View/Exception.php';
+                require_once 'Zend/View/Exception.php';
                 $e =  new Zend_View_Exception(sprintf('%s requires at least one argument', $method));
                 $e->setView($this->view);
                 throw $e;
@@ -197,7 +197,7 @@ class Zend_View_Helper_HeadLink extends Zend_View_Helper_Placeholder_Container_S
     public function append($value)
     {
         if (!$this->_isValid($value)) {
-            // require_once 'Zend/View/Exception.php';
+            require_once 'Zend/View/Exception.php';
             $e = new Zend_View_Exception('append() expects a data token; please use one of the custom append*() methods');
             $e->setView($this->view);
             throw $e;
@@ -216,7 +216,7 @@ class Zend_View_Helper_HeadLink extends Zend_View_Helper_Placeholder_Container_S
     public function offsetSet($index, $value)
     {
         if (!$this->_isValid($value)) {
-            // require_once 'Zend/View/Exception.php';
+            require_once 'Zend/View/Exception.php';
             $e = new Zend_View_Exception('offsetSet() expects a data token; please use one of the custom offsetSet*() methods');
             $e->setView($this->view);
             throw $e;
@@ -234,7 +234,7 @@ class Zend_View_Helper_HeadLink extends Zend_View_Helper_Placeholder_Container_S
     public function prepend($value)
     {
         if (!$this->_isValid($value)) {
-            // require_once 'Zend/View/Exception.php';
+            require_once 'Zend/View/Exception.php';
             $e = new Zend_View_Exception('prepend() expects a data token; please use one of the custom prepend*() methods');
             $e->setView($this->view);
             throw $e;
@@ -252,7 +252,7 @@ class Zend_View_Helper_HeadLink extends Zend_View_Helper_Placeholder_Container_S
     public function set($value)
     {
         if (!$this->_isValid($value)) {
-            // require_once 'Zend/View/Exception.php';
+            require_once 'Zend/View/Exception.php';
             $e = new Zend_View_Exception('set() expects a data token; please use one of the custom set*() methods');
             $e->setView($this->view);
             throw $e;
@@ -407,7 +407,7 @@ class Zend_View_Helper_HeadLink extends Zend_View_Helper_Placeholder_Container_S
     public function createDataAlternate(array $args)
     {
         if (3 > count($args)) {
-            // require_once 'Zend/View/Exception.php';
+            require_once 'Zend/View/Exception.php';
             $e = new Zend_View_Exception(sprintf('Alternate tags require 3 arguments; %s provided', count($args)));
             $e->setView($this->view);
             throw $e;

@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Pdf
  * @subpackage FileParser
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: FileParserDataSource.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: FileParserDataSource.php 23775 2011-03-01 17:25:24Z ralph $
  */
 
 /**
@@ -35,7 +35,7 @@
  *
  * @package    Zend_Pdf
  * @subpackage FileParser
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Pdf_FileParserDataSource
@@ -174,12 +174,12 @@ abstract class Zend_Pdf_FileParserDataSource
             return;    // Not moving; do nothing.
         }
         if ($offset < 0) {
-            // require_once 'Zend/Pdf/Exception.php';
+            require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception('Attempt to move before start of data source',
                                          Zend_Pdf_Exception::MOVE_BEFORE_START_OF_FILE);
         }
         if ($offset >= $this->_size) {    // Offsets are zero-based.
-            // require_once 'Zend/Pdf/Exception.php';
+            require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception('Attempt to move beyond end of data source',
                                          Zend_Pdf_Exception::MOVE_BEYOND_END_OF_FILE);
         }

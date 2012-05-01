@@ -16,35 +16,35 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Gapps
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: UserEntry.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: UserEntry.php 23775 2011-03-01 17:25:24Z ralph $
  */
 
 /**
  * @see Zend_Gdata_Entry
  */
-// require_once 'Zend/Gdata/Entry.php';
+require_once 'Zend/Gdata/Entry.php';
 
 /**
  * @see Zend_Gdata_Extension_FeedLink
  */
-// require_once 'Zend/Gdata/Extension/FeedLink.php';
+require_once 'Zend/Gdata/Extension/FeedLink.php';
 
 /**
  * @see Zend_Gdata_Gapps_Extension_Login
  */
-// require_once 'Zend/Gdata/Gapps/Extension/Login.php';
+require_once 'Zend/Gdata/Gapps/Extension/Login.php';
 
 /**
  * @see Zend_Gdata_Gapps_Extension_Name
  */
-// require_once 'Zend/Gdata/Gapps/Extension/Name.php';
+require_once 'Zend/Gdata/Gapps/Extension/Name.php';
 
 /**
  * @see Zend_Gdata_Gapps_Extension_Quota
  */
-// require_once 'Zend/Gdata/Gapps/Extension/Quota.php';
+require_once 'Zend/Gdata/Gapps/Extension/Quota.php';
 
 /**
  * Data model class for a Google Apps User Entry.
@@ -61,7 +61,7 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Gapps
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Gdata_Gapps_UserEntry extends Zend_Gdata_Entry

@@ -14,19 +14,19 @@
  *
  * @category   Zend
  * @package    Zend_Controller
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
 /**
  * Zend_XmlRpc_Value
  */
-// require_once 'Zend/XmlRpc/Value.php';
+require_once 'Zend/XmlRpc/Value.php';
 
 /**
  * Zend_XmlRpc_Fault
  */
-// require_once 'Zend/XmlRpc/Fault.php';
+require_once 'Zend/XmlRpc/Fault.php';
 
 /**
  * XmlRpc Request object
@@ -41,9 +41,9 @@
  *
  * @category Zend
  * @package  Zend_XmlRpc
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version $Id: Request.php 20208 2010-01-11 22:37:37Z lars $
+ * @version $Id: Request.php 23775 2011-03-01 17:25:24Z ralph $
  */
 class Zend_XmlRpc_Request
 {

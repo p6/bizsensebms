@@ -14,27 +14,27 @@
  *
  * @category   Zend
  * @package    Zend_Mime
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Message.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: Message.php 23775 2011-03-01 17:25:24Z ralph $
  */
 
 
 /**
  * Zend_Mime
  */
-// require_once 'Zend/Mime.php';
+require_once 'Zend/Mime.php';
 
 /**
  * Zend_Mime_Part
  */
-// require_once 'Zend/Mime/Part.php';
+require_once 'Zend/Mime/Part.php';
 
 
 /**
  * @category   Zend
  * @package    Zend_Mime
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Mime_Message
@@ -242,7 +242,7 @@ class Zend_Mime_Message
      */
     public static function createFromMessage($message, $boundary, $EOL = Zend_Mime::LINEEND)
     {
-        // require_once 'Zend/Mime/Decode.php';
+        require_once 'Zend/Mime/Decode.php';
         $parts = Zend_Mime_Decode::splitMessageStruct($message, $boundary, $EOL);
 
         $res = new self();

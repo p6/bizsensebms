@@ -15,12 +15,12 @@
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Decorator
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
 /** Zend_Form_Decorator_Abstract */
-// require_once 'Zend/Form/Decorator/Abstract.php';
+require_once 'Zend/Form/Decorator/Abstract.php';
 
 /**
  * Zend_Form_Decorator_FormErrors
@@ -32,9 +32,9 @@
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Decorator
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: FormErrors.php 22317 2010-05-29 10:13:31Z alab $
+ * @version    $Id: FormErrors.php 23853 2011-04-10 16:06:30Z ramon $
  */
 class Zend_Form_Decorator_FormErrors extends Zend_Form_Decorator_Abstract
 {
@@ -345,13 +345,13 @@ class Zend_Form_Decorator_FormErrors extends Zend_Form_Decorator_Abstract
 
     /**
      * Get showCustomFormErrors
-     * 
+     *
      * @return bool
      */
     public function getShowCustomFormErrors()
     {
         if (null === $this->_showCustomFormErrors) {
-            if (null === ($how =  $this->getOption('showCustomFormErrors'))) {
+            if (null === ($show =  $this->getOption('showCustomFormErrors'))) {
                 $this->setShowCustomFormErrors($this->_defaults['showCustomFormErrors']);
             } else {
                 $this->setShowCustomFormErrors($show);
@@ -375,7 +375,7 @@ class Zend_Form_Decorator_FormErrors extends Zend_Form_Decorator_Abstract
 
     /**
      * Get onlyCustomFormErrors
-     * 
+     *
      * @return bool
      */
     public function getOnlyCustomFormErrors()
@@ -451,9 +451,13 @@ class Zend_Form_Decorator_FormErrors extends Zend_Form_Decorator_Abstract
                              .  $this->getMarkupListItemEnd();
                 }
             } else if ($subitem instanceof Zend_Form && !$this->ignoreSubForms()) {
-                $content .= $this->getMarkupListStart()
-                          . $this->_recurseForm($subitem, $view)
-                          . $this->getMarkupListEnd();
+                $markup = $this->_recurseForm($subitem, $view);
+
+                if (!empty($markup)) {
+                    $content .= $this->getMarkupListStart()
+                              . $markup
+                              . $this->getMarkupListEnd();
+                }
             }
         }
         return $content;

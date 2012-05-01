@@ -16,30 +16,30 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage App
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Person.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: Person.php 23775 2011-03-01 17:25:24Z ralph $
  */
 
 /**
  * @see Zend_Gdata_App_Extension
  */
-// require_once 'Zend/Gdata/App/Extension.php';
+require_once 'Zend/Gdata/App/Extension.php';
 
 /**
  * @see Zend_Gdata_App_Extension_Name
  */
-// require_once 'Zend/Gdata/App/Extension/Name.php';
+require_once 'Zend/Gdata/App/Extension/Name.php';
 
 /**
  * @see Zend_Gdata_App_Extension_Email
  */
-// require_once 'Zend/Gdata/App/Extension/Email.php';
+require_once 'Zend/Gdata/App/Extension/Email.php';
 
 /**
  * @see Zend_Gdata_App_Extension_Uri
  */
-// require_once 'Zend/Gdata/App/Extension/Uri.php';
+require_once 'Zend/Gdata/App/Extension/Uri.php';
 
 /**
  * Base class for people (currently used by atom:author, atom:contributor)
@@ -47,7 +47,7 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage App
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Gdata_App_Extension_Person extends Zend_Gdata_App_Extension

@@ -15,20 +15,20 @@
  * @category   Zend
  * @package    Zend_Translate
  * @subpackage Zend_Translate_Adapter
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Adapter.php 22586 2010-07-16 20:12:01Z thomas $
+ * @version    $Id: Adapter.php 24268 2011-07-25 14:47:42Z guilhermeblanco $
  */
 
 /**
  * @see Zend_Locale
  */
-// require_once 'Zend/Locale.php';
+require_once 'Zend/Locale.php';
 
 /**
  * @see Zend_Translate_Plural
  */
-// require_once 'Zend/Translate/Plural.php';
+require_once 'Zend/Translate/Plural.php';
 
 /**
  * Basic adapter class for each translation source adapter
@@ -36,7 +36,7 @@
  * @category   Zend
  * @package    Zend_Translate
  * @subpackage Zend_Translate_Adapter
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Translate_Adapter {
@@ -86,6 +86,7 @@ abstract class Zend_Translate_Adapter {
      *   'locale'          => the actual set locale to use
      *   'log'             => a instance of Zend_Log where logs are written to
      *   'logMessage'      => message to be logged
+     *   'logPriority'     => priority which is used to write the log message
      *   'logUntranslated' => when true, untranslated messages are not logged
      *   'reload'          => reloads the cache by reading the content again
      *   'scan'            => searches for translation files using the LOCALE constants
@@ -101,6 +102,7 @@ abstract class Zend_Translate_Adapter {
         'locale'          => 'auto',
         'log'             => null,
         'logMessage'      => "Untranslated message within '%locale%': %message%",
+        'logPriority'     => 5,
         'logUntranslated' => false,
         'reload'          => false,
         'route'           => null,
@@ -210,6 +212,11 @@ abstract class Zend_Translate_Adapter {
         } else if (!is_array($options)) {
             $options = array('content' => $options);
         }
+        
+        if (!isset($options['content']) || empty($options['content'])) {
+            require_once 'Zend/Translate/Exception.php';
+            throw new Zend_Translate_Exception("Required option 'content' is missing");
+        }
 
         $originate = null;
         if (!empty($options['locale'])) {
@@ -217,7 +224,7 @@ abstract class Zend_Translate_Adapter {
         }
 
         if ((array_key_exists('log', $options)) && !($options['log'] instanceof Zend_Log)) {
-            // require_once 'Zend/Translate/Exception.php';
+            require_once 'Zend/Translate/Exception.php';
             throw new Zend_Translate_Exception('Instance of Zend_Log expected for option log');
         }
 
@@ -230,7 +237,7 @@ abstract class Zend_Translate_Adapter {
                 $options['locale'] = Zend_Locale::findLocale($options['locale']);
             }
         } catch (Zend_Locale_Exception $e) {
-            // require_once 'Zend/Translate/Exception.php';
+            require_once 'Zend/Translate/Exception.php';
             throw new Zend_Translate_Exception("The given Language '{$options['locale']}' does not exist", 0, $e);
         }
 
@@ -238,9 +245,15 @@ abstract class Zend_Translate_Adapter {
         if (is_string($options['content']) and is_dir($options['content'])) {
             $options['content'] = realpath($options['content']);
             $prev = '';
-            foreach (new RecursiveIteratorIterator(
-                     new RecursiveDirectoryIterator($options['content'], RecursiveDirectoryIterator::KEY_AS_PATHNAME),
-                     RecursiveIteratorIterator::SELF_FIRST) as $directory => $info) {
+            $iterator = new RecursiveIteratorIterator(
+                new RecursiveRegexIterator(
+                    new RecursiveDirectoryIterator($options['content'], RecursiveDirectoryIterator::KEY_AS_PATHNAME),
+                    '/^(?!.*(\.svn|\.cvs)).*$/', RecursiveRegexIterator::MATCH
+                ),
+                RecursiveIteratorIterator::SELF_FIRST
+            );
+            
+            foreach ($iterator as $directory => $info) {
                 $file = $info->getFilename();
                 if (is_array($options['ignore'])) {
                     foreach ($options['ignore'] as $key => $ignore) {
@@ -308,6 +321,8 @@ abstract class Zend_Translate_Adapter {
                     }
                 }
             }
+            
+            unset($iterator);
         } else {
             $this->_addTranslationData($options);
         }
@@ -336,7 +351,7 @@ abstract class Zend_Translate_Adapter {
             } else if ((isset($this->_options[$key]) and ($this->_options[$key] != $option)) or
                     !isset($this->_options[$key])) {
                 if (($key == 'log') && !($option instanceof Zend_Log)) {
-                    // require_once 'Zend/Translate/Exception.php';
+                    require_once 'Zend/Translate/Exception.php';
                     throw new Zend_Translate_Exception('Instance of Zend_Log expected for option log');
                 }
 
@@ -414,7 +429,7 @@ abstract class Zend_Translate_Adapter {
         try {
             $locale = Zend_Locale::findLocale($locale);
         } catch (Zend_Locale_Exception $e) {
-            // require_once 'Zend/Translate/Exception.php';
+            require_once 'Zend/Translate/Exception.php';
             throw new Zend_Translate_Exception("The given Language ({$locale}) does not exist", 0, $e);
         }
 
@@ -423,7 +438,7 @@ abstract class Zend_Translate_Adapter {
             if (!isset($this->_translate[$temp[0]]) and !isset($this->_translate[$locale])) {
                 if (!$this->_options['disableNotices']) {
                     if ($this->_options['log']) {
-                        $this->_options['log']->notice("The language '{$locale}' has to be added before it can be used.");
+                        $this->_options['log']->log("The language '{$locale}' has to be added before it can be used.", $this->_options['logPriority']);
                     } else {
                         trigger_error("The language '{$locale}' has to be added before it can be used.", E_USER_NOTICE);
                     }
@@ -436,7 +451,7 @@ abstract class Zend_Translate_Adapter {
         if (empty($this->_translate[$locale])) {
             if (!$this->_options['disableNotices']) {
                 if ($this->_options['log']) {
-                    $this->_options['log']->notice("No translation for the language '{$locale}' available.");
+                    $this->_options['log']->log("No translation for the language '{$locale}' available.", $this->_options['logPriority']);
                 } else {
                     trigger_error("No translation for the language '{$locale}' available.", E_USER_NOTICE);
                 }
@@ -462,7 +477,7 @@ abstract class Zend_Translate_Adapter {
     /**
      * Returns the available languages from this adapter
      *
-     * @return array
+     * @return array|null
      */
     public function getList()
     {
@@ -603,7 +618,7 @@ abstract class Zend_Translate_Adapter {
         try {
             $options['locale'] = Zend_Locale::findLocale($options['locale']);
         } catch (Zend_Locale_Exception $e) {
-            // require_once 'Zend/Translate/Exception.php';
+            require_once 'Zend/Translate/Exception.php';
             throw new Zend_Translate_Exception("The given Language '{$options['locale']}' does not exist", 0, $e);
         }
 
@@ -817,7 +832,7 @@ abstract class Zend_Translate_Adapter {
             $message = str_replace('%message%', $message, $this->_options['logMessage']);
             $message = str_replace('%locale%', $locale, $message);
             if ($this->_options['log']) {
-                $this->_options['log']->notice($message);
+                $this->_options['log']->log($message, $this->_options['logPriority']);
             } else {
                 trigger_error($message, E_USER_NOTICE);
             }
@@ -941,7 +956,7 @@ abstract class Zend_Translate_Adapter {
      */
     public static function clearCache($tag = null)
     {
-        // require_once 'Zend/Cache.php';
+        require_once 'Zend/Cache.php';
         if (self::$_cacheTags) {
             if ($tag == null) {
                 $tag = 'Zend_Translate';

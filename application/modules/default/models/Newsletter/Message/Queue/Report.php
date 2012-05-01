@@ -1,37 +1,35 @@
 <?php
-/**
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation,  version 3 of the License
+/** Copyright (c) 2010, Sudheera Satyanarayana - http://techchorus.net, 
+     Binary Vibes Information Technologies Pvt. Ltd. and contributors
+ *  All rights reserved.
  *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
  *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
+ *   * Redistributions of source code must retain the above copyright notice,
+ *     this list of conditions and the following disclaimer.
  *
- * You can contact Binary Vibes Information Technologies Pvt. Ltd. by sending 
- * an electronic mail to info@binaryvibes.co.in
+ *   * Redistributions in binary form must reproduce the above copyright notice,
+ *     this list of conditions and the following disclaimer in the documentation
+ *     and/or other materials provided with the distribution.
+ *
+ *   * Neither the names of Sudheera Satyanarayana nor the names of the project
+ *     contributors may be used to endorse or promote products derived from this
+ *     software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ * ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * 
- * Or write paper mail to
- * 
- * #506, 10th B Main Road,
- * 1st Block, Jayanagar,
- * Bangalore - 560 011
- *
- * LICENSE: GNU GPL V3
  */
 
-/**
- * @description Binary Vibes BizSense - web based CRM and ERP software
- * @category   BizSense
- * @package    Core
- * @copyright  Copyright (c) 2008 Binary Vibes Information Technologies Pvt. 
- * Ltd. (http://binaryvibes.co.in)
- * @version    $Id:$
- */
 class Core_Model_Newsletter_Message_Queue_Report extends Core_Model_Index_Abstract
 {
     /**
@@ -39,7 +37,6 @@ class Core_Model_Newsletter_Message_Queue_Report extends Core_Model_Index_Abstra
      */
     public function getPaginator()
     {
-        $db = Zend_Registry::get('db');
 
         $table = $this->_model->getTable();
         $select = $table->select();
@@ -103,14 +100,13 @@ class Core_Model_Newsletter_Message_Queue_Report extends Core_Model_Index_Abstra
          * Search 
          */ 
          
-        if(!(empty($search['date_from'])) and !(empty($search['date_to']))) {
-            if($search['start_time']) {
+        if (!(empty($search['date_from'])) and !(empty($search['date_to']))) {
+            if (isset($search['start_time'])) {
                 $startFromDate = $search['date_from'] . $search['start_time'];
-            }
-            else {
+            } else {
                 $startFromDate = $search['date_from'] . 'T00:00:00';
             }
-            $startFrom= new Zend_Date($startFromDate);
+            $startFrom = new Zend_Date($startFromDate, Zend_Date::ISO_8601);
             $startFromTimeStamp = $startFrom->getTimeStamp();
 
             if($search['end_time']) {
@@ -119,20 +115,19 @@ class Core_Model_Newsletter_Message_Queue_Report extends Core_Model_Index_Abstra
             else {
                 $startToDate = $search['date_to'] . 'T23:59:59';
             }
-            $startTo= new Zend_Date($startToDate);
+            $startTo = new Zend_Date($startToDate, Zend_Date::ISO_8601);
             $startToTimeStamp = $startTo->getTimeStamp();
 
             $select->where("sent_time between '$startFromTimeStamp' and '$startToTimeStamp'");
         }
         
-        if ($search['domain']) {
+        if (isset($search['domain'])) {
             $select->where('s.domain like ?', '%' . $search['domain'] . '%'); 
         }  
         
-        if ($search['status'] != '') {
+        if (isset($search['status']) and $search['status'] != '') {
             $select->where('mq.status = ?', $search['status']); 
         }  
-                       
         $paginator = new Zend_Paginator(new Zend_Paginator_Adapter_DbTableSelect($select));
         return $paginator;
     }

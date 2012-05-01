@@ -14,20 +14,20 @@
  *
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Callback.php 22697 2010-07-26 21:14:47Z alexander $
+ * @version    $Id: Callback.php 23775 2011-03-01 17:25:24Z ralph $
  */
 
 /**
  * @see Zend_Validate_Abstract
  */
-// require_once 'Zend/Validate/Abstract.php';
+require_once 'Zend/Validate/Abstract.php';
 
 /**
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Validate_Callback extends Zend_Validate_Abstract
@@ -49,7 +49,7 @@ class Zend_Validate_Callback extends Zend_Validate_Abstract
      */
     protected $_messageTemplates = array(
         self::INVALID_VALUE    => "'%value%' is not valid",
-        self::INVALID_CALLBACK => "Failure within the callback, exception returned",
+        self::INVALID_CALLBACK => "An exception has been raised within the callback",
     );
 
     /**
@@ -88,7 +88,7 @@ class Zend_Validate_Callback extends Zend_Validate_Abstract
         }
 
         if (null === ($initializedCallack = $this->getCallback())) {
-            // require_once 'Zend/Validate/Exception.php';
+            require_once 'Zend/Validate/Exception.php';
             throw new Zend_Validate_Exception('No callback registered');
         }
     }
@@ -112,7 +112,7 @@ class Zend_Validate_Callback extends Zend_Validate_Abstract
     public function setCallback($callback)
     {
         if (!is_callable($callback)) {
-            // require_once 'Zend/Validate/Exception.php';
+            require_once 'Zend/Validate/Exception.php';
             throw new Zend_Validate_Exception('Invalid callback given');
         }
         $this->_callback = $callback;

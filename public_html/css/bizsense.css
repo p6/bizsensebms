@@ -297,6 +297,25 @@ th.big {
 
 /*------------------- forms ----------------------------*/
 
+dl#no_csrf-element {
+    display: none;
+}
+
+dd#no_csrf-element {
+    display: none;
+}
+
+dt#no_csrf-element {
+    display: none;
+}
+
+dd#no_csrf-label {
+    display: none;
+}
+
+dt#no_csrf-label {
+    display: none;
+}
 #form {
     margin:20px;
 }

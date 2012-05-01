@@ -1,0 +1,1 @@
+phpunit --configuration=withoutCodeCoverage.xml

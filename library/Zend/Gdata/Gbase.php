@@ -16,35 +16,35 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Gbase
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Gbase.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: Gbase.php 23805 2011-03-16 00:55:40Z tjohns $
  */
 
 /**
  * @see Zend_Gdata
  */
-// require_once 'Zend/Gdata.php';
+require_once 'Zend/Gdata.php';
 
 /**
  * @see Zend_Gdata_Gbase_ItemFeed
  */
-// require_once 'Zend/Gdata/Gbase/ItemFeed.php';
+require_once 'Zend/Gdata/Gbase/ItemFeed.php';
 
 /**
  * @see Zend_Gdata_Gbase_ItemEntry
  */
-// require_once 'Zend/Gdata/Gbase/ItemEntry.php';
+require_once 'Zend/Gdata/Gbase/ItemEntry.php';
 
 /**
  * @see Zend_Gdata_Gbase_SnippetEntry
  */
-// require_once 'Zend/Gdata/Gbase/SnippetEntry.php';
+require_once 'Zend/Gdata/Gbase/SnippetEntry.php';
 
 /**
  * @see Zend_Gdata_Gbase_SnippetFeed
  */
-// require_once 'Zend/Gdata/Gbase/SnippetFeed.php';
+require_once 'Zend/Gdata/Gbase/SnippetFeed.php';
 
 /**
  * Service class for interacting with the Google Base data API
@@ -54,7 +54,7 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Gbase
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Gdata_Gbase extends Zend_Gdata
@@ -63,12 +63,12 @@ class Zend_Gdata_Gbase extends Zend_Gdata
     /**
      * Path to the customer items feeds on the Google Base server.
      */
-    const GBASE_ITEM_FEED_URI = 'http://www.google.com/base/feeds/items';
+    const GBASE_ITEM_FEED_URI = 'https://www.google.com/base/feeds/items';
 
     /**
      * Path to the snippets feeds on the Google Base server.
      */
-    const GBASE_SNIPPET_FEED_URI = 'http://www.google.com/base/feeds/snippets';
+    const GBASE_SNIPPET_FEED_URI = 'https://www.google.com/base/feeds/snippets';
 
     /**
      * Authentication service name for Google Base
@@ -134,7 +134,7 @@ class Zend_Gdata_Gbase extends Zend_Gdata
     public function getGbaseItemEntry($location = null)
     {
         if ($location === null) {
-            // require_once 'Zend/Gdata/App/InvalidArgumentException.php';
+            require_once 'Zend/Gdata/App/InvalidArgumentException.php';
             throw new Zend_Gdata_App_InvalidArgumentException(
                     'Location must not be null');
         } else if ($location instanceof Zend_Gdata_Query) {

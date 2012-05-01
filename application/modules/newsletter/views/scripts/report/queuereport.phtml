@@ -89,7 +89,7 @@
 
 
 <?php
-    if (!count($this->paginator)) {
+     if ($this->wasSearched and !count($this->paginator)) {
         echo "<br />There are no records matching the search criteria";
     }
 ?>

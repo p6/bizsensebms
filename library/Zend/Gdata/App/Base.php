@@ -16,15 +16,15 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage App
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Base.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id: Base.php 23775 2011-03-01 17:25:24Z ralph $
  */
 
 /**
  * @see Zend_Gdata_App_Util
  */
-// require_once 'Zend/Gdata/App/Util.php';
+require_once 'Zend/Gdata/App/Util.php';
 
 /**
  * Abstract class for all XML elements
@@ -32,7 +32,7 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage App
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Gdata_App_Base
@@ -304,17 +304,17 @@ abstract class Zend_Gdata_App_Base
             $success = @$doc->loadXML($xml);
             @ini_restore('track_errors');
             if (!$success) {
-                // require_once 'Zend/Gdata/App/Exception.php';
+                require_once 'Zend/Gdata/App/Exception.php';
                 throw new Zend_Gdata_App_Exception("DOMDocument cannot parse XML: $php_errormsg");
             }
             $element = $doc->getElementsByTagName($this->_rootElement)->item(0);
             if (!$element) {
-                // require_once 'Zend/Gdata/App/Exception.php';
+                require_once 'Zend/Gdata/App/Exception.php';
                 throw new Zend_Gdata_App_Exception('No root <' . $this->_rootElement . '> element');
             }
             $this->transferFromDOM($element);
         } else {
-            // require_once 'Zend/Gdata/App/Exception.php';
+            require_once 'Zend/Gdata/App/Exception.php';
             throw new Zend_Gdata_App_Exception('XML passed to transferFromXML cannot be null');
         }
     }
@@ -375,8 +375,8 @@ abstract class Zend_Gdata_App_Base
     {
         // Check for a memoized result
         $key = $prefix . ' ' .
-               (is_null($majorVersion) ? 'NULL' : $majorVersion) .
-               ' '. (is_null($minorVersion) ? 'NULL' : $minorVersion);
+               ($majorVersion === null ? 'NULL' : $majorVersion) .
+               ' '. ($minorVersion === null ? 'NULL' : $minorVersion);
         if (array_key_exists($key, self::$_namespaceLookupCache))
           return self::$_namespaceLookupCache[$key];
         // If no match, return the prefix by default
@@ -480,7 +480,7 @@ abstract class Zend_Gdata_App_Base
         } else if (property_exists($this, "_${name}")) {
             return $this->{'_' . $name};
         } else {
-            // require_once 'Zend/Gdata/App/InvalidArgumentException.php';
+            require_once 'Zend/Gdata/App/InvalidArgumentException.php';
             throw new Zend_Gdata_App_InvalidArgumentException(
                     'Property ' . $name . ' does not exist');
         }
@@ -506,7 +506,7 @@ abstract class Zend_Gdata_App_Base
         } else if (isset($this->{'_' . $name}) || ($this->{'_' . $name} === null)) {
             $this->{'_' . $name} = $val;
         } else {
-            // require_once 'Zend/Gdata/App/InvalidArgumentException.php';
+            require_once 'Zend/Gdata/App/InvalidArgumentException.php';
             throw new Zend_Gdata_App_InvalidArgumentException(
                     'Property ' . $name . '  does not exist');
         }
@@ -522,7 +522,7 @@ abstract class Zend_Gdata_App_Base
         $rc = new ReflectionClass(get_class($this));
         $privName = '_' . $name;
         if (!($rc->hasProperty($privName))) {
-            // require_once 'Zend/Gdata/App/InvalidArgumentException.php';
+            require_once 'Zend/Gdata/App/InvalidArgumentException.php';
             throw new Zend_Gdata_App_InvalidArgumentException(
                     'Property ' . $name . ' does not exist');
         } else {
