@@ -1,0 +1,52 @@
+<h2>Contacts of the account</h2>
+<?php
+    $this->headTitle('Contacts belonging to account');
+    $contacts = $this->contacts;
+    $account = $this->account;
+    $acl = $this->acl;    
+?>
+
+<?php if  ($acl->isAllowed($this->currentUser, 'access account pages')): ?>
+<a href="<?php echo $this->url(array(
+            'module'        =>  'default', 
+            'controller'    =>  'account'
+        ), NULL, TRUE); ?>">Accounts</a> 
+<?php endif; ?>
+
+<table class="data_table">
+<tr>
+    <th>Name</th><th>Mobile</th><th>Work phone</th>
+</tr>
+<?php
+    foreach ($contacts as $key=>$value){
+
+        $contactLink = $this->url(
+            array(
+                'module' => 'default',
+                'controller' => 'contact',
+                'action' => 'viewdetails',
+                'contact_id' => $this->escape($value->contact_id),
+            )
+        );
+        $hrefValue = "\"$contactLink\"";
+
+        echo "<tr>";
+        echo "<td>";
+        echo "<a href=$hrefValue>";
+        echo $this->escape($value->first_name) 
+            . " " .  $this->escape($value->middle_name) 
+            . " " . $this->escape($value->last_name);
+        echo "</a>";
+        echo "</td>";
+
+        echo "<td>";
+        echo $this->escape($value->mobile);
+        echo "</td>";
+
+        echo "<td>";
+        echo $this->escape($value->work_phone);
+        echo "</td>";
+        echo "</tr>";            
+    }
+?>
+</table>

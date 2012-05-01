@@ -1,0 +1,77 @@
+<h2>Web services - applications</h2>
+<?php 
+    $this->headTitle('Web services - applications');
+    $this->headScript()->appendFile('/js/BizSense/Crud.js'); 
+    $acl = $this->acl;
+?>
+<?php if ($acl->isAllowed($this->currentUser, 'administer bizsense')): ?>
+
+<a href="/admin/index/index">Administration</a> | 
+
+<a href="<?php echo $this->url(
+        array(
+            'module' => 'admin',
+            'controller' => 'webservice',
+            'action' => 'create',
+        )
+    ); ?>">Create application</a> |
+<?php endif; ?>
+
+<?php
+ if (count($this->paginator)): ?>
+
+<p>
+Total applications : <?php echo $this->paginator->getAdapter()->count(); ?>
+</p>
+<table class="data_table">
+<tr>
+    <th class="short">Application 
+                        <?php echo $this->sortButtons("application"); ?></th>
+    <th class="short">API Key  </th>
+    <th class="short">Action</th>
+</tr>
+<?php foreach ($this->paginator as $item): ?>
+<?php
+    $itemValues = $item->toArray();
+?>
+<tr>
+    <td><?php echo $this->escape($itemValues['name']); ?></td>
+    <td><?php echo $this->escape($itemValues['api_key']); ?></td>
+    <td> <?php $deleteUrl = $this->url(
+                 array(
+                     'module' => 'admin',
+                     'controller' => 'webservice',
+                     'action' => 'delete',
+                     'ws_application_id' =>$this->escape($itemValues['ws_application_id'])
+                    )
+                );
+                echo $this->deleteButton($deleteUrl); ?>
+    </td>
+</tr>
+<?php endforeach; ?>
+<?php endif; ?>
+</table>
+
+<?php
+    if ($this->wasSearched and !count($this->paginator)) {
+        echo "<br />There are no records matching the search criteria";
+    }
+?>
+<div class="pagination">
+<?php 
+    echo $this->paginationControl(
+        $this->paginator, 'Sliding', 'search.phtml'
+    ); 
+?>
+</div>
+<div class="div_clear"></div>
+ 
+<?php if ($acl->isAllowed($this->currentUser, 'administer bizsense')): ?>
+<a href="<?php echo $this->url(array(
+        'module' => 'admin',
+        'controller' => 'webservice',
+        'action' => 'selfserviceapp'
+    )
+);
+?>">Self service URL</a> |
+<?php endif; ?>

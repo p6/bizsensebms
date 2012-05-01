@@ -1,0 +1,63 @@
+<h1>Vendor</h1>
+
+<?php
+    $this->headTitle('Vendor');
+    $this->dojoLayer('common');
+    $acl = $this->acl;
+?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access vendor pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'vendor',
+        'action' => 'create',
+    ), 'default', true
+);?>">Create</a>
+<?php endif; ?>
+
+<fieldset class="fieldset_properties">
+    <legend>
+        <img src="/images/design/search.png"></li>
+                     Search
+     </legend>
+        <?php echo $this->form; ?>
+</fieldset>
+
+<?php if (count($this->paginator)): ?>
+
+<table class="data_table">
+    <tr>
+        <th>Vendor Name<?php echo $this->sortButtons("name"); ?></th>
+        <th>Company Name<?php echo $this->sortButtons("companyName"); ?></th>
+        <th>Mobile</th>
+        <th>Action</th>
+    </tr>
+    
+<?php foreach ($this->paginator as $item): ?>
+<?php
+    $item = $item->toArray();
+?>
+    <tr>
+        <td><?php echo $this->escape($item['name']); ?></td>
+        <td><?php echo $this->escape($item['company_name']); ?></td>
+        <td><?php echo $this->escape($item['mobile']); ?></td>
+        <td><a href="<?php echo $this->url(array(
+                'module'        =>  'finance', 
+                'controller'    =>  'vendor', 
+                'action'        =>  'viewdetails',
+                'vendor_id' => $this->escape($item['vendor_id'])
+                )); ?>">Details</a>
+                
+    </tr>
+<?php endforeach; ?>
+</table>
+
+<?php endif; ?>
+
+<div class="pagination">
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'search.phtml'); ?>
+</div>
+<div class="div_clear"></div>
+
+

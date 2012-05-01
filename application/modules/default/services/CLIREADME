@@ -1,0 +1,5 @@
+To run services from the command line use
+php <path to script> --service=<service class name>
+
+Example
+php application/modules/default/services/Cli.php --service=Core_Service_Update

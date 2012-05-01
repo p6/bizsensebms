@@ -1,0 +1,13 @@
+<h2>Quote Report</h2>
+<?php
+    $this->headTitle('Quote Reports');
+    $acl = $this->acl;    
+?>
+
+<p>
+<?php if ($acl->isAllowed($this->currentUser,'access quote pages')): ?>
+    <a href="/reports/index/index">Reports</a> | 
+    <a href="/reports/quote/daterange">Date range</a> 
+<?php endif; ?>   
+</p>
+

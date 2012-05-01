@@ -1,0 +1,52 @@
+<h1>Currency</h1>
+<?php
+    $this->headTitle('Currency');
+?>
+<a href="<?php echo $this->baseUrl() . "/admin/currency/add"; ?>">Add Currency</a>
+<br />
+    <table class="data_table">
+        <tr>
+            <th>Currency</th>
+            <th>Symbol</th>
+            <th>Description</th>
+            <th>Action</th>
+        </tr>
+        <?php
+            foreach ($this->paginator as $item){
+                echo "<tr>";
+                foreach($item as $key=>$value) {
+                    if ($key == "currency_id") {
+                       $currencyId = $value;     
+                    } else {
+                        echo "<td>" . $this->escape($value)  . "</td>";
+                    }
+                        
+                }
+                echo "<td>";
+                echo "<a href=\"" . $this->url(array(
+                        'module'        =>  'admin', 
+                        'controller'    =>  'currency',
+                        'action'        =>  'edit',
+                        'currency_id'   =>  $currencyId,
+                    )
+                ) . "\"" . ">Edit</a>";
+
+                echo ", <a href=\"" . $this->url(array(
+                        'module'        =>  'admin', 
+                        'controller'    =>  'currency',
+                        'action'        =>  'delete',
+                        'currency_id'   =>  $currencyId,
+                    )
+                ) . "\"" . ">Delete</a>";
+
+
+                echo "</td>";
+                echo "</tr>";
+        
+            }
+           ?>
+    </table>
+<div class="pagination">
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'search.phtml'); ?>
+</div>
+<div class="div_clear"></div>

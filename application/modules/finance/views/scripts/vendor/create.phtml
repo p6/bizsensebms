@@ -1,0 +1,17 @@
+<h2>Create Vendor</h2>
+<?php
+    $this->headTitle('Create Vendor');
+?>
+
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'vendor',
+        'action' => 'index',
+    ), 'default', true
+);?>">Vendor</a>
+
+<div id="form">
+    <?php  echo $this->form; ?>
+</div>
+<div class="div_clear"></div>

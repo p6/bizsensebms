@@ -1,0 +1,18 @@
+<h2>Reconciliation</h2>
+<?php
+    $this->dojoLayer('common');
+    $this->headTitle('Reconciliation');
+?>
+
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'bankaccount',
+        'action' => 'index',
+    ), 'default', true
+);?>">Bank Account</a>
+
+<div id="form">
+    <?php  echo $this->form; ?>
+</div>
+

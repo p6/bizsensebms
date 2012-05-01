@@ -1,0 +1,11 @@
+<h2>Lead Reports</h2>
+<?php
+    $this->headTitle('Lead Reports');
+    $acl = $this->acl;
+    $user = $this->currentUser;
+?>
+<?php if ($acl->isAllowed($user,'access lead reports')): ?>
+    <a href="/reports/index/index">Reports</a> | 
+    <a href="/reports/lead/daterange">Date range</a>
+<?php endif; ?>
+

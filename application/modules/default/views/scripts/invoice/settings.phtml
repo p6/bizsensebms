@@ -1,0 +1,22 @@
+<?php
+    $this->headTitle('Invoice Settings');
+?>
+<h2>Invoice settings</h2>
+<?php
+echo $this->message;
+$acl = $this->acl;
+?>
+
+<?php if ($acl->isAllowed($this->currentUser,'access invoice pages')): ?>   
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'default',
+        'controller' => 'invoice',
+        'action' => 'index',
+    ), 'default', true
+);?>">Invoices</a>
+<?php endif; ?>
+
+<div id="form">
+   <?php echo $this->form; ?>
+</div>

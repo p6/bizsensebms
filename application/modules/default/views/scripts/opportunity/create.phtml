@@ -1,0 +1,16 @@
+<h2>Create Opportunity</h2>  
+<p>
+	<a href="<?php echo $this->url(array(
+	                'module' => 'default', 
+	                'controller' => 'opportunity'), NULL, true); ?>">
+	                Opportunities</a>
+</p>
+<?php
+    $this->dojoLayer('common');
+    $this->headTitle('Create Opportunity');        
+    echo $this->message;
+?>
+<div id="form">
+   <?php echo $this->form; ?>
+</div>
+<div class="div_clear"></div>

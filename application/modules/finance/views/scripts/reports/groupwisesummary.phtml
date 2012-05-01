@@ -1,0 +1,66 @@
+<h2>Group Wise Summary</h2>
+
+<?php
+    $this->headTitle('Group Wise Summary');
+    $acl = $this->acl;    
+?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'reports',
+        'action' => 'index',
+    ), 'default', true
+);?>">Reports</a> |
+<?php endif; ?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'reports',
+        'action' => 'csvexportgroupwisesummary',
+        'group_id' => $this->groupId
+    ), 'default', true
+);?>">Export to csv</a>
+<?php endif; ?>
+
+
+<fieldset class="fieldset_properties">
+    <legend>
+        <img src="/images/design/search.png"></li>
+                     Search
+     </legend>
+        <?php echo $this->form; ?>
+</fieldset>
+
+<table class="data_table">
+    <tr>
+        <th>Group Name</th>
+        <th>Balance</th>
+    </tr>
+    
+<?php
+    $groupRecords = $this->groupRecords;
+    
+    foreach ($groupRecords as $groupName => $balance) {
+         echo "<tr>";
+         echo "<td>";
+         ?>
+         <a href="<?php echo $this->url(
+            array(
+                'module' => 'finance',
+                'controller' => 'reports',
+                'action' => 'ledgersbygroup',
+                'group_name' => $groupName
+                ), 'default', true
+            );?>"><?php echo $this->escape($groupName); ?></a>
+         <?php
+         echo "</td>";
+         echo "<td class='text_align_right'>".$this->escape($balance)."</td>";
+         echo "</tr>";
+    }
+?>
+   
+</table>

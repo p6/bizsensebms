@@ -1,0 +1,13 @@
+<h2>Create product</h2>
+<a href="<?php echo $this->url(array(
+                    'module' => 'default', 
+                    'controller' => 'product'), NULL, true); ?>">
+                    Products</a>
+<?php
+    $this->dojoLayer('common');
+    $this->headTitle('Create product');
+?>
+<div id="form">
+   <?php echo $this->form; ?>
+</div>
+<div class="div_clear"></div>

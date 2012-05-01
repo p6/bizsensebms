@@ -1,0 +1,36 @@
+<h2>Lead Status</h2>
+<?php
+    $this->headTitle('Lead status');
+	echo $this->message;
+
+	$leadStatus = $this->paginator;
+?>
+<div id="form">
+   <?php echo $this->form; ?>
+</div>
+
+	<a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'lead', 'action' => 'addstatus'), NULL, true);?>">Add Lead Status</a>
+	<table class="data_table">
+		<tr><th class="short">Lead Status</th><th class="mediumshort">Description</th><th class="tinyshort">Action</th></tr>
+<?php	foreach ($leadStatus as $row): ?> 
+		<tr><td> <?php echo $this->escape($row->name); ?>
+		</td><td><?php echo $this->escape($row->description); ?>
+		</td><td><?php $leadStatusId = $row->lead_status_id; ?>
+		<a href="<?php echo $this->url(array(
+                'module'        =>  'default', 
+                'controller'    => 'lead', 
+                'action'        => 'editstatus', 
+                'lead_status_id'  => $leadStatusId
+            )
+        ); ?>">Edit</a>,
+		<a href="<?php echo $this->url(array(
+                'module'        => 'default', 
+                'controller'    => 'lead', 
+                'action'        => 'deletestatus', 
+                'lead_status_id'  => $leadStatusId
+            )
+        );?>">Delete</a>
+		</td>
+        </tr>
+<?php endforeach; ?>
+	</table>

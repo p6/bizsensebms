@@ -1,0 +1,123 @@
+<h2>Trial Balance</h2>
+
+<?php
+    $this->headTitle('Trial Balance');
+    $acl = $this->acl;    
+?>
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'reports',
+        'action' => 'index',
+    ), 'default', true
+);?>">Reports</a> |
+<?php endif; ?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'reports',
+        'action' => 'csvexporttrialbalance',
+        'ledger_id' => $this->ledgerId
+    ), 'default', true
+);?>">Export to csv</a> |
+<?php endif; ?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'reports',
+        'action' => 'pdftrialbalance',
+        'ledger_id' => $this->ledgerId
+    ), 'default', true
+);?>">Export to pdf</a>
+<?php endif; ?>
+
+
+<fieldset class="fieldset_properties">
+    <legend>
+        <img src="/images/design/search.png"></li>
+                     Search
+     </legend>
+        <?php echo $this->form; ?>
+</fieldset>
+
+<?php
+    $result = $this->balance;
+?>
+
+<table class="data_table">
+    <tr>
+        <th>Name</th>
+        <th>Debit</th>
+        <th>Credit</th>
+    </tr>
+<?php
+   $totalDebit = 0;
+   $totalCredit = 0;
+?>
+<?php
+    for($i = 0; $i <= sizeof($result)-1; $i += 1) {
+        echo "<tr>";
+        echo "<td>";
+        echo $this->ledgerHyperlink($this->escape($result[$i]['fa_ledger_id']));
+        echo "</td>";
+                        
+        switch ($result[$i]['balance_type']) {
+            case Core_Model_Finance_Ledger::LEDGER_BALANCE_TYPE_DEBIT :
+                echo "<td class='text_align_right'>".
+                        $this->escape($result[$i]['balance'])."</td>";
+                echo "<td class='text_align_right'>0</td>";
+                $totalDebit = $totalDebit + $result[$i]['balance'];
+            break;
+            
+            case Core_Model_Finance_Ledger::LEDGER_BALANCE_TYPE_CREDIT :
+                echo "<td class='text_align_right'>0</td>";
+                echo "<td class='text_align_right'>".
+                        $this->escape($result[$i]['balance'])."</td>";
+                $totalCredit = $totalCredit + $result[$i]['balance'];
+            break;
+            
+            case Core_Model_Finance_Ledger::LEDGER_BALANCE_TYPE_DEBITCREDIT :
+                if ($result[$i]['balance'] < 0) {
+                    echo "<td class='text_align_right'>".
+                            $this->escape($result[$i]['balance']). "</td>";
+                    echo "<td class='text_align_right'>0</td>";
+                    $totalDebit = $totalDebit + $result[$i]['balance'];
+                }
+                else {
+                    echo "<td class='text_align_right'>0</td>";
+                    echo "<td class='text_align_right'>".
+                            $this->escape($result[$i]['balance']).  "</td>";
+                    $totalCredit = $totalCredit + $result[$i]['balance'];
+                }   
+            break;
+        }
+        echo "</tr>";
+    }
+?>
+
+</table>
+<h3>
+<?php
+    $result = $this->total;
+    $balance = $result['debit'] - $result['credit'];
+    
+    if ($balance > 0) {
+        echo "Opening Balance Difference = ".$balance." Dr";
+        $totalDebit += $balance; 
+    }
+    else {
+        echo "Opening Balance Difference = ".$balance." Cr";
+        $totalCredit += $balance; 
+    }
+?>
+</h3>
+
+<h3> Total Debit = <?php echo $this->escape($totalDebit); ?> </h3>
+
+<h3> Total Credit = <?php echo $this->escape($totalCredit); ?> </h3>
+

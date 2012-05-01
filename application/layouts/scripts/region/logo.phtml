@@ -1,0 +1,13 @@
+<?php
+    $db =  $this->db = Zend_Registry::get('db');
+    $logoPath = $db->fetchOne("SELECT logo FROM organization_details");
+    if ($logoPath) {
+        $pathInfo = pathinfo($logoPath);
+        $file = $pathInfo['filename'] .  "." . $pathInfo['extension'];
+    } else {
+        $file = "binary-vibes-bizsense-default.png";
+    }    
+?>
+<a href="/">
+<img src="/files/logo/<?php echo $file; ?>" alt="Binary Vibes BizSense" width="100" height="70" />
+</a>

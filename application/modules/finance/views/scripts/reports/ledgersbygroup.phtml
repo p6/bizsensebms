@@ -1,0 +1,62 @@
+<?php
+    echo "<h2>Ledgers Under ".$this->groupName."</h2>";
+?>
+
+<?php
+    $this->headTitle('Ledgers By Group Wise');
+?>
+<p>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'reports',
+        'action' => 'index',
+    ), 'default', true
+);?>">Reports</a>
+|
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'reports',
+        'action' => 'groupwisesummary',
+    ), 'default', true
+);?>">Group Wise Summary</a>
+</p>
+
+<table class="data_table">
+    <tr>
+        <th>Ledger Name</th>
+        <th>Balance</th>
+    </tr>
+<?php
+    $result = $this->ledgerDetails;
+    $totalBalance = $this->totalBalance;
+   
+    for($i = 0; $i <= sizeof($result)-1; $i += 1) {
+        echo "<tr>";
+        echo "<td>";
+        echo $this->ledgerHyperlink($result[$i]['fa_ledger_id']);
+        echo "</td>";
+      
+        if ($result[$i]['balance'] > 0) {
+           echo "<td class='text_align_right'>".
+                    $this->escape($result[$i]['balance'])." Cr"."</td>"; 
+        }
+        else {
+           echo "<td class='text_align_right'>".
+                        $this->escape($result[$i]['balance'])." Dr"."</td>"; 
+        }
+        echo "</tr>";
+    }
+   
+?>
+</table>
+
+<?php
+    echo "Group Total Balance = ";
+    if ($totalBalance > 0) {
+       echo "<b>".$this->escape($totalBalance)." Cr</b>"; 
+    } else {
+       echo "<b>".$this->escape($totalBalance)." Dr</b>"; 
+    }
+?>

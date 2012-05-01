@@ -1,0 +1,238 @@
+<h2>Finance</h2>
+<?php
+    $this->headTitle('Finance');
+    $acl = $this->acl;    
+?>
+
+<div id="icon_settings">
+<table>
+        <tr>
+            <td>
+            <?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+                <a href="<?php echo $this->url(
+                    array(
+                        'module' => 'finance',
+                        'controller' => 'group',
+                        'action' => 'index',
+                        ), 'default', true
+                    );?>">
+                    <img style="margin-top:15px;margin-right:20px;" 
+                        src="/images/design/users.png" 
+                        alt="Groups" title="Groups" border="0"/>
+                    Groups</a> 
+            <?php endif; ?>
+            </td>
+        
+            <td>
+            <?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>            
+                <a href="<?php echo $this->url(
+                    array(
+                        'module' => 'finance',
+                        'controller' => 'ledger',
+                        'action' => 'index',
+                        ), 'default', true
+                    );?>">
+                    <img style="margin-top:15px;margin-right:20px;" 
+                        src="/images/design/ledger.png" 
+                        alt="Ledgers" title="Ledgers" border="0"/>
+                    Ledgers</a>
+            <?php endif; ?>                    
+            </td>
+        
+            <td>
+            <?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+                <a href="<?php echo $this->url(
+                    array(
+                        'module' => 'finance',
+                        'controller' => 'tax',
+                        'action' => 'listtype'
+                    ), 'default', true); ?>">
+                    <img style="margin-top:15px;margin-right:20px;" 
+                        src="/images/design/users.png" 
+                        alt="Tax" title="Tax" border="0"/>Tax</a>
+            <?php endif; ?>
+            </td>
+       
+            <td>
+             <?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+                 <a href="<?php echo $this->url(
+                    array(
+                        'module' => 'finance',
+                        'controller' => 'bankaccount',
+                        'action' => 'index'
+                    ), 'default', true); ?>">
+                    <img style="margin-top:15px;margin-right:20px;" 
+                        src="/images/design/bank.png" 
+                        alt="Bank Account" title="Bank Account" border="0"/>
+                    Bank Account</a>
+            <?php endif; ?>                    
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+             <?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>             
+                 <a href="<?php echo $this->url(
+                    array(
+                        'module' => 'finance',
+                        'controller' => 'cashaccount',
+                        'action' => 'index'
+                    ), 'default', true); ?>">
+                    <img style="margin-top:15px;margin-right:20px;" 
+                        src="/images/design/cash_account.png" 
+                        alt="Cash Account" title="Cash Account" border="0"/>
+                    Cash Account</a>
+            <?php endif; ?>                    
+            </td>
+       
+            <td>
+             <?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>             
+                 <a href="<?php echo $this->url(
+                    array(
+                        'module' => 'finance',
+                        'controller' => 'receipt',
+                        'action' => 'index'
+                    ), 'default', true); ?>">
+                    <img style="margin-top:15px;margin-right:20px;" 
+                        src="/images/design/cash_receipt.png" 
+                        alt="Receipt" title="Receipt" border="0"/>
+                    Receipt</a>
+            <?php endif; ?>                                    
+            </td>
+       
+            <td>
+            <?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+                <a href="<?php echo $this->url(
+                    array(
+                        'module' => 'finance',
+                        'controller' => 'purchase',
+                        'action' => 'index'
+                    ), 'default', true); ?>">
+                     <img style="margin-top:15px;margin-right:20px;" 
+                        src="/images/design/purchase.png" 
+                        alt="Purchase" title="Purchase" border="0"/>
+                    Purchase</a>
+            <?php endif; ?>
+            </td>
+       
+            <td>
+            <?php if ($acl->isAllowed($this->currentUser, 'administer purchase')): ?>
+                  <a href="<?php echo $this->url(
+                    array(
+                        'module' => 'default',
+                        'controller' => 'purchasereturn',
+                        'action' => 'index',
+                        ), 'default', true
+                    ); ?>">
+                    <img style="margin-top:15px;margin-right:20px;" 
+                        src="/images/design/purchase_return.png" 
+                        alt="Purchase Return" title="Purchase Return" border="0"/>
+                    Purchase Return</a>
+            <?php endif; ?>
+            </td>
+       </tr>
+       
+       
+       <tr>
+            <td>
+            <?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+                  <a href="<?php echo $this->url(
+                    array(
+                        'module' => 'finance',
+                        'controller' => 'payment',
+                        'action' => 'index'
+                    ), 'default', true); ?>">
+                    <img style="margin-top:15px;margin-right:20px;" 
+                        src="/images/design/cash_account.png" 
+                        alt="Payment" title="Payment" border="0"/>
+                    Payment</a>
+            <?php endif; ?>
+            </td>
+            
+            <td>
+                <?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+                   <a href="<?php echo $this->url(
+                    array(
+                        'module' => 'finance',
+                        'controller' => 'payslip',
+                        'action' => 'index'
+                    ), 'default', true); ?>">
+                    <img style="margin-top:15px;margin-right:20px;" 
+                        src="/images/design/payslip.png" 
+                        alt="Payslip" title="Payslip" border="0"/>
+                    Payslip</a>
+                <?php endif; ?>                    
+            </td>
+            
+            <td>
+                <?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>                
+                <a href="<?php echo $this->url(
+                    array(
+                        'module' => 'finance',
+                        'controller' => 'reports',
+                        'action' => 'index'
+                    ), 'default', true); ?>">
+                    <img style="margin-top:15px;margin-right:20px;" 
+                        src="/images/design/report.png" 
+                        alt="Reports" title="Reports" border="0"/>
+                    Reports</a>
+                <?php endif; ?>                
+            </td>
+            
+            <td>
+                <?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>                
+                <a href="<?php echo $this->url(
+                    array(
+                        'module' => 'finance',
+                        'controller' => 'currency',
+                        'action' => 'index'
+                    ), 'default', true); ?>">
+                    <img style="margin-top:15px;margin-right:20px;" 
+                        src="/images/design/currency.png" 
+                        alt="Currency" title="Currency" border="0"/>
+                    Currency</a>
+                <?php endif; ?>                
+            </td>
+            
+       </tr>
+       
+       <tr>
+            <td>
+                <?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>                
+                  <a href="<?php echo $this->url(
+                    array(
+                        'module' => 'finance',
+                        'controller' => 'financeyear',
+                        'action' => 'index'
+                    ), 'default', true); ?>">
+                    <img style="margin-top:15px;margin-right:20px;" 
+                        src="/images/design/payslip.png" 
+                        alt="Finance Year" title="Finance Year" border="0"/>
+                    Finance Year</a>
+                    <?php endif; ?>
+            </td>
+      
+            <td>
+                <?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>                
+                  <a href="<?php echo $this->url(
+                    array(
+                        'module' => 'finance',
+                        'controller' => 'ledger',
+                        'action' => 'closeaccounts'
+                    ), 'default', true); ?>">
+                    <img style="margin-top:15px;margin-right:20px;" 
+                        src="/images/design/close.png" 
+                        alt="Close All Accouts" title="Close All Accouts" border="0"/>
+                    Close All Accouts</a>
+                    <?php endif; ?>
+            </td>
+       </tr>
+</table>
+
+</div>
+
+
+
+
+
+

@@ -1,0 +1,127 @@
+<h1>Invoices</h1>
+<?php
+    $this->headTitle('Invoices');
+    $acl = $this->acl;
+    $user = $this->currentUser;
+?>
+
+<?php if ($acl->isAllowed($user,'create invoices')): ?>   
+    <a href="<?php echo $this->url(
+        array(
+            'module' => 'default',
+            'controller' => 'invoice',
+            'action' => 'create',
+            ), 'default', true
+    ); ?>">Create product invoice</a>
+<?php endif; ?>
+|
+<?php if ($acl->isAllowed($user,'create invoices')): ?>   
+    <a href="<?php echo $this->url(
+        array(
+            'module' => 'default',
+            'controller' => 'invoice',
+            'action' => 'createserviceinvoice',
+            ), 'default', true
+    ); ?>">Create service invoice</a>
+<?php endif; ?>
+|
+<?php if ($acl->isAllowed($user,'administer invoices')): ?>   
+    <a href="<?php echo $this->url(
+        array(
+            'module' => 'default',
+            'controller' => 'invoice',
+            'action' => 'settings',
+            ), 'default', true
+    ); ?>">Settings</a>
+<?php endif; ?>
+
+<fieldset class="fieldset_properties">
+    <legend>
+        <img src="/images/design/search.png"></li>
+                     Search
+     </legend>
+        <?php echo $this->form; ?>
+</fieldset>
+
+
+<?php if (count($this->paginator)): ?>
+<p>
+    Total invoices : <?php echo $this->paginator->getAdapter()->count(); ?>
+</p>
+
+<table class="data_table">
+    <tr>
+        <th class="">Date<?php echo $this->sortButtons("date"); ?></th>
+        <th class="tinycell">Amount</th>
+        <th class="tinycell">Party</th>
+        <th class="tinycell">Type</th>
+        <th class="tinycell">Action</th>
+    </tr>
+
+<?php foreach ($this->paginator as $item): ?>
+<tr>
+    <td>
+    <?php 
+        $itemArray = $item->toArray(); 
+        $invoiceId = $itemArray['invoice_id'];
+        echo $this->timestampToHuman($itemArray['date']);
+    ?>
+    </td>
+    <td><?php echo $this->invoiceTotal($invoiceId); ?></td>
+    <td><?php echo $this->partyHyperlink($itemArray['to_type'], 
+                                        $itemArray['to_type_id']); ?></td>
+    <td><?php 
+             if ($itemArray['invoice_type'] == 1) {
+                echo "Service";
+             }
+             else {
+                echo "Product";
+             }
+         ?>
+    </td>
+    <td>
+        <?php
+              if ($itemArray['invoice_type'] == 1) { 
+        ?>
+        <?php if ($acl->isAllowed($user,'view invoices')): ?> 
+              <a href="<?php echo $this->url(
+                array(
+                    'module' => 'default',
+                    'controller' => 'invoice',
+                    'action' => 'serviceinvoicedetails',
+                    'invoice_id' => $invoiceId,
+                ), 'default', true
+            ); ?>">Details</a>
+            <?php endif; ?>
+         <?php }
+             else { ?>
+             <?php if ($acl->isAllowed($user,'view invoices')): ?> 
+              <a href="<?php echo $this->url(
+                array(
+                    'module' => 'default',
+                    'controller' => 'invoice',
+                    'action' => 'viewdetails',
+                    'invoice_id' => $invoiceId,
+                ), 'default', true
+            ); ?>">Details</a>
+            <?php endif; ?>
+         <?php }  ?>
+    </td>
+</tr>
+
+<?php endforeach; ?>
+<?php endif; ?>
+</table>
+
+<?php
+        if ($this->wasSearched and !count($this->paginator)) {
+            echo "<br />There are no records matching the search criteria";
+        }
+?>
+<div class="pagination">
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'search.phtml'); ?>
+</div>
+<div class="div_clear"></div>
+
+
+

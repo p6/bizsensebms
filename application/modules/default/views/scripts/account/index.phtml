@@ -1,0 +1,130 @@
+<h2>Accounts</h2>  
+<?php 
+    $this->headTitle('Accounts');
+    $this->dojoLayer('common');
+    $acl = $this->acl;
+    $this->headScript()->appendFile('/js/BizSense/SavedSearch/Crud.js'); 
+?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'create accounts')): ?>
+<a href="<?php 
+    echo $this->url(
+        array(
+            'module' => 'default', 
+            'controller' => 'account', 
+            'action' => 'create'
+        )
+    ); ?>">Create Account</a> 
+<?php endif; ?>
+<?php if ($acl->isAllowed($this->currentUser, 'create accounts')): ?>
+&nbsp;|&nbsp;
+<a href="<?php 
+    echo $this->url(
+        array(
+            'module' => 'default', 
+            'controller' => 'account', 
+            'action' => 'import'
+        )
+    ); ?>">Import</a> 
+<?php endif; ?>
+
+<fieldset class="fieldset_properties">
+    <legend>
+        <img src="/images/design/search.png"></li>
+                     Search
+    </legend>
+    <?php echo $this->form; ?>
+    
+    <?php //echo $this->savedSearchJs(Core_Model_SavedSearch::TYPE_ACCOUNT); ?>
+</fieldset>
+ 
+<div class="clearing"> </div>  
+<?php if (count($this->paginator)): ?>
+<p>
+Total accounts : <?php echo $this->paginator->getAdapter()->count(); ?>
+</p>
+
+<table class="data_table">
+    <tr>
+        <th class="short">
+            Account Name <?php echo $this->sortButtons("accountName"); ?>
+        </th>
+        <th class="tiny_cell">
+            City<?php echo $this->sortButtons("billingCity"); ?>
+        </th>
+        <th class="tiny_cell">
+            Phone<?php echo $this->sortButtons("phone"); ?>
+        </th>
+        <th class="short">
+            Assigned To<?php echo $this->sortButtons("assignedTo"); ?>
+        </th>
+        <th class="short">
+            Branch<?php echo $this->sortButtons("branch"); ?>
+        </th>
+        <th class="short">
+            Action
+        </th>
+    </tr>
+
+    <?php foreach ($this->paginator as $item): ?>
+        <?php 
+            $itemArray = $item->toArray(); 
+            $accountId = $this->escape($itemArray['account_id']);
+        ?>
+        <tr>
+            <td>
+                <?php echo $this->escape($itemArray['account_name']); ?>
+            </td>
+            <td>
+                <?php echo $this->escape($itemArray['billing_city']); ?>
+            </td>
+            <td>
+                <?php echo $this->escape($itemArray['phone']); ?>
+            </td>
+            <td>
+                <?php echo $this->userHyperlink(
+                            $this->escape($itemArray['assigned_to'])); ?>
+            </td>
+            <td>
+                <?php echo $this->escape($itemArray['branch_name']); ?>
+            </td>
+            <td>
+               <a href="
+                <?php echo $this->url(
+                    array(
+                        'module' => 'default', 
+                        'controller' => 'account', 
+                        'action' => 'viewdetails', 
+                        'account_id' => $this->escape($itemArray['account_id']),
+                    ), 'default', true); ?>">Details</a>
+                <?php 
+                    $assertion = new Core_Model_Account_Acl_CanEdit($accountId);
+                    if ($this->acl->isAllowed(
+                            $this->currentUser, null, $assertion
+                            )
+                        ) {
+                        echo '| <a href="' . $this->url(
+                            array(
+                                'module' => 'default',
+                                'controller' => 'account',
+                                'action' => 'edit',
+                                'account_id' => $accountId,
+                            ), 'default', true) . '">Edit</a>';
+                        }
+                ?>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+</table>
+<?php endif; ?>
+
+<?php
+    if ($this->wasSearched and !count($this->paginator)) {
+        echo "<br />There are no records matching the search criteria";
+    }
+?>
+
+<div class="pagination">
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'search.phtml'); ?>
+</div>
+<div class="div_clear"></div>

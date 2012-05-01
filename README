@@ -1,0 +1,62 @@
+-----------------------------------------------------------------------------------
+Binary Vibes BizSense
+http://bizsense.binaryvibes.co.in
+-----------------------------------------------------------------------------------
+
+
+-----------------------------------------------------------------------------------
+System requirement
+-----------------------------------------------------------------------------------
+1. php-5.2.x or above with php-pdo
+2. mysql-5.x or above
+3. Apache http server with mod_rewrite enabled and overriding options enabled
+
+-----------------------------------------------------------------------------------
+Installation:
+-----------------------------------------------------------------------------------
+1. Point your web server Document Root to public_html
+2. provide write permission to application/config directory
+3. provide write permission application/data directory
+4. Visit http://example.com/install . Replace replace example.com with your actual domain name
+4a. You can also install from the command line. 
+    Copy the myInstallerValuesDist.php to myInstallerValues.php
+    Edit myInstallerValues.php in dev/scripts/Install/ 
+    Provide execute permission to dev/scripts/Install/Install.php
+    Invoke dev/scripts/Install/Install.php
+5. You will be asked to provide a MySQL username, password with connection info
+
+Installation issues:
+1. If you are unable to install, make sure 
+application.install.status = 0
+in application/config/config.ini
+
+
+-----------------------------------------------------------------------------------
+You can contribute to the project by 
+1. Writning code
+2. Writing documentation
+3. Helping members of the community on forums, IRC and mailing lists.
+4. Donating funds and sponsoring new features and fixes for existing issues
+-----------------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------------
+Help and support
+-----------------------------------------------------------------------------------
+Commercial support and consulting services available from Binary Vibes.
+Visit http://binaryvibes.co.in
+
+Join #bizsense on irc.freenode.net
+Subscribe to http://groups.google.com/group/bizsense
+Google Project Hosting URL: http://code.google.com/p/bizsense/
+Community site: http://bizsense.binaryvibes.co.in/
+Binary Vibes BizSense blog: http://binaryvibes.co.in/category/bms/bizsense
+
+
+-----------------------------------------------------------------------------------
+LICENSE: GNU GPL V 3, refer to the file license
+-----------------------------------------------------------------------------------
+
+
+
+
+

@@ -1,0 +1,72 @@
+<h2>Service Product</h2>
+<?php
+    $this->headTitle('Service Product');
+    $acl = $this->acl;    
+?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access service pages')): ?>
+<a href="<?php echo $this->url(array(
+            'module' => 'default',
+            'controller' => 'serviceproduct',
+            'action' => 'create'
+           ), NULL, true); ?>">Create 
+</a> 
+<?php endif; ?>
+<?php if (count($this->paginator)): ?>
+
+<table class="data_table">
+    <tr>
+        <th>Item Name</th>
+        <th>Active</th>
+        <th>Taxable</th>
+        <th>Action</th>
+    </tr>
+    
+<?php foreach ($this->paginator as $item): ?>
+<?php
+    $item = $item->toArray();
+?>
+<tr>
+    <td><?php echo $this->escape($item['name']); ?></td>
+    <td><?php 
+            if ($item['active']) {
+                 echo "active"; 
+            }
+            else {
+               echo "deactive"; 
+            }
+           
+        ?>
+    </td>
+    <td><?php 
+           if ($item['tax_type_id']) {
+                 echo "Taxable "; 
+            }
+            else {
+               echo "Not Taxable"; 
+            }
+         ?>
+    </td>
+    <td>  
+         <a href="<?php 
+            echo $this->url(
+            array(
+                'module' => 'default',
+                'controller' => 'serviceproduct',
+                'action' => 'viewdetails',
+                'service_item_id' => $item['service_item_id']
+           ), NULL, true); ?>">View Details 
+        </a>        
+    </td>
+</tr>
+<?php endforeach; ?>
+</table>
+
+<?php endif; ?>
+
+<div class="pagination">
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'search.phtml'); ?>
+</div>
+<div class="div_clear"></div>
+
+

@@ -1,0 +1,15 @@
+<h2>Add Lead Source</h2>
+<?php
+    $this->headTitle('Add Lead Source');
+?>
+
+<a href="<?php echo $this->url(array(
+        'module'        => 'default',
+        'controller'    => 'leadsource',
+        'action'        => 'index'
+        )); ?>">Lead source</a>
+        
+<div id="form">
+   <?php echo $this->form; ?>
+</div>
+<div class="div_clear"></div>

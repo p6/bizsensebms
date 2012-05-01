@@ -1,0 +1,17 @@
+<h2>Create Ledger Entries</h2>
+<?php
+    $this->headTitle('Create Ledger Entries');
+?>
+
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'ledger',
+        'action' => 'index',
+    ), 'default', true
+);?>">Ledgers</a>
+
+<div id="form">
+    <?php  echo $this->form; ?>
+</div>
+<div class="div_clear"></div>

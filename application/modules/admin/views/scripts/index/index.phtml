@@ -1,0 +1,243 @@
+<h2>BizSense Administration</h2>
+<?php
+    $this->headTitle('BizSense Administration');
+    $user = $this->currentUser;
+    $acl = $this->acl;
+?>
+
+<div id="icon_settings">
+    <table>
+        <tr>
+            <td>
+                <?php if ($acl->isAllowed($user, 'administer bizsense')): ?>
+                <a class="icon" href="<?php echo $this->url(
+                    array(
+                        'module' => 'default', 
+                        'controller' => 'user', 
+                        'action' => 'users'
+                        ), null, true
+                    ); ?>">
+                    <img style="margin-top:15px;margin-right:20px;" 
+                        src="/images/design/users.png" 
+                        alt="users" title="users" border="0"/>
+                    <span> Users </span></a>
+                    <?php endif; ?>
+                    
+             <td>
+                <?php if ($acl->isAllowed($user, 'administer bizsense')): ?>
+                    <a class="icon" href="<?php echo $this->url(
+                            array(
+                                'module' => 'default', 
+                                'controller' => 'user', 
+                                'action' => 'roles'
+                                ), null, true
+                            ); ?>">
+                    <img style="margin-top:15px;margin-right:20px;" 
+                    src="/images/design/roles.png" 
+                    alt="roles" title="roles" border="0"/>
+                    <span>Roles</span></a>
+                <?php endif; ?>
+             </td>
+        
+             <td>
+                <?php if ($acl->isAllowed($user, 'access organization pages')): ?>    
+                    <a class="icon" href="<?php echo $this->url(
+                        array(
+                           'module' => 'admin', 
+                           'controller' => 'org', 
+                           'action' => 'viewdetails'
+                        ), null, true
+                        ); ?>">
+                    <img style="margin-top:15px;margin-right:20px;" 
+                    src="/images/design/organization_details.png" 
+                    alt="Organization" title="Organization" border="0"/>
+                    <span>Organization</span></a>
+                <?php endif; ?>
+             </td>
+         
+             <td>
+                <?php if ($acl->isAllowed($user, 'access branch pages')): ?>
+                    <a class="icon" href="<?php echo $this->url(
+                            array(
+                                'module' => 'admin', 
+                                'controller' => 'branch', 
+                                'action' => 'index'
+                                ), null, true
+                            ); ?>">
+                    <img style="margin-top:15px;margin-right:20px;" 
+                    src="/images/design/branch.png" 
+                    alt="Branch offices" title="Branch offices" border="0"/>
+                    <span>Branch offices</span></a>
+                <?php endif; ?>
+             </td>
+       
+             <td>
+                <?php if ($acl->isAllowed($user, 'administer bizsense')): ?>    
+                    <a class="icon" href="<?php echo $this->url(
+                        array(
+                            'module' => 'admin', 
+                            'controller' => 'timezone', 
+                            'action' => 'index'
+                            ), null, true
+                         ); ?>">
+                    <img style="margin-top:15px;margin-right:20px;" 
+                    src="/images/design/time_zone.png" 
+                    alt="Timezone" title="Timezone" border="0"/>
+                    <span>Timezone</span></a>
+                <?php endif; ?>
+             </td>
+         
+         </tr>
+         
+         <tr>
+            <td>
+                <?php if ($acl->isAllowed($user, 'administer bizsense')): ?>
+                    <a class="icon" href="<?php echo $this->url(
+                        array(
+                            'module' => 'admin', 
+                            'controller' => 'email', 
+                            'action' => 'index'
+                            ), null, true
+                        ); ?>">
+                    <img style="margin-top:15px;margin-right:20px;" 
+                    src="/images/design/email_settings.png" 
+                    alt="Email settings" title="Email settings" border="0"/>
+                    <span>Email settings</span></a>
+                    <?php endif; ?>
+            </td>
+            
+            <td>
+                <?php if ($acl->isAllowed($user, 'administer bizsense')): ?>
+                    <a class="icon" href="<?php echo $this->url(
+                        array(
+                            'module' => 'admin', 
+                            'controller' => 'siteinfo', 
+                            'action' => 'index'
+                         ), null, true
+                        ); ?>">
+                    <img style="margin-top:15px;margin-right:20px;" 
+                    src="/images/design/site_information.png" 
+                    alt="Site information" title="Site information" border="0"/>
+                    <span>Site information</span></a>
+                <?php endif; ?>
+            </td>
+            
+            <td>
+                <?php if ($acl->isAllowed($user, 'administer bizsense')): ?>
+                    <a class="icon" href="<?php echo $this->url(
+                        array(
+                            'module' => 'admin', 
+                            'controller'=> 'salutation', 
+                            'action' => 'index'
+                            ), null, true
+                        ); ?>">
+                    <img style="margin-top:15px;margin-right:20px;" 
+                    src="/images/design/salutation.png" 
+                    alt="Salutation" title="Salutation" border="0"/>
+                    <span>Salutation</span></a>
+                <?php endif; ?>
+            </td>
+            
+            <td>
+                 <?php if ($acl->isAllowed($user, 'administer bizsense')): ?>
+                    <a class="icon" href="<?php echo $this->url(
+                        array(
+                            'module' => 'admin', 
+                            'controller' => 'salesstage', 
+                            'action' => 'index'
+                            ), null, true
+                        ); ?>">
+                    <img style="margin-top:15px;margin-right:20px;" 
+                    src="/images/design/sales_stage.png" 
+                    alt="Sales stage" title="Sales stage" border="0"/>
+                    <span>Sales stage</span></a>
+                <?php endif; ?>
+            </td>
+            
+            <td>
+                 <?php if ($acl->isAllowed($user, 'administer bizsense')): ?>
+                    <a class="icon" href="<?php echo $this->url(
+                        array(
+                         'module' => 'admin', 
+                         'controller' => 'status', 
+                         'action' => 'index'
+                        ), null, true
+                    ); ?>">
+                    <img style="margin-top:15px;margin-right:20px;" 
+                    src="/images/design/bizsense_status.png" 
+                    alt="BizSense status" title="BizSense status"  border="0"/>
+                    <span>BizSense status</span></a>
+                <?php endif; ?>
+
+            </td>
+         </tr>
+         
+         <tr>                    
+            <td>
+                 <?php if ($acl->isAllowed($user, 'administer bizsense')): ?>
+                    <a class="icon" href="<?php echo $this->url(
+                            array(
+                                'module' => 'admin', 
+                                'controller' => 'webservice', 
+                                'action' => 'index'
+                                ), null, true
+                            ); ?>">
+                    <img style="margin-top:15px;margin-right:20px;" 
+                    src="/images/design/web_services.png" 
+                    alt="Web services" title="Web services" border="0"/>
+                    <span>Web services</span></a>
+                <?php endif; ?>
+            </td>
+            
+            <td>
+                <?php if ($acl->isAllowed($user, 'administer bizsense')): ?>
+                    <a class="icon" href="<?php echo $this->url(
+                        array(
+                            'module' => 'admin', 
+                            'controller' => 'cache', 
+                            'action' => 'clear'
+                            ), 'default', true
+                        ); ?>">
+                    <img style="margin-top:15px;margin-right:20px;" 
+                    src="/images/design/clear_chache.png" 
+                    title="clear chache" border="0"/>
+                    <span>Clear Cache</span></a>
+                <?php endif; ?>
+            </td>
+            
+            <td>
+                <?php if ($acl->isAllowed($this->currentUser, 'access product pages')): ?>
+                    <a class="icon" href="<?php echo $this->url(
+                        array(
+                            'module' => 'default', 
+                            'controller' => 'product', 
+                            'action' => 'index'
+                            ), 'default', true
+                        ); ?>">
+                    <img style="margin-top:15px;margin-right:20px;" 
+                    src="/images/design/product.png" 
+                    title="clear chache" border="0"/>
+                    <span>Products</span></a>
+                <?php endif; ?>
+            </td>
+            
+            <td>
+                <?php if ($acl->isAllowed($this->currentUser, 'access product pages')): ?>
+                    <a class="icon" href="<?php echo $this->url(
+                        array(
+                            'module' => 'default', 
+                            'controller' => 'serviceproduct', 
+                            'action' => 'index'
+                            ), 'default', true
+                        ); ?>">
+                    <img style="margin-top:15px;margin-right:20px;" 
+                    src="/images/design/services_product.png" 
+                    title="clear chache" border="0"/>
+                    <span>Service Items</span></a>
+                <?php endif; ?>
+            </td>
+            
+
+         </tr>
+    </table>
+</div>

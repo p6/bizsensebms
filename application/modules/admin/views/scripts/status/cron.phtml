@@ -1,0 +1,26 @@
+<h2>Cron Status</h2>
+<?php
+    $this->headTitle('Cron Status');
+    $acl = $this->acl;    
+?>
+<?php if ($acl->isAllowed($this->currentUser, 'administer bizsense')): ?>
+<a href="<?php echo $this->url(array(
+            'module' => 'admin',
+            'controller' => 'index',
+            'action' => 'index'
+           ), null, true); ?>">Administration</a>
+<?php endif; ?>           
+<br/>
+<?php
+    $result = (int) $this->result;
+    if ($result != Core_Model_CronStatus::CORE_SERVICE_CRON_LOCK) {
+        echo "Current Cron Status : <b>Unlocked</b>";
+    }else {
+        echo "Current Cron Status : <b> Locked </b>.","<br/>";
+        $form = $this->form;
+        echo $form; 
+    }
+    
+?>
+
+<div class="div_clear"></div>

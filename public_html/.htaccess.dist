@@ -1,0 +1,45 @@
+#If a file exists in the requested URI it will be served
+# Otherwise the request will be rounted to index.php
+# We also set the environment varaiable value - development
+# In production the application environment will be set to 'production'
+# In development the application environment will be set to 'development'
+
+SetEnv APPLICATION_ENV development
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} -s [OR]
+RewriteCond %{REQUEST_FILENAME} -l [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^.*$ - [NC,L]
+RewriteRule ^.*$ index.php [NC,L]
+
+<Files binary-vibes-bizsense-default.png>
+     Header set Expires "Thu, 15 Apr 2020 20:00:00 GMT"
+</Files>
+
+<Files header_bg.png>
+     Header set Expires "Thu, 15 Apr 2020 20:00:00 GMT"
+</Files>
+
+<Files dropdown_menu_bg.png>
+     Header set Expires "Thu, 15 Apr 2020 20:00:00 GMT"
+</Files>
+
+<Files dropdown_menu_hover.png>
+     Header set Expires "Thu, 15 Apr 2020 20:00:00 GMT"
+</Files>
+<Files menu.css>
+     Header set Expires "Thu, 15 Apr 2020 20:00:00 GMT"
+</Files>
+
+<Files bizsense.css>
+     Header set Expires "Thu, 15 Apr 2020 20:00:00 GMT"
+</Files>
+
+<Files jsonstore>
+     Header set Cache-Control "max-age=172800, public, must-revalidate"
+</Files>
+
+<Files branch>
+     Header set Cache-Control "max-age=172800, public, must-revalidate"
+</Files>
+

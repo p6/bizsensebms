@@ -1,0 +1,19 @@
+<h2>Site Footer</h2>
+<?php
+    $this->headTitle('Footer');
+    echo  $this->message;
+    $acl = $this->acl;
+?>
+<?php if ($acl->isAllowed($this->currentUser, 'administer bizsense')): ?>
+<a href="<?php echo $this->url(array(
+        'module'        =>  'admin',
+        'controller'    =>  'index',
+        'action'        =>  'index',
+    ), null, true
+); ?>">Administer</a>
+<?php endif; ?>
+<br />
+
+<div id="form">
+   <?php echo $this->form; ?>
+</div>  

@@ -1,0 +1,60 @@
+<h2>Sales</h2>
+<?php
+   $acl = $this->acl;
+   $this->headTitle('Sales');
+?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access lead pages')): ?>
+<a href="<?php echo $this->url(array(
+    'module'    =>'default', 
+    'controller'=>'lead',
+    'action'    =>'index'
+    )
+  , null, true); ?>">Lead</a>
+<?php endif; ?>
+
+<div class="clearing"> </div>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access opportunity pages')): ?>
+<a href="<?php echo $this->url(array(
+    'module'    =>'default', 
+    'controller'=>'opportunity',
+    'action'    =>'index'
+    )
+  , null, true); ?>">Opportunity</a>
+<?php endif; ?>
+
+
+<div class="clearing"> </div>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access quote pages')): ?>
+<a href="<?php echo $this->url(array(
+    'module'    =>'default', 
+    'controller'=>'quote',
+    'action'    =>'index'
+    )
+  , null, true); ?>">Quote</a>
+<?php endif; ?>
+
+<div class="clearing"> </div>
+<?php if ($acl->isAllowed($this->currentUser, 'access invoice pages')): ?>
+<a href="<?php echo $this->url(array(
+    'module'    =>'default', 
+    'controller'=>'invoice',
+    'action'    =>'index'
+    )
+  , null, true); ?>">Invoice</a>
+<?php endif; ?>
+
+<div class="clearing"> </div>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access salesreturn page')): ?>
+<a href="<?php echo $this->url(array(
+    'module'    =>'default', 
+    'controller'=>'salesreturn',
+    'action'    =>'index'
+    )
+  , null, true); ?>">Sales Return</a>
+<?php endif; ?>
+<div class="clearing"> </div>
+

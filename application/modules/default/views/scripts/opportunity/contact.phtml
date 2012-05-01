@@ -1,0 +1,24 @@
+<?php
+    $this->headTitle('Account\'s Opportunities');
+    $contactId = $this->escape($this->contactId);
+    $opportunity = $this->opportunity;
+?>
+<h2>Opportunity of this Account</h2>
+<table class="data_table">
+<tr>
+    <th>Opportunity name</th>
+    <th>Amount</th>
+    <th>Description</th>
+</tr>
+<tr>
+<?php foreach($opportunity as $row) { ?>
+
+<td> <?php echo $this->escape($row['name']); ?>  </td>
+<td> <?php echo $this->escape($row['amount']); ?>  </td>
+<td> <?php echo $this->escape($row['description']); ?> </td>
+
+<?php  
+    } 
+?>
+</tr>
+</table>

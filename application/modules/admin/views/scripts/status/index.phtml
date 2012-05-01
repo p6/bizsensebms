@@ -1,0 +1,96 @@
+<h2>BizSense status</h2>
+<?php
+    $this->headTitle('BizSense status');
+    $acl = $this->acl;
+?>
+<?php if ($acl->isAllowed($this->currentUser, 'administer bizsense')): ?>
+<div id="admin_status">
+<table>
+    <tr>
+        <td>
+            <?php if ($acl->isAllowed($this->currentUser, 'administer bizsense')): ?>
+             <a class="icon" href="<?php echo $this->url(
+                  array(
+                     'module' => 'admin',
+                     'controller' => 'index',
+                     'action' => 'index'
+                   ), 'default', true
+                  ); ?>">
+             <img src="/images/design/admin.png" 
+                  title="Administration" border="0"/>
+             <span>Administration</span></a>
+            <?php endif; ?>
+        </td>
+        <td>
+            <?php if ($acl->isAllowed($this->currentUser, 'administer bizsense')): ?>
+             <a class="icon" href="<?php echo $this->url(
+                  array(
+                     'module' => 'admin',
+                     'controller' => 'status',
+                     'action' => 'cron'
+                   ), 'default', true
+                  ); ?>">
+             <img src="/images/design/cron.png" 
+                  title="Cron Status" border="0"/>
+             <span>Cron Status</span></a>
+            <?php endif; ?>
+        </td>
+        
+        <td>
+            <?php if ($acl->isAllowed($this->currentUser, 'administer bizsense')): ?>
+            <a href="<?php echo $this->url(array(
+                'module'    =>'admin', 
+                'controller'=>'status',
+                'action'    =>'viewlog'
+                )
+             , null, true); ?>">
+             <img style="margin-top:5px;margin-right:20px;" 
+                  src="/images/design/log.png" 
+                  title="View log" border="0"/>
+             View log</a>
+            <?php endif; ?>  
+        </td>
+
+        <td>
+            <a href="<?php echo $this->url(array(
+                'module'    =>'admin', 
+                'controller'=>'status',
+                'action'    =>'filepermission'
+                )
+             , null, true); ?>">
+             <img src="/images/design/file_permission.png" 
+                  title="File Permission" border="0"/><br/>
+             File Permission</a>
+            <?php endif; ?>  
+        </td>
+    
+        
+  </tr>          
+</table>
+</div>
+
+<table class="data_table">
+    <tr><td>BizSense Version</td>
+        <td>
+        <?php  
+            $variable = new Core_Model_Variable('version');
+            echo $variable->getValue();
+        ?>
+        </td>
+    </tr>
+    
+    <tr>
+        <td>PHP Version</td>
+        <td><?php echo PHP_VERSION; ?></td>
+    </tr>
+    
+    <tr>
+        <td>Operating system</td>
+        <td><?php echo PHP_OS; ?></td>
+    </tr>
+    
+    <tr>
+        <td>Web server</td>
+        <td><?php echo PHP_SAPI; ?></td>
+    </tr>
+</table>

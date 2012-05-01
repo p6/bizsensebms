@@ -1,0 +1,121 @@
+<h1>Meeting details</h1>
+<?php
+    $this->headTitle('View meeting details');
+    $this->headScript()->appendFile('/js/BizSense/Crud.js');   
+    
+    $meetingDetails = $this->meeting;
+    $meetingAttendees = $this->meetingAttendees;
+    $acl = $this->acl;    
+?>
+
+<div class="clearing"> </div>
+<?php if ($acl->isAllowed($this->currentUser, 'access meeting pages')): ?>
+<a href="<?php echo $this->url(array(
+        'module'        => 'activity',
+        'controller'    => 'meeting',
+        'action'        => 'index'
+        )); ?>">Meetings</a>
+&nbsp;| &nbsp;
+<?php endif; ?>
+
+<?php if  ($acl->isAllowed($this->currentUser, 'delete all meetings')): 
+    $deleteUrl = $this->url(
+                    array(
+                        'module' => 'activity',
+                        'controller' => 'meeting',
+                        'action' => 'delete'
+                    )
+                );
+                echo $this->deleteButton($deleteUrl); 
+ endif; ?>
+|
+
+<?php if ($acl->isAllowed($this->currentUser, 'edit all meetings')): ?>
+<a href="<?php echo $this->url(array(
+        'module'        => 'activity',
+        'controller'    => 'meeting',
+        'action'        => 'edit'
+        )); ?>">Edit</a>
+&nbsp;|&nbsp;
+<?php endif; ?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access meeting pages')): ?>
+<a href="<?php echo $this->url(array(
+        'module'        => 'activity',
+        'controller'    => 'meeting',
+        'action'        => 'notes'
+        )); ?>">Notes</a>
+<?php endif; ?>
+
+
+<table class="data_table">
+   <tr>
+        <td>Title</td>
+        <td><?php echo $this->escape($meetingDetails['name']); ?></td>
+   </tr>
+   
+   <tr>
+        <td>Start date</td>
+        <td><?php echo $this->escape($this->timestampToHuman(
+                                            $meetingDetails['start_date'])); ?>
+        </td>
+   </tr>
+   
+   <tr>
+        <td>End date</td>
+        <td><?php echo $this->escape($this->timestampToHuman(
+                                            $meetingDetails['end_date']));  ?>
+        </td>
+   </tr>
+   
+   <tr>
+        <td>Status</td>
+        <td><?php echo $this->escape($meetingDetails['statusname']); ?></td>
+   </tr>
+   
+   <tr>
+        <td>Meeting venue</td>
+        <td><?php echo $this->escape($meetingDetails['venue']); ?></td>
+   </tr>
+   
+   <tr>
+        <td>Assigned to</td>
+        <td><?php echo $this->escape($meetingDetails['email']); ?></td>
+   </tr>
+   
+   <tr>
+        <td>Created on</td>
+        <td><?php echo $this->escape($this->timestampToHuman(
+                                              $meetingDetails['created'])); ?>
+        </td>
+   </tr>
+   
+   <tr>
+        <td>Created by</td>
+        <td><?php echo $this->escape($meetingDetails['createdby']); ?></td>
+   </tr>
+   
+   <tr>
+        <td>Description</td>
+        <td><?php echo $this->escape($meetingDetails['description']); ?></td>
+   </tr>
+   
+   <tr>
+        <td>Meeting Attendees</td>
+        <td>
+        <?php
+         if($meetingAttendees != null){
+            foreach($meetingAttendees as $meetingArray) {
+                $attendeeName = $meetingArray['first_name'] . 
+                            " " . $meetingArray['middle_name'] .
+                            " " . $meetingArray['last_name'];
+                echo $this->escape($attendeeName) .",<br />"; 
+            }
+        } else {
+            echo "-";
+        }
+        ?>
+       </td>
+  </tr>
+</table>
+

@@ -1,0 +1,41 @@
+<h2>Activity</h2>
+<?php
+   $acl = $this->acl;
+   $this->headTitle('Activity');
+?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access task pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'activity',
+        'controller'=> 'task',
+        'action' => 'index'
+    ), null, true
+); ?> ">Task</a>
+<?php endif; ?>
+
+<div class="clearing"> </div>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access call pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'activity',
+        'controller' => 'call',
+        'action' => 'index'
+    ), null, true
+); ?> ">Call</a>
+<?php endif; ?>
+
+<div class="clearing"> </div>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access meeting pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'activity',
+        'controller' => 'meeting',
+        'action' => 'index'
+    ), null, true
+); ?>">Meeting</a>
+<?php endif; ?>
+
+<div class="clearing"> </div>

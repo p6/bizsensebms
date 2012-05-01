@@ -1,0 +1,200 @@
+<h2>Purchase Register</h2>
+
+<?php
+    $this->headTitle('Purchase Register');
+    $acl = $this->acl;
+?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'reports',
+        'action' => 'index',
+    ), 'default', true
+);?>">Reports</a> |
+<?php endif; ?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'reports',
+        'action' => 'csvexportpurchaseregistry',
+    ), 'default', true
+);?>">Export to csv</a> |
+<?php endif; ?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'reports',
+        'action' => 'pdfpurchaseregistry',
+    ), null, true
+);?>">Export to pdf</a> |
+<?php endif; ?>
+
+
+<table class="data_table">
+    <tr>
+        <th>Date</th>
+        <th>Particulars</th>
+        <th>Type</th>
+        <th>Id</th>
+        <th>Debit Amount</th>
+        <th>Credit Amount</th>
+    </tr>
+<?php
+    $purchaseDetails = $this->purchaseDetails;
+    for($p = 0; $p <= sizeof($purchaseDetails)-1; $p += 1) {
+?>
+ <tr>
+        <td>
+            <?php 
+                echo $this->escape(
+                        $this->timestampToHuman($purchaseDetails[$p]['date'])); 
+            ?>
+        </td>
+        <td>
+            <?php 
+                echo $this->escape(
+                     $this->vendorHyperlink($purchaseDetails[$p]['vendor_id']));
+            ?>
+        </td>
+        <td> Purchase </td>
+        <td>
+            <a href="<?php echo $this->url(
+                array(
+                'module' => 'finance',
+                'controller' => 'purchase',
+                'action' => 'viewdetails',
+                'purchase_id' => $purchaseDetails[$p]['purchase_id'],
+                ), '', true
+            ); ?>"><?php echo $this->escape(
+                            $purchaseDetails[$p]['purchase_id']);?></a>
+        </td>
+        
+       <?php
+         $invoiceModel = new Core_Model_Finance_Purchase(
+                                    $purchaseDetails[$p]['purchase_id']);
+         $totalAmount = $invoiceModel->getTotalAmount();
+         echo "<td class='text_align_right'>".$totalAmount."</td>"; 
+         $items = $invoiceModel->getItems();
+         $totalPrice = 0;
+         $tax_types = array ();
+         $ledgerEntryIds = array ();
+         $taxTypeModel = new Core_Model_Tax_Type;
+         for($i = 0; $i <= sizeof($items)-1; $i += 1) {
+           if($items[$i]['tax_type_id'] != '0') {
+                $taxName = 
+                     $taxTypeModel->getTaxNameFromId($items[$i]['tax_type_id']);
+                if (!(in_array($taxName, $tax_types))) { 
+                    array_push($tax_types, $taxName);
+                }
+            }
+         }
+        echo "<td class='text_align_right'>";
+        for ($tax = 0; $tax <= sizeof($tax_types)-1; $tax += 1) {
+            $totalTaxAmount = 0;
+            for($i = 0; $i <= sizeof($items)-1; $i += 1) {
+                $taxName = 
+                     $taxTypeModel->getTaxNameFromId($items[$i]['tax_type_id']);
+                if($taxName == $tax_types[$tax])
+                {
+                   $price = $items[$i]['unit_price'] * $items[$i]['quantity'];
+                   $taxPercentage = $taxTypeModel->getTaxPercentageFromId(
+                                                     $items[$i]['tax_type_id']);
+                   $taxAmount = ($price * $taxPercentage) /  100 ;
+                   $totalTaxAmount = $totalTaxAmount + $taxAmount;                   
+                }
+            }
+            if ($tax_types[$tax]) {
+                echo $tax_types[$tax]." - ".$totalTaxAmount."<br/>";
+            }
+            else {
+                 echo $totalTaxAmount."<br/>";
+            }
+         }
+         echo "</td>";
+       ?>
+       
+ <?php } //end of for purchase loop?>
+ 
+ <?php
+    $purchaseReturnDetails = $this->purchaseReturnDetails;
+    for($pr = 0; $pr <= sizeof($purchaseReturnDetails)-1; 
+                                                     $pr += 1) {
+ ?>
+     <tr>
+        <td>
+            <?php echo $this->timestampToHuman(
+                                $purchaseReturnDetails[$pr]['date']); ?>
+        </td>
+        <td>
+            <?php 
+                $purchaseModel = new Core_Model_Finance_Purchase(
+                                    $purchaseReturnDetails[$pr]['purchase_id']);
+                $purchaseReturnRecord = $purchaseModel->fetch();
+                echo $this->vendorHyperlink($purchaseReturnRecord['vendor_id']);
+            ?>
+        </td>
+        <td> Purchase Return </td>
+        <td>
+        <a href="<?php echo $this->url(
+            array(
+                'module' => 'default',
+                'controller' => 'purchasereturn',
+                'action' => 'viewdetails',
+                'sales_return_id' => 
+                        $purchaseReturnDetails[$pr]['purchase_return_id'],
+            ), 'default', true
+        ); ?>"><?php echo $purchaseReturnDetails[$pr]['purchase_return_id'];?></a>
+        </td>
+        
+       <?php
+         $purchaseReturnModel = new Core_Model_PurchaseReturn(
+                        $purchaseReturnDetails[$pr]['purchase_return_id']);
+         $totalAmount = $purchaseReturnModel->getTotalAmount();
+         echo "<td class='text_align_right'>".$totalAmount."</td>"; 
+         $items = $purchaseReturnModel->getItems();
+         $totalPrice = 0;
+         $tax_types = array ();
+         $ledgerEntryIds = array ();
+         $taxTypeModel = new Core_Model_Tax_Type;
+         for($i = 0; $i <= sizeof($items)-1; $i += 1) {
+           if($items[$i]['tax_type_id'] != '0') {
+                $taxName = 
+                     $taxTypeModel->getTaxNameFromId($items[$i]['tax_type_id']);
+                if (!(in_array($taxName, $tax_types))) { 
+                    array_push($tax_types, $taxName);
+                }
+            }
+         }
+        echo "<td class='text_align_right'>";
+        for ($tax = 0; $tax <= sizeof($tax_types)-1; $tax += 1) {
+            $totalTaxAmount = 0;
+            for($i = 0; $i <= sizeof($items)-1; $i += 1) {
+                $taxName = 
+                     $taxTypeModel->getTaxNameFromId($items[$i]['tax_type_id']);
+                if($taxName == $tax_types[$tax])
+                {
+                   $price = $items[$i]['unit_price'] * $items[$i]['quantity'];
+                   $taxPercentage = $taxTypeModel->getTaxPercentageFromId(
+                                                     $items[$i]['tax_type_id']);
+                   $taxAmount = ($price * $taxPercentage) /  100 ;
+                   $totalTaxAmount = $totalTaxAmount + $taxAmount;                   
+                }
+            }
+            if ($tax_types[$tax]) {
+                echo $tax_types[$tax]." - ".$totalTaxAmount."<br/>";
+            }
+            else {
+                 echo $totalTaxAmount."<br/>";
+            }
+         }
+         echo "</td>";
+       ?>
+       
+ <?php } //end of for salesReturn loop?>
+</table>

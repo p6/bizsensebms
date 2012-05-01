@@ -1,0 +1,76 @@
+<h1>Ledger Wise Summary</h1>
+
+<?php
+    $this->headTitle('Ledger Wise Summary');
+    $acl = $this->acl;
+?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'reports',
+        'action' => 'index',
+    ), 'default', true
+);?>">Reports</a> |
+<?php endif; ?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'reports',
+        'action' => 'csvexportledgerwisesummary',
+        'action' => $this->ledgerId
+    ), 'default', true
+);?>">Export to csv</a> |
+<?php endif; ?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'reports',
+        'action' => 'pdfexport',
+        'action' => $this->ledgerId
+    ), null, true
+);?>">Export to pdf</a>
+<?php endif; ?>
+
+
+<fieldset class="fieldset_properties">
+    <legend>
+        <img src="/images/design/search.png"></li>
+                     Search
+     </legend>
+        <?php echo $this->form; ?>
+</fieldset>
+
+<table class="data_table">
+    <tr>
+        <th>Ledger Name</th>
+        <th>Balance</th>
+    </tr>
+    
+<?php
+    $result = $this->summary;
+   
+    for($i = 0; $i <= sizeof($result)-1; $i += 1) {
+        echo "<tr>";
+        echo "<td>";
+        echo $this->ledgerHyperlink($this->escape($result[$i]['fa_ledger_id']));
+        echo "</td>";
+        
+        $totalBalance = $result[$i]['balance'];
+        if ($totalBalance > 0) {
+           echo "<td class='text_align_right'>".$this->escape($totalBalance)." Cr"."</td>"; 
+        }
+        else {
+           echo "<td class='text_align_right'>".$this->escape($totalBalance)." Dr"."</td>"; 
+        }
+        echo "</tr>";
+    }
+   
+?>
+   
+</table>

@@ -1,0 +1,65 @@
+<h2>Quotes</h2>
+<?php
+    $this->headTitle('Quotes');
+    $acl = $this->acl;
+?>
+
+<?php if  ($acl->isAllowed($this->currentUser, 'create quotes')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'default',
+        'controller' => 'quote',
+        'action' => 'create',
+    ), 'default', true
+);?>">Create</a>
+<?php endif; ?>
+| 
+<?php if  ($acl->isAllowed($this->currentUser, 'administer quotes')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'default',
+        'controller' => 'quotestatus',
+        'action' => 'index',
+    ), 'default', true
+);?>">Quote Status</a>
+<?php endif; ?>
+<?php if (count($this->paginator)): ?>
+
+<table class="data_table">
+    <tr>
+        <th>Subject<?php echo $this->sortButtons("subject"); ?></th>
+        <th>Created<?php echo $this->sortButtons("created"); ?></th>
+        <th>Assigned To<?php echo $this->sortButtons("assigned_to"); ?></th>
+        <th>Action</th>
+    </tr>
+    
+<?php foreach ($this->paginator as $item): ?>
+<?php
+    $item = $item->toArray();
+?>
+    <tr>
+        <td><?php echo $this->escape($item['subject']); ?></td>
+        <td><?php echo 
+              $this->timestampToHuman($this->escape($item['created'])); ?></td>
+        <td><?php echo 
+              $this->userHyperlink($this->escape($item['assigned_to'])); ?></td>
+        <td>
+           <a href="<?php echo $this->url(array(
+                'module'        =>  'default', 
+                'controller'    =>  'quote', 
+                'action'        =>  'viewdetails',
+                'quote_id' => $item['quote_id']
+                )); ?>">Details</a>
+        </td>
+    </tr>
+<?php endforeach; ?>
+</table>
+
+<?php endif; ?>
+
+<div class="pagination">
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'search.phtml'); ?>
+</div>
+<div class="div_clear"></div>
+
+

@@ -1,0 +1,106 @@
+<?php
+    $this->headTitle('Products');
+    $acl = $this->acl;
+    $user = $this->currentUser;
+?>
+
+<h1>Products</h1>
+
+<?php echo $this->form; ?>
+
+<div class="clearing">
+</div>
+
+<?php if ($acl->isAllowed($user,'create products')): ?>
+    <a href="<?php echo $this->url(
+            array(
+                'module' => 'default',
+                'controller' => 'product',
+                'action' => 'create'
+            ), 'default', true); ?>">Create</a>
+<br /> <br />
+<?php endif; ?>
+
+<?php if (count($this->paginator)): ?>
+
+    <table class="data_table">
+        <tr>
+            <th>Item name<?php echo $this->sortButtons("service_name"); ?></th>
+            <th>Taxable</th>
+            <th>subscribable<?php echo $this->sortButtons("subscribable"); ?></th>
+            <th>Active<?php echo $this->sortButtons("active"); ?></th>
+            <th>Action</th>
+        </tr>
+
+<?php foreach ($this->paginator as $item): ?>
+
+<?php
+    $itemValues = $item->toArray();
+?>
+    <tr>
+<?php
+    $serviceItemId = $itemValues['product_id'];
+?>
+         <td>
+            <?php echo $this->escape($itemValues['name']); ?>
+        </td>
+
+        <td>
+            <?php 
+                if ($itemValues['taxable'] == 1) {
+                    echo 'Taxable';
+                } else {
+                    echo 'Not taxable';
+                }               
+            ?>
+        </td>
+        <td>
+            <?php
+                if ($itemValues['subscribable'] == 1) {
+                    echo 'Subscribable';
+                } else {
+                    echo 'Not Subscribable';
+                }
+            ?>
+        </td>
+        <td>
+            <?php
+                if ($itemValues['active'] == 1) {
+                    echo 'Active';
+                } else {
+                    echo 'Inactive';
+                }
+            ?>
+        </td>
+
+        <td>
+            <?php if($acl->isAllowed($user,'view products')): ?>
+                <?php echo "<a href=\"" .
+                    $this->url(array(
+                        'module' => 'default',
+                        'controller' => 'product',
+                        'action' => 'viewdetails',
+                        'product_id' => $serviceItemId)) . "\">Details</a>";
+                ?>
+            <?php endif; ?>
+
+            <?php if($acl->isAllowed($user,'edit products')): ?>
+                <?php echo ", <a href=\"" .
+                    $this->url(array(
+                        'module' => 'default',
+                        'controller' => 'product',
+                        'action' => 'edit',
+                        'product_id' => $serviceItemId)) . "\">Edit</a>";
+                ?>
+            <?php endif; ?>
+        </td>
+      </tr>
+<?php endforeach; ?>
+</table>
+<?php endif; ?>
+
+<div class="pagination">
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'search.phtml'); ?>
+</div>
+<div class="div_clear"></div>
+

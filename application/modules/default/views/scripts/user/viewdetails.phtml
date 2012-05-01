@@ -1,0 +1,177 @@
+<h2>User details</h2>
+<?php
+    $acl = $this->acl;
+    $this->headTitle('User details');
+    $userData = $this->userData;
+    $memberOfRoles = $this->memberOfRoles;
+?>
+<?php  if ($acl->isAllowed($this->currentUser, 'list users')): ?>
+<a href="<?php
+    echo $this->url(array(
+        'module'        =>  'default',
+        'controller'    =>  'user',
+        'action'        =>  'users',     
+    ), null, true);
+?>">Users</a> |
+<?php endif; ?>
+
+<?php  if ($acl->isAllowed($this->currentUser, 'access profile pages')): ?>
+<a href="<?php
+    echo $this->url(array(
+        'module'        =>  'default',
+        'controller'    =>  'user',
+        'action'        =>  'editprofile',
+        'user_id'       =>  $this->escape($userData->user_id),     
+    ), null, true);
+?>">Edit profile</a> |
+<?php endif; ?>
+
+<?php  if ($acl->isAllowed($this->currentUser, 'administer users')): ?>
+<a href="<?php
+    echo $this->url(array(
+        'module'        =>  'default',
+        'controller'    =>  'user',
+        'action'        =>  'edit',
+        'user_id'       =>  $this->escape($userData->user_id),     
+    ), null, true);
+?>">Edit roles</a> |
+<?php endif; ?>
+
+<?php  if ($acl->isAllowed($this->currentUser, 'administer users')): ?>
+<a href="<?php
+    echo $this->url(array(
+        'module'        =>  'default',
+        'controller'    =>  'user',
+        'action'        =>  'add',
+    ), null, true);
+
+?>">Create user</a> |
+<?php endif; ?>
+
+<?php 
+    $profileModel = new Core_Model_User_Profile($userData->user_id);
+    if ($profileModel->ledgerExists() != 1) {
+?>
+
+<?php  if ($acl->isAllowed($this->currentUser, 'administer users')): ?>
+<a href="<?php echo $this->url(array(
+            'module' => 'default',
+            'controller' => 'user',
+            'action' => 'initializeledger',
+            'user_id' => $this->escape($userData->user_id),
+            ), 'default', true
+        );?>">View Ledger</a> |
+<?php
+    endif; 
+    } else {
+     $ledgerId = $profileModel->getLedgerId();
+?>
+
+<?php  if ($acl->isAllowed($this->currentUser, 'administer users')): ?>
+<a href="<?php echo $this->url(
+        array(
+        'module' => 'finance',
+        'controller' => 'ledger',
+        'action' => 'entries',
+        'fa_ledger_id' => $this->escape($ledgerId)
+        ), 'default', true
+    );?>">View Ledger</a> 
+<?php 
+    endif;
+    } 
+?>
+
+<table class="data_table">
+    <tr>
+        <td>Email</td>
+        <td><?php echo $this->escape($userData->email); ?></td>
+    </tr>
+    <tr>
+        <td>Username</td>
+        <td><?php echo $this->escape($userData->username); ?></td>
+    </tr>
+    <tr>
+        <td>Status</td>
+        <td><?php if ($userData->status) {
+                    echo "Active"; 
+                  } else {
+                     echo "Blocked"; } 
+             ?>
+        </td>
+    </tr>
+    <tr>
+        <td>Date created</td>
+        <td>
+        <?php 
+                $created = $userData->created;
+                $created = $this->timestampToHuman($created);
+                echo $this->escape($created); 
+        ?>
+        </td>
+    </tr>
+    <tr>
+        <td>First name </td>
+        <td><?php echo $this->escape($userData->first_name); ?></td>
+    </tr>
+    
+    <tr>
+        <td>Middle name </td>
+        <td><?php echo $this->escape($userData->middle_name); ?></td>
+    </tr>
+    
+    <tr>
+        <td>Last name </td>
+        <td><?php echo $this->escape($userData->last_name); ?></td>
+    </tr>
+    
+    <tr>
+        <td>Work phone </td>
+        <td><?php echo $this->escape($userData->work_phone); ?></td>
+    </tr>
+    
+    <tr>
+        <td>Home phone </td>
+        <td><?php echo $this->escape($userData->home_phone); ?></td>
+    </tr>
+    
+    <tr>
+        <td>Personal Email</td>
+        <td><?php echo $this->escape($userData->personal_email); ?></td>
+    </tr>
+    
+    <tr>
+        <td>Mobile phone </td>
+        <td><?php echo $this->escape($userData->mobile); ?></td>
+    </tr>
+    
+    <tr>
+        <td>Branch</td>
+        <td><?php echo $this->escape($userData->branch_name); ?></td>
+    </tr>
+    
+    <tr>
+        <td>Reports to</td>
+        <td><?php echo $this->escape($userData->reportsToEmail); ?></td>
+    </tr>
+    
+    <tr>
+        <td>Primary role</td>
+        <td><?php echo $this->escape($userData->primaryRoleName); ?></td>
+    </tr>
+    
+    <tr><td>Member of roles</td>
+        <td>
+            <?php 
+                #echo ''; 
+                foreach ($memberOfRoles as $memberRole) {
+                    foreach ($memberRole as $key=>$value) {
+                        if ($key == 'name') {
+                           echo $this->escape($value) . "<br />";
+                        }    
+                    }    
+                }
+            ?>
+         </td>
+     </tr>
+
+</table>

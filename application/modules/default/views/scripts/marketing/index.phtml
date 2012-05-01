@@ -1,0 +1,65 @@
+<h2>Marketing</h2>
+<?php
+   $acl = $this->acl;
+   $this->headTitle('Marketing');
+?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'administer bizsense')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'default',
+        'controller'=> 'campaign',
+        'action' => 'index'
+    ), null, true
+); ?> ">Campaign</a>
+<?php endif; ?>
+
+<div class="clearing"> </div>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access newsletter pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'newsletter',
+        'controller' => 'index',
+        'action' => 'index'
+    ), null, true
+); ?> ">Newsletter</a>
+<?php endif; ?>
+
+<div class="clearing"> </div>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access newsletter pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'newsletter',
+        'controller' => 'list',
+        'action' => 'index'
+    ), null, true
+); ?>">Lists</a>
+<?php endif; ?>
+
+<div class="clearing"> </div>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access newsletter pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'newsletter',
+        'controller' => 'message',
+        'action' => 'index'
+    ), null, true
+); ?>">Messages</a>
+<?php endif; ?>
+
+<div class="clearing"> </div>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access newsletter pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'newsletter',
+        'controller' => 'settings',
+        'action' => 'index'
+    ), null, true
+); ?>">Settings</a>
+<?php endif; ?>
+
+<div class="clearing"> </div>

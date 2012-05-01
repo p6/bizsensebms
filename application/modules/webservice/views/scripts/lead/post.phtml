@@ -1,0 +1,13 @@
+<?php
+    if ($this->status) {
+        echo "Lead successfully added\n";
+    } else {
+        echo "Failed. The error messages are as below\n";
+        foreach ($this->message as $itemArray) {
+            foreach ($itemArray as $key=>$value) {
+                echo $key . " " . $value . "\n";
+            }
+        }
+
+    }
+?>

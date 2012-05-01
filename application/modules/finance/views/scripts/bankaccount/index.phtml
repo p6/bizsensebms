@@ -1,0 +1,106 @@
+<h2>Bank account</h2>
+
+<?php
+    $this->headTitle('Bank account');
+    $this->headScript()->appendFile('/js/BizSense/Crud.js'); 
+    $acl = $this->acl;
+?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'index',
+        'action' => 'index',
+    ), 'default', true
+);?>">Finance</a> |
+<?php endif; ?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'bankaccount',
+        'action' => 'create',
+    ), 'default', true
+);?>">Create</a>
+<?php endif; ?>
+
+<?php if (count($this->paginator)): ?>
+
+<table class="data_table">
+    <tr>
+        <th>Account Number<?php echo $this->sortButtons("accountNo"); ?></th>
+        <th>Bank Name<?php echo $this->sortButtons("bankName"); ?></th>
+        <th>Bank Branch</th>
+        <th>Ledger</th>
+        <th>Action</th>
+    </tr>
+    
+<?php foreach ($this->paginator as $item): ?>
+<?php
+    $item = $item->toArray();
+?>
+    <tr>
+        <td><?php echo $this->escape($item['account_no']); ?></td>
+        <td><?php echo $this->escape($item['bank_name']); ?></td>
+        <td><?php echo $this->escape($item['bank_branch']); ?></td>
+        <td>
+            <?php 
+              $BankAccountModel = new Core_Model_Finance_Bankaccount(
+                                                      $item['bank_account_id']);
+              $ledgerId = $this->escape($BankAccountModel->getLedgerId());
+            ?>
+            <a href="<?php echo $this->url(
+                array(
+                    'module' => 'finance',
+                    'controller' => 'ledger',
+                    'action' => 'entries',
+                    'fa_ledger_id' => $ledgerId,
+                ), 'default', true
+                );?>">View Ledger</a>
+        </td>
+        <td><a href="<?php echo $this->url(array(
+                'module'        =>  'finance', 
+                'controller'    =>  'bankaccount', 
+                'action'        =>  'edit',
+                'bank_account_id' => $this->escape($item['bank_account_id'])
+                )); ?>">Edit |</a>
+                               
+                <?php  
+                   $deleteUrl = $this->url(
+                    array(
+                      'module' => 'finance',
+                      'controller' => 'bankaccount',
+                      'action' => 'delete',
+                      'bank_account_id' =>$this->escape($item['bank_account_id'])
+                    )
+                );
+                    echo $this->deleteButton($deleteUrl); 
+                ?>
+                |
+                <a href="<?php echo $this->url(array(
+                'module'        =>  'finance', 
+                'controller'    =>  'bankaccount', 
+                'action'        =>  'transaction',
+                'bank_account_id' => $this->escape($item['bank_account_id'])
+                )); ?>">Transaction |</a>
+                
+                <a href="<?php echo $this->url(array(
+                'module'        =>  'finance', 
+                'controller'    =>  'bankaccount', 
+                'action'        =>  'reconciliation',
+                'bank_account_id' => $this->escape($item['bank_account_id'])
+                )); ?>">Reconciliation</a>
+                </td>
+    </tr>
+<?php endforeach; ?>
+</table>
+
+<?php endif; ?>
+
+<div class="pagination">
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'search.phtml'); ?>
+</div>
+<div class="div_clear"></div>
+

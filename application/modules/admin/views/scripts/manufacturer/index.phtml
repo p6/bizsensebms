@@ -1,0 +1,41 @@
+<h1>Manufacturers</h1>
+<?php
+    $this->headTitle('Manufacturers');
+?>
+<a href="<?php echo $this->baseUrl() . "/admin/manufacturer/add"; ?>">Add Manufacturer</a>
+<br />
+    <table class="data_table">
+        <tr><th>Manufacturer</th><th>Description</th><th>Action</th></tr>
+        <?php
+            foreach ($this->paginator as $item){
+                echo "<tr>";
+                foreach($item as $key=>$value) {
+                    if ($key == "manufacturer_id") {
+                       $manufacturerId = $value;     
+                    } else {
+                        echo "<td>" . $this->escape($value) . "</td>";
+                    }
+                        
+                }
+                ?><td>
+                    <a href="<?php echo $this->url(array(
+                            'module'=>'admin',
+                            'controller'=>'manufacturer',
+                            'action'=>'edit',
+                            'manufacturer_id'=>$manufacturerId,
+                        ), null, true
+                    );?>">Edit</a>, 
+                    <a href="<?php echo $this->url(array(
+                            'module'=>'admin',
+                            'controller'=>'manufacturer',
+                            'action'=>'delete',
+                            'manufacturer_id'=>$manufacturerId,
+                        ), null, true
+                    );?>">Delete</a>
+
+                </td>
+                <?php
+                echo "</tr>";
+            }
+           ?>
+    </table>

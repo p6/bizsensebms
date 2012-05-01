@@ -1,0 +1,46 @@
+<h1>Lead Settings</h1>
+<?php
+    $this->headTitle('Lead settings');
+	echo $this->message;
+?>
+<div id="form">
+   <?php echo $this->form; ?>
+</div>
+<ul>
+<li>
+    <a href="<?php 
+        echo $this->url(
+            array(
+                'module' => 'default', 
+                'controller' => 'leadstatus', 
+                'action' => 'index'
+            ), 'default', true
+        ); ?>">Lead status
+    </a>
+</li>
+
+<li>
+    <a href="<?php echo $this->url(
+            array(
+                'module' => 'default', 
+                'controller' => 'leadsource', 
+                'action' => 'index'
+            )
+        );?>">Lead source
+    </a>
+</li>
+
+<li>
+    <a href="<?php echo $this->url(
+            array(
+                'module' => 'default', 
+                'controller' => 'lead', 
+                'action' => 'setdefaultassignee'
+            )
+        );?>">Default assignee
+    </a>
+</li>
+
+</ul>
+
+	

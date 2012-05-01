@@ -1,0 +1,22 @@
+<h2>Add Tax Type</h2>
+<?php
+    $this->headTitle('Add Tax Type');
+?>
+<a href="<?php echo $this->url(array(
+        'module'        =>  'finance',
+        'controller'    =>  'index',
+        'action'        =>  'index',
+    )); ?>">Finance</a> |
+<a href="<?php echo $this->url(array(
+        'module'        =>  'finance',
+        'controller'    =>  'tax',
+        'action'        =>  'listtype',
+    )); ?>">Tax Types</a>
+<?php
+    echo $this->message;
+?>
+<div id="form">
+    <?php  echo $this->form; ?>
+</div>
+<div class="div_clear"></div>
+

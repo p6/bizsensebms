@@ -1,0 +1,132 @@
+.menu {
+    width: 100%; 
+    height: 32px; 
+    position: relative; 
+    z-index: 100;
+    border:1px solid #9dc4ec;
+    background:url(/images/design/menu_bg.png) repeat-x;
+    font-family:Verdana,sans-serif;
+}
+
+/* remove all the bullets, borders and padding from the default list styling */
+.menu ul {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+.menu ul ul {
+    width: 149px;
+}
+
+/* float the list to make it horizontal and a relative positon so 
+    that you can control the dropdown menu positon */
+.menu li {
+    float: left;
+    width: 100px;
+    position: relative;
+}
+
+/* style the links for the top level */
+.menu a, .menu a:visited {
+    display:block;
+    font-size:12px;
+    text-decoration:none; 
+    color:#184580; 
+    width:88px; 
+    height:32px; 
+    border-right:1px solid #c1d3e5;   
+    border-width:1px 1px 1px 1px; 
+    padding-left:10px; 
+    line-height:29px; 
+    font-weight:bold;
+}
+/* a hack so that IE5.5 faulty box model is corrected */
+* html .menu a, * html .menu a:visited {width:149px; w\idth:138px;}
+*
+*/* style the second level background */
+.menu ul ul a.drop, .menu ul ul a.drop:visited {
+    background: url(/images/design/dropdown_menu_bg.png) repeat-x 130px center
+}
+/* style the second level hover */
+.menu ul ul a.drop:hover {
+    background: url(/images/design/dropdown_menu_hover.png) repeat-x 130px center;
+}
+.menu ul ul :hover > a.drop {
+    background: url(/images/design/dropdown_menu_hover.png) repeat-x 130px center;
+}
+/* style the third level background */
+.menu ul ul ul a, .menu ul ul ul a:visited {
+    background: url(/images/design/dropdown_menu_bg.png) repeat-x 130px center;
+}
+/* style the third level hover */
+.menu ul ul ul a:hover {
+    background: url(/images/design/dropdown_menu_hover.png) repeat-x 130px center;
+}
+
+
+/* hide the sub levels and give them a positon absolute so that they 
+    take up no room */
+.menu ul ul {
+    visibility:hidden;
+    position:absolute;
+    height:0;
+    top:31px;
+    left:0; 
+    width:149px;
+}
+/* another hack for IE5.5 */
+* html .menu ul ul {top:30px;t\op:31px;}
+*
+*/* position the third level flyout menu */
+.menu ul ul ul  {
+    left:149px; 
+    top:-1px; 
+    width:149px;
+}
+
+/* position the third level flyout menu for a left flyout */
+.menu ul ul ul.left {left:-149px;}
+
+/* style the table so that it takes no ppart in the
+    layout - required for IE to work */
+.menu table {position:absolute; top:0; left:0; border-collapse:collapse;;}
+
+/* style the second level links */
+.menu ul ul a, .menu ul ul a:visited {
+    background: url(/images/design/dropdown_menu_bg.png) repeat-x;  
+    height:auto; 
+    line-height:1em; 
+    padding:10px 10px; 
+    width:168px;
+    border-right:1px solid #9dc4ec;
+    border-left:1px solid #9dc4ec;
+    border-width:0 1px 1px 1px;
+}
+/* yet another hack for IE5.5 */
+* html .menu ul ul a, * html .menu ul ul a:visited {width:150px;w\idth:128px;}
+*
+*/* style the top level hover */
+.menu a:hover, .menu ul ul a:hover {
+    background: url(/images/design/dropdown_menu_hover.png) repeat-x; 
+    outline:none;
+}
+
+.menu :hover > a, .menu ul ul :hover > a {
+    background: url(/images/design/dropdown_menu_hover.png) repeat-x;  
+    outline:none;
+}
+
+/* make the second level visible when hover on first level list OR link */
+.menu ul li:hover ul,
+.menu ul a:hover ul {
+    visibility:visible; 
+}
+/* keep the third level hidden when you hover on first level list OR link */
+.menu ul :hover ul ul {
+    visibility:hidden;
+}
+/* make the third level visible when you hover over second level list OR link */
+.menu ul :hover ul :hover ul {
+     visibility:visible;
+}
+

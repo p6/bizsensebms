@@ -1,0 +1,46 @@
+<h1>Meeting List</h1>
+
+<?php
+    $this->headTitle('Meeting List');
+    $meetingList = $this->meetingList;
+?>
+<div class="clearing">
+</div>
+
+    <table class="data_table">
+        <tr>
+            <th class="short">Title<?php echo $this->sortButtons("name"); ?>
+                                                                          </th>
+            <th class="medium_short">Start date
+                        <?php echo $this->sortButtons("start_date"); ?></th>
+            <th class="medium_short">Assigned to</th>
+            <th class="short">Action</th>
+        </tr>
+<?php
+    foreach($meetingList as $meetingListArray) {
+        $fullName = $meetingListArray['first_name'] 
+            . " " . $meetingListArray["middle_name"] 
+            . " " . $meetingListArray["last_name"];
+        $meeting_id = $this->escape($meetingListArray['meeting_id']);
+?>
+        <tr>
+            <td><?php echo $this->escape($meetingListArray['name']); ?></td>
+            <td><?php echo $this->escape($meetingListArray['start_date']); ?>
+                                                                          </td>
+            <td><?php echo $this->escape($fullName); ?></td>
+            <td>
+                <a href="<?php
+                    echo $this->url(array(
+                        'module' => 'activity',
+                        'controller' => 'meeting',
+                        'action' => 'viewdetails',
+                        'meeting_id' => $meeting_id,
+                    ));
+                ?>"><span>View</span>
+                </a>
+        </td>
+<?php
+    }
+?>
+    </table>
+

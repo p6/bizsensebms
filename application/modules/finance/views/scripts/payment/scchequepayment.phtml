@@ -1,0 +1,20 @@
+<h2>Create Cheque Payment</h2>
+<?php
+    $this->headTitle('Create Cheque Payment');
+?>
+<p>
+
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'payment',
+        'action' => 'index',
+    ), 'default', true
+);?>">Payment</a> 
+
+</p>
+
+<div id="form">
+    <?php  echo $this->form; ?>
+</div>
+<div class="div_clear"></div>

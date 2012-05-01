@@ -1,0 +1,30 @@
+<h2>Reports</h2>
+
+<?php
+    $this->headTitle('Reports');
+    $acl = $this->acl;
+    $user = $this->currentUser;
+?>
+
+<ul>
+<?php if ($acl->isAllowed($user,'access lead reports')): ?>
+  <li>  <a href="/reports/lead">Lead Reports</a> </li>
+<?php endif; ?>
+
+<?php if ($acl->isAllowed($user,'access opportunity reports')): ?>
+<li>    <a href="/reports/opportunity">Opportunity Reports</a> </li>
+<?php endif; ?>
+
+<?php if ($acl->isAllowed($user,'access contact reports')): ?>
+<li>    <a href="/reports/contact">Contact Reports</a> </li>
+<?php endif; ?>
+
+<?php if ($acl->isAllowed($user,'access account reports')): ?>
+<li>    <a href="/reports/account">Account Reports</a> </li>
+<?php endif; ?>
+
+<?php if ($acl->isAllowed($user,'access quote reports')): ?>
+<li>    <a href="/reports/quote">Quote Reports</a> </li>
+<?php endif; ?>
+
+</ul>

@@ -1,0 +1,80 @@
+<?php
+    $this->headTitle('Tickets');
+    $acl = $this->acl;    
+?>
+
+<h2>Tickets</h2>
+<?php echo $this->form; ?>
+<div class="clearing">
+</div>
+
+<?php if  ($acl->isAllowed($this->currentUser, 'access ticket pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'ticket',
+        'controller' => 'index',
+        'action' => 'create'
+), NULL, true); ?>">Create</a> |
+<?php endif; ?>
+
+<?php if  ($acl->isAllowed($this->currentUser, 'access ticket pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'ticket',
+        'controller' => 'status',
+        'action' => 'index'
+), NULL, true); ?>">Ticket Statuses</a>
+<?php endif; ?>
+
+<?php if  ($acl->isAllowed($this->currentUser, 'access ticket pages')): ?>
+| <a href="<?php echo $this->url(
+    array(
+        'module' => 'ticket',
+        'controller' => 'settings',
+        'action' => 'defaultassignee'
+), NULL, true); ?>">Default Assignee</a>
+<?php endif; ?>
+<br /> <br />
+
+
+<?php if (count($this->paginator)): ?>
+
+<table class="data_table">
+    <tr>
+        <th>ID</th>
+        <th>Title<?php echo $this->sortButtons("title"); ?></th>
+        <th>Status<?php echo $this->sortButtons("status"); ?></th>
+        <th>Contact<?php echo $this->sortButtons("contact_id"); ?></th>
+        <th>Action</th>
+    </tr>
+<?php foreach ($this->paginator as $item): ?>
+<?php
+    $item = $item->toArray();
+?>
+    <tr>
+        <td><?php echo $this->escape($item['contact_id']); ?></td>
+        <td><?php echo $this->escape($item['title']); ?></td>
+        <td><?php echo $this->escape($item['ticket_status']); ?></td>
+        <td><?php echo $this->contactLinkById($item['contact_id']); ?></td>
+        <td><a href="<?php echo $this->url(
+                array
+                (
+                    'module' => 'ticket',
+                    'controller' => 'index',
+                    'action' => 'viewdetails',
+                    'ticket_id' => $item['ticket_id']
+                ), 'default', true
+            ); ?>">Details</a>
+         </td>
+    </tr>
+<?php endforeach; ?>
+</table>
+
+<?php endif; ?>
+
+<div class="pagination">
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'search.phtml'); ?>
+</div>
+<div class="div_clear"></div>
+
+

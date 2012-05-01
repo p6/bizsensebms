@@ -1,0 +1,19 @@
+<h2>Initialize Account Ledger</h2>
+<?php
+    $this->headTitle('Initialize Account Ledger');
+    $acl = $this->acl;    
+?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access opportunity pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'default',
+        'controller' => 'account',
+        'action' => 'index',
+    ), 'default', true
+);?>">Account</a>
+<?php endif; ?>
+
+<div id="form">
+   <?php echo $this->form; ?>
+</div>

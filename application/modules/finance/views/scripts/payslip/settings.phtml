@@ -1,0 +1,18 @@
+<h2>Payroll Settings</h2>
+
+<?php
+    $this->headTitle('Payroll Settings');
+?>
+
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'payslip',
+        'action' => 'index',
+    ), 'default', true
+);?>">Payroll</a>
+
+<div id="form">
+    <?php  echo $this->form; ?>
+</div>
+<div class="div_clear"></div>

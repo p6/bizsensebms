@@ -1,0 +1,72 @@
+<h1>Warehouses</h1>
+<?php
+    $warehouse = $this->warehouse;
+?>
+
+<a href="/admin/warehouse">Warehouses</a>
+<table id="data-table">
+    <tr>
+        <td>Warehouse</td>
+        <td><?php echo $warehouse->name; ?></td>
+    </tr>
+    
+    <tr>
+        <td>Address Line #1</td>
+        <td><?php echo $warehouse->addressLine1; ?></td>
+    </tr>
+    
+    <tr>
+        <td>Address Line #2</td>
+        <td><?php echo $warehouse->addressLine2; ?></td>
+    </tr>
+    
+    <tr>
+        <td>Address Line #3</td>
+        <td><?php echo $warehouse->addressLine3; ?></td>
+    </tr>
+    
+    <tr>
+        <td>Address Line #4</td>
+        <td><?php echo $warehouse->addressLine4; ?></td>
+    </tr>
+    
+    <tr>
+        <td>City</td>
+        <td><?php echo $warehouse->city; ?></td>
+    </tr>
+    
+    <tr>
+        <td>State</td>
+        <td><?php echo $warehouse->state; ?></td>
+    </tr>
+    
+    <tr>
+        <td>Country</td>
+        <td><?php echo $warehouse->country?></td>
+    </tr>
+    
+    <tr>
+        <td>Postal Code</td>
+        <td><?php echo $warehouse->postalCode?></td>
+    </tr>
+    
+    <tr>
+        <td>Phone</td>
+        <td><?php echo $warehouse->phone; ?></td>
+    </tr>
+    
+    <tr>
+        <td>Fax</td>
+        <td><?php echo $warehouse->fax?></td>
+    </tr>
+    
+    <tr>
+        <td>Branch</td>
+        <td><?php echo $warehouse->branchName?></td>
+    </tr>
+    
+    <tr>
+        <td>Incharge</td>
+        <td><?php echo $warehouse->email?></td>
+    </tr>
+</table>    

@@ -1,0 +1,51 @@
+<h1>Import leads</h1>
+<a class="download_button" href="/files/lead-import-sample.csv">
+Download a sample
+</a>
+<?php
+    $this->dojoLayer('common');
+    $this->headTitle('Import leads');
+
+if ($this->form) {
+    echo "<p>";
+    echo "The CSV file should contain the columns in the following order<br />";
+    ?>
+    <table class="data_table">
+      <tr>
+            <td>first_name </td>
+            <td>middle_name</td>
+            <td>last_name</td>
+            <td>company_name</td>
+            <td>home_phone</td>
+      </tr>
+      <tr>
+            <td>work_phone</td>
+            <td>mobile</td>
+            <td>fax</td>
+            <td>email</td>
+            <td>address_line_1</td>
+      </tr>
+      <tr>
+            <td>address_line_2</td>
+            <td>address_line_3</td>
+            <td>address_line_4</td>
+            <td>city</td>
+            <td>state</td>
+      </tr>
+      <tr>
+            <td>postal_code</td>
+            <td>country</td>
+            <td>description</td>
+            <td>do_not_call</td>
+            <td>email_opt_out</td>
+      </tr>
+    </table>
+    <?php
+    echo "<br /><br />Invalid rows will be silently dropped.";
+    echo "</p>";
+    echo "<div id='form'>";
+    echo $this->form;
+    echo "</div>";
+}
+?>
+<div class="div_clear"></div>

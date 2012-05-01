@@ -1,0 +1,34 @@
+<h2>Date Range Report</h2>
+<?php
+    $acl = $this->acl;
+    $user = $this->currentUser;
+?>
+
+<?php if ($acl->isAllowed($user,'access account reports')): ?>
+    <a href="/reports/index/index">Reports</a> | 
+    <a href="/reports/account">Account reports</a> |
+    <a href="/reports/account/daterange">Date range</a> |
+<?php endif; ?>
+
+<?php 
+    $this->headTitle('Account-Date Range Report');
+    $totalAccounts = $this->totalAccounts;
+?>
+
+<?php if ($totalAccounts > 0): ?>
+    <?php if ($acl->isAllowed($user,'access account reports')): ?>    
+    <a href="/reports/account/csvexport/reportId/<?php echo $this->reportId; ?>">Export data to CSV file</a> |
+    <a href="/reports/account/browse/reportId/<?php echo $this->reportId; ?>">Browse accounts</a>
+    <?php endif; ?>
+
+<?php endif; ?>
+<div class="clearing">
+&nbsp;
+</div>
+<?php echo $this->form; ?>
+
+<?php if (isset($this->totalAccounts)): ?>
+<p>
+    Total accounts: <?php echo $this->escape($this->totalAccounts); ?>
+</p>
+<?php endif; ?>

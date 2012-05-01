@@ -1,0 +1,75 @@
+<h2>Tax Types</h2>
+<?php
+    $this->headTitle('Tax Types');
+    $this->headScript()->appendFile('/js/BizSense/Crud.js');  
+    $acl = $this->acl;    
+?>
+<p>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'index',
+        'action' => 'index',
+    ), 'default', true
+);?>">Finance</a> |
+<?php endif; ?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php
+    echo $this->url(array(
+        'module' => 'finance',
+        'controller' => 'tax',
+        'action' => 'addtype',
+    ), 'default', true);
+?>">Add Tax Type</a> 
+<?php endif; ?>
+
+</p>
+ <table class="data_table">
+        <tr><th>Name</th><th>Percentage</th><th>Description</th><th>Action</th></tr>
+        <?php
+            foreach ($this->paginator as $item){
+                echo "<tr>";
+                foreach($item as $key=>$value) {
+                    if ($key == "tax_type_id") {
+                       $taxTypeId = $this->escape($value);
+                    } else {
+                        echo "<td>" . $this->escape($value) . "</td>";
+                    }
+
+                }
+        ?>
+                <td>
+                    <a href="<?php 
+                        echo $this->url(array(
+                            'module' => 'finance',
+                            'controller' => 'tax',
+                            'action' => 'edittype',
+                            'tax_type_id' => $taxTypeId,
+                        ));
+                    ?>">Edit,</a> 
+                     <?php 
+                     $deleteUrl = $this->url(
+                            array(
+                                'module' => 'finance',
+                                'controller' => 'tax',
+                                'action' => 'deletetype',
+                                'tax_type_id' =>$this->escape($taxTypeId)
+                              )
+                            );
+                        echo $this->deleteButton($deleteUrl); 
+                      ?>                    
+                </td>
+        <?php
+                echo "</tr>";
+
+            }
+           ?>
+ </table>
+<div class="pagination">
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'search.phtml'); ?>
+</div>
+<div class="div_clear"></div>
+        

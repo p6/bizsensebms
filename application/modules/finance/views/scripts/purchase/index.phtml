@@ -1,0 +1,125 @@
+<h1>Purchase</h1>
+
+<?php
+    $this->headTitle('Purchase');
+    $acl = $this->acl;
+?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'index',
+        'action' => 'index',
+    ), 'default', true
+);?>">Finance</a> |
+<?php endif; ?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php echo $this->url(
+        array(
+            'module' => 'finance',
+            'controller' => 'purchase',
+            'action' => 'create',
+            ), '', true
+    ); ?>">Create Purchase</a>
+<?php endif; ?>    
+
+|
+<a href="<?php echo $this->url(
+        array(
+            'module' => 'finance',
+            'controller' => 'purchase',
+            'action' => 'vocherentry',
+            ), '', true
+    ); ?>">Create Vocher Entry</a>
+    
+<fieldset class="fieldset_properties">
+    <legend>
+        <img src="/images/design/search.png"></li>
+                     Search
+     </legend>
+        <?php echo $this->form; ?>
+</fieldset>
+<?php if (count($this->paginator)): ?>
+<p>
+    Total Purchases : <?php echo $this->paginator->getAdapter()->count(); ?>
+</p>
+
+<table class="data_table">
+    <tr>
+        <th class="">Date<?php echo $this->sortButtons("date"); ?>
+        </th>
+        <th class="tinycell">Amount</th>
+        <th class="tinycell">Vendor</th>
+        <th class="tinycell">Type</th>
+        <th class="tinycell">Action</th>
+    </tr>
+
+<?php foreach ($this->paginator as $item): ?>
+<tr>
+    <td>
+    <?php 
+        $itemArray = $item->toArray(); 
+        $purchaseId = $this->escape($itemArray['purchase_id']);
+        echo $this->timestampToHuman($itemArray['date']);
+    ?>
+    </td>
+    <td><?php echo $this->escape($this->purchaseTotal($purchaseId)); ?></td>
+    <td><?php echo $this->vendorHyperlink($this->escape(
+                   $itemArray['vendor_id'])); ?></td>
+    <td>
+        <?php 
+            if ($itemArray['type'] == 1) {
+                echo "Purchase";
+            }
+            if ($itemArray['type'] == 2) {
+                echo "Assest Purchase ";
+            }
+            if ($itemArray['type'] == 3) {
+                echo "Expense Purchase ";
+            }
+        ?>
+    </td>
+    <td>
+         <?php 
+            if ($itemArray['type'] == 1) {
+          ?>
+                <a href="<?php echo $this->url(
+                array(
+                    'module' => 'finance',
+                    'controller' => 'purchase',
+                    'action' => 'viewdetails',
+                    'purchase_id' => $purchaseId,
+                    ), '', true
+                 ); ?>">Details</a>
+           <?php }
+            else {
+            ?>
+                <a href="<?php echo $this->url(
+                array(
+                    'module' => 'finance',
+                    'controller' => 'purchase',
+                    'action' => 'voucherdetails',
+                    'purchase_id' => $purchaseId,
+                    ), '', true
+                    ); ?>">Details</a>
+           <?php }  ?>
+    </td>
+</tr>
+
+<?php endforeach; ?>
+<?php endif; ?>
+</table>
+
+<?php
+        if ($this->wasSearched and !count($this->paginator)) {
+            echo "<br />There are no records matching the search criteria";
+        }
+?>
+<div class="pagination">
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'search.phtml'); ?>
+</div>
+<div class="div_clear"></div>
+
+

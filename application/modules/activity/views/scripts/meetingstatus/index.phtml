@@ -1,0 +1,88 @@
+<h2>Meetings status</h2>
+
+<?php
+    $this->headTitle('Meeting status');
+    $acl = $this->acl;    
+?>
+<div class="clearing">
+</div>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access meeting pages')): ?>
+<a href="<?php echo $this->url(array(
+        'module'        => 'activity',
+        'controller'    => 'meeting',
+        'action'        => 'index'
+        )); ?>">Meetings</a>
+&nbsp;| &nbsp;
+<?php endif; ?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access meeting pages')): ?>
+<a href="<?php echo $this->url(array(
+        'module'        => 'activity',
+        'controller'    => 'meetingstatus',
+        'action'        => 'create'
+        )); ?>">Create meeting status</a>
+<?php endif; ?>
+
+
+<div id="form">
+   <?php echo $this->form; ?>
+</div>
+
+<div class="clearing">
+</div>
+
+<?php $paginator = ( $this->paginator); ?>
+
+<?php if (count($this->paginator)): ?>
+    <table class="data_table">
+        <tr>
+            <th class="short">Name<?php echo $this->sortButtons("name"); ?></th>
+            <th class="medium_short">Description</th>
+            <th class="short">Action</th>
+        </tr>
+    
+<?php foreach ($paginator as $item) {
+    $itemRow = $item->toArray();
+    $meeting_status_id = $this->escape($itemRow['meeting_status_id']);
+?>
+    <tr>
+        <td>
+            <?php echo $this->escape($itemRow['name']); ?>
+        </td>
+        <td>
+            <?php echo $this->escape($itemRow['description']); ?>
+        </td>
+        <td>
+           <a href="<?php 
+                echo $this->url(array(
+                    'module'        =>  'activity', 
+                    'controller'    =>  'meetingstatus', 
+                    'action'        =>  'viewdetails', 
+                    'meeting_status_id'    =>  $meeting_status_id,
+                ));                    
+            ?>"><span>View</span>
+            </a>
+                &nbsp;
+            <a href="<?php 
+                echo $this->url(array(
+                    'module'        =>  'activity', 
+                    'controller'    =>  'meetingstatus', 
+                    'action'        =>  'edit', 
+                    'meeting_status_id'    =>  $meeting_status_id,
+                    )); 
+             ?>"><span>Edit</span>
+                </a>
+
+            </td>
+    </tr>
+<?php
+    }
+?>
+    </table>
+<?php endif; ?>
+<div class="pagination">
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'search.phtml'); ?>
+</div>
+<div class="div_clear"></div>
+

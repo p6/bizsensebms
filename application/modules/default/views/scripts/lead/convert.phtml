@@ -1,0 +1,17 @@
+<h2>Convert Lead</h2>
+<a href="<?php echo $this->url(array(
+                        'module' => 'default', 
+                        'controller' => 'lead'), NULL, true); ?>">Leads</a> |
+<?php
+    $this->headTitle('Convert Lead');
+	echo $this->message;
+    $contactId = $this->escape($this->contactId);
+?>
+<div id="form">
+   <?php echo $this->form; ?>
+</div>
+<div class="div_clear"></div>
+<?php   if (is_numeric($contactId)): ?>
+ <a href="/contact/viewdetails/contactId/<?php echo $contactId; ?>">
+<?php endif; ?>
+    

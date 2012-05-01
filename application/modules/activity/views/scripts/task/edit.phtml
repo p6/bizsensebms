@@ -1,0 +1,33 @@
+<h2>Edit task</h2>
+<?php
+    $this->headTitle('Edit task details');
+    $acl = $this->acl;
+    $this->dojoLayer('common');
+    $this->headScript()->appendFile('/js/BizSense/Crud.js'); 
+?>
+<div class="clearing">
+</div>
+
+<a href="<?php echo $this->url(array(
+        'module'        => 'activity',
+        'controller'    => 'task',
+        'action'        => 'index'
+        )); ?>">Tasks</a>
+
+&nbsp;|&nbsp;
+
+<?php if  ($acl->isAllowed($this->currentUser, 'access task pages')):
+    $deleteUrl = $this->url(
+                    array(
+                        'module' => 'activity',
+                        'controller' => 'task',
+                        'action' => 'delete',
+                    )
+                );
+                echo $this->deleteButton($deleteUrl); 
+ endif; ?>
+ 
+<div id="form">
+   <?php echo $this->form; ?>
+</div>
+<div class="div_clear"></div>

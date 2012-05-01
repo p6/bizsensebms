@@ -1,0 +1,233 @@
+<h1>Account Details</h1>  
+<?php
+    $this->headTitle('Account Details'); 
+    $this->headScript()->appendFile('/js/BizSense/Crud.js');   
+    echo $this->message;
+    echo $this->form;
+    $acl = $this->acl;    
+?>
+<?php
+	$account = $this->account;
+	$accountId = $this->escape($account->account_id);
+?>
+
+<?php if  ($acl->isAllowed($this->currentUser, 'access account pages')): ?>
+<a href="<?php echo $this->url(array(
+            'module'        =>  'default', 
+            'controller'    =>  'account'
+        ), NULL, TRUE); ?>">Accounts</a> |
+<?php endif; ?>
+
+<?php if  ($acl->isAllowed($this->currentUser, 'access account pages')): ?>
+<a href="<?php echo $this->url(array(
+            'module'        =>  'default', 
+            'controller'    =>  'account', 
+            'action'        =>  'edit', 
+            'account_id'    => $accountId
+        ), NULL, TRUE) ; ?>">Edit</a> |
+<?php endif; ?>
+
+<?php if  ($acl->isAllowed($this->currentUser, 'access account pages')): 
+    $deleteUrl = $this->url(
+                    array(
+                        'module' => 'default',
+                        'controller' => 'account',
+                        'action' => 'delete',
+                        'account_id' =>$this->escape($accountId)
+                    )
+                );
+                echo $this->deleteButton($deleteUrl); 
+ endif; ?>
+|
+
+<?php if  ($acl->isAllowed($this->currentUser, 'access account pages')): ?>
+<a href="<?php echo $this->url(array(
+            'module'        =>  'default', 
+            'controller'    =>  'account', 
+            'action'        =>  'notes', 
+            'account_id'    => $accountId
+        ), NULL, TRUE) ; ?>">Notes</a> |
+<?php endif; ?>
+
+<?php if  ($acl->isAllowed($this->currentUser, 'access account pages')): ?>
+<a href="<?php echo $this->url(array(
+            'module'        =>  'default', 
+            'controller'    =>  'account', 
+            'action'        =>  'contacts', 
+            'account_id'    => $accountId
+        ), NULL, TRUE) ; ?>">Related Contacts</a> |
+<?php endif; ?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access opportunity pages')): ?>
+<a href="<?php echo $this->url(array(
+            'module'        =>  'default', 
+            'controller'    =>  'opportunity', 
+            'action'        =>  'account', 
+            'account_id'    => $accountId
+        ), 'default', true
+    ) ; ?>">Related Opportunities</a> |
+<?php endif; ?>
+
+
+
+<?php 
+    $accountModel = new Core_Model_Account($accountId);
+    if ($accountModel->ledgerExists() != 1) {
+?>
+<?php if  ($acl->isAllowed($this->currentUser, 'access account pages')): ?>
+<a href="<?php echo $this->url(array(
+            'module' => 'default',
+            'controller' => 'account',
+            'action' => 'initializeledger',
+            'account_id' => $accountId,
+            ), 'default', true
+        );?>">Ledger</a> |
+<?php endif; ?>       
+
+<?php }else {
+        $ledgerId = $accountModel->getLedgerId();
+?>
+<?php if  ($acl->isAllowed($this->currentUser, 'access account pages')): ?>
+<a href="<?php echo $this->url(array(
+        'module' => 'finance',
+        'controller' => 'ledger',
+        'action' => 'entries',
+        'fa_ledger_id' => $ledgerId
+        ), 'default', true
+    );?>">Ledger</a> |
+<?php endif; ?>    
+<?php 
+    } 
+?>
+
+<table class="data_table">
+	<tr>
+        <td>Account name</td>
+        <td class="mediumshort">
+            <?php echo $this->escape($account->account_name); ?>
+        </td>
+    </tr>
+	<tr>
+        <td>Phone</td>
+        <td>
+            <?php echo  $this->escape($account->phone); ?>
+        </td>
+    </tr>
+	<tr>
+        <td>Mobile</td>
+        <td>
+            <?php echo $this->escape($account->mobile); ?>
+        </td>
+    </tr>
+	<tr>
+        <td>Fax</td>
+        <td><?php echo $this->escape($account->fax); ?>
+        </td>
+    </tr>
+	<tr>
+        <td>Email</td>
+        <td><?php $email= $this->escape($account->email);
+                echo "<a href=\"mailto:$email\"> $email" ?>
+        </td>
+    </tr>
+	<tr>
+        <td>Website</td>
+        <td>
+            <?php echo $this->escape($account->website); ?>
+        </td>
+    </tr>
+	<tr><td>Billing Address</td>
+        <td>
+            <?php echo $this->escape($account->billing_address_line_1); ?> 
+            <br />
+            <?php echo $this->escape($account->billing_address_line_2); ?> 
+            <br />
+            <?php echo $this->escape($account->billing_address_line_3); ?> 
+            <br />
+            <?php echo $this->escape($account->billing_address_line_4); ?> 
+            <br />
+        </td>
+    </tr>
+	<tr>
+        <td>Billing City</td>
+        <td><?php echo $this->escape($account->billing_city); ?></td>
+    </tr>
+	<tr>
+        <td>Billing Postal code</td>
+        <td><?php echo  $this->escape($account->billing_postal_code); ?></td>
+    </tr>
+	<tr>
+        <td>Billing State</td>
+        <td><?php echo $this->escape($account->billing_state); ?></td>
+    </tr>
+	<tr>
+        <td>Billing Country</td>
+        <td><?php echo $this->escape($account->billing_country); ?>
+        </td>
+    </tr>
+	<tr><td>Shipping Address</td>
+        <td>
+            <?php echo $this->escape($account->shipping_address_line_1); ?> 
+            <br />
+            <?php echo $this->escape($account->shipping_address_line_2); ?> 
+            <br />
+            <?php echo $this->escape($account->shipping_address_line_3); ?> 
+            <br />
+            <?php echo $this->escape($account->shipping_address_line_4); ?> 
+            <br />
+        </td>
+    </tr>
+	<tr>
+        <td>Shipping City</td>
+        <td><?php echo $this->escape($account->shipping_city); ?></td>
+    </tr>
+	<tr>
+        <td>Shipping Postal code</td>
+        <td><?php echo $this->escape($account->shipping_postal_code); ?></td>
+    </tr>
+	<tr>
+        <td>Shipping State</td>
+        <td><?php echo $this->escape($account->shipping_state); ?>
+        </td>
+    </tr>
+	<tr>
+        <td>Shipping Country</td>
+        <td><?php echo $this->escape($account->shipping_country); ?></td>
+    </tr>
+    <tr>
+        <td>Campaign id </td>
+        <td><?php if ($account->campaign_id) {
+                $campaignName = $this->campaignNameById($account->campaign_id);
+                echo $this->escape($campaignName);
+            } ?> 
+        </td>
+    </tr>
+	<tr>
+        <td>Assigned to</td>
+        <td><?php $assignedTo = $this->escape($account->assignedToEmail);
+                echo "<a href=\"mailto:$assignedTo\"> $assignedTo" ?>
+        </td>
+    </tr>
+	<tr>
+        <td>Assigned to branch</td>
+        <td><?php echo $this->escape($account->branch_name); ?></td>
+    </tr>
+	<tr>
+        <td>Description</td><td><?php echo $this->escape($account->description); ?></td>
+    </tr>
+	<tr>
+        <td>TIN</td>
+        <td><?php echo $this->escape($account->tin); ?></td>
+    </tr>
+    <tr>
+        <td>PAN</td>
+        <td><?php echo $this->escape($account->pan); ?>
+        </td>
+    </tr>
+	<tr>
+        <td>Service Tax Number</td>
+        <td><?php echo $this->escape($account->service_tax_number); ?>
+        </td>
+    </tr>
+	
+	</table>

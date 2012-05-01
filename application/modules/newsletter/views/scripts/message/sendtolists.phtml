@@ -1,0 +1,57 @@
+<h2>Send Message</h2>
+<?php
+    $this->dojoLayer('common');
+    $messageId = $this->escape($this->messageId);
+    $acl = $this->acl;    
+?>
+<?php if ($acl->isAllowed($this->currentUser, 'access newsletter pages')): ?>
+<a href="<?php echo $this->url(array(
+        'module' => 'newsletter',
+        'controller' => 'message',
+        'action' => 'index'
+        ), null, true); ?>">Messages</a> | 
+<?php endif; ?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access newsletter pages')): ?>
+<a href="<?php echo $this->url(array(
+        'module' => 'newsletter',
+        'controller' => 'message',
+        'action' => 'edit',
+        'message_id' => $messageId,
+        ), null, true); ?>">HTML Message</a> | 
+<?php endif; ?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access newsletter pages')): ?>
+<a href="<?php echo $this->url(array(
+        'module' => 'newsletter',
+        'controller' => 'message',
+        'action' => 'text',
+        'message_id' => $messageId,
+        ), null, true); ?>">Text Message</a> | 
+<?php endif; ?>        
+
+<?php if ($acl->isAllowed($this->currentUser, 'access newsletter pages')): ?>
+<a href="<?php echo $this->url(array(
+        'module' => 'newsletter',
+        'controller' => 'message',
+        'action' => 'sendtolists',
+        'message_id' => $messageId,
+        ), null, true); ?>">Send To Lists</a> | 
+<?php endif; ?>        
+<br />
+<br />
+<br />
+<?php
+
+    $this->headTitle('Send Message');
+    echo $this->message;
+?>
+
+<div id="form">
+   <?php echo $this->form; ?>
+</div>
+<div class="div_clear"></div>
+<?php
+    echo $this->testMessageForm;
+?>
+

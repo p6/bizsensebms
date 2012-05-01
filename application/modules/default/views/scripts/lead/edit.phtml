@@ -1,0 +1,33 @@
+<h2>Editing lead</h2>
+<?php
+    $this->dojoLayer('common');
+    $this->headTitle('Edit lead details');
+?>
+
+<?php
+	echo $this->message;
+?>
+<div id="form">
+   <?php echo $this->form; ?>
+</div>
+<div class="div_clear"></div>
+<?php
+	if (isset($this->message)) {
+		echo "<br /><a href=\"" . 
+            $this->url(
+                array(
+                    'module' => 'default', 
+                    'controller' => 'lead', 
+                    'action' => 'viewdetails', 
+                    'leadId' => $this->escape($this->leadId)
+                )
+            ) . "\">View details</a>";
+		echo " | <a href=\"" 
+            . $this->url(
+                array(
+                    'module' => 'default', 
+                    'controller' => 'lead'
+                ), NULL, true
+            ) . "\">Leads Home</a>";
+	}
+	

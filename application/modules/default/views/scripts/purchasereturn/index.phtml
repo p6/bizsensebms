@@ -1,0 +1,67 @@
+<h2>Purchase Return</h2>
+<?php
+    $this->headTitle('Purchase Return');
+?>
+
+<?php if (count($this->paginator)): ?>
+
+<table class="data_table">
+    <tr>
+        <th class="">Date<?php echo $this->sortButtons("date"); ?>
+        </th>
+        <th class="tinycell">Purchase Id</th>
+        <th class="tinycell">Created by</th>
+        <th class="tinycell">Action</th>
+    </tr>
+
+<?php foreach ($this->paginator as $item): ?>
+<tr>
+    <td>
+    <?php 
+        $itemArray = $item->toArray(); 
+        
+        $salesReturnId = $this->escape($itemArray['purchase_return_id']);
+        
+        echo $this->escape($this->timestampToHuman($itemArray['created']));
+    ?>
+    </td>
+    <td>
+        <a href="<?php echo $this->url(
+            array(
+                'module' => 'finance',
+                'controller' => 'purchase',
+                'action' => 'viewdetails',
+                'purchase_id' => $itemArray['purchase_id'],
+            ), '', true
+        ); ?>"><?php echo $this->escape($itemArray['purchase_id']) ?></a>
+    </td>
+    
+    <td><?php echo $this->userHyperlink(
+                    $this->escape($itemArray['created_by'])); ?></td>
+    <td>
+        <a href="<?php echo $this->url(
+            array(
+                'module' => 'default',
+                'controller' => 'purchasereturn',
+                'action' => 'viewdetails',
+                'purchase_return_id' => $salesReturnId,
+            ), '', true
+        ); ?>">Details</a>
+    </td>
+</tr>
+
+<?php endforeach; ?>
+<?php endif; ?>
+</table>
+
+<?php
+        if ($this->wasSearched and !count($this->paginator)) {
+            echo "<br />There are no records matching the search criteria";
+        }
+?>
+<div class="pagination">
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'search.phtml'); ?>
+</div>
+<div class="div_clear"></div>
+
+

@@ -1,0 +1,116 @@
+<h2>Purchase Return details</h2>
+<?php
+    $this->headTitle('Purchase Return details');   
+    $this->headScript()->appendFile('/js/BizSense/Crud.js');   
+    $purchaseReturnId = $this->escape($this->purchaseReturnId);
+    $acl = $this->acl;    
+?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'default',
+        'controller' => 'purchasereturn',
+        'action' => 'index',
+    ), 'default', true
+);?>">purchase Return</a> |
+<?php endif; ?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'default',
+        'controller' => 'purchasereturn',
+        'action' => 'edit',
+        'purchase_return_id' => $purchaseReturnId,
+    ), 'default', true
+);?>">Edit</a> |
+<?php endif; ?>
+
+<?php if  ($acl->isAllowed($this->currentUser, 'access finance pages')):
+    $deleteUrl = $this->url(
+                    array(
+                        'module' => 'default',
+                        'controller' => 'purchasereturn',
+                        'action' => 'delete',
+                        'purchase_return_id' =>$this->escape($purchaseReturnId)
+                    )
+                );
+                echo $this->deleteButton($deleteUrl); 
+ endif; ?>
+|
+
+<?php
+    $purchaseReturn = $this->purchaseReturn;
+?>
+<table class="data_table">
+     <tr>
+        <td>Purchase Id</td>
+        <td>
+        <a href="<?php echo $this->url(
+            array(
+                'module' => 'finance',
+                'controller' => 'purchase',
+                'action' => 'viewdetails',
+                'purchase_id' => $purchaseReturn['purchase_id'],
+            ), '', true
+        ); ?>"><?php echo $this->escape($purchaseReturn['purchase_id']); ?></a>
+        </td>
+    </tr>
+    <tr>
+        <td>Created on</td>
+        <td><?php echo 
+                $this->timestampToHuman(
+                    $this->escape($purchaseReturn['created'])); ?></td>
+    </tr>
+    <tr>
+        <td>Created by</td>
+        <td><?php echo $this->userHyperlink(
+                $this->escape($purchaseReturn['created_by'])); ?></td>
+    </tr>
+    <tr>
+        <td>Notes</td>
+        <td><?php echo $this->escape($purchaseReturn['notes']); ?></td>
+    </tr>
+            
+</table>
+
+
+<table class="data_table">
+    <tr>
+        <td class="tinyshort">Serial #</td>
+        <td>Item</td>
+        <td>Unit Price</td>
+        <td>Quantity</td>
+        <td>Tax Type</td>
+        <td>Tax</td>
+        <td>Total</td>
+    </tr>
+    <?php
+        $serialNumber = 1;
+        foreach ($this->purchaseReturnItems as $item) {
+            echo "<tr>";
+            echo sprintf("<td>%d</td>", $serialNumber++);
+            echo "<td>";
+            echo $this->escape($this->inventoryItemName(
+                    '2', 
+                    $item['product_id']
+                ));
+            echo "</td>";
+            $unitPrice = $this->escape($item['unit_price']);
+            echo "<td>" . number_format($unitPrice, 2, '.', ',') . "</td>";
+            $quantity = $item['quantity'];
+            echo "<td>" . number_format($quantity, 2, '.', ',') . "</td>";
+            echo "<td>" . 
+              $this->escape($this->taxNameById($item['tax_type_id'])) . "</td>";
+            $taxPercentage = 
+                $this->escape($this->taxPercentageById($item['tax_type_id']));
+            $beforeTax = $unitPrice * $quantity;
+            $tax = ($beforeTax * $taxPercentage) / 100;
+            echo "<td>" . $tax . "</td>";
+            $lineTotal = $beforeTax + $tax;
+            echo "<td>" . number_format($lineTotal, 2, '.', ',') . "</td>";
+            echo "</tr>";
+        }
+    ?>
+</table>

@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <?php 
+        echo $this->headTitle(' - BizSense');
+        echo $this->headTitle(); 
+    ?>
+
+    <link rel="stylesheet" type="text/css" href="/css/menu.css" media="screen">
+    <link rel="icon" type="image/png" href="/images/design/shortcut_icon.png" />
+
+    <link rel="stylesheet" href="/css/bizsense.css" type="text/css">
+
+    <?php echo $this->headScript(); ?>
+    
+
+</head>
+<body class="tundra">
+    <div id="login_container">
+        <div id="login_banner">
+        </div>
+        
+        <div id="login">
+            <div id="login_header">
+            </div>
+            
+            <div id="login_body">
+                <?php echo $this->layout()->content ?>             
+            </div><!-- end of login_body -->
+            
+            <div id="login_bottom">
+            </div>
+            
+        </div><!-- end of login -->
+        
+    </div><!-- end of login_container -->
+</body>
+
+</html>

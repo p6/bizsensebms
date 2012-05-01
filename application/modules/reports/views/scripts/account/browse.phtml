@@ -1,0 +1,62 @@
+<h2>Account Reports</h2>
+<?php
+    $this->headTitle('Account report - browse accounts list');
+?>
+<a href="/reports/account/">Account Reports</a> | 
+<a href="/reports/account/daterange">Date range</a> | 
+<a href="/reports/account/csvexport/reportId/<?php echo $this->reportId; ?>">Export data to CSV file</a> | 
+
+<div class="clearing">
+</div>
+<?php
+ if (count($this->paginator)): ?>
+
+<p>
+Total accounts : <?php echo $this->paginator->getAdapter()->count(); ?>
+</p>
+<table class="data_table">
+    <tr>
+        <th>Name</th>
+        <th>Phone</th>
+        <th>Updated</th>
+        <th>Assigned To</th>
+        <th>Branch</th>
+    </tr>
+
+<?php
+    /*
+     * The result object will have extra information
+     * Display only what is needed
+     */
+    $toDisplay = array('account_id', 'account_name', 'phone', 'updated', 
+                                    'assignedToEmail', 'branch_name');   
+?>
+<?php foreach ($this->paginator as $item): ?>
+<tr>
+    <?php foreach($item as $key=>$row): ?>
+    <?php if (in_array($key, $toDisplay)): ?>
+    <?php
+         if ($key == "account_id") {
+            $accountId = $row;
+         }
+         if ($key != "account_id" AND $key != "accountSourceId"): ?>
+    <td><?php
+        if ($key == "first_name" or $key == "middle_name" or $key == "last_name") {
+            echo "<a href=\"/account/viewdetails/account_id/" . 
+             $this->escape($accountId) . "\"> " . $this->escape($row)  . "</a>";
+        } if($key == 'updated' and $row) {
+            echo $this->escape($this->timestampToHuman($row));
+        } else {
+            echo $this->escape($row);
+        }
+        endif;
+    ?>
+    <?php endif;  //in_array toDisplay?>
+  </td>
+<?php endforeach; ?>
+</tr>
+<?php endforeach; ?>
+</table>
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'search.phtml'); ?>
+<?php endif; ?>
+

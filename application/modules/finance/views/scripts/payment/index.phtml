@@ -1,0 +1,237 @@
+<h2>Payment</h2>
+
+<?php
+    $this->headTitle('Payment');
+    $acl = $this->acl;    
+?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'index',
+        'action' => 'index',
+    ), 'default', true
+);?>">Finance</a> |
+<?php endif; ?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'payment',
+        'action' => 'selectpayment',
+    ), 'default', true
+);?>">Create Payment</a>
+<?php endif; ?>
+<br/><br/>
+
+<fieldset class="fieldset_properties">
+    <legend>
+        <img src="/images/design/search.png"></li>
+                     Search
+     </legend>
+        <?php echo $this->form; ?>
+</fieldset>
+
+<div class="clearing">
+</div>
+
+<?php if (count($this->paginator)): ?>
+
+<table class="data_table">
+    <tr>
+        <th>Amount<?php echo $this->sortButtons("amount"); ?></th>
+        <th>Type<?php echo $this->sortButtons("type"); ?></th>
+        <th>Mode of Payment<?php echo $this->sortButtons("mode"); ?></th>
+        <th>Notes</th>
+        <th>Action</th>
+    </tr>
+    
+<?php foreach ($this->paginator as $item): ?>
+
+<?php
+    $item = $item->toArray();
+    
+?>
+    <tr>
+        <td><?php echo $this->escape($item['amount']); ?></td>
+        <td><?php 
+            if ($item['type'] == 1) {
+                echo "Payment to sundry creditors";
+            } 
+            if ($item['type'] == 2) {
+                echo "Payment towards expenses";
+            }
+            if ($item['type'] == 3) {
+                echo "Payment towards indirect expense with TDS";
+            }
+            if ($item['type'] == 4) {
+                echo "Payment towards tax";
+            }
+            if ($item['type'] == 5) {
+                echo "Payment towards salary";
+            }
+            if ($item['type'] == 6) {
+                echo "Payment to employee advance";
+            }
+            ?>
+        </td>
+      
+        <td><?php 
+            if ($item['mode'] == 1) {
+                echo "Cash";
+            } 
+            else {
+                echo "Cheque";
+            }?>
+        </td>
+        <td><?php echo $this->escape($item['notes']); ?> </td>
+        <td>
+            <?php if ($item['mode'] == 1 &&  $item['type'] == 1) { ?>
+            <a href="<?php echo $this->url(array(
+                'module'        =>  'finance', 
+                'controller'    =>  'payment', 
+                'action'        =>  'cashpaymentdetails',
+                'payment_id' => $item['payment_id']
+                )); ?>">Details</a>
+            <?php } ?>
+            
+             <?php
+            
+             if ($item['mode'] == 2 && $item['type'] == 1) {
+             ?>
+             <a href="<?php echo $this->url(array(
+                'module'        =>  'finance', 
+                'controller'    =>  'payment', 
+                'action'        =>  'chequepaymentdetails',
+                'payment_id' => $item['payment_id']
+                )); ?>">Details</a>
+              <?php } ?>
+              
+              <?php if ($item['mode'] == 1 &&  $item['type'] == 2) { ?>
+            <a href="<?php echo $this->url(array(
+                'module'        =>  'finance', 
+                'controller'    =>  'payment', 
+                'action'        =>  'cashpaymentdetails',
+                'payment_id' => $item['payment_id']
+                )); ?>">Details</a>
+            <?php } ?>
+            
+             <?php
+            
+             if ($item['mode'] == 2 && $item['type'] == 2) {
+             ?>
+             <a href="<?php echo $this->url(array(
+                'module'        =>  'finance', 
+                'controller'    =>  'payment', 
+                'action'        =>  'chequepaymentdetails',
+                'payment_id' => $item['payment_id']
+                )); ?>">Details</a>
+              <?php } ?>
+            
+            
+             <?php
+                if ($item['mode'] == 1 && $item['type'] == 3) {
+             ?>
+             <a href="<?php echo $this->url(array(
+                'module'        =>  'finance', 
+                'controller'    =>  'payment', 
+                'action'        =>  'tdscashdetails',
+                'payment_id' => $item['payment_id']
+                )); ?>">Details</a>
+             <?php } 
+                if ($item['mode'] == 2 && $item['type'] == 3) {
+             ?>
+             <a href="<?php echo $this->url(array(
+                'module'        =>  'finance', 
+                'controller'    =>  'payment', 
+                'action'        =>  'tdschquedetails',
+                'payment_id' => $item['payment_id']
+                )); ?>">Details</a>
+             <?php } ?>
+             
+             <?php 
+                if ($item['mode'] == 1 && $item['type'] == 4) {
+             ?>
+             <a href="<?php echo $this->url(array(
+                'module'        =>  'finance', 
+                'controller'    =>  'payment', 
+                'action'        =>  'taxcashdetails',
+                'payment_id' => $item['payment_id']
+                )); ?>">Details</a>
+             
+             <?php } ?>
+             
+             <?php 
+                if ($item['mode'] == 2 && $item['type'] == 4) {
+             ?>
+             <a href="<?php echo $this->url(array(
+                'module'        =>  'finance', 
+                'controller'    =>  'payment', 
+                'action'        =>  'taxchequedetails',
+                'payment_id' => $item['payment_id']
+                )); ?>">Details</a>
+             
+             <?php } ?>
+             
+             <?php 
+                if ($item['mode'] == 1 && $item['type'] == 5) {
+             ?>
+             <a href="<?php echo $this->url(array(
+                'module'        =>  'finance', 
+                'controller'    =>  'payment', 
+                'action'        =>  'salarycashdetails',
+                'payment_id' => $item['payment_id']
+                )); ?>">Details</a>
+             
+             <?php } ?>
+             
+             <?php 
+                if ($item['mode'] == 2 && $item['type'] == 5) {
+             ?>
+             <a href="<?php echo $this->url(array(
+                'module'        =>  'finance', 
+                'controller'    =>  'payment', 
+                'action'        =>  'salarychequedetails',
+                'payment_id' => $item['payment_id']
+                )); ?>">Details</a>
+             
+             <?php } ?>
+             
+             <?php 
+                if ($item['mode'] == 1 && $item['type'] == 6) {
+             ?>
+             <a href="<?php echo $this->url(array(
+                'module'        =>  'finance', 
+                'controller'    =>  'payment', 
+                'action'        =>  'advancecashdetails',
+                'payment_id' => $item['payment_id']
+                )); ?>">Details</a>
+             
+             <?php } ?>
+             
+             <?php 
+                if ($item['mode'] == 2 && $item['type'] == 6) {
+             ?>
+             <a href="<?php echo $this->url(array(
+                'module'        =>  'finance', 
+                'controller'    =>  'payment', 
+                'action'        =>  'advancechequedetails',
+                'payment_id' => $item['payment_id']
+                )); ?>">Details</a>
+             
+             <?php } ?>
+         </td>
+    </tr>
+<?php endforeach; ?>
+</table>
+
+<?php endif; ?>
+
+<div class="pagination">
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'search.phtml'); ?>
+</div>
+<div class="div_clear"></div>
+
+

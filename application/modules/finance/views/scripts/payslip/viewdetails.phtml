@@ -1,0 +1,172 @@
+<h2>Payslip details</h2>
+<?php
+    $this->headTitle('Payslip details');
+    $this->headScript()->appendFile('/js/BizSense/Crud.js');  
+    $payslipId = $this->escape($this->payslipId);
+    $payslipRecord = $this->payslipRecord;
+    $payslipItems = $this->payslipItems;
+    $acl = $this->acl;    
+?>
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'payslip',
+        'action' => 'index',
+    ), '', true
+);?>">Payslip</a> | 
+<?php endif; ?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'payslip',
+        'action' => 'edit',
+        'payslip_id' => $payslipId,
+    ), '', true
+);?>">Edit</a> |
+<?php endif; ?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')):
+    $deleteUrl = $this->url(
+                    array(
+                        'module' => 'finance',
+                        'controller' => 'payslip',
+                        'action' => 'delete',
+                        'payslip_id' =>$this->escape($payslipId)
+                    )
+                );
+    echo $this->deleteButton($deleteUrl); 
+ endif; ?>
+|
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'payslip',
+        'action' => 'export',
+        'payslip_id' => $payslipId,
+    ), '', true
+);?>">Export to pdf</a>
+<?php endif; ?>
+
+
+<table class="data_table">
+    
+    <tr>
+        <td>Employee </td>
+        <td><?php echo $this->userHyperlink($this->escape(
+                            $payslipRecord['employee_id'])); ?></td>
+    </tr>
+    
+    <tr>
+        <td>Date</td>
+        <td><?php echo $this->timestampToHuman($this->escape(
+            $payslipRecord['date'])); ?></td>
+    </tr>
+    <tr>
+        <td>Created by</td>
+        <td><?php echo $this->userHyperlink($this->escape(
+            $payslipRecord['created_by'])); ?></td>
+    </tr>
+     <tr>
+        <td>Created on</td>
+        <td><?php echo $this->timestampToHuman($this->escape(
+            $payslipRecord['created'])); ?></td>
+    </tr>
+    <tr>
+        <td>Net Payable Salary</td>
+        <td><?php 
+                  $payslipModel = new Core_Model_Finance_Payslip($payslipId);
+                  $payableSalary = $payslipModel->getPayableSalaryAmount();
+                  echo $this->currencySymbol()." ".$payableSalary;
+                  echo "<br/>";
+                  echo $this->numberToWord($payableSalary)." "
+                                                    .$this->currencyName();                   
+            ?>
+        </td>
+    </tr>
+             
+</table>
+    <?php
+        $earningFields = array();
+        $deductionTaxFields = array();
+        $deductionNonTaxFields = array();
+        $payslipFieldModel = new Core_Model_Finance_PayslipField;
+        
+        foreach ($payslipItems as $name => $amount) {
+        
+           $type = $payslipFieldModel->getTypeByName($name);
+           
+           if ($type == Core_Model_Finance_PayslipField::EARNING_FIELDS) {
+               $earningFields[$name] = $amount;
+           }
+           
+           if ($type == Core_Model_Finance_PayslipField::DEDUCTION_TAX_FIELDS) {
+               $deductionTaxFields[$name] = $amount;
+           }
+           
+           if ($type == Core_Model_Finance_PayslipField::DEDUCTION_NON_TAX_FIELDS) {
+               $deductionNonTaxFields[$name] = $amount;
+           }
+          
+        }
+        
+        if ($earningFields) {
+            echo "<table class=\"data_table\">";
+            echo "<th>Earning </th><th></th>";
+            $earningFieldTotal = 0;
+            foreach ($earningFields as $name => $amount) {
+                echo "<tr>";
+                echo "<td>$this->escape($name)</td>";
+                echo "<td>$this->escape($amount)</td>";
+                echo "</tr>";
+                $earningFieldTotal +=  $amount;
+            }
+            echo "</table>";
+            
+            echo "<h3>Total Earning = ".$earningFieldTotal."</h3>";
+        }
+        
+        if ($deductionTaxFields) {
+             echo "<table class=\"data_table\">";
+            echo "<th>Tax Deduction</th><th></th>";
+             $deductionTaxFieldsTotal = 0;
+            foreach ($deductionTaxFields as $name => $amount) {
+                echo "<tr>";
+                echo "<td>$this->escape($name)</td>";
+                echo "<td>$this->escape($amount)</td>";
+                echo "</tr>";
+                $deductionTaxFieldsTotal += $amount;
+            }
+            echo "</table>";
+            echo "<h3>Total Tax Deduction = ".$deductionTaxFieldsTotal."</h3>";
+            
+        }
+        
+        if ($deductionNonTaxFields) {
+             echo "<table class=\"data_table\">";
+            echo "<th>Other Deduction</th><th></th>";
+            $deductionNonTaxFieldsTotal = 0;
+            foreach ($deductionNonTaxFields as $name => $amount) {
+                echo "<tr>";
+                echo "<td>$this->escape($name)</td>";
+                echo "<td>$this->escape($amount)</td>";
+                echo "</tr>";
+                $deductionNonTaxFieldsTotal += $amount;
+            }
+            echo "</table>";
+            
+            echo "<h3>Total Other Deduction = ".$deductionNonTaxFieldsTotal."</h3>";
+        }
+    ?>   
+</table>
+<h3>
+<?php
+    echo "Net Payable Salary = ".$this->currencySymbol()." ".$payableSalary;
+    echo "<br/>";
+    echo "In words : ".$this->numberToWord($payableSalary)." "
+                                                        .$this->currencyName(); 
+?>
+</h3>

@@ -1,0 +1,18 @@
+<h2>Self service client application</h2>
+<?php
+     $this->headTitle('Self service client application');
+?>
+
+<a href="<?php echo $this->url(
+        array(
+            'module' => 'admin',
+            'controller' => 'webservice',
+            'action' => 'index',
+        )
+    ); ?>">Web Service</a> |
+
+
+ <div id="form">
+   <?php echo $this->form; ?>
+</div>
+ 

@@ -1,0 +1,64 @@
+<h2>Contact Notes</h2>  
+<?php 
+    $this->headTitle('Contact Notes');
+    $acl = $this->acl;
+    $contact_id = $this->escape($this->contactId);
+?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access contact pages')): ?>
+<a href="<?php echo $this->url(array(
+        'module'        =>  'default',
+        'controller'    =>  'contact',
+        'action'        =>  'viewdetails',
+        'contact_id'    =>  $contact_id,
+    ));?>">Contact</a> |
+<?php endif; ?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access contact pages')): ?>
+<a href="<?php echo $this->url(array(
+        'module'        =>  'default',
+        'controller'    =>  'contact',
+        'action'        =>  'createnote',
+        'contact_id'    =>  $contact_id,
+    ));?>">Create note</a>
+<?php endif; ?>    
+<div class="clearing">
+&nbsp;
+</div>
+<?php
+if (count($this->paginator)): ?>
+<p>
+Total number of notes : <?php echo $this->paginator->getAdapter()->count(); ?>
+</p>
+
+<table class="data_table">
+<tr>
+<th class="short">Notes</th>
+<th class="mediumshort">Created</th>
+</tr>
+<?php foreach ($this->paginator as $item): ?>
+<?php
+    $itemsArray = $item->toArray();
+?>
+<tr>
+    <?php 
+        echo "<td>";
+        $notes = $this->escape($itemsArray['notes']);
+        echo nl2br($notes);
+        echo "</td>";
+
+        echo "<td>";
+        echo $this->escape($this->timestampToHuman($itemsArray['created']));
+        echo "</td>";
+
+    ?>
+</tr>
+
+<?php endforeach; ?>
+<?php endif; ?>
+
+</table>
+
+<span class="pagination"> 
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'search.phtml'); ?>
+</span>

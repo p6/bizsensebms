@@ -1,0 +1,16 @@
+<h2>Web services - applications</h2>
+<?php 
+    $this->headTitle('Web services - applications');
+?>
+<a href="<?php echo $this->url(
+        array(
+            'module' => 'admin',
+            'controller' => 'webservice',
+            'action' => 'index',
+        )
+    ); ?>">Applications</a>
+
+<div id="form">
+   <?php echo $this->form; ?>
+</div>
+<div class="div_clear"></div>

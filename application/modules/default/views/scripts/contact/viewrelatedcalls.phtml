@@ -1,0 +1,52 @@
+<h1>Calls List</h1>
+
+<?php
+    $this->headTitle('Calls List');
+    $callsList = $this->callsList;
+?>
+<div class="clearing">
+</div>
+
+<table class="data_table">
+    <tr>
+        <th class="short">
+            Title<?php echo $this->sortButtons("name"); ?>
+        </th>
+        <th class="medium_short">
+            Start date<?php echo $this->sortButtons("start_date"); ?>
+        </th>
+        <th class="medium_short">
+            Assigned to
+        </th>
+        <th class="short">
+            Action
+        </th>
+    </tr>
+
+<?php
+    foreach($callsList as $callsListArray) {
+        $fullName = $callsListArray['first_name'] 
+            . " " . $callsListArray["middle_name"] 
+            . " " . $callsListArray["last_name"];
+        $call_id = $this->escape($callsListArray['call_id']);
+?>
+        <tr>
+            <td><?php echo $this->escape($callsListArray['name']); ?></td>
+            <td><?php echo $this->escape($callsListArray['start_date']); ?></td>
+            <td><?php echo $this->escape($fullName); ?></td>
+            <td>
+                <a href="<?php
+                    echo $this->url(array(
+                        'module' =>  'activity',
+                        'controller' => 'call',
+                        'action' => 'viewdetails',
+                        'call_id' => $call_id,
+                    ));
+                ?>"><span>View</span>
+                </a>
+        </td>
+<?php
+    }
+?>
+    </table>
+

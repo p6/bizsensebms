@@ -1,0 +1,87 @@
+<h2>Ticket statuses</h2>
+
+<?php
+    $this->headTitle('Tickets');
+    $this->headScript()->appendFile('/js/BizSense/Crud.js');   
+    $acl = $this->acl;    
+?>
+
+<div class="clearing">
+</div>
+<?php if  ($acl->isAllowed($this->currentUser, 'access ticket pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'ticket',
+        'controller' => 'index',
+        'action' => 'index'
+    ), 'default', true
+); ;?>">Tickets
+</a>
+|
+<?php endif; ?>
+    
+<?php if  ($acl->isAllowed($this->currentUser, 'access ticket pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'ticket',
+        'controller' => 'status',
+        'action' => 'create',
+    ), NULL, true
+); ?>">Create</a>
+<?php endif; ?>
+
+<?php if (count($this->paginator)): ?>
+<table class="data_table">
+    <tr>
+        <th>Name<?php echo $this->sortButtons("name"); ?></th>
+        <th>Closed context<?php echo $this->sortButtons("closed_context"); ?></th>
+        <th>Action</th>
+    </tr>
+<?php foreach ($this->paginator as $item): ?>
+<?php
+    $item = $item->toArray();
+?>
+    <tr>
+        <td><?php echo $this->escape($item['name']); ?></td>
+        <td><?php 
+            if ($item['closed_context']) {
+                echo 'Closed'; 
+            } else {
+                echo "Open";
+            }
+            ?>
+        </td>
+        <td><a href="<?php echo $this->url(
+                array
+                (
+                    'module' => 'ticket',
+                    'controller' => 'status',
+                    'action' => 'edit',
+                    'ticket_status_id' => $item['ticket_status_id']
+                ), 'default', true
+            ); ?>">Edit</a> |          
+            <?php if  ($acl->isAllowed($this->currentUser, 'access account pages')): 
+                $deleteUrl = $this->url(
+                    array(
+                        'module' => 'ticket',
+                        'controller' => 'status',
+                        'action' => 'delete',
+                        'ticket_status_id' =>$this->escape($item['ticket_status_id'])
+                    )
+                );
+                echo $this->deleteButton($deleteUrl); 
+ endif; ?>
+            
+         </td>
+    </tr>
+<?php endforeach; ?>
+</table>
+
+<?php endif; ?>
+
+<div class="pagination">
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'search.phtml'); ?>
+</div>
+<div class="div_clear"></div>
+
+

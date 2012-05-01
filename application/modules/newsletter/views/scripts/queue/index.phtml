@@ -1,0 +1,90 @@
+<?php
+    $this->headTitle('Message Queue');
+    $acl = $this->acl;
+?>
+<h2>Message Queue</h2>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access newsletter pages')): ?>
+<a href="<?php echo $this->url(array(
+        'module'    =>'newsletter',
+        'controller'=>'index',
+        'action'    =>'index'
+        ), null, true); ?>">Newsletter</a>
+<?php endif; ?>  |
+
+<?php if  ($acl->isAllowed($this->currentUser, 'access newsletter pages')): ?>
+<a href="<?php echo $this->url(array(
+    'module'    =>'newsletter', 
+    'controller'=>'settings',
+    'action'    =>'index'
+    )
+  , null, true); ?>">Settings</a>
+  |
+<?php endif; ?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access newsletter pages')): ?>
+<a href="<?php echo $this->url(
+        array(
+            'module' => 'newsletter',
+            'controller' => 'queue',
+            'action' => 'settings'
+        ), 'default', true
+    ); ?>">Message queue settings</a>   
+<?php endif; ?>
+
+<fieldset class="fieldset_properties">
+    <legend>
+        <img src="/images/design/search.png"></li>
+                     Search
+     </legend>
+        <?php echo $this->form; ?>
+</fieldset>
+
+<div class="clearing">
+</div>
+
+<?php if (count($this->paginator)): ?>
+<b>Total messages in queue : <?php echo $this->paginator->getAdapter()->count(); ?></b>
+<table class="data_table">
+    <tr>
+        <th>E-mail</th>
+        <th>List</th>
+        <th>Message</th>
+        <th>Domain</th>
+        <th>Status</th>
+        
+    </tr>
+<?php foreach ($this->paginator as $item): ?>
+<?php $item = $item->toArray();?>
+    <tr>
+        <td><?php echo $this->subscriberHyperlink($this->escape($item['subscriber_id'])); ?></td>
+        <td><?php echo $this->listHyperlink($this->escape($item['list_id'])); ?></td>
+        <td><?php echo $this->messageHyperlink($this->escape($item['message_id'])); ?></td>
+        <td><?php echo $this->escape($item['domain']); ?></td>
+        <td><?php 
+                if ($item['status'] == Core_Model_Newsletter_Message_Queue::MESSAGE_NOT_SENT) {
+                    echo "Not sent";
+                } 
+                else {
+                    echo "Sent";
+                }        
+        ?></td>
+    </tr>
+
+
+<?php endforeach; ?>
+</table>
+<?php endif; ?>
+
+
+<?php
+    if (!count($this->paginator)) {
+        echo "<br />There are no records matching the search criteria";
+    }
+?>
+
+<div class="pagination">
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'search.phtml'); ?>
+</div>
+<div class="div_clear"></div>
+

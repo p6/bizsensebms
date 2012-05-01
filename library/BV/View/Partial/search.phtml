@@ -1,0 +1,27 @@
+<?php if (($this->pageCount) > 1): ?> 
+<div id="paginationControl">
+<!-- Previous page link --> 
+<?php if (isset($this->previous)): ?> 
+  <a href="<?= $this->urlWithGetParams(array('page' => $this->previous)); ?>"><img src="/images/design/left_arrow.png" class="pagination_image"/></a> | 
+<?php else: ?> 
+  <span class="disabled"><img src="/images/design/left_arrow_disabled.png" class="pagination_image"/></span> | 
+<?php endif; ?> 
+
+<!-- Numbered page links -->
+<?php foreach ($this->pagesInRange as $page): ?> 
+  <?php if ($page != $this->current): ?>
+    <a href="<?php echo $this->urlWithGetParams(array('page' => $page)); ?>"><?php echo $page; ?></a> | 
+  <?php else: ?>
+    <?php echo $page; ?> | 
+  <?php endif; ?>
+<?php endforeach; ?>
+
+<!-- Next page link --> 
+<?php if (isset($this->next)): ?> 
+  <a href="<?php echo $this->urlWithGetParams(array('page' => $this->next)); ?>"><img src="/images/design/right_arrow.png" class="pagination_image"/></a>
+<?php else: ?> 
+  <span class="disabled"><img src="/images/design/right_arrow_disabled.png" class="pagination_image"/></span>
+<?php endif; ?> 
+</div> 
+<?php endif; ?>
+

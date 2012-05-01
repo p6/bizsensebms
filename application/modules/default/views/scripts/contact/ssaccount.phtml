@@ -1,0 +1,53 @@
+<h2>Self service account</h2>  
+<?php
+    $this->headTitle('Contact self service account');
+    $acl = $this->acl;    
+?>
+<?php
+	$contact = $this->contact;
+	$contactId = $this->escape($this->contactId);
+?>
+<?php if ($acl->isAllowed($this->currentUser, 'access contact pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'default', 
+        'controller' => 'contact'
+    ), NULL, true
+); ?>">Contacts</a> | 
+<?php endif; ?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access contact pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'default', 
+        'controller' => 'contact', 
+        'action' => 'viewdetails', 
+        'contact_id' => $contactId
+    )
+); ?>">Details</a> 
+<?php endif; ?>
+
+<?php
+    if ($this->selfServiceAccountEnabled) {
+        $isOrIsNot = 'is';
+    } else {
+        $isOrIsNot = 'is not';
+    }
+?>
+<p>
+The self service feature for this account <?php echo $isOrIsNot; ?> enabled.
+</p>
+
+<?php
+    if (!$this->selfServiceAccountEnabled) {
+        echo "<p>Enable self service account for this contact. 
+         When the self service account is enabled, an email containing 
+         the login credentials will be sent to the contact. Using 
+         the self service feature, the contact will be able to 
+         access the web interface of the ticketing system</p>";
+        echo new Core_Form_Contact_CreateSelfService;
+    }
+    else {
+        echo new Core_Form_Contact_DisableSelfService;
+    }
+?>

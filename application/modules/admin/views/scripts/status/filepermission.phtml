@@ -1,0 +1,32 @@
+<?php
+    $this->headTitle('File Permission');
+    $filePermission = $this->filePermission;
+    $pathsToCheck =  $this->pathsToCheck;
+?>
+
+<a href="/admin/index/index">Administration</a> 
+
+<h2>File Permission</h2>
+<table class="data_table">
+    <tr>
+        <th> Path </th> 
+        <th>Status</th>
+        <th>File Permission Required </th>
+    </tr>
+<?php
+for ($i = 0; $i<count($pathsToCheck); $i++)
+    {
+?>
+    <tr>
+        <td>
+            <?php  echo $pathsToCheck[$i] ?>         
+        </td>
+        <td>
+            <?php echo $filePermission[$i]; ?>
+        </td>
+        <td align="center"> <?php echo "Yes"; ?> </td>
+    </tr>
+<?php    
+    }
+?>
+</table>

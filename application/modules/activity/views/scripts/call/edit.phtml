@@ -1,0 +1,15 @@
+<h2>Edit call</h2>
+<?php
+    $this->dojoLayer('common');
+    $this->headTitle('Edit call details');
+?>
+
+<a href="<?php echo $this->url(array(
+        'module'        => 'activity',
+        'controller'    => 'call',
+        'action'        => 'index'
+        )); ?>">Calls</a>
+<div id="form">
+   <?php echo $this->form; ?>
+</div>
+<div class="div_clear"></div>

@@ -1,0 +1,227 @@
+<h2>Lead Reports</h2>
+<?php
+    $this->headTitle('Lead Reports');
+    $this->dojoLayer('common');
+    $this->dojo()->addLayer('/js/dojo/chart/layer.js');
+    $acl = $this->acl;
+?>
+<?php if ($acl->isAllowed($this->currentUser, 'access lead reports')): ?>
+    <a href="/reports/index/index">Reports</a> | 
+    <a href="/reports/lead/">Lead reports</a> | 
+<?php endif; ?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access lead reports')): ?>
+<a href="/reports/lead/daterange">Date range</a> | 
+<?php endif; ?>
+
+
+<?php
+    $leadSourceReportSummary = $this->leadSourceReportSummary;
+    if (!empty($leadSourceReportSummary)): ?>
+<?php if ($acl->isAllowed($this->currentUser, 'access lead reports')): ?>
+    <a href="/reports/lead/csvexport/reportId/<?php echo $this->reportId;?>">
+    Export data to CSV file</a> |          
+<?php endif; ?>
+
+    <?php 
+        /**
+         * Generate the link to browse using the reportId
+         */
+    ?>
+<?php if ($acl->isAllowed($this->currentUser, 'access lead reports')): ?>
+    <a href="/reports/lead/browse/reportId/<?php echo $this->reportId; ?>">Browse leads</a>
+<?php endif; ?>
+   
+          <h3>Leads By Source</h3>
+          <div class="line"></div>
+      <div class="div_left">
+            <table class="data_table">
+            <tr><th colspan="2">Leads by source</th></tr>
+            <?php foreach ($leadSourceReportSummary as $key=>$value): ?>
+                    <?php    echo "<tr><td>" . $this->escape($key) . 
+                    "</td><td>" . $this->escape($value) . "</td>"; ?>
+            <?php endforeach; ?>
+            </table> <br />
+            </div>
+            <?php endif; ?>
+      
+            
+   <?php
+    $toEncode = array();
+    if (count($leadSourceReportSummary)):
+        foreach ($leadSourceReportSummary as $key=>$value) {
+            $toEncode[] = array(
+                'y'=>$value,
+                'text'=>$key,
+                'stroke'=>'black',
+                'tooltip'=>$key
+            );
+        }
+    $json = json_encode($toEncode);
+   ?>
+
+<div class="div_left">
+    <div id="chartTwo" style="width: 300px; height: 400px;">
+</div>
+
+
+<script type="text/javascript">
+        dojo.addOnLoad(function() {
+            var dc = dojox.charting;
+            var chartTwo = new dc.Chart2D("chartTwo");
+            chartTwo.setTheme(dc.themes.MiamiNice).addPlot("default", {
+                type: "Pie",
+                font: "normal normal 9pt Tahoma",
+                fontColor: "black",
+                labelOffset: -30,
+                radius: 120
+            });
+            chartTwo.addSeries("Series A", <?php echo $json; ?>);
+            var anim_a = new dc.action2d.MoveSlice(chartTwo, "default");
+            var anim_b = new dc.action2d.Highlight(chartTwo, "default");
+            var anim_c = new dc.action2d.Tooltip(chartTwo, "default");
+            chartTwo.render();
+            
+        });
+    </script>
+   </div>
+<?php 
+    endif;
+?>
+
+<div class="div_clear">
+</div> 
+   
+    <?php
+    $leadStatusReportSummary = $this->leadStatusReportSummary;
+    if (!empty($leadStatusReportSummary)): ?>
+            <h3>Leads by status</h3>
+            <div class="line"></div>
+    <div class="div_left">
+            <table class="data_table">
+            <tr><th colspan="2">Leads by status</th></tr>
+            <?php foreach ($leadStatusReportSummary as $key=>$value): ?>
+            <?php    echo "<tr><td>" . $this->escape($key) . 
+                "</td><td>" . $this->escape($value) . "</td>"; ?>
+            <?php endforeach; ?>
+            </table>
+    </div>
+   <?php endif; ?>
+   
+   
+   
+   <?php
+    $toEncode = array();
+    if (count($leadStatusReportSummary)):
+        foreach ($leadStatusReportSummary as $key=>$value) {
+            $toEncode[] = array(
+                'y'=>$value,
+                'text'=>$key,
+                'stroke'=>'black',
+                'tooltip'=>$key
+            );
+        }
+    $json = json_encode($toEncode);
+  ?>
+
+  <div class="div_left">
+        <div id="chartTwo3" style="width: 300px; height: 300px;">
+        </div>
+
+
+    <script type="text/javascript">
+         dojo.addOnLoad(function() {
+            var dc = dojox.charting;
+            var chartTwo3 = new dc.Chart2D("chartTwo3");
+            chartTwo3.setTheme(dc.themes.MiamiNice).addPlot("default", {
+                type: "Pie",
+                font: "normal normal 9pt Tahoma",
+                fontColor: "black",
+                labelOffset: -30,
+                radius: 120
+            }); 
+            chartTwo3.addSeries("Series A", <?php echo $json; ?>);
+            var anim_a = new dc.action2d.MoveSlice(chartTwo3, "default");
+            var anim_b = new dc.action2d.Highlight(chartTwo3, "default");
+            var anim_c = new dc.action2d.Tooltip(chartTwo3, "default");
+            chartTwo3.render();
+            
+        });
+    </script>
+   </div>
+<?php 
+    endif;
+?>
+
+<div class="div_clear">
+</div>
+<!-- --------------------------  Leads by conversion---------------  -->
+
+   
+    <?php
+    $leadConvertedReportSummary = $this->leadConvertedReportSummary;
+    if (!empty($leadConvertedReportSummary)): ?>
+            <h3>Leads by conversion</h3>
+            <div class="line"></div>
+    <div class="div_left">
+            <table class="data_table">
+            <tr><th colspan="2">Leads by conversion</th></tr>
+            <?php foreach ($leadConvertedReportSummary as $key=>$value): ?>
+            <?php    echo "<tr><td>" . $this->escape($key) . "</td><td>" . $this->escape($value) . "</td>"; ?>
+            <?php endforeach; ?>
+            </table>
+    </div>
+   <?php endif; ?>
+  
+   
+   
+   <?php
+    $toEncode = array();
+    if (count($leadConvertedReportSummary)):
+        foreach ($leadConvertedReportSummary as $key=>$value) {
+            $toEncode[] = array(
+                'y'=>$value,
+                'text'=>$key,
+                'stroke'=>'black',
+                'tooltip'=>$key
+            );
+        }
+    $json = json_encode($toEncode);
+?>
+
+<div class="div_left">
+
+<div id="chartTwo4" style="width: 300px; height: 300px;">
+</div>
+
+
+<script type="text/javascript">
+        dojo.addOnLoad(function() {
+            var dc = dojox.charting;
+            var chartTwo4 = new dc.Chart2D("chartTwo4");
+            chartTwo4.setTheme(dc.themes.MiamiNice).addPlot("default", {
+                type: "Pie",
+                font: "normal normal 9pt Tahoma",
+                fontColor: "black",
+                labelOffset: -30,
+                radius: 120
+            });
+ chartTwo4.addSeries("Series A", <?php echo $json; ?>);
+            var anim_a = new dc.action2d.MoveSlice(chartTwo4, "default");
+            var anim_b = new dc.action2d.Highlight(chartTwo4, "default");
+            var anim_c = new dc.action2d.Tooltip(chartTwo4, "default");
+            chartTwo4.render();
+            
+        });
+    </script>
+</div>
+<?php 
+    endif;
+?>
+
+
+<div id="form">
+<?php echo $this->form; ?>
+</div>
+<div class="div_clear"></div>
+

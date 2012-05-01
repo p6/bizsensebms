@@ -1,0 +1,87 @@
+<h2>Task details</h2>
+<?php
+    $this->headTitle('View task details');
+    $this->headScript()->appendFile('/js/BizSense/Crud.js'); 
+    $taskDetails = $this->task;
+    $acl = $this->acl;
+?>
+
+<div class="clearing"> </div>
+
+<?php if  ($acl->isAllowed($this->currentUser, 'access task pages')): ?>
+<a href="<?php echo $this->url(array(
+        'module'        => 'activity',
+        'controller'    => 'task',
+        'action'        => 'index'
+        )); ?>">Tasks</a>
+&nbsp;|&nbsp;
+<?php endif; ?>
+
+<?php if  ($acl->isAllowed($this->currentUser, 'delete all tasks')):
+    $deleteUrl = $this->url(
+                    array(
+                        'module' => 'activity',
+                        'controller' => 'task',
+                        'action' => 'delete',
+                    )
+                );
+                echo $this->deleteButton($deleteUrl); 
+ endif; ?>
+&nbsp;|&nbsp;
+<?php if  ($acl->isAllowed($this->currentUser, 'edit all tasks')): ?>
+<a href="<?php echo $this->url(array(
+        'module'        => 'activity',
+        'controller'    => 'task',
+        'action'        => 'edit'
+        )); ?>">Edit</a>
+&nbsp;|&nbsp;
+<?php endif; ?>
+
+<?php if  ($acl->isAllowed($this->currentUser, 'access task pages')): ?>
+<a href="<?php echo $this->url(array(
+        'module'        => 'activity',
+        'controller'    => 'task',
+        'action'        => 'notes'
+        )); ?>">Notes</a>
+<?php endif; ?>
+
+<table class="data_table">
+   <tr>
+        <td>Title</td>
+        <td><?php echo $this->escape($taskDetails['name']); ?></td>
+   </tr>
+   
+   <tr>
+        <td>Status</td>
+        <td><?php echo $this->escape($taskDetails['status']); ?></td>
+   </tr>
+   
+   <tr>
+        <td>Start date</td>
+        <td><?php echo $this->escape(
+                $this->timestampToHuman($taskDetails['start_date'])); ?></td>
+   </tr>
+   
+   <tr>
+        <td>Due date</td>
+        <td><?php echo $this->escape(
+                  $this->timestampToHuman($taskDetails['end_date'])); ?></td>
+   </tr>
+   
+   <tr>
+        <td>Created on</td>
+        <td><?php echo $this->escape(
+                    $this->timestampToHuman($taskDetails['created'])); ?></td>
+   </tr>
+   
+   <tr>
+        <td>Assigned to</td>
+        <td><?php echo $this->escape($taskDetails['email']); ?></td>
+   </tr>
+   
+   <tr>
+        <td>Description</td>
+        <td><?php echo $this->escape($taskDetails['description']); ?></td>
+   </tr>
+</table>
+

@@ -1,0 +1,129 @@
+<h2>Purchase details</h2>
+<?php
+    $this->headTitle('Purchase details');
+    $this->headScript()->appendFile('/js/BizSense/Crud.js');   
+    $purchaseId = $this->escape($this->purchaseId);
+    $purchaseRecord = $this->purchaseRecord;
+    $acl = $this->acl;
+?>
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'purchase',
+        'action' => 'index',
+    ), '', true
+);?>">Purchases</a> |
+<?php endif; ?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'purchase',
+        'action' => 'edit',
+        'purchase_id' => $purchaseId,
+    ), '', true
+);?>">Edit</a> |
+<?php endif; ?>
+
+
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): 
+    $deleteUrl = $this->url(
+                    array(
+                        'module' => 'finance',
+                        'controller' => 'purchase',
+                        'action' => 'delete',
+                        'purchase_id' =>$this->escape($purchaseId)
+                    )
+                );
+    echo $this->deleteButton($deleteUrl); 
+ endif; ?>
+|
+
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'default',
+        'controller' => 'purchasereturn',
+        'action' => 'create',
+        'purchase_id' => $purchaseId,
+    ), '', true
+);?>">Purshase Return</a>
+<?php endif; ?>
+
+<table class="data_table">
+    <tr>
+        <td>Purchase Id</td><td><?php echo $this->escape($purchaseId); ?></td>
+    </tr>
+    <tr>
+        <td>Total amount</td>
+        <td><?php echo $this->escape($this->purchaseTotal($purchaseId)); ?></td>
+    </tr>
+    <tr>
+        <td>Vendor</td>
+        <td><?php echo $this->vendorHyperlink($this->escape(
+                  $purchaseRecord['vendor_id'])); ?></td>
+    </tr>
+    <tr>
+        <td>Created on</td>
+        <td><?php echo $this->escape(
+                  $this->timestampToHuman($purchaseRecord['created'])); ?></td>
+    </tr>
+    <tr>
+        <td>Created by</td>
+        <td><?php echo $this->userHyperlink($this->escape(
+                  $purchaseRecord['created_by'])); ?></td>
+    </tr>
+    <tr>
+        <td>Branch</td>
+        <td><?php echo $this->branchHyperlink($this->escape(
+                $purchaseRecord['branch_id'])); ?></td>
+    </tr>
+</table>
+
+<table class="data_table">
+    <tr>
+        <td class="tinyshort">Serial #</td>
+        <td>Item</td>
+        <td>Unit Price</td>
+        <td>Quantity</td>
+        <td>Tax Type</td>
+        <td>Tax</td>
+        <td>Total</td>
+    </tr>
+     
+    <?php
+        $serialNumber = 1;
+        foreach ($this->purchaseItems as $item) {
+            echo "<tr>";
+            echo sprintf("<td>%d</td>", $serialNumber++);
+            echo "<td>";
+            echo $this->escape($this->inventoryItemName(
+                    Core_Model_Invoice::INVOICE_ITEM_TYPE_PRODUCT, 
+                    $item['product_id']
+                ));
+            echo "<br />";
+            
+            echo $this->escape($item['item_description']);
+            echo "</td>";
+            $unitPrice = $this->escape($item['unit_price']);
+            echo "<td>" . number_format($unitPrice, 2, '.', ',') . "</td>";
+            $quantity = $item['quantity'];
+            echo "<td>" . number_format($quantity, 2, '.', ',') . "</td>";
+            echo "<td>" . $this->escape(
+                        $this->taxNameById($item['tax_type_id'])) . "</td>";
+            $taxPercentage = $this->taxPercentageById($item['tax_type_id']);
+            $beforeTax = $unitPrice * $quantity;
+            $tax = ($beforeTax * $taxPercentage) / 100;
+            echo "<td>" . $tax . "</td>";
+            $lineTotal = $beforeTax + $tax;
+            echo "<td>" . number_format($lineTotal, 2, '.', ',') . "</td>";
+            echo "</tr>";
+        }
+        
+    ?>
+    
+</table>
+
+

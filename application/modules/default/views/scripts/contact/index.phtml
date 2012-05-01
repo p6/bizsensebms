@@ -1,0 +1,116 @@
+<h2>Contacts</h2>  
+
+<?php 
+    $this->headTitle('Contacts');
+    $this->dojoLayer('common');
+    $this->headScript()->appendFile('/js/BizSense/SavedSearch/Crud.js'); 
+    $acl = $this->acl;
+?>
+
+<p>
+<?php if ($acl->isAllowed($this->currentUser, 'create contacts')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'default', 
+        'controller' => 'contact', 
+        'action' => 'create'
+    )
+);?>">Create Contact</a> |
+<?php endif; ?>
+
+<?php if  ($acl->isAllowed($this->currentUser, 'create contacts')): ?>
+<a href="<?php echo $this->url(array(
+        'module'        =>  'default', 
+        'controller'    =>  'contact', 
+        'action'        =>  'import'
+    )); ?>">Import contacts</a>
+<?php endif; ?>
+</p>
+
+<fieldset class="fieldset_properties">
+    <legend>
+        <img src="/images/design/search.png"></li>
+                     Search
+     </legend>
+        <?php echo $this->form; ?>
+        <?php echo $this->savedSearchJs(Core_Model_SavedSearch::TYPE_CONTACT);?>
+</fieldset>
+
+<?php if (count($this->paginator)): ?>
+<p>
+Total contacts : <?php echo $this->paginator->getAdapter()->count(); ?>
+</p>
+
+<table class="data_table">
+    <tr>
+        <th class="short">
+            First name <?php echo $this->sortButtons("first_name"); ?>
+        </th>
+        <th class="short">
+            Last name<?php echo $this->sortButtons("last_name"); ?>
+        </th>
+        <th class="short">
+            Account<?php echo $this->sortButtons("account"); ?>
+        </th>
+        <th class="short">
+            Assigned to<?php echo $this->sortButtons("assigned_to"); ?>
+        </th>
+        <th class="short">
+             Phone
+        </th>
+        <th class="short">
+            Email
+        </th>
+        <th class="short">Action</th>
+    </tr>
+
+<?php foreach ($this->paginator as $item): ?>
+    <tr>
+        <td><?php echo $this->escape($item->first_name);?></td>
+        <td><?php echo $this->escape($item->last_name); ?></td>
+        <td><?php echo $this->escape($item->account_name);?></td>
+        <td><?php echo 
+                $this->userHyperlink($this->escape($item->assigned_to));?></td>
+        <td><?php echo $this->escape($item->work_phone);?></td>
+        <td><?php 
+                echo $this->escape($item->work_email); ?>
+                </td>
+        <td><?php echo "<a href=\"" . $this->url(array(
+                        'module' => 'default', 
+                        'controller' => 'contact', 
+                        'action' => 'viewdetails', 
+                        'contact_id' => $this->escape($item->contact_id)
+                    )
+                ) . "\"> " . "View" . "</a>";
+            ?>
+
+        <?php echo "<a href=\"" . $this->url(
+                    array(
+                        'module' => 'default',
+                        'controller' => 'contact',
+                        'action' => 'edit',
+                        'contact_id' => $this->escape($item->contact_id)
+                    )
+                ) . "\"> " . "Edit" . "</a>";
+            ?>
+    </td>
+
+</tr>
+<?php endforeach; ?>
+
+<?php endif; ?>
+
+</table>
+
+<?php 
+        if ($this->wasSearched and !count($this->paginator)) {
+            echo "<br />There are no records matching the search criteria";
+        }
+?>
+
+<div class="pagination">
+<?php echo $this->paginationControl(
+        $this->paginator, 'Sliding', 'search.phtml'
+    ); ?>
+</div>
+<div class="div_clear"></div>

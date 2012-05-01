@@ -1,0 +1,19 @@
+<?php
+    $this->headTitle('Edit Sales Stage');
+    $acl = $this->acl;
+?>
+<h2>Sales Stage</h2>
+<?php if ($acl->isAllowed($this->currentUser, 'administer bizsense')): ?>
+<a href="<?php 
+    echo $this->url(
+            array(
+                'module' => 'admin', 
+                'controller' => 'salesstage', 
+                'action' => 'index'
+            ), 'default', true
+        );
+    ?>">Sales stage</a>
+<?php endif; ?>    
+<div id="form">
+   <?php echo $this->form; ?>
+</div>

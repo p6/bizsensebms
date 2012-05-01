@@ -1,0 +1,114 @@
+<h2>Call details</h2>
+<?php
+    $this->headTitle('View call details');
+    $this->headScript()->appendFile('/js/BizSense/Crud.js');   
+    
+    $callDetails = $this->call;
+    $fullName = $callDetails['first_name'] . " " . $callDetails['middle_name'] .
+                " " . $callDetails['last_name'];
+    if($callDetails['to_type'] == 1) {
+        $toType = "Lead";
+    } else {
+        $toType = "Contact";
+    }
+    $acl = $this->acl;    
+?>
+
+
+<div class="clearing"> </div>
+<?php if  ($acl->isAllowed($this->currentUser, 'access call pages')): ?>
+<a href="<?php echo $this->url(array(
+        'module'        => 'activity',
+        'controller'    => 'call',
+        'action'        => 'index'
+        )); ?>">Calls</a>
+&nbsp;|&nbsp;
+<?php endif; ?>
+
+<?php if  ($acl->isAllowed($this->currentUser, 'delete all calls')): 
+    $deleteUrl = $this->url(
+                    array(
+                        'module' => 'activity',
+                        'controller' => 'call',
+                        'action' => 'delete'
+                    )
+                );
+                echo $this->deleteButton($deleteUrl); 
+ endif; ?>
+&nbsp;|&nbsp;
+
+<?php if  ($acl->isAllowed($this->currentUser, 'edit all calls')): ?>
+<a href="<?php echo $this->url(array(
+        'module'        => 'activity',
+        'controller'    => 'call',
+        'action'        => 'edit'
+        )); ?>">Edit</a>
+&nbsp;|&nbsp;
+<?php endif; ?>
+
+<?php if  ($acl->isAllowed($this->currentUser, 'access call pages')): ?>
+
+<a href="<?php echo $this->url(array(
+        'module'        => 'activity',
+        'controller'    => 'call',
+        'action'        => 'notes'
+        )); ?>">Notes</a>
+<?php endif; ?>
+
+
+<table class="data_table">
+   <tr>
+        <td>Title</td>
+        <td><?php echo $this->escape($callDetails['name']); ?></td>
+   </tr>
+   
+   <tr>
+        <td>Start date</td>
+        <td><?php echo $this->timestampToHuman($callDetails['start_date']); ?>
+            </td>
+   </tr>
+   
+   <tr>
+        <td>End date</td>
+        <td><?php echo $this->timestampToHuman($callDetails['end_date']); ?>
+            </td>
+   </tr>
+   
+   <tr>
+        <td>Call to type</td>
+        <td><?php echo $this->escape($toType); ?></td>
+   </tr>
+   
+   <tr>
+        <td>Call to</td>
+        <td><?php echo $this->escape($fullName); ?></td>
+   </tr>
+   
+   <tr>
+        <td>Status</td>
+        <td><?php echo $this->escape($callDetails['statusname']); ?></td>
+   </tr>
+   
+   <tr>
+        <td>Assigned to</td>
+        <td><?php echo $this->escape($callDetails['email']); ?></td>
+   </tr>
+   
+   <tr>
+        <td>Created by</td>
+        <td><?php echo $this->escape($callDetails['createdby']); ?></td>
+   </tr>
+   
+   <tr>
+        <td>Created on</td>
+        <td><?php echo 
+            $this->escape($this->timestampToHuman($callDetails['created'])); ?>
+       </td>
+   </tr>
+   
+   <tr>
+        <td>Description</td>
+        <td><?php echo $this->escape($callDetails['description']); ?></td>
+   </tr>
+</table>
+

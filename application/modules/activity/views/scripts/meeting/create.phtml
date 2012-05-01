@@ -1,0 +1,95 @@
+<h2>Schedule meeting</h2>
+<?php
+    $this->dojoLayer('common');
+    $this->headScript()->appendFile(
+                         '/js/BizSense/Activity/Meeting/MeetingAttendees.js');
+    $this->headTitle('Schedule Meeting');
+?>
+
+<?php
+    if (isset($this->includeRecreateScript) and $this->includeRecreateScript) {
+        $returnedItemsJavaScript = '';
+        $returnedItemsJavaScript .= 'var returnedContactItems = ' . 
+                                        $this->returnedContactItemsJSON . '; ';
+        $returnedItemsJavaScript .= 'var returnedUserItems = ' . 
+                                           $this->returnedUserItemsJSON . '; ';
+        $returnedItemsJavaScript .= 'var returnedLeadItems = ' . 
+                                           $this->returnedLeadItemsJSON . '; ';
+        $returnedItemsJavaScript .= ' var toRecreate = true;';
+
+        $this->headScript()->appendScript($returnedItemsJavaScript);
+        $this->headScript()->appendFile(
+                      '/js/BizSense/Activity/Meeting/RecreateContactItems.js');
+    }
+?>
+
+<p class="error_messages">
+<?php
+if (isset($this->itemMessages)) {
+    echo "The following errors occured while submitting the meeting attendees. 
+        Please correct them and submit the form again. <br /><br />";
+    foreach ($this->itemMessages as $message) {
+        echo $message . "<br />";
+    }
+}
+?>
+</p>
+
+<form method="post" action="<?php echo $this->form->getAction(); ?>">
+<table id="contact_items_table" class="data_table">
+    <tr>
+        <th>Contacts</th>
+        <th>Action</th>
+    </tr>
+    <tr>
+        <td colspan="1"> </td>
+        <td>
+            <input type="button" name="more" value="Add Item" 
+                onclick="addContactItemRow(null, null, null, null)">
+        </td>
+    </tr>
+</table>
+<table id="user_items_table" class="data_table">
+    <tr>
+        <th>Users</th>
+        <th>Action</th>
+    </tr>
+    <tr>
+        <td colspan="1"> </td>
+        <td>
+            <input type="button" name="more" value="Add Item" 
+                onclick="addUserItemRow(null, null, null, null)">
+        </td>
+    </tr>
+</table>
+
+<table id="lead_items_table" class="data_table">
+    <tr>
+        <th>Leads</th>
+        <th>Action</th>
+    </tr>
+    <tr>
+        <td colspan="1"> </td>
+        <td>
+            <input type="button" name="more" value="Add Item" 
+                onclick="addLeadItemRow(null, null, null, null)">
+        </td>
+    </tr>
+</table>
+<fieldset class="fieldset_medium">
+<legend>
+Meeting
+</legend>
+<div id="form">
+<?php
+$form = $this->form;
+$elements = $form->getElements();
+foreach ($elements as $element) {
+    echo $element;
+}
+?>
+</div>
+</fieldset>
+
+</form>
+

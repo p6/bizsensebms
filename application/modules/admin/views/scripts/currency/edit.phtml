@@ -1,0 +1,12 @@
+<h1>Edit currency</h1>
+<a href="<?php echo $this->url(array(
+        'module'        =>  'admin',
+        'controller'    =>  'currency',
+        'action'        =>  'index',
+    ), null, true
+); ?>">Currency</a>
+<?php
+    $this->headTitle('Edit currency');
+    echo $this->message;
+    echo $this->form;
+?>

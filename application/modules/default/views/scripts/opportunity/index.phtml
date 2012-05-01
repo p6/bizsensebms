@@ -1,0 +1,105 @@
+<h2>Opportunity</h2>
+<?php
+    $this->headTitle('Opportunities');
+    $acl = $this->acl;
+    $this->dojoLayer('common');
+    $this->headScript()->appendFile('/js/BizSense/SavedSearch/Crud.js');  
+?>
+<?php if  ($acl->isAllowed($this->currentUser, 'create opportunities')): ?>
+<a href="<?php echo $this->url(array(
+        'module'        =>  'default', 
+        'controller'    =>  'opportunity', 
+        'action'        =>  'create'
+    ), NULL, true); ?>">Create Opportunity</a>
+<?php endif; ?>
+
+<fieldset class="fieldset_properties">
+    <legend>
+        <img src="/images/design/search.png"></li>
+                     Search
+     </legend>
+        <?php echo $this->form; ?>
+        <?php echo $this->savedSearchJs(Core_Model_SavedSearch::TYPE_OPPORTUNITY); ?>
+</fieldset>
+
+<div class="clearing"></div>
+
+<?php
+
+if (count($this->paginator)): ?>
+<p>
+Total opportunities : <?php echo $this->paginator->getAdapter()->count(); ?>
+</p>
+
+<table class="data_table">
+    <tr>
+        <th class="short">Opportunity<?php echo $this->sortButtons("name"); ?>
+        </th>
+        <th>Amount<?php echo $this->sortButtons("amount"); ?>
+        </th>
+        <th>Expected Close Date
+            <?php echo $this->sortButtons("expected_close_date"); ?>
+        </th>
+        <th class="short">Account
+            <?php echo $this->sortButtons("account"); ?>
+        </th>
+        <th class="short">Of Branch 
+            <?php echo $this->sortButtons("branch"); ?>
+        </th>
+        <th class="short">Assigned To 
+            <?php echo $this->sortButtons("user"); ?>
+        </th>
+    </tr>
+
+<?php foreach ($this->paginator as $opportunity): ?>
+<?php
+    $opportunityId = $this->escape($opportunity->opportunity_id);
+?>
+    <tr>
+        <td>
+            <a href="<?php echo $this->url(array(
+					    'module'        =>  'default',
+					    'controller'    =>  'opportunity',
+					    'action'        =>  'viewdetails',
+					    'opportunity_id'=>  $this->escape($opportunityId))) 
+                ?>">
+                <?php echo $this->escape($opportunity->name); ?>
+            </a>
+        </td>   
+             
+        <td><?php echo $this->escape(
+                                $this->escape($opportunity->amount)); ?></td> 
+               
+        <td><?php echo $this->escape($this->timestampToHuman(
+                                $opportunity->expected_close_date)); ?></td> 
+                                       
+        <td><a href="<?php echo $this->url(array(
+			    'module'        =>  'default',
+				'controller'    =>  'account',
+				'action'        =>  'viewdetails',
+				'account_id'    =>  $this->escape($opportunity->account_id))) 
+            ?>">
+            <?php echo $this->escape($opportunity->account_name); ?>
+            </a>
+        </td>    
+            
+        <td><?php echo $this->escape($opportunity->branch_name); ?></td> 
+               
+        <td><?php echo $this->escape($opportunity->assignedToUser); ?></td>        
+    </tr>
+<?php endforeach; ?>
+<?php endif; ?>
+</table>
+<?php
+        if ($this->wasSearched and !count($this->paginator)) {
+            echo "<br />There are no records matching the search criteria";
+        }
+?>
+
+<div class="pagination">
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'search.phtml'); ?>
+</div>
+<div class="div_clear"></div>
+
+
+

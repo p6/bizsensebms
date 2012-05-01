@@ -1,0 +1,28 @@
+<h2>Product category</h2>
+<?php
+    $this->headTitle('Product category');
+?>
+<a href="<?php echo $this->baseUrl() . "/admin/pcategory/add"; ?>">Add Product Category</a>
+<br />
+    <table class="data_table">
+        <tr><th>Category</th><th>Description</th></tr>
+        <?php
+            foreach ($this->paginator as $item){
+                echo "<tr>";
+                foreach($item as $key=>$value) {
+                    if ($key == "product_category_id") {
+                       $productCategoryId = $value;     
+                    } else {
+                        echo "<td>" . $this->escape($value) . "</td>";
+                    }
+                        
+                }
+                echo "</tr>";
+        
+            }
+           ?>
+    </table>
+<div class="pagination">
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'search.phtml'); ?>
+</div>
+<div class="div_clear"></div>

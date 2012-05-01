@@ -1,0 +1,31 @@
+<!DOCTYPE html
+PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Error</title>
+</head>
+<body>
+    <h1>Access denied</h1>
+
+  <p> 
+	My friend, you could be here due to any of the following reasons
+  </p>
+	<ul>
+		<li>You do not have sufficient privileges to acess the resource you requested</li>
+		<li>An internal error occured</li>
+	</ul>
+  <p>
+	The administrator has been notified of this error. 
+  </p>
+</body>
+</html>
+
+<?php
+$request = Zend_Controller_Front::getInstance()->getRequest();
+$message = 'access voilation';
+$message .= "\n IP Address \n" . Zend_Json::encode($request->getServer('REMOTE_ADDR')) . "\n";
+$message .= "\n HTTP AGENT \n" . Zend_Json::encode($request->getServer('HTTP_USER_AGENT')) . "\n";
+$message .= "\n Request params\n" .Zend_Json::encode($request->getParams());
+$this->fileLogger($message);

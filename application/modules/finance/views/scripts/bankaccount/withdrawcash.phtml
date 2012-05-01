@@ -1,0 +1,21 @@
+<h2>Create Withdraw Cash</h2>
+<?php
+    $this->dojoLayer('common');
+    $this->headTitle('Withdraw Cash');
+    $acl = $this->acl;
+?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'bankaccount',
+        'action' => 'index',
+    ), 'default', true
+);?>">Bank Account</a>
+<?php endif; ?>
+
+<div id="form">
+    <?php  echo $this->form; ?>
+</div>
+<div class="div_clear"></div>

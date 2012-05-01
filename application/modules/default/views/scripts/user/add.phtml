@@ -1,0 +1,18 @@
+<h2>Create User</h2>  
+<p>
+<?php
+   $this->dojoLayer('common');
+   $acl = $this->acl; 
+?>
+<?php if ($acl->isAllowed($this->currentUser, 'administer users')): ?>
+    <a href="/user/users">Users</a>
+<?php endif; ?>
+</p>
+<?php
+    $this->headTitle('Create User');
+	echo $this->message;
+?>
+<div id="form">
+   <?php echo $this->form; ?>
+</div>
+<div class="div_clear"></div>

@@ -1,0 +1,14 @@
+<h2>Edit lead status</h2>
+<?php
+    $this->headTitle('Edit lead status details');
+?>
+    <a href="<?php echo $this->url(array(
+        'module'        => 'default',
+        'controller'    => 'leadstatus',
+        'action'        => 'index'
+        )); ?>">Lead Status</a>
+        
+<div id="form">
+   <?php echo $this->form; ?>
+</div>
+<div class="div_clear"></div>

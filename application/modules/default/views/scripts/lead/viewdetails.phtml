@@ -1,0 +1,243 @@
+<h1>Lead details</h1>  
+<?php
+    $this->headTitle('Lead Details');
+    $this->headScript()->appendFile('/js/BizSense/Crud.js');
+    echo $this->message;
+    echo $this->form;
+    $acl = $this->acl;
+?>
+<?php
+	$lead = $this->lead;
+	$leadId = $this->escape($this->lead_id);
+?>
+<p>
+<?php
+
+if ($acl->isAllowed($this->currentUser, 'access lead pages')):
+    printf("<a href=\"%s\">Leads</a> | ", 
+        $this->url(
+            array(
+                'module' => 'default', 
+                'controller' => 'lead'
+            ), NULL , TRUE)
+        );
+endif;
+
+if ($acl->isAllowed($this->currentUser, 'create leads')):
+    echo "<a href=\"" . $this->url(
+                array(
+                    'module' => 'default', 
+                    'controller' => 'lead', 
+                    'action' => 'create'
+                ), NULL, true
+            ) . "\">Create lead</a> | ";
+endif;
+
+if ($acl->isAllowed($this->currentUser, 'access lead pages')):
+    echo "<a href=\"" . $this->url(
+                array(
+                    'module' => 'default', 
+                    'controller' => 'lead', 
+                    'action' => 'edit', 
+                    'lead_id' => $leadId
+                )
+            ) . "\">Edit Lead</a> | ";
+endif;
+
+if  ($acl->isAllowed($this->currentUser, 'access lead pages')): 
+    $deleteUrl = $this->url(
+                    array(
+                        'module' => 'default',
+                        'controller' => 'lead',
+                        'action' => 'delete',
+                        'lead_id' =>$this->escape($leadId)
+                    )
+                );
+                echo $this->deleteButton($deleteUrl); 
+ endif;
+ ?>
+ | 
+ <?php
+if ($acl->isAllowed($this->currentUser, 'access lead pages')):
+    if (!$lead['converted']) {
+        echo "<a href=\"" . $this->url(
+                array(
+                    'module' => 'default', 
+                    'controller' => 'lead', 
+                    'action' => 'convert', 
+                    'lead_id' => $leadId
+                )
+            ) . "\">Convert Lead</a> | "; 
+    }
+endif;
+
+if ($acl->isAllowed($this->currentUser, 'access lead pages')):
+    echo "<a href=\"" . $this->url(
+                array(
+                    'module' => 'default', 
+                    'controller' => 'lead', 
+                    'action' => 'notes', 
+                    'lead_id' => $leadId
+                )
+            ) . "\">Notes</a> | ";
+endif;            
+?>
+<?php if ($acl->isAllowed($this->currentUser, 'access lead pages')): ?>
+<a href="<?php echo $this->url(array(
+        'module'        =>  'default',
+        'controller'    =>  'lead',
+        'action'        =>  'viewrelatedcalls'
+    )); ?>">Related calls</a> |
+<?php endif; ?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access lead pages')): ?>
+<a href="<?php echo $this->url(array(
+        'module'        =>  'default',
+        'controller'    =>  'lead',
+        'action'        =>  'viewrelatedmeetings'
+    )); ?>">Related meetings</a>
+<?php endif; ?>
+
+</p>
+
+<table class="data_table">
+    <tr>
+        <td>Lead Status</td>
+        <td class="mediumshort">
+            <?php echo $this->escape($lead['status']); ?>
+        </td>
+    </tr>
+	<tr>
+        <td>Lead Source</td>
+        <td><?php echo $this->escape($lead['source']); ?>
+        </td>
+    </tr>
+	<tr>
+        <td>First name</td>
+        <td><?php echo $this->escape($lead['first_name']); ?>
+        </td>
+    </tr>
+	<tr>
+        <td>Middle name</td>
+        <td><?php echo $this->escape($lead['middle_name']); ?></td>
+    </tr>
+	<tr>
+        <td>Last name</td>
+        <td><?php echo $this->escape($lead['last_name']); ?></td>
+    </tr>
+    <tr>
+        <td>Company name</td>
+        <td><?php echo $this->escape($lead['company_name']); ?></td>
+    </tr>
+	<tr>
+        <td>Home Phone</td>
+        <td><?php echo $this->escape($lead['home_phone']); ?></td>
+    </tr>
+	<tr>
+        <td>Work Phone</td>
+        <td><?php echo $this->escape($lead['work_phone']); ?></td>
+    </tr>
+	<tr>
+        <td>Do Not Call</td>
+        <td>
+            <?php $doNotCall = $lead['do_not_call'];?>
+			<input type="checkbox" name="doNotCall" disabled="disabled" 
+			<?php if ($doNotCall) { echo "checked=\"checked\""; }?>/>
+		</td>
+    </tr>
+	<tr>
+        <td>Mobile</td>
+        <td><?php echo $this->escape($lead['mobile']); ?></td>
+    </tr>
+	<tr>
+        <td>Fax</td>
+        <td><?php echo $this->escape($lead['fax']); ?></td>
+    </tr>
+	<tr>
+        <td>Email</td>
+        <td><?php 
+                $email = $this->escape($lead['email']);
+                echo "<a href=\"mailto:$email\"> $email"
+             ?>
+        </td>
+    </tr>
+	<tr>
+        <td>Email Opt Out</td>
+        <td>
+		    <?php $emailOptOut = $lead['email_opt_out'];?>
+			<input type="checkbox" name="emailOptOut" disabled="disabled" 
+			<?php if ($emailOptOut) { echo "checked=\"checked\""; }?>/>
+		</td>
+	</tr>
+	<tr>
+        <td>Address</td>
+        <td>
+            <?php 
+                echo $this->escape($lead['address_line_1']) . "<br />"; 
+                echo $this->escape($lead['address_line_2']) . "<br />"; 
+                echo $this->escape($lead['address_line_3']) . "<br />"; 
+                echo $this->escape($lead['address_line_4']) . "<br />"; 
+            ?>
+        </td>
+    </tr>
+	<tr>
+        <td>City</td>
+        <td><?php echo $this->escape($lead['city']); ?></td>
+    </tr>
+	<tr>
+        <td>Postal code</td>
+        <td><?php echo $this->escape($lead['postal_code']); ?></td>
+    </tr>
+	<tr>
+        <td>State</td>
+        <td><?php echo $this->escape($lead['state']); ?></td>
+    </tr>
+	<tr>
+        <td>Country</td>
+        <td><?php echo $this->escape($lead['country']); ?></td>
+    </tr>
+	<tr>
+        <td>Description</td>
+        <td><?php echo $this->escape($lead['description']); ?></td>
+    </tr>
+    <tr>
+        <td>Campaign id</td>
+        <td><?php if ($lead['campaign_id']) {
+                    echo $this->escape($this->campaignNameById($lead['campaign_id']));
+                } ?> 
+    </td>
+    </tr>
+	<tr>
+        <td>Assigned To</td>
+        <td><?php 
+                $assignedTo = $this->escape($lead['assigned_to_email']);
+                echo "<a href=\"mailto:$assignedTo\"> $assignedTo"
+             ?>
+        </td>
+    </tr>
+	<tr>
+        <td>Branch</td>
+        <td><?php echo $this->escape($lead['branch_name']); ?></td>
+    </tr>
+    <tr>
+        <td>Created by</td>
+        <td>
+            <?php 
+                if ($lead['created_by']) {
+                    echo $this->userHyperlink($this->escape(
+                                $lead['created_by'])); 
+                }
+            ?>
+        </td>
+    </tr>
+    <tr>
+        <td>Created</td>
+        <td>
+            <?php 
+                if ($lead['created']) {
+                    echo $this->timestampToHuman($this->escape($lead['created'])); 
+                }
+            ?>
+        </td>
+    </tr>
+</table>

@@ -1,0 +1,48 @@
+<h2>Edit HTML Message</h2>
+<?php
+    $messageId = $this->messageId;
+    
+    $this->headScript()->appendFile('/js/BizSense/Newsletter/Message.js');
+    $acl = $this->acl;    
+?>
+<script>
+dojo.require("dojox.validate.regexp");
+</script>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access newsletter pages')): ?>
+<a href="<?php echo $this->url(array(
+        'module' => 'newsletter',
+        'controller' => 'message',
+        'action' => 'index'
+        ), null, true); ?>">Messages</a> | 
+<?php endif; ?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access newsletter pages')): ?>
+<a href="<?php echo $this->url(array(
+        'module' => 'newsletter',
+        'controller' => 'message',
+        'action' => 'sendtolists',
+        'message_id' => $messageId,
+        ), null, true); ?>">Send To Lists</a> | 
+<?php endif; ?>
+
+<br />
+<br />
+<br />
+<?php
+
+    $this->headTitle('Edit HTML Message');
+    echo $this->message;
+?>
+
+<div id="form">
+   <?php echo $this->form; ?>
+</div>
+<div class="div_clear"></div>
+
+<div id="form">
+<?php
+    echo $this->testMessageForm;
+?>
+</div>
+<div class="div_clear"></div>

@@ -1,0 +1,73 @@
+<h2>Account Notes</h2>  
+<?php 
+    $this->headTitle('Account Notes');
+    $acl = $this->acl;
+    $account_id = $this->escape($this->account_id);
+?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access account pages')): ?>
+<a href="<?php echo $this->url(array(
+        'module'        =>  'default',
+        'controller'    =>  'account',
+        'action'        =>  'viewdetails',
+        'account_id'    =>  $account_id,
+    ));?>">Account</a> |
+<?php endif; ?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access account pages')): ?>
+<a href="<?php echo $this->url(array(
+        'module'        =>  'default',
+        'controller'    =>  'account',
+        'action'        =>  'createnote',
+        'account_id'    =>  $account_id,
+    ));?>">Create note</a>
+<?php endif; ?>
+
+<div class="clearing">
+&nbsp;
+</div>
+<?php
+
+if (count($this->paginator)): ?>
+<p>
+Total number of notes : <?php echo $this->paginator->getAdapter()->count(); ?>
+</p>
+
+<table class="data_table">
+<tr>
+<th class="short">Notes</th>
+<th class="mediumshort">Created</th>
+<th class="mediumshort">Created by</th>
+</tr>
+<?php foreach ($this->paginator as $item): ?>
+<?php
+    $itemsArray = $item->toArray();
+?>
+<tr>
+    <?php 
+        echo "<td>";
+        $notes = $this->escape($itemsArray['notes']);
+        echo nl2br($notes);
+        echo "</td>";
+
+        echo "<td>";
+        echo $this->escape($this->timestampToHuman($itemsArray['created']));
+        echo "</td>";
+        
+        echo "<td>";
+        echo $this->userHyperlink($this->escape($itemsArray['created_by']));
+        echo "</td>";
+
+    ?>
+</tr>
+
+<?php endforeach; ?>
+<?php endif; ?>
+
+</table>
+
+<span class="pagination"> 
+<?php echo $this->paginationControl(
+        $this->paginator, 'Sliding', 'search.phtml'
+    ); ?>
+</span>

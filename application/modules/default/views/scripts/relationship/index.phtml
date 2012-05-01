@@ -1,0 +1,40 @@
+<h2>Relationship</h2>
+<?php
+   $acl = $this->acl;
+   $this->headTitle('Relationship');
+?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access account pages')): ?>
+<a href="<?php echo $this->url(array(
+    'module'    =>'default', 
+    'controller'=>'account',
+    'action'    =>'index'
+    )
+  , null, true); ?>">Accounts</a>
+<?php endif; ?>
+
+<div class="clearing"> </div>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access contact pages')): ?>
+<a href="<?php echo $this->url(array(
+    'module'    =>'default', 
+    'controller'=>'contact',
+    'action'    =>'index'
+    )
+  , null, true); ?>">Contacts</a>
+<?php endif; ?>
+
+
+<div class="clearing"> </div>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access vendor pages')): ?>
+<a href="<?php echo $this->url(array(
+    'module'    =>'default', 
+    'controller'=>'finance',
+    'action'    =>'vendor'
+    )
+  , null, true); ?>">Vendor</a>
+<?php endif; ?>
+
+<div class="clearing"> </div>
+

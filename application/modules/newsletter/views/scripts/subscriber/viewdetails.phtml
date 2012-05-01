@@ -1,0 +1,129 @@
+<h2>Subscriber Details</h2>
+<?php
+    $this->headTitle('Subscriber Details');
+    $this->headScript()->appendFile('/js/BizSense/Crud.js');   
+    $subscriber = $this->subscriber;
+    $subscriberId = $this->escape($this->subscriberId);
+    $acl = $this->acl;    
+?>
+
+<?php 
+if ($acl->isAllowed($this->currentUser, 'access newsletter pages')):
+echo "<a href=\"" . $this->url(
+            array(
+                'module' => 'newsletter', 
+                'controller' => 'subscriber', 
+                'action' => 'index'
+            ), NULL, true
+        ) . "\">Subscriber</a> | ";
+endif;
+
+if ($acl->isAllowed($this->currentUser, 'access newsletter pages')):
+echo "<a href=\"" . $this->url(
+            array(
+                'module' => 'newsletter', 
+                'controller' => 'subscriber', 
+                'action' => 'edit',
+                'subscriber_id' => $subscriberId
+            ), NULL, true
+        ) . "\">Edit</a> | ";
+endif;
+
+if  ($acl->isAllowed($this->currentUser, 'access newsletter pages')): 
+    $deleteUrl = $this->url(
+                    array(
+                        'module' => 'newsletter',
+                        'controller' => 'subscriber',
+                        'action' => 'delete',
+                        'subscriber_id' =>$this->escape($subscriberId)
+                    )
+                );
+                echo $this->deleteButton($deleteUrl); 
+                echo "| ";
+endif;
+ 
+?>
+
+
+<?php 
+if ($acl->isAllowed($this->currentUser, 'access newsletter pages')):
+echo "<a href=\"" . $this->url(
+            array(
+                'module' => 'newsletter', 
+                'controller' => 'subscriber', 
+                'action' => 'reset',
+                'subscriber_id' => $subscriberId
+            ), NULL, true
+        ) . "\">Reset bounce count</a> | ";
+endif;
+?>
+<table class="data_table">
+    <tr>
+        <td>First name </td> 
+        <td><?php echo $this->escape($subscriber['first_name']); ?></td>
+    </tr>
+    <tr>
+        <td>Middle name </td> 
+        <td><?php echo $this->escape($subscriber['middle_name']); ?></td>
+    </tr>
+    <tr>
+        <td>Last name </td> 
+        <td><?php echo $this->escape($subscriber['last_name']); ?></td>
+    </tr>
+    <tr>
+        <td>E-mail </td> 
+        <td><?php echo $this->escape($subscriber['email']); ?></td>
+    </tr>
+    <tr>
+        <td>Format </td> 
+        <td><?php 
+                if($subscriber['format'] == Core_Model_Newsletter_Subscriber::FORMAT_HTML) {
+                    echo "HTML";
+                } else {
+                    echo "Text";
+                }
+        
+            ?>
+        </td>
+    </tr>
+    <tr>
+        <td>Status </td> 
+        <td><?php 
+                if ($subscriber['status'] == Core_Model_Newsletter_Subscriber::CONFIRMED) {
+                        echo "Confirmed";
+                }
+                else if ($subscriber['status'] == Core_Model_Newsletter_Subscriber::UNCONFIRMED) {
+                        echo "Unconfirmed";
+                }  
+                else if ($subscriber['status'] == Core_Model_Newsletter_Subscriber::ACTIVE) {
+                        echo "Active";
+                } 
+                else if ($subscriber['status'] == Core_Model_Newsletter_Subscriber::BLOCKED) {
+                        echo "Blocked";
+                } 
+             ?>
+        </td>
+    </tr>
+    
+    <tr>
+        <td>Bounce count </td> 
+        <td><?php echo $this->escape($subscriber['bounce_count']); ?></td>
+    </tr>
+    
+    <tr>
+        <td>Subscribed to list/s </td> 
+        <td><?php 
+                $listSubscriberModel = new Core_Model_Newsletter_List_Subscriber;
+                $listRecord = $listSubscriberModel->getListBySubscribersId($subscriberId);
+                for ($i=0; $i <= count($listRecord)-1; $i++) {
+                  echo $this->listHyperlink($this->escape($listRecord[$i]['list_id']));
+                  echo ", ";
+                }
+            ?>
+        </td>
+    </tr>
+    
+    
+</table>
+
+<div class="div_clear"></div>

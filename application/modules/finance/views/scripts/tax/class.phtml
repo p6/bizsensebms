@@ -1,0 +1,21 @@
+<a href="/admin/tax/addclass">Add Tax Class</a>
+<br />
+    <table id="data_table">
+        <tr><th>Name</th><th>Description</th></tr>
+        <?php
+            foreach ($this->paginator as $item){
+                echo "<tr>";
+                foreach($item as $key=>$value) {
+#                    echo "key is $key value is $value";
+                    if ($key == "taxClassId") {
+                       $currencyId = $key;     
+                    } else {
+                        echo "<td>$this->escape($value)</td>";
+                    }
+                        
+                }
+                echo "</tr>";
+        
+            }
+           ?>
+    </table>

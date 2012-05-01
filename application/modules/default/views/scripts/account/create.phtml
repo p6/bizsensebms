@@ -1,0 +1,22 @@
+<h2>Create Account</h2> 
+<?php
+    $this->dojoLayer('common');
+    $this->headTitle('Create Account');
+    $this->headScript()->appendFile('/js/BizSense/Account/CopyAddress.js'); 
+    echo $this->escape($this->message);
+    $acl = $this->acl;    
+?>
+
+<?php if  ($acl->isAllowed($this->currentUser, 'access account pages')): ?>
+<a href="<?php echo $this->url(array(
+            'module'        =>  'default', 
+            'controller'    =>  'account'
+        ), NULL, TRUE); ?>">Accounts</a> |
+<?php endif; ?>
+
+<div id="form">
+   <?php echo $this->form; ?>
+</div>
+<div class="div_clear"></div>
+</body>  
+</html> 

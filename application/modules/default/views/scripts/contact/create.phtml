@@ -1,0 +1,14 @@
+<h2><?php echo "Create Contact" ?></h2>  
+<?php
+    $this->dojoLayer('common');
+    $this->headTitle('Create Contact');
+    $this->headScript()->appendFile('/js/BizSense/Contact/GetAddresses.js'); 
+    $this->headScript()->appendFile('/js/BizSense/Account/CopyAddress.js');
+    echo $this->message;
+?>
+
+<div id="form">
+   <?php echo $this->form; ?>
+</div>
+
+<div class="div_clear"></div>

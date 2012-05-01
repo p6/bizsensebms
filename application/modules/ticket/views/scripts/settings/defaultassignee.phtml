@@ -1,0 +1,26 @@
+<h2>Set Default Ticket Assignee</h2>
+<?php
+    $this->headTitle('Set Default Ticket Assignee');
+    $acl = $this->acl;  
+    $this->dojoLayer('common');  
+?>
+
+<?php if  ($acl->isAllowed($this->currentUser, 'access ticket pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'ticket',
+        'controller' => 'index',
+        'action' => 'index'
+    ), 'default', true
+); ;?>">Tickets
+</a>
+<?php endif; ?>
+
+<?php
+	echo $this->message;
+?>
+</p>
+<div id="form">
+   <?php echo $this->form; ?>
+</div>
+

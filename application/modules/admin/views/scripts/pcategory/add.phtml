@@ -1,0 +1,13 @@
+<h2>Add Product Category</h2>
+<a href="<?php echo $this->url(array(
+        'module'        =>  'admin',
+        'controller'    =>  'pcategory',
+        'action'        =>  'index',
+    )); ?>">Product category</a>
+<?php
+    $this->headTitle('Add product category');
+    echo $this->message;
+?>
+<div id="form">
+   <?php echo $this->form; ?>
+</div>

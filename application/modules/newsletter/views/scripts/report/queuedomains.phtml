@@ -1,0 +1,114 @@
+<?php
+    $this->headTitle('Recipient Domain Report');
+    $acl = $this->acl;
+    $this->dojoLayer('common');
+    $this->dojo()->addLayer('/js/dojo/chart/layer.js');
+    $domain= array();
+?>
+<h2>Recipient Domains Report</h2>
+
+<?php if  ($acl->isAllowed($this->currentUser, 'access newsletter pages')): ?>
+<a href="<?php echo $this->url(array(
+    'module'    =>'newsletter', 
+    'controller'=>'index',
+    'action'    =>'index'
+    )
+  , null, true); ?>">Newsletter</a>
+  |
+<?php endif; ?>
+
+<?php if  ($acl->isAllowed($this->currentUser, 'access newsletter pages')): ?>
+<a href="<?php echo $this->url(array(
+    'module'    =>'newsletter', 
+    'controller'=>'settings',
+    'action'    =>'index'
+    )
+  , null, true); ?>">Settings</a>
+  
+<?php endif; ?>
+
+<fieldset class="fieldset_properties">
+    <legend>
+        <img src="/images/design/search.png"></li>
+                     Search
+     </legend>
+        <?php echo $this->form; ?>
+</fieldset>
+
+<div class="clearing">
+</div>
+<br/><br/>
+
+<?php   
+    $toEncode = array();
+    $total = 0;
+    if($this->report) {
+       foreach ($this->report as $value) {
+            $total += $total;
+            $count = $value['dc'];
+            $text = $value['domain']. " ($count)";
+            $toEncode[] = array(
+                'y'=>$count,
+                'text'=>$text,
+                'stroke'=>'black',
+                'tooltip'=>$text
+            );
+        }
+        $json = json_encode($toEncode);   
+?>
+<div class="div_center">
+    <div id="chartTwo" style="width: 600px; height: 300px;">
+</div>
+
+
+<script type="text/javascript">
+        dojo.addOnLoad(function() {
+            var dc = dojox.charting;
+            var chartTwo = new dc.Chart2D("chartTwo");
+            chartTwo.setTheme(dc.themes.MiamiNice).addPlot("default", {
+                type: "Pie",
+                font: "normal normal 9pt Tahoma",
+                fontColor: "black",
+                labelOffset: -30,
+                radius: 120
+            });
+            chartTwo.addSeries("Series A", <?php echo $json; ?>);
+            var anim_a = new dc.action2d.MoveSlice(chartTwo, "default");
+            var anim_b = new dc.action2d.Highlight(chartTwo, "default");
+            var anim_c = new dc.action2d.Tooltip(chartTwo, "default");
+            chartTwo.render();
+            
+        });
+    </script>
+   
+
+<div class="div_clear">
+</div> 
+<br/><br/>
+<?php
+    }// end of if
+?>
+
+<?php if (count($this->paginator)): ?>
+<b>Total : <?php echo $this->paginator->getAdapter()->count(); ?></b>
+<?php $messageQueueModel = new Core_Model_Newsletter_Message_Queue; ?>
+<table class="data_table">
+    <tr> <th>Domain</th> <th>Total messages</th> </tr>
+<?php foreach ($this->paginator as $item): ?>
+<?php $item = $item->toArray();
+     $domain = $item['domain'];     
+     $count = $item['domain_count'];
+     echo "<tr>";
+     echo "<td>$domain</td>";
+     echo "<td>$count</td>";
+     echo "</tr>";
+?>
+<?php endforeach; ?>
+</table>
+<?php endif; ?>
+<div class="pagination">
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'search.phtml'); ?>
+</div>
+<div class="div_clear"></div>
+
+

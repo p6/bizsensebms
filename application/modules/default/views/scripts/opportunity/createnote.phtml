@@ -1,0 +1,18 @@
+<h2>Create note</h2>
+<?php
+    $this->headTitle('Create opportunity note');    
+    $acl = $this->acl;
+?>
+<?php if  ($acl->isAllowed($this->currentUser, 'access opportunity pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'default', 
+        'controller' => 'opportunity', 
+        'action' => 'viewdetails', 
+        'opportunity_id' => $this->escape($this->opportunityId)
+    ), NULL, true
+); ?>">View opportunity details</a> 
+<?php endif; ?>
+<div id="form">
+   <?php echo $this->form; ?>
+</div>

@@ -1,0 +1,17 @@
+<h2>Cheque Return</h2>
+<?php
+    $this->headTitle('Cheque Return');
+?>
+
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'bankaccount',
+        'action' => 'index',
+    ), 'default', true
+);?>">Bank Account</a>
+
+<div id="form">
+    <?php  echo $this->form; ?>
+</div>
+<div class="div_clear"></div>

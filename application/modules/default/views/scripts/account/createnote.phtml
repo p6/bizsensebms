@@ -1,0 +1,16 @@
+<h2>Create note</h2>
+<?php
+    $this->headTitle('Create account note');  
+    $acl = $this->acl;
+?>
+<?php if  ($acl->isAllowed($this->currentUser, 'access account pages')): ?>
+<a href="<?php echo $this->url(array(
+            'module'        =>  'default', 
+            'controller'    =>  'account', 
+            'action'        =>  'viewdetails', 
+            'account_id'    => $this->escape($this->account_id)
+        ), NULL, TRUE) ; ?>">View account details</a> 
+<?php endif; ?>
+<div id="form">
+   <?php echo $this->form; ?>
+</div>

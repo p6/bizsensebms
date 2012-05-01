@@ -1,0 +1,15 @@
+<h2>Create New Campaign</h2>
+
+<a href="<?php echo $this->url(array(
+        'module'    =>'default',
+        'controller'=>'campaign',
+        'action'    =>'index'
+        ), null, true); ?>">Campaign</a>
+<?php
+    $this->headTitle('Create New Campaign');
+    echo $this->escape($this->message);
+?>
+<div id="form">
+   <?php echo $this->form; ?>
+</div>
+<div class="div_clear"></div>

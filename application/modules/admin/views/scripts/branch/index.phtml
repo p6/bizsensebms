@@ -1,0 +1,82 @@
+<h2>Branches</h2>
+<?php
+    $this->headTitle('Branch offices');
+    $acl = $this->acl;
+    $user = $this->currentUser;
+?>
+<?php if ($acl->isAllowed($user, 'create branch')): ?>
+<a href="/admin/index/index">Administration</a> | 
+<a href="/admin/branch/create">Create Branch</a>
+<?php endif; ?>
+
+<?php
+     if (count($this->paginator)): ?>
+<table class="data_table">
+<tr>
+    <th class="short">Branch Name 
+                         <?php echo $this->sortButtons("branchName"); ?></th>
+    <th class="tiny">City<?php echo $this->sortButtons("city"); ?></th>
+    <th class="tiny">Phone</th>
+    <th class="short">Branch Manager
+                         <?php echo $this->sortButtons("branchManager"); ?></th>
+    <th class="short">Parent Branch
+                        <?php echo $this->sortButtons("parentBranch"); ?></th>
+    <th class="short">Action</th>
+</tr>
+
+<?php foreach ($this->paginator as $item): ?>
+<tr>
+    <?php foreach($item as $key=>$value): ?>
+    <?php
+         if ($key == "branch_id") {
+            $branchId = $value;
+         }
+         if ($key != "branch_id") {  ?>
+        
+            <td><?php
+            if ($key == "branch_name") {
+                echo $value;
+            } else {
+                echo $value;
+            }
+         }
+    ?>
+  </td>
+<?php endforeach; ?>
+<td>
+        <?php
+            $viewAssertion = new Core_Model_Branch_Acl_CanAccess($branchId);
+            $editAssertion = new Core_Model_Branch_Acl_CanEdit($branchId);
+
+            if ($acl->isAllowed($this->currentUser, null, $viewAssertion )){
+               echo "<a href=\"" .
+                    $this->url(array(
+                        'module' => 'admin',
+                        'controller' => 'branch',
+                        'action' => 'viewdetails',
+                        'branch_id' => $branchId)). "\">View</a>";
+            }
+
+            if ($acl->isAllowed($this->currentUser, null, $editAssertion)){
+               echo ", <a href=\"" .
+                    $this->url(array(
+                        'module' => 'admin',
+                        'controller' => 'branch',
+                        'action' => 'edit',
+                        'branch_id' => $branchId)) . "\">Edit</a>";
+            }
+        ?>
+
+        </td>
+
+</tr>
+<?php endforeach; ?>
+<?php endif; ?>
+</table>
+<div class="pagination">
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'search.phtml', array('default')); ?>
+</div>
+<div class="div_clear"></div>
+
+
+                                                                                      

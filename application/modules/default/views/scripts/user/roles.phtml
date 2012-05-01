@@ -1,0 +1,71 @@
+<h1>User Roles</h1>  
+<?php
+    $acl = $this->acl;
+    $this->headScript()->appendFile('/js/BizSense/Crud.js'); 
+?>
+<?php if ($acl->isAllowed($this->currentUser, 'administer users')): ?>
+    <a href="/user/users">Users</a> |
+    <a href="/user/addrole">Add Role</a>
+<?php endif; ?>
+<?php
+    $this->headTitle('User Roles');
+	echo $this->message;
+	echo $this->form;
+?>
+
+<?php
+if (count($this->paginator)): ?>
+<table class="data_table">
+<tr>
+<th>Role<?php echo $this->sortButtons("role"); ?></th>
+<th>Description<?php echo $this->sortButtons("description"); ?></th>
+<th>Action</th>
+</tr>
+<?php foreach ($this->paginator as $item): ?>
+<?php $item = $item->toArray(); 
+?>
+    <tr>
+        <?php foreach($item as $key=>$value): ?>
+        <?php
+            if ($key == 'role_id') {
+                $roleId = $this->escape($value);
+            }  else {
+                echo "<td>" . $this->escape($value) . "</td>";
+            }
+        ?>
+            <?php endforeach; ?>
+            <td>
+                <a href="<?php echo $this->url(array(
+                        'module'        =>  'default',
+                        'controller'    =>  'user',
+                        'action'        =>  'editrole',
+                        'role_id'       =>  $roleId,
+                    ), null, true
+                ); ?>">Edit</a>, 
+
+                <?php
+                    $deleteUrl = $this->url(
+                    array(
+                        'module' => 'default',
+                        'controller' => 'user',
+                        'action'  =>  'deleterole',
+                        'role_id' =>  $roleId,
+                    )
+                );
+                echo $this->deleteButton($deleteUrl); 
+                ?>
+
+                <a href="<?php echo $this->url(array(
+                        'module'        =>  'default',
+                        'controller'    =>  'user',
+                        'action'        =>  'permissions',
+                        'role_id'       =>  $roleId,
+                    ), null, true
+                ); ?>">Permission</a>
+            </td>
+    </tr>
+<?php endforeach; ?>
+<?php endif; ?>
+</table>
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'search.phtml'); ?>
+

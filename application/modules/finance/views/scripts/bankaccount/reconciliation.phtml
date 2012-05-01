@@ -1,0 +1,281 @@
+<h2> Reconciliation</h2>
+<?php
+    $this->headTitle('Reconciliation');
+?>
+
+<?php
+    $bankAccountModel = new Core_Model_Finance_BankAccount($this->bankaccount);
+    $ledgerId = $bankAccountModel->getLedgerId();
+    $ledgerEntryModel = new Core_Model_Finance_Ledger_Entry;
+    $balance = $ledgerEntryModel->getBalanceByLedgerId($ledgerId);
+                  
+    echo "<h3>Balance as per bank records = ";
+    if ($balance > 0) {
+        echo $balance." Cr</h3>";
+    }
+    else {
+        echo $balance." Dr</h3>";
+    }
+?>
+<h3> Balance Before Reconciliation </h3>
+<table class="data_table">
+    <tr>
+        <th>Instrument Number</th>
+        <th>Instrument Date</th>
+        <th>Type</th>
+        <th>Debit</th>
+        <th>Credit</th>
+        <th>Action</th>
+    </tr>
+
+<?php
+     $receiptBankModel = new Core_Model_Finance_Receipt_Bank();
+     $receiptBankRecord = $receiptBankModel->fetchAll();
+     $receiptBankRecordWithoutReconciliation = array();
+     for($i = 0; $i <= sizeof($receiptBankRecord)-1; $i += 1) {
+        if ($receiptBankRecord[$i]['reconciliation_date'] == '') {
+            $receiptBankRecordWithoutReconciliation[] = 
+                                               $receiptBankRecord[$i];
+        }                 
+     }
+     
+     $totalDebitAmount = 0;
+     for($i = 0; $i <= sizeof($receiptBankRecordWithoutReconciliation)-1; $i += 1) {
+         $receiptId = $receiptBankRecordWithoutReconciliation[$i]['receipt_id'];
+         $receiptModel = new Core_Model_Finance_Receipt($receiptId);
+         $debitAmount = $receiptModel->getAmountByReceiptIdAndBankAccountId(
+                                            $receiptId, $this->bankaccount);
+         if ($debitAmount == null) {
+            continue;
+         }
+         $totalDebitAmount  = $totalDebitAmount +  $debitAmount;
+     ?>
+
+<tr>
+      <td><?php echo $this->escape($receiptBankRecordWithoutReconciliation[$i][
+                                                  'instrument_number']);?></td>
+      <td><?php echo $this->escape($this->timestampToHuman(
+        $receiptBankRecordWithoutReconciliation[$i]['instrument_date']));?></td>
+      <td> Receipt </td>
+      <td><?php  echo $this->escape($debitAmount); ?></td>
+      <td><?php  ?></td>
+      <td><a href="<?php echo $this->url(array(
+                'module'        =>  'finance', 
+                'controller'    =>  'bankaccount', 
+                'action'        =>  'confirm',
+                'receipt_bank_id' => 
+                 $this->escape($receiptBankRecordWithoutReconciliation[$i]['
+                                                            receipt_bank_id'])
+                )); ?>">Confirm</a>
+                |
+                <a href="<?php echo $this->url(array(
+                'module'        =>  'finance', 
+                'controller'    =>  'bankaccount', 
+                'action'        =>  'returned',
+                'receipt_bank_id' => 
+                 $this->escape($receiptBankRecordWithoutReconciliation[$i][
+                                                            'receipt_bank_id'])
+                )); ?>">Returned</a>
+      </td>
+ </tr>
+<?php  } ?>
+
+<?php
+     $paymentBankModel = new Core_Model_Finance_Payment_Bank();
+     $paymentBankRecord = $paymentBankModel->fetchAll();
+     $paymentBankRecordWithoutReconciliation = array();
+     for($i = 0; $i <= sizeof($paymentBankRecord)-1; $i += 1) {
+        if ($paymentBankRecord[$i]['reconciliation_date'] == '') {
+            $paymentBankRecordWithoutReconciliation[] = 
+                                               $paymentBankRecord[$i];
+        }                 
+     }
+    
+     $totalCreditAmount = 0;
+     for($i = 0; $i <= sizeof($paymentBankRecordWithoutReconciliation)-1; $i += 1) {
+         $paymentId = $this->escape($paymentBankRecordWithoutReconciliation[$i]['payment_id']);
+         $paymentModel = new Core_Model_Finance_Payment($paymentId);
+         $creditAmount = $paymentModel->getAmountByPaymentIdAndBankAccountId(
+                                            $paymentId, $this->bankaccount);
+         if ($creditAmount == null) {
+            continue;
+         }
+         $totalCreditAmount  = $totalCreditAmount +  $creditAmount;
+         
+?>
+<tr>
+      <td><?php echo $this->escape($paymentBankRecordWithoutReconciliation[$i][
+                                                'instrument_number']);?></td>
+      <td><?php 
+               $date = new Zend_Date();
+               $date->setTimestamp($paymentBankRecordWithoutReconciliation[$i][
+                                                  'instrument_date']);
+               echo $date->toString('F');
+          ?>
+      </td>
+      <td> Payment </td>
+      <td><?php  echo "0"; ?></td>
+      <td><?php  echo $creditAmount; ?></td>
+      <td><a href="<?php echo $this->url(array(
+                'module'        =>  'finance', 
+                'controller'    =>  'bankaccount', 
+                'action'        =>  'confirm',
+                'payment_bank_id' => 
+                 $this->escape($paymentBankRecordWithoutReconciliation[$i][
+                 'payment_bank_id'])
+                )); ?>">Confirm</a>
+                |
+                <a href="<?php echo $this->url(array(
+                'module'        =>  'finance', 
+                'controller'    =>  'bankaccount', 
+                'action'        =>  'returned',
+                'payment_bank_id' => 
+                 $this->escape($paymentBankRecordWithoutReconciliation[$i][
+                                                        'payment_bank_id'])
+                )); ?>">Returned</a>
+     </td>
+                
+ </tr>
+ <?php  } ?>
+
+<?php 
+    $ledgerModel = new Core_Model_Finance_Ledger($ledgerId);
+    $openingBalanceLedgerEntryId = $ledgerModel->getOpeningBalanceId(); 
+    $ledgerEntryModel->setLedgerEntryId($openingBalanceLedgerEntryId);
+    $ledgerEntryRecord = $ledgerEntryModel->fetch();
+    if ($ledgerEntryRecord['debit']) {
+        $totalDebitAmount += $ledgerEntryRecord['debit'];
+    }
+    if ($ledgerEntryRecord['credit']) {
+        $totalCreditAmount += $ledgerEntryRecord['credit'];
+    }
+    $totalAmount = $totalDebitAmount - $totalCreditAmount; 
+?>
+</table>
+ 
+<p> Balance Before Reconciliation = <b>
+            <?php 
+            if ($totalAmount < 0) {
+                echo $totalAmount." Cr";
+            }
+            else {
+                echo $totalAmount." Dr";
+            }  
+            ?> 
+            </b>
+</p>
+<h3> Balance After Reconciliation </h3>
+
+<table class="data_table">
+    <tr>
+        <th>Instrument Number</th>
+        <th>Instrument Date</th>
+        <th>Type</th>
+        <th>Debit</th>
+        <th>Credit</th>
+    </tr>
+
+<?php
+    
+     $receiptBankModel = new Core_Model_Finance_Receipt_Bank();
+     $receiptBankRecord = $receiptBankModel->fetchAll();
+     $receiptBankRecordWithoutReconciliation = array();
+     for($i = 0; $i <= sizeof($receiptBankRecord)-1; $i += 1) {
+        if ($receiptBankRecord[$i]['reconciliation_date'] != '') {
+            $receiptBankRecordWithoutReconciliation[] = 
+                                               $receiptBankRecord[$i];
+        }                 
+     }
+     $totalDebitAmount = 0;
+     for($i = 0; $i <= sizeof($receiptBankRecordWithoutReconciliation)-1; $i += 1) {
+         $receiptId = $this->escape(
+                    $receiptBankRecordWithoutReconciliation[$i]['receipt_id']);
+         $receiptModel = new Core_Model_Finance_Receipt($receiptId);
+         $debitAmount = $receiptModel->getAmountByReceiptIdAndBankAccountId(
+                                               $receiptId, $this->bankaccount);
+         if ($debitAmount == null) {
+            continue;
+         }
+         $totalDebitAmount  = $totalDebitAmount +  $debitAmount;
+         
+?>
+
+<tr>
+      <td><?php echo $this->escape($receiptBankRecordWithoutReconciliation[$i][
+                                                  'instrument_number']);?></td>
+      <td><?php echo $this->escape($this->timestampToHuman(
+        $receiptBankRecordWithoutReconciliation[$i]['instrument_date']));?></td>
+      <td> Receipt </td>
+      <td><?php  echo $debitAmount; ?></td>
+      <td><?php  ?></td>
+      
+ </tr>
+<?php  } ?>
+
+<?php
+     $paymentBankModel = new Core_Model_Finance_Payment_Bank();
+     $paymentBankRecord = $paymentBankModel->fetchAll();
+     $paymentBankRecordWithoutReconciliation = array();
+     for($i = 0; $i <= sizeof($paymentBankRecord)-1; $i += 1) {
+        if ($paymentBankRecord[$i]['reconciliation_date'] != '') {
+            $paymentBankRecordWithoutReconciliation[] = 
+                                               $paymentBankRecord[$i];
+        }                 
+     }
+    
+     $totalCreditAmount = 0;
+     for($i = 0; $i <= sizeof($paymentBankRecordWithoutReconciliation)-1; $i += 1) {
+         $paymentId = $paymentBankRecordWithoutReconciliation[$i]['payment_id'];
+         $paymentModel = new Core_Model_Finance_Payment($paymentId);
+         $creditAmount = $paymentModel->getAmountByPaymentIdAndBankAccountId(
+                                            $paymentId, $this->bankaccount);
+         if ($creditAmount == null) {
+            continue;
+         }
+         $totalCreditAmount  = $totalCreditAmount +  $creditAmount;
+?>
+<tr>
+       <td><?php echo $this->escape($paymentBankRecordWithoutReconciliation[$i][
+                                                'instrument_number']);?></td>
+      <td><?php echo $this->escape($this->timestampToHuman(
+        $paymentBankRecordWithoutReconciliation[$i]['instrument_date']));?></td>
+      <td> Payment </td>
+      <td><?php   ?></td>
+      <td><?php  echo $creditAmount; ?></td>
+     
+ </tr>
+ <?php  } ?>
+<?php 
+    $ledgerModel = new Core_Model_Finance_Ledger($ledgerId);
+    $openingBalanceLedgerEntryId = $ledgerModel->getOpeningBalanceId(); 
+    $ledgerEntryModel->setLedgerEntryId($openingBalanceLedgerEntryId);
+    $ledgerEntryRecord = $ledgerEntryModel->fetch();
+    if ($ledgerEntryRecord['debit']) {
+        $totalDebitAmount += $ledgerEntryRecord['debit'];
+    }
+    if ($ledgerEntryRecord['credit']) {
+        $totalCreditAmount += $ledgerEntryRecord['credit'];
+    }
+    $totalAmount = $totalDebitAmount - $totalCreditAmount; 
+?>     
+</table>
+
+<?php 
+    $totalBankTransaction = 0;
+    $bankTransactionModel = new Core_Model_Finance_BankAccount_Transaction;
+    $totalBankTransaction = 
+    $bankTransactionModel->getBalanceByBankAccountId($this->bankaccount);
+    $totalAmount = $totalAmount + $totalBankTransaction;
+?>
+ <p>
+ Balance After Reconciliation = <b>
+            <?php 
+            if ($totalAmount < 0) {
+                echo $totalAmount." Cr";
+            }
+            else {
+                echo $totalAmount." Dr";
+            }  
+            ?> 
+            </b>
+ </p>

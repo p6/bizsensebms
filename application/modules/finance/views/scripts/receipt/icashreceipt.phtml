@@ -1,0 +1,20 @@
+<h2>Create Cash Receipt</h2>
+<?php
+    $this->headTitle('Create Cash Receipt');
+?>
+<p>
+
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'receipt',
+        'action' => 'index',
+    ), 'default', true
+);?>">Receipt</a> 
+
+</p>
+
+<div id="form">
+    <?php  echo $this->form; ?>
+</div>
+<div class="div_clear"></div>

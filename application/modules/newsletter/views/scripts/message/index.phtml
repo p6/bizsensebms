@@ -1,0 +1,101 @@
+<h1>Messages</h1>
+<?php
+    $acl = $this->acl;    
+?>
+
+<?php if  ($acl->isAllowed($this->currentUser, 'access newsletter pages')): ?>
+<a href="<?php echo $this->url(array(
+    'module'    =>'newsletter', 
+    'controller'=>'index',
+    'action'    =>'index'
+    )
+  , null, true); ?>">Newsletter</a>
+  |
+<?php endif; ?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access newsletter pages')): ?>
+<a href="<?php echo $this->url(array(
+        'module' => 'newsletter',
+        'controller' => 'message',
+        'action' => 'create'
+        ), null, true); ?>">Create Message</a>
+|
+<?php endif; ?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access newsletter pages')): ?>
+<a href="<?php echo $this->url(array(
+        'module' => 'newsletter',
+        'controller' => 'queue',
+        'action' => 'status'
+        ), null, true); ?>">Message queue status</a>
+<?php endif; ?>
+
+<?php
+    $this->headTitle('Messages');
+    $this->headScript()->appendFile('/js/BizSense/Crud.js');
+    echo $this->message;
+    echo $this->form;
+?>
+
+<?php
+if (count($this->paginator)): ?>
+
+<p>
+Total messages : <?php echo $this->paginator->getAdapter()->count(); ?>
+</p>
+<table class="data_table">
+<tr>
+<th class="short">Subject<?php echo $this->sortButtons("subject"); ?></th>
+<th class="tiny_cell">Action</th>
+</tr>
+<?php foreach ($this->paginator as $item): ?>
+<?php
+    $itemValues = $item->toArray();
+?>
+    <tr>
+        <td>
+            <?php
+                echo $this->escape($itemValues['subject']);
+            ?>
+        </td>
+  	    <td> 
+            <?php
+			    echo "<a href=\"" . $this->url(
+                    array(
+                        'module' => 'newsletter', 
+                        'controller' => 'message', 
+                        'action' => 'edit', 
+                        'message_id' => $this->escape($itemValues['message_id'])
+                    )
+                ) . "\"> " . "Details" . "</a>";
+                $deleteUrl = $this->url(
+                    array(
+                        'module' => 'newsletter',
+                        'controller' => 'message',
+                        'action' => 'delete',
+                        'message_id' =>$this->escape($itemValues['message_id'])
+                    )
+                );
+                echo $this->deleteButton($deleteUrl);
+                
+                $cancelUrl = $this->url(
+                    array(
+                        'module' => 'newsletter',
+                        'controller' => 'queue',
+                        'action' => 'cancel',
+                        'message_id' =>$this->escape($itemValues['message_id'])
+                    )
+                );
+                echo $this->confirmButton($cancelUrl,"Cancel");
+	        ?>
+        </td>
+    </tr>
+<?php endforeach; ?>
+
+<?php endif; ?>
+</table>
+<div class="pagination">
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'search.phtml'); ?>
+</div>
+<div class="div_clear"></div>
+

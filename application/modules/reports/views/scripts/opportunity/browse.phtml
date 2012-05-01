@@ -1,0 +1,68 @@
+<h2>Opportunity Reports</h2>
+<?php
+    $this->headTitle('Opportunity report - browse');
+?>
+<a href="/reports/opportunity/">Opportunity Reports</a> | 
+<a href="/reports/opportunity/daterange">Date range</a> | 
+<a href="/reports/opportunity/csvexport/reportId/<?php echo $this->reportId; ?>">Export data to CSV file</a> | 
+
+<div class="clearing">
+</div>
+<?php
+ if (count($this->paginator)): ?>
+
+<p>
+Total opportunitys : <?php echo $this->paginator->getAdapter()->count(); ?>
+</p>
+<table class="data_table">
+<tr>
+    <th>Opportunity</th>
+    <th>Amount</th>
+    <th>Expected close date</th>
+    <th>Created</th>
+    <th>Updated</th>
+    <th>Source</th>
+    <th>Status</th>
+    <th>Assigned To</th>
+    <th>Branch</th>
+</tr>
+
+<?php
+    /*
+     * The result object will have extra information
+     * Display only what is needed
+     */
+    $toDisplay = array('opportunity_id', 'name', 'amount', 
+        'expected_close_date', 'created', 'source', 'stage', 'account_name', 
+        'email', 'branch_name');   
+?>
+<?php foreach ($this->paginator as $item): ?>
+<tr>
+    <?php foreach($item as $key=>$row): ?>
+    <?php if (in_array($key, $toDisplay)): ?>
+    <?php
+         if ($key == "opportunity_id") {
+            $opportunityId = $row;
+         }
+         if ($key != "opportunity_id" AND $key != "opportunitySourceId"): ?>
+    <td><?php
+        if ($key == "expected_close_date" || $key == "created") {
+            echo  $this->escape($this->timestampToHuman($row));
+        }
+        else if ($key == "name") {
+            echo "<a href=\"/opportunity/viewdetails/opportunity_id/" . 
+            $this->escape($opportunityId) . "\"> " . $this->escape($row) . " </a>";
+        } else {
+            echo $this->escape($row);
+        }
+        endif;
+    ?>
+    <?php endif;  //in_array toDisplay?>
+  </td>
+<?php endforeach; ?>
+</tr>
+<?php endforeach; ?>
+</table>
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'search.phtml'); ?>
+<?php endif; ?>
+

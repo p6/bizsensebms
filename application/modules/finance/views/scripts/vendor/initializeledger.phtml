@@ -1,0 +1,16 @@
+<h2>Initialize Vendor Ledger</h2>
+<?php
+    $this->headTitle('Initialize Vendor Ledger');
+?>
+
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'vendor',
+        'action' => 'index',
+    ), 'default', true
+);?>">Vendor</a>
+
+<div id="form">
+    <?php  echo $this->form; ?>
+</div>

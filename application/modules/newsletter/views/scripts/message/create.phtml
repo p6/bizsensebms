@@ -1,0 +1,54 @@
+<h2>Create New Message</h2>
+<a href="<?php echo $this->url(array(
+        'module' => 'newsletter',
+        'controller' => 'message',
+        'action' => 'index'
+        ), null, true); ?>">Messages</a>
+<?php
+    $this->dojoLayer('editor');
+    $this->headTitle('Create New Message');
+    echo $this->message;
+?>
+
+<div id="form">
+   <?php echo $this->form; ?>
+</div>
+<div class="div_clear"></div>
+
+
+<!--
+
+<div dojoType="dijit.Dialog" id="formDialog" title="Send Test Message">
+    <table>
+    <tr>
+        <td>First Name:</td>
+        <td><input dojoType="dijit.form.TextBox" type="text" name="first_name" id="first_name" /></td>
+    </tr>
+    <tr>
+        <td>Middle Name:</td>
+        <td><input dojoType="dijit.form.TextBox" type="text" name="middle_name" id="middle_name" /></td>
+    </tr>
+    <tr>
+        <td>Last Name:</td>
+        <td><input dojoType="dijit.form.TextBox" type="text" name="last_name" id="last_name" /></td>
+    </tr>
+    <tr>
+        <td>Email:</td>
+        <td><input dojoType="dijit.form.TextBox" type="text" name="email" id="email" /></td>
+    </tr>
+    <tr>
+        <td colspan="2" align="center">
+            <button dojoType="dijit.form.Button" type="submit" onClick="displayAlert();">
+                    OK
+            </button>
+        </td>
+    </tr>
+</table>
+</div>
+<p>
+    When pressing this button the dialog will popup:
+</p>
+<button id="buttonThree" dojoType="dijit.form.Button" type="button">
+    Show me!
+</button>
+-->

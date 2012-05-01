@@ -1,0 +1,22 @@
+<h2>Set Default Global Timezone</h2>
+<?php
+    $settingsObj = new Core_Model_Settings;
+    $settings = $settingsObj->getInstance();
+    echo  "The current default timezone is ";
+    if ($settings) {
+        echo $settings->timezone;
+    } else {
+        echo "not set";
+    }
+    echo ". ";
+?>
+
+
+<br />
+<?php
+    $this->headTitle('Set Default Global Timezone');
+    echo $this->message;
+?>
+<div id="form">
+   <?php echo $this->form; ?>
+</div>

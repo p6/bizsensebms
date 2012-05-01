@@ -1,0 +1,15 @@
+<h2>Create New List</h2>
+<a href="<?php echo $this->url(array(
+        'module'    =>'newsletter',
+        'controller'=>'domainblacklist',
+        'action'    =>'index'
+        ), null, true); ?>">Blacklisted domains</a>
+<?php
+    $this->headTitle('Create New list');
+    $this->dojoLayer('common');
+    echo $this->message;
+?>
+
+<div id="form">
+   <?php echo $this->form; ?>
+</div>

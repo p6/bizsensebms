@@ -1,0 +1,15 @@
+<h2>Create New Subscriber</h2>
+<a href="<?php echo $this->url(array(
+        'module'    =>'newsletter',
+        'controller'=>'subscriber',
+        'action'    =>'index'
+        ), null, true); ?>">Subscriber</a>
+<?php
+    $this->headTitle('Create New Subscriber');
+    $this->dojoLayer('common');
+    echo $this->message;
+?>
+
+<div id="form">
+   <?php echo $this->form; ?>
+</div>

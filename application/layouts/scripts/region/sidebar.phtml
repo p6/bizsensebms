@@ -1,0 +1,78 @@
+<?php 
+    $this->headScript()->appendFile('/js/BizSense/SalesStage/Index.js');
+
+    $acl = $this->acl; ?>
+<?php if ($acl->isAllowed($this->currentUser, "auth privileges")): ?>
+<?php endif; ?>
+
+<div class="sidebar_header">
+    Quick Links
+</div>
+<?php if ($acl->isAllowed($this->currentUser, 'create leads')): ?>
+<a href="
+    <?php echo $this->url(
+                array(
+                    'module' => 'default',
+                    'controller' => 'lead',
+                    'action' => 'create'
+                ), 'default', true
+            ); ?>
+    ">Create Lead</a>
+<?php endif; ?>
+<br/>
+<?php if ($acl->isAllowed($this->currentUser, 'create opportunities')): ?>
+<a href="<?php echo $this->url(
+                array(
+                    'module' => 'default',
+                    'controller' => 'opportunity',
+                    'action' => 'create',
+                ), 'default', true
+            ); ?>
+    ">Create Opportunity</a>
+<?php endif; ?>
+<br/>
+<?php if ($acl->isAllowed($this->currentUser, 'create accounts')): ?>
+<a href="<?php echo $this->url( 
+                array(
+                   'module' => 'default',
+                   'controller' => 'account',
+                   'action' => 'create',
+                ), 'default', true
+            ); ?>
+    ">Create Account</a>
+<?php endif; ?>
+<br/>
+<?php if ($acl->isAllowed($this->currentUser, 'create contacts')): ?>
+<a href="<?php echo $this->url(
+                array(
+                    'module' => 'default',
+                    'controller' => 'contact',
+                    'action' => 'create'
+                ), 'default', true
+        ); ?>
+    ">Create Contact</a>
+
+<?php endif; ?>
+<br/>
+<?php if ($acl->isAllowed($this->currentUser, 'create quotes')): ?>
+<a href="<?php echo $this->url(
+                array(
+                    'module' => 'default',
+                    'controller' => 'quote',
+                    'action' => 'create'
+                ), 'default', true
+        ); ?>
+    ">Create Quote</a>
+<?php endif; ?>
+
+<br/><br/>
+<?php 
+    $savedSearch = $this->savedSearch();
+    if ($savedSearch) {
+        echo "<div class=\"sidebar_header\">";
+        echo "Saved Search";
+        echo "</div>";
+        echo $savedSearch;
+    }
+?>
+

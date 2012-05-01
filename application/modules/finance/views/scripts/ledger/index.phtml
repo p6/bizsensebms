@@ -1,0 +1,84 @@
+<h2>Ledgers</h2>
+<?php
+    $this->headTitle('Ledgers');
+    $this->headScript()->appendFile('/js/BizSense/Crud.js'); 
+    $acl = $this->acl;    
+?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'index',
+        'action' => 'index',
+    ), 'default', true
+);?>">Finance</a> |
+<?php endif; ?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'ledger',
+        'action' => 'create',
+    ), 'default', true
+);?>">Create</a>
+<?php endif; ?>
+
+<?php if (count($this->paginator)): ?>
+
+<table class="data_table">
+    <tr>
+        <th>Ledger<?php echo $this->sortButtons("ledger"); ?></th>
+        <th>Group</th>
+        <th>Action</th>
+    </tr>
+<?php foreach ($this->paginator as $item): ?>
+<?php
+    $item = $item->toArray();
+?>
+    <tr>
+        <td><?php echo $this->escape($item['name']); ?></td>
+        <td><?php echo $this->escape($item['group_name']); ?></td>
+        <td><a href="<?php echo $this->url(array
+            (
+                'module' => 'finance',
+                'controller' => 'ledger',
+                'action' => 'entries',
+                'fa_ledger_id' => $this->escape($item['fa_ledger_id']),
+            )
+        ); ?>">Entries</a>
+        |
+        <a href="<?php echo $this->url(array
+            (
+                'module' => 'finance',
+                'controller' => 'ledger',
+                'action' => 'editopeningbalance',
+                'fa_ledger_id' => $this->escape($item['fa_ledger_id']),
+            )
+        ); ?>">Edit Opening Balance</a>
+        |
+        <?php  
+             $deleteUrl = $this->url(
+                array(
+                   'module' => 'finance',
+                   'controller' => 'ledger',
+                   'action' => 'delete',
+                   'fa_ledger_id' =>$this->escape($item['fa_ledger_id'])
+                    )
+                );
+                    echo $this->deleteButton($deleteUrl); 
+                ?> 
+                
+       </td>
+    </tr>
+<?php endforeach; ?>
+</table>
+
+<?php endif; ?>
+
+<div class="pagination">
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'search.phtml'); ?>
+</div>
+<div class="div_clear"></div>
+

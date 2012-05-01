@@ -1,0 +1,26 @@
+<h1>Create Lead</h1>
+<?php
+    $this->headTitle('Create lead');
+    $this->dojoLayer('common');
+    $acl = $this->acl;
+?>
+<?php
+    echo $this->message;
+?>
+<?php
+
+if ($acl->isAllowed($this->currentUser, 'access lead pages')):
+    printf("<a href=\"%s\">Leads</a>  ", 
+        $this->url(
+            array(
+                'module' => 'default', 
+                'controller' => 'lead'
+            ), NULL , TRUE)
+        );
+endif;
+
+?>
+<div id="form">
+   <?php echo $this->form; ?>
+</div>
+<div class="div_clear"></div>

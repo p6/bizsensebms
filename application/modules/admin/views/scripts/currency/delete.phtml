@@ -1,0 +1,17 @@
+<h1>Delete currency</h1>
+<?php
+    $this->headTitle('Delete currency');
+    $currency = $this->currency;
+?>
+    <?php if (!empty($currency)): ?>  
+  <table class="data_table">
+        <tr><td>Name</td><td> <?php echo $this->escape($currency['name']); ?></td></tr>
+    </table>
+    <?php endif; ?>
+<?php
+    echo $this->message;
+    echo "<br /> Are you sure you want to delete this currency? The action 
+    cannot be undone. All financial transactions associated with this currency will be deleted."; 
+    echo $this->form;
+?>
+  

@@ -1,0 +1,86 @@
+<?php
+    $this->headTitle('Newsletter');
+    $acl = $this->acl;
+?>
+<h2>Newsletter</h2>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access newsletter pages')): ?>
+<a href="<?php echo $this->url(
+        array(
+            'module' => 'newsletter',
+            'controller' => 'list',
+            'action' => 'index'
+        ), 'default', true
+    ); ?>">Lists</a>
+<?php endif; ?>
+
+<br/><br/>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access newsletter pages')): ?>
+     <a href="<?php echo $this->url(array(
+              'module' => 'newsletter',
+              'controller' => 'subscriber',
+              'action' => 'index'
+          ), 'default', true
+     ); ?>">Subscriber</a>
+<?php endif; ?>                    
+               
+<br/><br/>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access newsletter pages')): ?>
+<a href="<?php echo $this->url(
+        array(
+            'module' => 'newsletter',
+            'controller' => 'message',
+            'action' => 'index'
+        ), 'default', true
+    ); ?>">Messages</a>
+<?php endif; ?>
+
+<br/><br/>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access newsletter pages')): ?>
+<a href="<?php echo $this->url(
+        array(
+            'module' => 'newsletter',
+            'controller' => 'settings',
+            'action' => 'index'
+        ), 'default', true
+    ); ?>">Settings</a>   
+<?php endif; ?>         
+
+<br/><br/>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access newsletter pages')): ?>
+
+<a href="<?php echo $this->url(array(
+    'module' => 'newsletter',
+    'controller' => 'report',
+    'action' => 'queuereport'
+    ), 'default', true
+); ?>">Message queue report</a>   
+<?php endif; ?>     
+
+<br/><br/>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access newsletter pages')): ?>
+
+<a href="<?php echo $this->url(array(
+    'module' => 'newsletter',
+    'controller' => 'report',
+    'action' => 'queuedomains'
+    ), 'default', true
+); ?>">Recipient domain report</a>   
+<?php endif; ?>  
+ 
+<br/><br/>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access newsletter pages')): ?>
+<a href="<?php echo $this->url(
+     array(
+        'module' => 'newsletter',
+        'controller' => 'queue',
+        'action' => 'status'
+      ), 'default', true
+    ); ?>">Message queue status</a>   
+<?php endif; ?>

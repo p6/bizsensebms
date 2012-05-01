@@ -1,0 +1,22 @@
+<h2>Register purchased material</h2>
+<?php
+    $products = $this->products;
+?>
+<table border="1">
+        <tr><th>Number</th><th>Product</th><th>Quantity</th><th>Action</th></tr>
+    <?php
+        $serialNumber = 0;
+        foreach ($products as $product){
+            $serialNumber++;
+            $productId = $product->productId;
+            $purchaseId = $product->purchaseId;
+            echo "<tr>";
+            echo "<td>$serialNumber</td>";
+            echo "<td>" . $product->productName . "</td>";
+            echo "<td>" . $product->quantity . "</td>";
+            echo "<td><a href=\"/inventory/registeritems/purchaseId/$purchaseId/productId/$productId\">" . "Register Items</a></td>";
+            echo "</tr>";
+        }
+    ?>
+    </table>
+

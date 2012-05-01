@@ -1,0 +1,24 @@
+<h2>Add Lead Status</h2>
+
+<a href="<?php echo $this->url(array(
+        'module'        =>  'default',
+        'controller'    =>  'lead',
+        'action'        =>  'settings',
+    ), null, true
+); ?>">Lead settings</a> | 
+<a href="<?php echo $this->url(array(
+        'module'        =>  'default',
+        'controller'    =>  'lead',
+        'action'        =>  'setleadstatus',
+    ), null, true
+); ?>">Lead status</a>
+
+<?php
+     $this->dojoLayer('common');
+     $this->headTitle('Add lead status');
+	echo $this->message;
+?>
+<div id="form">
+   <?php echo $this->form; ?>
+</div>
+

@@ -1,0 +1,10 @@
+<h2>Edit My Profile</h2>
+<?php
+	echo $this->message;
+	 $acl = new Acl;
+    $access = $acl->hasAccessTo("resources available to authenticated users");
+        if ($access) {
+            echo "<div id='form'>"
+	        echo $this->form;
+            echo "</div>";	    
+	}

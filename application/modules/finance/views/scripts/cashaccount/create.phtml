@@ -1,0 +1,18 @@
+<h2>Create Cash Account</h2>
+<?php
+    $this->dojoLayer('common');
+    $this->headTitle('Cash Account');
+?>
+
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'cashaccount',
+        'action' => 'index',
+    ), 'default', true
+);?>">Cash account</a>
+
+<div id="form">
+    <?php  echo $this->form; ?>
+</div>
+<div class="div_clear"></div>

@@ -1,0 +1,12 @@
+<h1>Import subscribers</h1>
+<a class="dbutton" href="/files/list-import-sample.csv">
+<span>Download a sample</span>
+</a>
+<?php
+     $this->headTitle('Import subscriber');
+
+if ($this->form) {
+    echo "<br/>Invalid rows will be silently dropped.";
+    echo $this->form;
+}
+?>

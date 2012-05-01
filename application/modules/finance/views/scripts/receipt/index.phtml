@@ -1,0 +1,163 @@
+<h2>Receipt</h2>
+
+<?php
+    $this->headTitle('Receipt');
+    $acl = $this->acl;
+?>
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'index',
+        'action' => 'index',
+    ), 'default', true
+);?>">Finance</a> 
+<?php endif; ?>
+<h3>Receipt To Sundry Debtors</h3>
+<p>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'receipt',
+        'action' => 'cashreceipt',
+    ), 'default', true
+);?>">Create Cash Receipt</a>  |
+<?php endif; ?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'receipt',
+        'action' => 'chequereceipt',
+    ), 'default', true
+);?>">Create Cheque Receipt</a> 
+<?php endif; ?>
+
+</p>
+
+<h3>Receipt To Indirect Income</h3>
+<p>
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'receipt',
+        'action' => 'icashreceipt',
+    ), 'default', true
+);?>">Create Cash Receipt</a> |
+<?php endif; ?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'receipt',
+        'action' => 'ichequereceipt',
+    ), 'default', true
+);?>">Create Cheque Receipt</a>
+<?php endif; ?>
+
+</p>
+
+<fieldset class="fieldset_properties">
+    <legend>
+        <img src="/images/design/search.png"></li>
+                     Search
+     </legend>
+        <?php echo $this->form; ?>
+</fieldset>
+
+
+<div class="clearing">
+</div>
+<?php if (count($this->paginator)): ?>
+
+<table class="data_table">
+    <tr>
+        <th>Date<?php echo $this->sortButtons("date"); ?></th>
+        <th>Amount<?php echo $this->sortButtons("amount"); ?></th>
+        <th>Mode</th>
+        <th>Type</th>
+        <th>Action</th>
+    </tr>
+    
+<?php foreach ($this->paginator as $item): ?>
+<?php
+    $item = $item->toArray();
+?>
+    <tr>
+        <td><?php echo $this->escape(
+                       $this->timestampToHuman($item['date'])); ?></td>
+        <td><?php echo $this->escape($item['amount']); ?></td>
+        <td><?php 
+            if ($item['mode'] == 1 ) {
+                echo "DD/CHEQUE";
+            } 
+            else {
+                echo "CASH";
+            }?>
+        </td>
+        <td><?php 
+            if ($item['type'] == 1 || $item['type'] == 2) {
+                echo "RECEIPT TO SUNDRY DEBTORS ";
+            } 
+            else {
+                echo "RECEIPT TOWARDS INDIRECT INCOME";
+            }?>
+        </td>
+        <td>
+            <?php if ($item['mode'] == 1 && ($item['type'] == 1 || 
+                                                $item['type'] == 2)  ) { ?>
+            <a href="<?php echo $this->url(array(
+                'module'        =>  'finance', 
+                'controller'    =>  'receipt', 
+                'action'        =>  'details',
+                'receipt_id' => $item['receipt_id']
+                )); ?>">Details</a>
+            <?php }  ?>
+            
+            <?php if ($item['mode'] == 0 && ($item['type'] == 1 || 
+                                                    $item['type'] == 2)) { ?>
+             <a href="<?php echo $this->url(array(
+                'module'        =>  'finance', 
+                'controller'    =>  'receipt', 
+                'action'        =>  'cashreceiptdetails',
+                'receipt_id' => $item['receipt_id']
+                )); ?>">Details</a>
+             <?php } ?>
+            
+            <?php if ($item['mode'] == 1 && $item['type'] == 3 ) { ?>
+            <a href="<?php echo $this->url(array(
+                'module'        =>  'finance', 
+                'controller'    =>  'receipt', 
+                'action'        =>  'ichequereceiptdetails',
+                'receipt_id' => $item['receipt_id']
+                )); ?>">Details</a>
+            <?php }  ?>
+            
+            <?php if ($item['mode'] == 0 && $item['type'] == 3 ) { ?>
+             <a href="<?php echo $this->url(array(
+                'module'        =>  'finance', 
+                'controller'    =>  'receipt', 
+                'action'        =>  'icashreceiptdetails',
+                'receipt_id' => $item['receipt_id']
+                )); ?>">Details</a>
+             <?php } ?>
+            
+              
+         </td>
+    </tr>
+<?php endforeach; ?>
+</table>
+
+<?php endif; ?>
+
+<div class="pagination">
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'search.phtml'); ?>
+</div>
+<div class="div_clear"></div>
+
+

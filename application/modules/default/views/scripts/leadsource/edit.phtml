@@ -1,0 +1,14 @@
+<h2>Edit Lead Source</h2>
+<?php
+    $this->headTitle('Edit lead source details');
+?>
+    <a href="<?php echo $this->url(array(
+        'module'        => 'default',
+        'controller'    => 'leadsource',
+        'action'        => 'index'
+        )); ?>">Lead Source</a>
+        
+<div id="form">
+   <?php echo $this->form; ?>
+</div>
+<div class="div_clear"></div>

@@ -1,0 +1,13 @@
+<h2>Create product status</h2>
+<a href="<?php echo $this->url(array(
+                        'module'=>'admin',
+                        'controller'=>'pstatus',
+                        'action'=>'index')); ?>">
+                        Product status</a>
+<?php
+    $this->headTitle('Create product status');
+    echo $this->message;
+?>
+<div id="form">
+   <?php echo $this->form; ?>
+</div>

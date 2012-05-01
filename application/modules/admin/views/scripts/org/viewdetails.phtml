@@ -1,0 +1,35 @@
+<h2><?php echo "Organization details" ?></h2>  
+<?php
+    $this->headTitle('Organization details');
+
+    $db = Zend_Registry::get('db');
+    $org = $db->fetchRow("SELECT * FROM organization_details");
+    $acl = $this->acl;
+
+	if (!empty($org)) {
+	    ?>
+	     <a href="/admin/index/index">Administration</a> | 
+        <?php if ($acl->isAllowed($this->currentUser, 'access organization pages')): ?>
+	        <a href="/admin/org/edit">Edit Details</a>
+        <?php endif; ?>
+	    <table class="data_table">
+	        <tr>
+	            <td>Company name</td>
+	            <td><?php echo $org->company_name; ?></td>
+	        </tr>
+	        <tr>
+	            <td>Website</td>
+	            <td><?php echo $org->website; ?></td>
+	         </tr>
+	        <tr>
+	            <td>Description</td>
+	            <td><?php echo $org->description; ?></td>
+	        </tr>
+	    </table>
+	    <?php
+	
+	 } else {
+		echo "<br />Organization details not available.<br />";
+		echo "<a href=\"/admin/org/edit\">Edit organization details now</a>";
+	}
+?>

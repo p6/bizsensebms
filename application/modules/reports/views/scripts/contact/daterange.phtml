@@ -1,0 +1,33 @@
+<h2>Date Range Report</h2>
+
+<?php
+    $acl = $this->acl;
+    $user = $this->currentUser;
+?>
+<?php if ($acl->isAllowed($user,'access contact reports')): ?>
+    <a href="/reports/index/index">Reports</a> | 
+    <a href="/reports/contact">Contact reports</a> |
+    <a href="/reports/contact/daterange">Date range</a> |
+<?php endif; ?>    
+<?php 
+    $this->headTitle('Contact-Date Range Report');
+    $totalContacts = $this->totalContacts;
+?>
+
+<?php if ($totalContacts > 0): ?>
+    <?php if ($acl->isAllowed($user,'access contact reports')): ?>
+    <a href="/reports/contact/csvexport/reportId/
+            <?php echo $this->reportId; ?>">Export data to CSV file</a> |
+    <a href="/reports/contact/browse/reportId/<?php echo $this->reportId; ?>">Browse contacts</a>
+    <?php endif; ?>
+<?php endif; ?>
+<div class="clearing">
+&nbsp;
+</div>
+<?php echo $this->form; ?>
+
+<?php if (isset($this->totalContacts)): ?>
+<p>
+    Total contacts: <?php echo $this->escape($this->totalContacts); ?>
+</p>
+<?php endif; ?>

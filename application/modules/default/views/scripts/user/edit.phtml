@@ -1,0 +1,26 @@
+<h1>Edit User</h1>  
+<p>
+<?php
+    $acl = $this->acl;
+?>
+<?php if ($acl->isAllowed($this->currentUser, 'administer users')): ?>
+<a href="/user/users">Users</a> |
+<a href="/user/roles">Roles</a>
+<?php endif; ?>
+</p>
+<p>
+<?php if ($acl->isAllowed($this->currentUser, 'administer users')): ?>
+    <a href="/user/timezone/user_id/<?php echo $this->escape($this->uid); ?>">
+        User's Timezone</a>
+<?php endif; ?>
+
+</p>
+
+<div id="form">
+<?php
+    $this->headTitle('Edit User');
+	echo $this->message;
+	echo $this->form;
+?>
+</div>
+<div class="div_clear"></div>

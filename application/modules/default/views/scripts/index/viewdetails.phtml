@@ -1,0 +1,17 @@
+<h2>Product Details</h2>
+<?php
+    $product = $this->product;
+?>
+<a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'product', 'action' => 'edit', 'productId' => $product->productId), NULL, true); ?>">Edit This Product</a>
+<br /><br />
+    <table id="data_table">
+       <tr><td>Product</td><td><?php echo $product->productName; ?></td></tr>
+       <tr><td>Cost Price</td><td><?php echo $product->costPrice; ?></td></tr>
+       <tr><td>Selling Price</td><td><?php echo $product->sellingPrice; ?></td></tr>
+       <tr><td>Product URL</td><td><?php echo $product->productUrl; ?></td></tr>
+       <tr><td>Manufacturer Part Number</td><td><?php echo $product->mPartNumber; ?></td></tr>
+       <tr><td>Vendor Part Number</td><td><?php echo $product->vPartNumber; ?></td></tr>
+       <tr><td>Selling Part Number</td><td><?php echo $product->sPartNumber; ?></td></tr>
+       <tr><td>Description</td><td><?php echo $product->description; ?></td></tr>
+       <tr><td>Tax Class</td><td><?php echo $product->taxClassId; ?></td></tr>
+    </table>

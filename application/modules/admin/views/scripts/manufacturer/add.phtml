@@ -1,0 +1,12 @@
+<h2>Add Manufacturer</h2>
+<a href="<?php echo $this->url(array(
+            'module'        =>  'admin',
+            'controller'    =>  'manufacturer',
+            'action'        =>  'index',    
+        ), null, true
+    ); ?>">Manufacturer</a>
+<?php
+    $this->headTitle('Add manufacturers');
+    echo $this->message;
+    echo $this->form;
+?>

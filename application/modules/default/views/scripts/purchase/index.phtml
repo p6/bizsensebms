@@ -1,0 +1,33 @@
+<h1>Purchases</h1>
+<a href="/purchase/create">Create Purchase Entry</a>
+<?php
+ if (count($this->paginator)): ?>
+<table id="data-table">
+<tr>
+<th>Subject<?php echo $this->sortButtons("subject"); ?></th>
+<th>Created On<?php echo $this->sortButtons("created"); ?></th>
+<th>Consignor<?php echo $this->sortButtons("consignor"); ?></th>
+<th>Consignee<?php echo $this->sortButtons("consignee"); ?></th>
+</tr>
+<?php foreach ($this->paginator as $item): ?>
+    <tr>
+        <?php foreach($item as $key=>$value): ?>
+        <?php
+            if ($key == "id") {
+                $purchaseId = $value;
+            } else {
+                if ($key == "subject") {
+                    echo "<td><a href=\"/purchase/viewdetails/id/$purchaseId\">$value</a></td>";
+                } else {
+                    echo "<td>$value</td>";
+                }
+            }
+        ?>
+            <?php endforeach; ?>
+    </tr>
+<?php endforeach; ?>
+<?php endif; ?>
+</table>
+<span class="pagination"> 
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'search.phtml'); ?>
+</span>

@@ -1,0 +1,60 @@
+Hello
+<?php
+	$acl = $this->acl;
+	$user = $this->currentUser;
+	$access = $acl->isAllowed($user, "auth privileges");
+    if ($access) {
+    $profile = $user->getProfile();
+        $fullName = $profile->getFullName();
+        /**
+         * Print the user's full name with greeting
+         */
+        $userData = $user->fetch();
+		$userId = $userData->user_id;
+        $url = $this->url(
+            array(
+                'module'        =>  'default',
+                'controller'    =>  'user',
+                'action'        =>  'viewdetails',
+                'user_id'       =>  $userId,
+            ), 'default', true
+        );
+        echo "<a href=\"". $url . "\">";
+        echo $profile->getFullName();
+		echo "</a>";
+?>
+        | <a href="<?php echo $this->url(
+            array(
+                'module' => 'default',
+                'controller' => 'user',
+                'action' => 'changepass',
+            ), 'default', true
+        );?>    
+        ">change password</a>
+
+        | <a href="<?php echo $this->url(
+            array(
+                'module' => 'default',
+                'controller' => 'user',
+                'action' => 'logout',
+            ), 'default', true
+        );?>    
+        ">logout</a>
+
+<?php
+    } else {
+        /**
+         * The user is not authenticated
+         */
+      	   # echo $profile->getFullName() ;
+?>
+        Guest | <a href="<?php echo $this->url(
+            array(
+                'module' => 'default',
+                'controller' => 'user',
+                'action' => 'login',
+            ), 'default', true
+        ); ?>    
+       ">login</a>
+<?php
+    }

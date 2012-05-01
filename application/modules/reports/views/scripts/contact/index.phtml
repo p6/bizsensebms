@@ -1,0 +1,11 @@
+<h2>Contact Report</h2>
+<?php
+    $this->headTitle('Contact Report');
+    $acl = $this->acl;
+    $user = $this->currentUser;
+?>
+<?php if ($acl->isAllowed($user,'access contact reports')): ?>
+    <a href="/reports/index/index">Reports</a> | 
+    <a href="/reports/contact/daterange">Date range</a> |
+    <a href="/reports/contact/selfservice">Self Service</a>
+<?php endif; ?>    

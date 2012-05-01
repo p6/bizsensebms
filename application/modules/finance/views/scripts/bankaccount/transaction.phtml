@@ -1,0 +1,99 @@
+<h2>Bank account transaction</h2>
+
+<?php
+    $this->headTitle('Bank account transaction');
+    $this->headScript()->appendFile('/js/BizSense/Crud.js'); 
+    $acl = $this->acl;    
+?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'bankaccount',
+        'action' => 'index',
+    ), 'default', true
+);?>">Bank account</a> |
+<?php endif; ?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php echo $this->url(array(
+     'module'        =>  'finance', 
+     'controller'    =>  'bankaccount', 
+     'action'        =>  'depositcash',
+     'bank_account_id' => $this->escape($this->bankaccountId)
+   )); ?>">Desposit Cash </a> |                
+<?php endif; ?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php echo $this->url(array(
+     'module'        =>  'finance', 
+     'controller'    =>  'bankaccount', 
+     'action'        =>  'withdrawcash',
+     'bank_account_id' => $this->escape($this->bankaccountId)
+  )); ?>">Withdraw Cash </a>
+<?php endif; ?>  
+  
+<?php if (count($this->paginator)): ?>
+
+<table class="data_table">
+    <tr>
+        <th>Type</th>
+        <th>Amount</th>
+        <th>Date</th>
+        <th>Action</th>
+    </tr>
+    
+<?php foreach ($this->paginator as $item): ?>
+<?php
+    $item = $item->toArray();
+?>
+    <tr>
+        <td>
+            <?php 
+                if ($item['transaction_type'] == 1) {
+                    echo "Deposit";
+                }
+                else {
+                    echo "Withdraw";
+                }
+            ?>
+        </td>
+        <td><?php echo $this->escape($item['amount']); ?></td>
+        
+        <td><?php echo $this->escape($this->timestampToHuman($item['date']));?>
+        </td>
+        
+        <td><a href="<?php echo $this->url(array(
+                'module'        =>  'finance', 
+                'controller'    =>  'bankaccount', 
+                'action'        =>  'edittransaction',
+                'bank_transaction_id' => $item['bank_transaction_id']
+                )); ?>">Edit</a>
+                |               
+                <?php if  ($acl->isAllowed(
+                                $this->currentUser, 'access account pages')): 
+                $deleteUrl = $this->url(
+                    array(
+                        'module' => 'finance',
+                        'controller' => 'bankaccount',
+                        'action' => 'deletetransaction',
+                        'bank_transaction_id' =>$this->escape(
+                                                $item['bank_transaction_id'])
+                    )
+                );
+                echo $this->deleteButton($deleteUrl); 
+ endif; ?>
+|          
+        </td>
+    </tr>
+<?php endforeach; ?>
+</table>
+
+<?php endif; ?>
+
+<div class="pagination">
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'search.phtml'); ?>
+</div>
+<div class="div_clear"></div>
+

@@ -1,0 +1,75 @@
+<h2>Contact Reports</h2>
+<?php
+    $this->headTitle('Browse contacts');
+?>
+<a href="/reports/contact/">Contact Reports</a> | 
+<a href="/reports/contact/daterange">Date range</a> | 
+<a href="/reports/contact/csvexport/reportId/<?php echo $this->reportId; ?>">Export data to CSV file</a> | 
+
+<div class="clearing">
+</div>
+<?php
+ if (count($this->paginator)): ?>
+
+<p>
+Total contacts : <?php echo $this->paginator->getAdapter()->count(); ?>
+</p>
+<table class="data_table">
+<tr>
+    <th>First name</th>
+    <th>Middle name</th>
+    <th>Last name</th>
+    <th>Mobile</th>
+    <th>Updated</th>
+    <th>Account</th>
+    <th>Assigned To</th>
+    <th>Branch</th>
+</tr>
+
+<?php
+    /*
+     * The result object will have extra information
+     * Display only what is needed
+     */
+    $toDisplay = array(
+        'contact_id', 'first_name', 'middle_name', 'last_name', 'account_name', 
+        'work_phome', 'mobile', 'updated', 'assignedToEmail', 'branch_name'
+    );   
+?>
+<?php foreach ($this->paginator as $item): ?>
+<tr>
+    <?php foreach($item as $key=>$row): ?>
+    <?php if (in_array($key, $toDisplay)): ?>
+    <?php
+         if ($key == "contact_id") {
+            $contactId = $row;
+         }
+         if ($key != "contact_id" AND $key != "contactSourceId"): ?>
+    <td><?php
+        if ($key == "first_name" or $key == "middle_name" or $key == "last_name") {
+            echo "<a href=\"/contact/viewdetails/contact_id/" . 
+             $this->escape($contactId) . "\"> " . $this->escape($row) . " </a>";
+        } elseif ($key == 'updated') {
+            if ($row > 0) {
+                echo $this->escape($this->timestampToHuman($row));
+            } else {
+                echo "Never";
+            }
+        } else {
+            echo $this->escape($row);
+        }
+        endif;
+    ?>
+    <?php endif;  //in_array toDisplay?>
+  </td>
+<?php endforeach; ?>
+</tr>
+<?php endforeach; ?>
+</table>
+
+<div class="pagination">
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'search.phtml'); ?>
+</div>
+<div class="div_clear"></div>
+<?php endif; ?>
+

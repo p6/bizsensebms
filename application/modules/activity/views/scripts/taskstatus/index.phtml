@@ -1,0 +1,108 @@
+<h1>Tasks</h1>
+
+<?php
+    $this->headTitle('Task settings');
+    $acl = $this->acl;
+?>
+<div class="clearing">
+</div>
+
+<?php if  ($acl->isAllowed($this->currentUser, 'access task pages')): ?>
+<a href="<?php echo $this->url(array(
+        'module'        => 'activity',
+        'controller'    => 'task',
+        'action'        => 'index'
+        )); ?>">Tasks</a>
+&nbsp;|&nbsp;
+<?php endif; ?>
+
+<?php if ($acl->isAllowed($this->currentUser,'access task pages')): ?>   
+<a href="<?php echo $this->url(array(
+        'module'        => 'activity',
+        'controller'    => 'taskstatus',
+        'action'        => 'create'
+        )); ?>">Create task status</a>
+<br />
+<?php endif; ?>
+
+<?php
+    echo $this->form;
+?>
+<div class="clearing">
+</div>
+<?php $paginator = ($this->paginator); ?>
+<?php
+    $allowedKeys = array('name', 'description');
+?>
+
+<?php
+ if (count($this->paginator)):
+?>
+
+
+<table class="data_table">
+    <tr>
+        <th class="short">Name<?php echo $this->sortButtons("name"); ?></th>
+        <th class="short">Description</th>
+        <th class="short">Action</th>
+    </tr>
+
+
+<?php foreach ($paginator as $item): ?>
+
+<?php
+        $itemArray = $item->toArray();
+?>
+    <tr>
+    <?php
+        foreach ($itemArray as $key=>$value) {
+            if ($key == 'task_status_id') {
+                $task_status_id = $this->escape($value);
+            } 
+            if (in_array($key, $allowedKeys)) {
+                    echo "<td>" .  $this->escape($value) . "</td>";
+                }
+            }
+     ?>     
+            <td>
+               <a href="<?php 
+                    echo $this->url(array(
+                        'module'        =>  'activity', 
+                        'controller'    =>  'taskstatus', 
+                        'action'        =>  'viewdetails', 
+                        'task_status_id'    =>  $task_status_id,
+                    ));                    
+                  ?>">
+                        <span>View</span>
+                </a>
+                &nbsp;
+                <a href="<?php 
+                    echo $this->url(array(
+                        'module'        =>  'activity', 
+                        'controller'    =>  'taskstatus', 
+                        'action'        =>  'edit', 
+                        'task_status_id'    =>  $task_status_id,
+                    )); 
+             ?>">
+                <span>Edit</span>
+                </a>
+
+            </td>
+
+    </tr>
+<?php endforeach; ?>
+    </table>
+
+<div class="pagination">
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'search.phtml'); ?>
+</div>
+<div class="div_clear"></div>
+
+<?php endif; ?>
+
+<?php
+        if ($this->wasSearched and !count($this->paginator)) {
+            echo "<br />There are no records matching the search criteria";
+        }
+?>
+

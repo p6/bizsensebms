@@ -1,0 +1,24 @@
+<h2>Edit product</h2>
+<?php
+    $this->headTitle('Editing product');
+    echo $this->message;
+?>
+<div id="form">
+   <?php echo $this->form; ?>
+</div>
+<div class="div_clear"></div>
+<?php
+
+    if (isset($this->message)) {
+        echo "<br /><a href=\"" . $this->url(array(
+                'module'            =>  'default', 
+                'controller'        =>  'product', 
+                'action'            =>  'viewdetails', 
+                'product_item_id'   => $this->product_item_id)) . "\">
+                View details</a>";
+        echo " | <a href=\"" . $this->url(array(
+                    'module'            =>      'default', 
+                    'controller'        =>      'product'
+                ), NULL, true) . "\">Products</a>";
+    }
+    

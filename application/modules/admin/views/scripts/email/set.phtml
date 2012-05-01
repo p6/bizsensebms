@@ -1,0 +1,15 @@
+<h2>BizSense email administration</h2>
+
+<?php
+    $this->headTitle('Site Email Configuration');
+    echo $this->message;
+    $acl = $this->acl;
+?>
+<?php if ($acl->isAllowed($this->currentUser, 'administer bizsense')): ?>
+    <a href="/admin/">Administer</a>  |
+    <a href="/admin/email">E-mail administration</a>
+<?php endif; ?>
+ <div id="form">
+   <?php echo $this->form; ?>
+</div>
+<div class="div_clear"></div>

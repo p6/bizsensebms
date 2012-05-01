@@ -1,0 +1,84 @@
+<?php
+    $this->headTitle('Sales Stage');
+    $this->headScript()->appendFile('/js/BizSense/SalesStage/Index.js');
+    $acl = $this->acl;
+?>
+<h2>Sales Stage</h2>
+
+<?php if ($acl->isAllowed($this->currentUser, 'administer bizsense')): ?>
+<a href="<?php echo $this->url(array(
+                'module' => 'admin', 
+                'controller' => 'index', 
+                'action' => 'index'
+            ), 'default', true
+        );
+    ?>">Administration</a>
+<?php endif; ?>
+|
+<?php if ($acl->isAllowed($this->currentUser, 'administer bizsense')): ?>
+<a href="<?php echo $this->url(array(
+                'module' => 'admin', 
+                'controller' => 'salesstage', 
+                'action' => 'create'
+            ), 'default', true
+        );
+    ?>">Create sales stage</a>
+<?php endif; ?>
+
+<?php if (count($this->paginator)): ?>
+    <table class="data_table">
+        <tr>
+            <th>Sales Stage<?php echo $this->sortButtons('name'); ?></th>
+            <th>Description</th>
+            <th>Context<?php echo $this->sortButtons('context'); ?></th>
+            <th>Action</th>
+        </tr>
+<?php
+    foreach ($this->paginator as $item) {
+        $itemRow = $item->toArray();
+        $salesStageId = $itemRow['sales_stage_id'];
+        ?>
+        <tr>
+            <td>
+                <?php echo $this->escape($itemRow['name']); ?>
+            </td>
+            <td>
+                <?php echo $this->escape($itemRow['description']); ?>
+            </td>
+            <td>
+                <?php
+                    switch ($itemRow['context']) {
+                        case Core_Model_SalesStage::SALES_STAGE_STATUS_ONGOING:
+                            echo "On going";
+                            break;
+                        case Core_Model_SalesStage::SALES_STAGE_STATUS_WON:
+                            echo "Won";
+                            break;
+                        case Core_Model_SalesStage::SALES_STAGE_STATUS_LOST:
+                            echo "Lost";
+                            break;
+                        default:
+                            break;
+                        }
+
+                ?>
+            </td>
+            <td>
+                <a href="<?php echo $this->url(
+                        array
+                        (
+                            'module' => 'admin',
+                            'controller' => 'salesstage',
+                            'action' => 'edit',
+                            'sales_stage_id' => $salesStageId
+                        ), 'default', true
+                    ); ?>">Edit</a>  
+            <button type="button" onclick="confirmDelete(<?php 
+                                            echo $salesStageId; ?>)">Delete</a>
+            </td>
+        </tr>
+        <?php
+    }
+?>
+    </table>
+<?php endif; ?>

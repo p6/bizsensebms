@@ -1,0 +1,10 @@
+INSERT INTO `role` (`name`,`description`) VALUES ('Media Relations','Media Relations');
+INSERT INTO `role` (`name`,`description`) VALUES ('Customer Relations','Finances');
+INSERT INTO `role` (`name`,`description`) VALUES ('Customer Service','Tech Support');
+INSERT INTO `role` (`name`,`description`) VALUES ('Tech Support','Advertising');
+INSERT INTO `role` (`name`,`description`) VALUES ('Quality Assurance','Quality Assurance');
+INSERT INTO `role` (`name`,`description`) VALUES ('Research and Development','Sales and Marketing');
+INSERT INTO `role` (`name`,`description`) VALUES ('Customer Service','Quality Assurance');
+INSERT INTO `role` (`name`,`description`) VALUES ('Tech Support','Advertising');
+INSERT INTO `role` (`name`,`description`) VALUES ('Advertising','Customer Service');
+INSERT INTO `role` (`name`,`description`) VALUES ('Sales and Marketing','Finances');

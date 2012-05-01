@@ -1,0 +1,55 @@
+<h2>Salutation</h2>
+<?php
+    $this->headTitle('Administer BizSense - Salutation Feild Values');
+    $this->headScript()->appendFile('/js/BizSense/Crud.js');   
+    $acl = $this->acl;
+?>
+<?php if ($acl->isAllowed($this->currentUser, 'administer bizsense')): ?>
+
+<a href="/admin/index/index">Administration</a> | 
+
+<a href="<?php echo $this->url(array(
+        'module'=>'admin', 
+        'controller'=>'salutation', 
+        'action'=>'add'
+        ), null, true); ?>">Add A Salutation</a>
+<?php endif; ?>        
+
+<?php
+    $salutation = $this->salutation;
+?>
+<table class="data_table">
+    <tr>
+        <th class="tinyshort">Name</th>
+        <th class="short">Description</th>
+        <th class="tinyshort">Edit</th>
+        <th class="tinyshort">Delete</th>
+    </tr>
+<?php
+    foreach($salutation as $row){
+        echo "<tr>";
+        echo "<td>" . $this->escape($row->name) . "</td>";    
+        echo "<td>" . $this->escape($row->description) . "</td>";    
+        echo "<td><a href=\"" . 
+            $this->url(array(
+                    'module'=>'admin',
+                    'controller'=>'salutation',
+                    'action'=>'edit',
+                    'salutation_id'=> 
+                            $this->escape($row->salutation_id)), null, true) . 
+            "\">Edit</a></td>";    
+        echo "<td>";  
+            $deleteUrl = $this->url(
+                    array(
+                        'module' => 'admin',
+                        'controller' => 'salutation',
+                        'action' => 'delete',
+                        'salutation_id' => $this->escape($row->salutation_id)
+                    )
+                );
+                echo $this->deleteButton($deleteUrl); 
+         echo "</td>";
+         echo "</tr>";
+    }
+?> 
+</table>

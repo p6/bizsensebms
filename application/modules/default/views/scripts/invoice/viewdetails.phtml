@@ -1,0 +1,179 @@
+<h2>Product Invoice details</h2>
+<?php
+    $this->headTitle('Product Invoice details');
+    $this->headScript()->appendFile('/js/BizSense/Crud.js'); 
+    $invoiceId = $this->invoiceId;
+    $acl = $this->acl;    
+?>
+
+<?php if ($acl->isAllowed($this->currentUser,'access invoice pages')): ?>   
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'default',
+        'controller' => 'invoice',
+        'action' => 'index',
+    ), 'default', true
+);?>">Invoices</a>
+| 
+<?php endif; ?>
+
+<?php if ($acl->isAllowed($this->currentUser,'edit invoices')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'default',
+        'controller' => 'invoice',
+        'action' => 'edit',
+        'invoice_id' => $invoiceId,
+    ), 'default', true
+);?>">Edit</a>
+|
+<?php endif; ?>
+
+<?php if  ($acl->isAllowed($this->currentUser, 'delete invoices')): 
+    $deleteUrl = $this->url(
+                    array(
+                        'module' => 'default',
+                        'controller' => 'invoice',
+                        'action' => 'delete',
+                        'invoice_id' =>$this->escape($invoiceId)
+                    )
+                );
+                echo $this->deleteButton($deleteUrl); 
+ endif; ?>
+|
+
+<?php if ($acl->isAllowed($this->currentUser,'access invoice pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'default',
+        'controller' => 'invoice',
+        'action' => 'export',
+        'invoice_id' => $invoiceId,
+    ), 'default', true
+);?>">Export</a>
+|
+<?php endif; ?>
+
+<?php if ($acl->isAllowed($this->currentUser,'create invoices')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'default',
+        'controller' => 'salesreturn',
+        'action' => 'create',
+        'invoice_id' => $invoiceId,
+    ), 'default', true
+);?>">Sales Return</a>
+|
+<?php endif; ?>
+
+<?php
+    $invoiceData = $this->invoiceData;
+?>
+<table class="data_table">
+    <tr>
+        <td>Invoice Id</td>
+        <td><?php echo $this->escape($this->invoiceId); ?></td>
+    </tr>
+    <tr>
+        <td>Total amount</td>
+        <td><?php echo $this->escape($this->invoiceTotal($this->invoiceId)); ?></td>
+    </tr>
+    <tr>
+        <td>Party type</td>
+        <td>
+            <?php 
+                if ($invoiceData['to_type'] == 
+                    Core_Model_Invoice::TO_TYPE_ACCOUNT) {
+                    echo 'Account';
+                } else {
+                    echo "Contact";
+                }
+                echo " <br />";
+                echo $this->partyHyperlink(
+                        $this->escape($invoiceData['to_type']), 
+                        $this->escape($invoiceData['to_type_id']));
+            ?>
+        </td>
+    </tr>
+    <tr>
+        <td>Invoice to</td>
+        <td><?php echo $this->invoiceParty(
+                $this->escape($invoiceData['to_type']), $this->escape($invoiceData['to_type_id'])); ?></td>
+    </tr>
+    <tr>
+        <td>Campaign id </td>
+        <td><?php  if ($invoiceData['campaign_id']) {
+            echo $this->escape(
+                    $this->campaignNameById($invoiceData['campaign_id']));
+             }   ?> </td>
+    </tr>
+    <tr>
+        <td>Created on</td>
+        <td><?php echo $this->escape(
+                    $this->timestampToHuman($invoiceData['created'])); ?></td>
+    </tr>
+    <tr>
+        <td>Created by</td>
+        <td><?php echo 
+                    $this->userHyperlink($this->escape($invoiceData['created_by'])); ?></td>
+    </tr>
+    <tr>
+        <td>Branch</td>
+        <td><?php echo 
+            $this->branchHyperlink($this->escape($invoiceData['branch_id'])); ?></td>
+    </tr>
+    <tr>
+        <td>Delivery Terms</td>
+        <td><?php echo $this->escape($invoiceData['delivery_terms']); ?></td>
+    </tr> 
+    <tr>
+        <td>Payment Terms</td>
+        <td><?php echo $this->escape($invoiceData['payment_terms']); ?></td>
+    </tr> 
+    <tr>
+        <td>Invoice Notes</td>
+        <td><?php echo $this->escape($invoiceData['notes']); ?></td>
+    </tr>  
+    
+</table>
+
+
+<table class="data_table">
+    <tr>
+        <th class="tinyshort">Serial #</th>
+        <th>Item</th>
+        <th>Unit Price</th>
+        <th>Quantity</th>
+        <th>Tax Type</th>
+        <th>Tax</th>
+        <th>Total</th>
+    </tr>
+    <?php
+        $serialNumber = 1;
+        foreach ($this->invoiceItems as $item) {
+            echo "<tr>";
+            echo sprintf("<td>%d</td>", $serialNumber++);
+            echo "<td>";
+            echo $this->escape($this->inventoryItemName(
+                    '2', 
+                    $item['invoice_item_inventory_id']
+                ));
+            echo "<br />";
+            echo $this->escape($item['item_description']);
+            echo "</td>";
+            $unitPrice = $this->escape($item['unit_price']);
+            echo "<td>" . number_format($unitPrice, 2, '.', ',') . "</td>";
+            $quantity = $item['quantity'];
+            echo "<td>" . number_format($quantity, 2, '.', ',') . "</td>";
+            echo "<td>" . $this->taxNameById($item['tax_type_id']) . "</td>";
+            $taxPercentage = $this->escape(
+                        $this->taxPercentageById($item['tax_type_id']));
+            $beforeTax = $unitPrice * $quantity;
+            $tax = ($beforeTax * $taxPercentage) / 100;
+            echo "<td>" . $tax . "</td>";
+            $lineTotal = $beforeTax + $tax;
+            echo "<td>" . number_format($lineTotal, 2, '.', ',') . "</td>";
+            echo "</tr>";
+        }
+    ?>
+</table>

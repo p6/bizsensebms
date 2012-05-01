@@ -1,0 +1,31 @@
+<h2>Payroll</h2>
+
+<?php
+    $this->headTitle('Payroll');
+?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'index',
+        'action' => 'index',
+    ), 'default', true
+);?>">Finance</a> |
+<?php endif; ?>
+
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'payroll',
+        'action' => 'create',
+    ), 'default', true
+);?>">Create</a>
+|
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'payroll',
+        'action' => 'settings',
+    ), 'default', true
+);?>">Settings</a>

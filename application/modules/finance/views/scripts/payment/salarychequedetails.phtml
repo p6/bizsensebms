@@ -1,0 +1,105 @@
+<h1>Salary Cheque Payment Details</h1>
+
+<?php
+    $this->headTitle('Salary Cheque Payment Details');
+    $this->headScript()->appendFile('/js/BizSense/Crud.js');  
+    $acl = $this->acl;
+?>
+
+<?php
+	$payment = $this->payment;
+	$paymentId = $this->escape($this->paymentId);
+?>
+
+<p>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'payment',
+        'action' => 'index',
+    ), 'default', true
+);?>">Payment</a>
+ |
+
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'payment',
+        'action' => 'editsalarycheque',
+        'payment_id' => $paymentId
+    ), 'default', true
+);?>">Edit</a>
+
+|
+
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')):
+    $deleteUrl = $this->url(
+                    array(
+                        'module' => 'finance',
+                        'controller' => 'payment',
+                        'action' => 'delete',
+                        'payment_id' =>$this->escape($paymentId)
+                    )
+                );
+                echo $this->deleteButton($deleteUrl); 
+ endif; ?>
+</p>
+
+<table class="data_table">
+    <tr>
+        <td>Amount</td>
+        <td class="mediumshort">
+            <?php echo $this->escape($payment['amount']); ?>
+        </td>
+    </tr>
+	<tr>
+        <td>Payment Date</td>
+        <td>
+            <?php echo $this->escape(
+                                $this->timestampToHuman($payment['date'])); ?>
+        </td>
+    </tr>
+    <tr>
+        <td>Created on</td>
+        <td><?php echo $this->escape(
+                          $this->timestampToHuman($payment['created'])); ?></td>
+    </tr>
+    <tr>
+        <td>Created by</td>
+        <td><?php echo $this->userHyperlink(
+                     $this->escape($payment['created_by'])); ?></td>
+    </tr>
+    <tr>
+        <td>Party type</td>
+        <td>
+            <?php 
+                echo "Payment to salary";
+            ?>
+        </td>
+    </tr>
+    <tr>
+        <td>Employee name</td>
+        <td><?php echo $this->userHyperlink(
+                        $this->escape($payment['type_id'])); ?></td>
+    </tr>
+    <tr>
+        <td>Bank Account</td>
+        <td><?php echo $this->bankaccountHyperlink(
+                            $this->escape($payment['mode_id'])); ?></td>
+    </tr>
+    <tr>
+        <td>Instrument Number</td>
+        <td><?php echo $this->escape(
+                        $this->escape($payment['instrument_number'])); ?></td>
+    </tr>
+    <tr>
+        <td>Instrument Date</td>
+         <td><?php echo $this->escape(
+                $this->timestampToHuman($payment['instrument_date'])); ?></td>
+    </tr>
+    <tr>
+        <td> Notes </td> 
+        <td> <?php echo $this->escape($payment['notes']); ?> </td>  
+    </tr>
+</table>
+    

@@ -1,0 +1,233 @@
+<?php
+    $acl = $this->acl;
+    $access = $acl->isAllowed($this->currentUser, "auth privileges");
+    if ($access) {
+?>
+<div class="menu">
+    <ul>
+        <li>
+            <a href="/">Home</a>
+        </li>
+
+        <li>
+            <?php  if ($acl->isAllowed($this->currentUser, 'auth privileges')): ?>
+            <a href="<?php echo $this->url(array(
+                    'module'    =>'default', 
+                    'controller'=>'sales',
+                    'action'    =>'index'
+                    )
+                , null, true); ?>">Sales</a>
+               <?php endif; ?>
+
+            <ul>
+                <?php if ($acl->isAllowed($this->currentUser, 'access lead pages')): ?>
+                <li>
+                    <a href="/lead/">Lead</a>
+                </li>
+                <?php endif; ?>
+
+                <?php if ($acl->isAllowed($this->currentUser, 'access opportunity pages')): ?>
+                <li>
+                    <a href="/opportunity/">Opportunity</a>
+                </li>
+                <?php endif; ?>
+
+                <?php if ($acl->isAllowed($this->currentUser, 'access quote pages')): ?>
+                <li>
+                    <a href="/quote">Quote</a>
+                </li>
+                <?php endif; ?>
+                
+                <?php if ($acl->isAllowed($this->currentUser, 'access invoice pages')): ?>
+                <li>
+                    <a href="<?php echo $this->url(
+                        array(
+                            'module' => 'default',
+                            'controller' => 'invoice',
+                            'action' => 'index',
+                        ), 'default', true
+                    ); ?>">Invoice</a>
+                </li>
+                <?php endif; ?>
+
+                <?php if ($acl->isAllowed($this->currentUser, 'access salesreturn page')): ?>                
+                 <li>
+                    <a href="<?php echo $this->url(
+                    array(
+                        'module' => 'default',
+                        'controller' => 'salesreturn',
+                        'action' => 'index',
+                        ), 'default', true
+                    ); ?>">Sales Return</a>
+                </li>
+                <?php endif; ?>
+
+            </ul>
+        </li>
+
+<!-- Activity starts -->
+        <?php if ($acl->isAllowed($this->currentUser, 'access activity pages')): ?>
+        <li>
+            <a href="<?php echo $this->url(
+                array( 
+                    'module' => 'activity',
+                    'controller' =>'index',
+                    'action' => 'index',
+                    ), null, true
+                ); ?>">Activity</a>
+            <ul>
+                <?php if($acl->isAllowed($this->currentUser, 'access task pages')): ?>
+                <li>
+                    <a href="/activity/task">Task</a>
+                </li>
+                <?php endif; ?>
+                <?php if($acl->isAllowed($this->currentUser, 'access call pages')): ?>
+                <li>
+                    <a href="/activity/call">Call</a>
+                </li>
+                <?php endif; ?>
+                <?php if($acl->isAllowed($this->currentUser, 'access meeting pages')): ?>
+                <li>
+                    <a href="/activity/meeting">Meeting</a>
+                </li>
+                <?php endif; ?>
+
+            </ul>
+        </li>
+        <?php endif; ?>
+<!-- activities ends -->
+
+<!-- Marketing starts -->
+    <?php if ($acl->isAllowed($this->currentUser, 'auth privileges')): ?>
+        <li>
+            <?php if ($acl->isAllowed($this->currentUser, 'access newsletter pages')): ?>
+            <a href="<?php echo $this->url(array(
+                        'module' => 'default',
+                        'controller' => 'marketing',
+                        'action' => 'index'
+                    ), null, true
+                ); ?>">Marketing</a>
+            <?php endif; ?>
+            <ul>
+                <li>
+                <?php if ($acl->isAllowed($this->currentUser, 'access newsletter pages')): ?>
+                    <a href="<?php echo $this->url(array(
+                            'module' => 'default',
+                            'controller'=> 'campaign',
+                            'action' => 'index'
+                        ), null, true
+                    ); ?> ">Campaign</a>
+                <?php endif; ?>                    
+                </li>
+                <li>
+                <?php if ($acl->isAllowed($this->currentUser, 'access newsletter pages')): ?>
+                    <a href="<?php echo $this->url(array(
+                        'module' => 'newsletter',
+                        'controller' => 'index',
+                        'action' => 'index'
+                        ), 'default', true
+                    ); ?>">Newsletter</a>
+                <?php endif; ?>
+                </li>
+            </ul>
+        </li>
+    <?php endif; ?>        
+<!-- Marketing ends -->
+
+        <?php if ($acl->isAllowed($this->currentUser, 'access ticket pages')): ?>
+        <li>
+            <a href="/ticket">Ticket</a>
+        </li>
+        <?php endif; ?>
+
+        <li>
+            <?php if ($acl->isAllowed($this->currentUser, 'auth privileges')): ?>
+            <a href="<?php echo $this->url(array(
+                    'module' => 'default',
+                    'controller' =>'relationship',
+                    'action' => 'index' 
+                    ), null, true
+                );?>">Relationship </a>
+            <?php endif; ?>
+
+            <ul>
+
+                <?php if($acl->isAllowed($this->currentUser, "access account pages")): ?>
+                <li class="current">
+                    <a href="/account">Accounts</a>
+                </li>
+                <?php endif; ?>
+
+                <?php if($acl->isAllowed($this->currentUser, "access contact pages")): ?>
+                <li class="current">
+                    <a href="/contact">Contacts</a>
+                </li>
+                <?php endif; ?>
+                <li>
+                <?php if($acl->isAllowed($this->currentUser, "access vendor pages")): ?>
+                    <a href="<?php echo $this->url(
+                    array(
+                        'module' => 'finance',
+                        'controller' => 'vendor',
+                        'action' => 'index'
+                    ), 'default', true); ?>">Vendor</a>
+                <?php endif; ?>  
+                </li>
+            </ul>
+            
+        </li>
+
+        <?php if($acl->isAllowed($this->currentUser, "access report pages")) { ?>
+        <li>
+            <a href="<?php echo $this->url(array(
+                    'module' => 'reports',
+                    'controller' => 'index',
+                    'action' => 'index'
+                ), null, true); ?> ">Reports</a>
+            <ul>
+                <?php if ($acl->isAllowed($this->currentUser, 'access lead reports')): ?>
+                <li>
+                    <a href="/reports/lead">Lead</a>
+                </li>
+                <?php endif; ?>
+                <?php if ($acl->isAllowed($this->currentUser, 'access opportunity reports')): ?>
+                <li>
+                    <a href="/reports/opportunity">Opportunity</a>
+                </li>
+                <?php endif; ?>
+
+                <?php if ($acl->isAllowed($this->currentUser, 'access contact reports')): ?>
+                    <li>
+                        <a href="/reports/contact">Contact</a>
+                    </li>
+                <?php endif; ?>
+                <?php if ($acl->isAllowed($this->currentUser, 'access account reports')): ?>
+                    <li>
+                        <a href="/reports/account">Account</a>
+                    </li>
+                <?php endif; ?>
+                <?php if ($acl->isAllowed($this->currentUser, 'access account reports')): ?>
+                    <li>
+                        <a href="/reports/quote">Quote</a>
+                    </li>
+                <?php endif; ?>
+            </ul>
+        </li>
+<?php } ?>
+   
+
+    <?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+    <li>
+        <a href="/finance">Finance</a>
+    </li>
+    <?php endif; ?>
+
+    <?php if ($acl->isAllowed($this->currentUser, 'access administration pages')): ?>
+        <li>
+            <a href="/admin">Administer</a>
+        </li>
+    <?php endif; ?>
+</ul>
+</div>
+<?php } ?>
+

@@ -1,0 +1,22 @@
+<h2>Create Advance Cheque Payment</h2>
+<?php
+    $this->dojoLayer('common');
+    $this->headTitle('Create Advance Cheque Payment');
+    $acl = $this->acl;
+?>
+<p>
+
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'payment',
+        'action' => 'index',
+    ), 'default', true
+);?>">Payment</a> 
+
+</p>
+
+<div id="form">
+    <?php  echo $this->form; ?>
+</div>
+<div class="div_clear"></div>

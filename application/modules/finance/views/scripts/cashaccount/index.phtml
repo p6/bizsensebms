@@ -1,0 +1,98 @@
+<h1>Cash account</h1>
+
+<?php
+    $this->headTitle('Cash account');
+    $this->headScript()->appendFile('/js/BizSense/Crud.js');   
+    $acl = $this->acl;
+?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'index',
+        'action' => 'index',
+    ), 'default', true
+);?>">Finance</a> |
+<?php endif; ?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'cashaccount',
+        'action' => 'create',
+    ), 'default', true
+);?>">Create</a>
+<?php endif; ?>
+
+<fieldset class="fieldset_properties">
+    <legend>
+        <img src="/images/design/search.png"></li>
+                     Search
+     </legend>
+        <?php echo $this->form; ?>
+</fieldset>
+
+<?php if (count($this->paginator)): ?>
+
+<table class="data_table">
+    <tr>
+        <th>Name<?php echo $this->sortButtons("name"); ?></th>
+        <th>Ledger</th>
+        <th>Action</th>
+    </tr>
+    
+<?php foreach ($this->paginator as $item): ?>
+<?php
+    $item = $item->toArray();
+?>
+    <tr>
+        <td><?php echo $this->escape($item['name']); ?></td>
+        <td>
+            <?php 
+              $CashAccountModel = new Core_Model_Finance_Cashaccount(
+                                                      $item['cash_account_id']);
+              $ledgerId = $this->escape($CashAccountModel->getLedgerId());
+            ?>
+            <a href="<?php echo $this->url(
+                array(
+                    'module' => 'finance',
+                    'controller' => 'ledger',
+                    'action' => 'entries',
+                    'fa_ledger_id' => $ledgerId,
+                ), 'default', true
+                );?>">View Ledger</a>
+        </td>
+        <td><a href="<?php echo $this->url(array(
+                'module'        =>  'finance', 
+                'controller'    =>  'cashaccount', 
+                'action'        =>  'edit',
+                'cash_account_id' => $this->escape($item['cash_account_id'])
+                )); ?>">Edit</a>
+                               
+                <?php  
+                   $deleteUrl = $this->url(
+                    array(
+                      'module' => 'finance',
+                      'controller' => 'cashaccount',
+                      'action' => 'delete',
+                      'cash_account_id' =>$this->escape($item['cash_account_id'])
+                    )
+                );
+                    echo $this->deleteButton($deleteUrl); 
+                ?> 
+                
+                </td>
+    </tr>
+<?php endforeach; ?>
+</table>
+
+<?php endif; ?>
+
+<div class="pagination">
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'search.phtml'); ?>
+</div>
+<div class="div_clear"></div>
+
+

@@ -1,0 +1,61 @@
+<h2>Lead Reports</h2>
+<?php
+    $this->headTitle('Quote Reports');
+    $acl = $this->acl;
+?>
+<?php if ($acl->isAllowed($this->currentUser, 'access lead reports')): ?>
+    <a href="/reports/index/index">Reports</a> | 
+    <a href="/reports/quote/">Quote reports</a> 
+<?php endif; ?>
+
+<fieldset class="fieldset_properties">
+    <legend>
+        <img src="/images/design/search.png"></li>
+                     Search
+     </legend>
+        <?php echo $this->form; ?>
+</fieldset>
+
+
+<?php if (count($this->paginator)): ?>
+
+
+<table class="data_table">
+    <tr>
+        <th>Subject<?php echo $this->sortButtons("subject"); ?></th>
+        <th>Created<?php echo $this->sortButtons("created"); ?></th>
+        <th>Assigned To<?php echo $this->sortButtons("assigned_to"); ?></th>
+        <th>Date</th>
+        <th>Action</th>
+    </tr>
+    
+<?php foreach ($this->paginator as $item): ?>
+<?php
+    $item = $item->toArray();
+?>
+    <tr>
+        <td><?php echo $this->escape($item['subject']); ?></td>
+        <td><?php echo $this->escape($item['created']); ?></td>
+        <td><?php echo $this->userHyperlink($this->escape(
+                        $item['assigned_to'])); ?></td>
+        <td><?php echo $this->escape(
+                            $this->timestampToHuman($item['date'])); ?></td>
+        <td><a href="<?php echo $this->url(array(
+                'module'        =>  'default', 
+                'controller'    =>  'quote', 
+                'action'        =>  'viewdetails',
+                'quote_id' => $item['quote_id']
+                )); ?>">Details</a>
+                </td>
+    </tr>
+<?php endforeach; ?>
+</table>
+
+<?php endif; ?>
+
+<div class="pagination">
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'search.phtml'); ?>
+</div>
+<div class="div_clear"></div>
+
+

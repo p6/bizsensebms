@@ -1,0 +1,45 @@
+<h2>Lead Source</h2>
+<?php
+     $this->headTitle('Lead source');
+	echo $this->message;
+	echo $this->form;
+
+	$leadSource = $this->leadSource;
+?>
+	<a href="<?php echo $this->url(array(
+	                    'module' => 'default', 
+	                    'controller' => 'lead', 
+	                    'action' => 'settings'));?>">Lead settings</a> |
+	<a href="<?php echo $this->url(array(
+	                    'module' => 'default', 
+	                    'controller' => 'lead', 
+	                    'action' => 'addsource'));?>">Add Lead Source</a> 
+	                    
+	                    
+<table class="data_table">
+		<tr>
+		    <th class="short">Lead Source</th>
+		    <th class="mediumshort">Description</th>
+		    <th class="tinycell">Action</th>
+		</tr>
+		
+<?php foreach ($leadSource as $row): ?>
+		<tr>
+		    <td> <?php echo $this->escape($row->name); ?></td>
+		    <td><?php echo $this->escape($row->description); ?></td> 
+		    <td> <?php $leadSourceId = $this->escape($row->lead_source_id); ?>
+		        <a href="<?php echo $this->url(array(
+		            'module' => 'default', 
+		            'controller' => 'lead', 
+		            'action' => 'editsource', 
+		            'lead_source_id' => $leadSourceId));?>">Edit</a>,
+		            
+		        <a href="<?php echo $this->url(array(
+		                'module' => 'default', 
+		                'controller' => 'lead', 
+		                'action' => 'deletesource',
+		                'lead_source_id' => $leadSourceId));?>">Delete</a>
+		    </td>
+		</tr>
+<?php endforeach; ?>
+	</table>

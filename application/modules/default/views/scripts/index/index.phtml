@@ -1,0 +1,177 @@
+<?php
+    $acl = $this->acl;
+    $this->headTitle('Home');
+?>
+<h2>Home</h2>
+
+<?php
+    $temp = array();   
+    
+    if ($acl->isAllowed($this->currentUser, 'access meeting pages')) {
+        $temp[] = "meeting";
+    }
+    
+    if ($acl->isAllowed($this->currentUser, 'access call pages')) {
+        $temp[] = "call";
+    }
+    
+    if ($acl->isAllowed($this->currentUser, 'access task pages')) {
+        $temp[] = "task";
+    }
+    
+    if ($acl->isAllowed($this->currentUser, 'access lead pages')) {
+        $temp[] = "lead";
+    }
+    
+    if ($acl->isAllowed($this->currentUser, 'access opportunity pages')) {
+        $temp[] = "opportunity";
+    }
+    
+    if ($acl->isAllowed($this->currentUser, 'access contact pages')) {
+        $temp[] = "contact";
+    }
+$meetingDashlet = $this->meetingDashlet('');
+$meeting = <<<EOD
+<div class="box">
+        <div class="box_head">
+            <a href="/activity/meeting/">
+            <img src="/images/design/meeting.png"/></a> 
+        </div>
+        <div class="box_body">
+               $meetingDashlet  
+        </div> <!-- end of box_body -->
+              
+	    <div class="box_bottom">
+            <a href="/activity/meeting/create">Schedule meeting</a> |         
+            <a href="/activity/meeting/">View all</a> 
+        </div>
+    </div><!-- end of box -->
+EOD;
+
+$callDashlet = $this->callDashlet('');
+$call = <<<EOD
+<div class="box">
+        <div class="box_head">
+            <a href="/activity/call/">
+            <img src="/images/design/calls.png"/> </a> 
+        </div>
+
+        <div class="box_body">
+            $callDashlet
+        </div><!-- end of box_body -->
+
+	    <div class="box_bottom">
+            <a href="/activity/call/create">Schedule call</a> |
+                    
+            <a href="/activity/call/">View all</a> 
+                    
+        </div>                
+    </div><!-- end of box -->
+EOD;
+
+$taskDashlet = $this->taskDashlet('');
+$task = <<<EOD
+    <div class="box">
+        <div class="box_head">
+            <a href="/activity/task/">
+            <img src="/images/design/tasks.png"/></a> 
+        </div>
+            
+        <div class="box_body">
+                $taskDashlet
+        </div><!-- end of box_body -->
+            
+	    <div class="box_bottom">
+            <a href="/activity/task/create">Create task</a> |
+                    
+            <a href="/activity/task/">View all</a> 
+        </div><!-- end of box_bottom -->
+               
+    </div><!-- end of box -->
+EOD;
+
+$leadDashlet = $this->leadDashlet('');
+$lead = <<<EOD
+<div class="box">
+        <div class="box_head">
+            <a href="/default/lead/">
+            <img src="/images/design/lead.png"/></a>
+        </div>
+               
+        <div class="box_body">
+                $leadDashlet
+        </div><!-- end of box_body -->
+            
+	    <div class="box_bottom">
+	        <a href="/default/lead/create">Create lead</a>
+                    |
+            <a href="/default/lead/"> View all</a>
+        </div><!-- end of box_bottom -->   
+             
+    </div><!-- end of box -->
+EOD;
+
+$opportunityDashlet = $this->opportunityDashlet('');
+$opportunity = <<<EOD
+<div class="box">
+        <div class="box_head">
+            <a href="/default/opportunity/"> 
+            <img src="/images/design/opportunities.png"/></a>   
+        </div>
+            
+        <div class="box_body">
+            $opportunityDashlet
+        </div><!-- end of box_body -->
+            
+	    <div class="box_bottom">
+                 <a href="/default/opportunity/create/">Create opportunity</a>
+                    |
+                 <a href="/default/opportunity/"> View all</a>
+        </div><!-- end of box_bottom -->
+               
+    </div><!-- end of box -->
+EOD;
+
+$contactDashlet = $this->contactDashlet('');
+$contact = <<<EOD
+<div class="box">
+        <div class="box_head">
+                <a href="/default/contact/"> 
+                <img src="images/design/contacts.png"/></a>  
+        </div>
+
+        <div class="box_body">
+                $contactDashlet
+        </div><!-- end of box_body -->
+            
+	    <div class="box_bottom">
+                  <a href="/default/contact/create">Create contact</a>
+                    |
+                 <a href="/default/contact/"> View all</a>
+        </div><!-- end of box_bottom -->
+               
+    </div><!-- end of box -->
+EOD;
+
+    $count = count($temp);
+    
+    if ($count <= 3) {
+        echo "<div id='wrapper'>";
+        for ($i = 0; $i < count($temp); $i++ ) {
+           echo $$temp[$i];
+        }
+        echo "</div>";
+    }
+    
+    if ($count > 3) {
+        echo "<div id='wrapper'>";
+        for ($i = 0; $i < count($temp); $i++ ) {
+            echo $$temp[$i];
+        }
+        echo "</div>";
+    }
+         
+?>
+
+<div class="div_clear"></div>
+

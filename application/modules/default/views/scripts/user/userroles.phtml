@@ -1,0 +1,43 @@
+<h2>User Roles</h2>  
+<?php
+    $this->headTitle('User Roles');
+	echo $this->message;
+?>
+<div id="form">
+   <?php echo $this->form; ?>
+</div>
+
+<?php
+
+if (count($this->paginator)): ?>
+<table class="data_table">
+<tr>
+<th>First Name <?php echo $this->sortButtons("firstName"); ?></th>
+<th>Last Name<?php echo $this->sortButtons("lastName"); ?></th>
+<th>Mobile<?php echo $this->sortButtons("mobile"); ?></th>
+</tr>
+<?php foreach ($this->paginator as $item): ?>
+    <tr>
+        <?php foreach($item as $key=>$value): ?>
+        <?php
+            if ($key == "contactId") {
+                $contactId = $this->escape($value);
+            } else {
+        ?>
+            <?php
+                if ($key == "firstName" or $key == "lastName") {
+             echo "<td><a href=\"/contact/viewdetails/contactId/$contactId\">
+             $this->escape($value)</a></td>";
+                } else {
+             echo "<td>$this->escape($value)</td>";
+                }
+            }
+        ?>
+            <?php endforeach; ?>
+
+ </tr>
+<?php endforeach; ?>
+<?php endif; ?>
+</table>
+
+

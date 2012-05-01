@@ -1,0 +1,105 @@
+<h2>list subscribers</h2>
+<?php
+    $this->dojoLayer('common');
+    $this->headTitle('view List');
+    $this->headScript()->appendFile('/js/BizSense/Crud.js');
+    $acl = $this->acl;
+?>
+<?php if ($acl->isAllowed($this->currentUser, 'access newsletter pages')): ?>
+<a href="<?php echo $this->url(array(
+        'module' => 'newsletter',
+        'controller' => 'list',
+        'action' => 'index'
+        ), null, true); ?>">Lists</a>
+<?php endif; ?>
+
+<?php 
+    $listId = $this->listId;
+    $subscriberList = $this->subscriberList;
+?>
+<p>
+    Total subscribers : <?php echo $this->paginator->getAdapter()->count(); ?>
+</p>
+<?php if (count($this->paginator)): ?>
+<table class="data_table">
+    <tr>
+        <th>First Name </th>
+        <th>Last Name </th>
+        <th>Email Address </th>
+        <th>Email Format </th>
+        <th>Status </th>
+        <th>Action </th>
+    </tr>
+<?php 
+   
+    foreach ($this->paginator as $item): 
+    $item = $item->toArray();    
+?>
+    <tr>
+        <td><?php echo $this->escape($item['first_name']); ?></td>
+        <td><?php echo $this->escape($item['last_name']); ?></td>
+        <td><?php $email = $this->escape($item['email']);
+                echo "<a href=\"mailto:$email\"> $email" ?>
+        </td>
+        <td><?php 
+            if ($this->escape($item['format']) == 
+                    Core_Model_Newsletter_Subscriber::FORMAT_HTML) {
+                echo Core_Model_Newsletter_Subscriber::MESSAGE_HTML;
+            }else {
+                echo Core_Model_Newsletter_Subscriber::MESSAGE_TEXT;
+            } ?>
+        </td>
+        
+        <td><?php 
+                if ($item['status'] == Core_Model_Newsletter_Subscriber::CONFIRMED) {
+                    echo "Confirmed";
+                }
+                else if ($item['status'] == Core_Model_Newsletter_Subscriber::UNCONFIRMED) {
+                       echo "Unconfirmed";
+                }  
+                else if ($item['status'] == Core_Model_Newsletter_Subscriber::ACTIVE) {
+                       echo "Active";
+                } 
+                else if ($item['status'] == Core_Model_Newsletter_Subscriber::BLOCKED) {
+                       echo "Blocked";
+                } 
+                        
+             ?>
+        </td>
+        
+        <td>
+            <?php
+                /*echo "<a href=\"" . $this->url(
+                    array(
+                        'module' => 'newsletter', 
+                        'controller' => 'list', 
+                        'action' => 'subscriberedit', 
+                        'list_id' => $listId,
+                        'subscriber_id' => 
+                                    $this->escape($item['subscriber_id'])
+                    )
+                ) . "\"> " . "Edit" . "</a>";*/
+                $deleteUrl = $this->url(
+                    array(
+                        'module' => 'newsletter',
+                        'controller' => 'list',
+                        'action' => 'subscriberdelete',
+                        'list_id' => $listId,
+                        'list_subscriber_id' => 
+                                      $this->escape($item['list_subscriber_id'])
+                    )
+                );
+                echo $this->deleteButton($deleteUrl);
+            ?> 
+        </td>
+    </tr>
+    
+<?php endforeach; ?>
+</table>
+<?php endif;?>
+
+<div class="pagination">
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'search.phtml'); ?>
+</div>
+<div class="div_clear"></div>
+

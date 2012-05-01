@@ -1,0 +1,312 @@
+<h1>Contact details</h1>  
+<?php
+    $this->headTitle('Contact details');
+    $this->headScript()->appendFile('/js/BizSense/Crud.js');   
+    echo $this->escape($this->message);
+    echo $this->form;
+    $acl = $this->acl;
+    $month = array('1'=>'January', '2'=>'Febraury', '3'=>'March', '4'=>'April', 
+                   '5'=>'May', '6'=>'June', '7'=>'July', '8'=>'August', 
+                   '9'=>'September', '10'=>'October', '11'=>'November', 
+                   '12'=>'December');
+?>
+<?php
+	$contact = $this->contact;
+	$contactId = $this->escape($contact->contact_id);
+?>
+<?php if ($acl->isAllowed($this->currentUser, 'access contact pages')): ?>
+	<a href="<?php echo $this->url(array(
+            'module'        =>  'default', 
+            'controller'    => 'contact'
+        ), NULL, true); ?>">Contacts</a> 
+    | 
+<?php endif; ?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access contact pages')): ?>
+	<a href="<?php echo $this->url(array(
+            'module'        =>  'default', 
+            'controller'    =>  'contact', 
+            'action'        =>  'edit', 
+            'contact_id'    =>  $contactId
+        )); ?>">Edit</a> 
+    | 
+<?php endif; ?>
+
+<?php if  ($acl->isAllowed($this->currentUser, 'access contact pages')): 
+    $deleteUrl = $this->url(
+                    array(
+                        'module' => 'default',
+                        'controller' => 'contact',
+                        'action' => 'delete',
+                        'contact_id' =>$this->escape($contactId)
+                    )
+                );
+                echo $this->deleteButton($deleteUrl); 
+ endif; ?>
+|
+
+<?php if ($acl->isAllowed($this->currentUser, 'access contact pages')): ?>
+	<a href="<?php echo $this->url(array(
+        'module'        =>  'default', 
+        'controller'    =>  'contact', 
+        'action'        =>  'notes', 
+        'contact_id'    =>  $contactId
+    )); ?>">Notes</a> |
+<?php endif; ?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access contact pages')): ?>
+	<a href="<?php echo $this->url(array(
+        'module'        =>  'default', 
+        'controller'    =>  'contact', 
+        'action'        =>  'ssaccount', 
+        'contact_id'    =>  $contactId
+    )); ?>">Self Service Account</a> |
+<?php endif; ?>
+
+    <?php 
+        $contactModel = new Core_Model_Contact($contactId);
+        if ($contactModel->ledgerExists() != 1) {
+    ?>
+    
+<?php if ($acl->isAllowed($this->currentUser, 'access contact pages')): ?>
+    <a href="<?php echo $this->url(
+        array(
+        'module' => 'default',
+        'controller' => 'contact',
+        'action' => 'initializeledger',
+        'contact_id' => $contactId,
+        ), 'default', true
+    );?>">View Ledger</a> |
+<?php endif; ?>
+
+    <?php } else {
+            $ledgerId = $this->escape($contactModel->getLedgerId());
+    ?>
+<?php if ($acl->isAllowed($this->currentUser, 'access contact pages')): ?>
+        <a href="<?php echo $this->url(
+        array(
+        'module' => 'finance',
+        'controller' => 'ledger',
+        'action' => 'entries',
+        'fa_ledger_id' => $ledgerId
+        ), 'default', true
+    );?>">View Ledger</a> |
+<?php endif; ?>
+
+    <?php } ?>
+<?php if ($acl->isAllowed($this->currentUser, 'access opportunity pages')): ?>
+<a href="<?php echo $this->url(array(
+            'module'        =>  'default', 
+            'controller'    =>  'opportunity', 
+            'action'        =>  'contact', 
+            'contact_id'    => $contactId,
+        ), 'default', true
+    ) ; ?>">Opportunities</a> |
+<?php endif; ?>
+
+
+<?php if ($acl->isAllowed($this->currentUser, 'access call pages')): ?>
+<a href="<?php echo $this->url(array(
+        'module'        =>  'default',
+        'controller'    =>  'contact',
+        'action'        =>  'viewrelatedcalls'
+    )); ?>">Related calls</a> |
+<?php endif; ?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access meeting pages')): ?>
+<a href="<?php echo $this->url(array(
+        'module'        =>  'default',
+        'controller'    =>  'contact',
+        'action'        =>  'viewrelatedmeetings'
+    )); ?>">Related meetings</a> |
+<?php endif; ?>
+
+
+	<table class="data_table">
+	<tr><td>Name</td><td class="mediumshort">
+            <?php $fullName =  $contact->salutation . " " 
+                . $contact->first_name . " " 
+                . $contact->middle_name . " " . $contact->last_name;
+                echo $this->escape($fullName);
+             ?>
+        </td></tr>
+	<tr><td>Title</td><td><?php echo $contact->title; ?></td></tr>
+	<tr><td>Reports To</td><td>
+        <?php 
+            $reportsFullName = $contact->reportsToFirstName . " " 
+                . $contact->reportsToMiddleName . " " 
+                . $contact->reportsToLastName; 
+            echo $this->escape($reportsFullName);
+        ?></td></tr>
+	<tr><td>Assistant</td><td>
+        <?php 
+            $assistantFullName = $contact->assistantFirstName . " " . 
+            $contact->assistantMiddleName . " " . $contact->assistantLastName; 
+            echo $this->escape($assistantFullName);
+        ?></td></tr>
+	<tr><td>Department</td><td>
+        <?php 
+            echo $this->escape($contact->department); 
+        ?></td></tr>
+	<tr><td>Work Phone</td>
+        <td><?php echo $this->escape($contact->work_phone); ?>
+        </td>
+    </tr>
+	<tr><td>Home Phone</td>
+        <td><?php echo $this->escape($contact->home_phone); ?>
+        </td>
+    </tr>
+	<tr><td>Do Not Call</td>
+        <td><input type="checkbox" disabled="disabled" 
+        <?php if ($contact->do_not_call) { echo "checked=\"checked\""; } ?>>
+        </td>
+    </tr>
+	<tr><td>Mobile</td>
+        <td><?php echo $this->escape($contact->mobile); ?>
+        </td>
+    </tr>
+	<tr><td>Fax</td>
+        <td><?php echo $this->escape($contact->fax); ?>
+        </td>
+    </tr>
+	<tr><td>Work Email</td>
+        <td><?php $workEmail = $this->escape($contact->work_email);
+                echo "<a href=\"mailto:$workEmail\"> $workEmail"
+            ?>
+        </td>
+    </tr>
+	<tr><td>Other Email</td>
+        <td><?php 
+                $otherEmail = $this->escape($contact->other_email);
+                echo "<a href=\"mailto:$otherEmail\"> $otherEmail"
+             ?>
+        </td>
+    </tr>
+    <tr><td>Email Opt Out</td>
+        <td><input type="checkbox" disabled="disabled" 
+        <?php if ($contact->email_opt_out) { echo "checked=\"checked\""; } ?>>
+        </td>
+    </tr>
+	<tr><td>Billing Address</td>
+        <td>
+			<?php 
+                echo $this->escape($contact->billing_address_line_1) 
+                    . "<br />"; 
+            ?>
+       		<?php 
+                echo $this->escape($contact->billing_address_line_2) 
+                    . "<br />"; 
+            ?>
+       		<?php 
+                echo $this->escape($contact->billing_address_line_3) 
+                . "<br />"; 
+            ?>
+       		<?php 
+                echo $this->escape($contact->billing_address_line_4) 
+                . "<br />"; 
+            ?>
+		</td></tr>
+	<tr><td>Billing City</td>
+        <td><?php echo $this->escape($contact->billing_city); ?>
+        </td>
+    </tr>
+	<tr><td>Billing Postal code</td>
+        <td><?php echo $this->escape($contact->billing_postal_code); ?>
+        </td>
+    </tr>
+	<tr><td>Billing State</td>
+        <td><?php echo  $this->escape($contact->billing_state); ?>
+        </td>
+    </tr>
+	<tr><td>Billing Country</td>
+        <td><?php echo $this->escape( $contact->billing_country); ?>
+        </td>
+    </tr>
+	<tr><td>Shipping Address</td>
+	<td>
+		<?php 
+            echo  $this->escape($contact->shipping_address_line_1) . "<br />"; 
+        ?>
+    	<?php 
+            echo  $this->escape($contact->shipping_address_line_2) . "<br />"; 
+        ?>
+    	<?php 
+            echo  $this->escape($contact->shipping_address_line_3) . "<br />"; 
+        ?>
+    	<?php 
+            echo  $this->escape($contact->shipping_address_line_4) . "<br />"; 
+        ?>
+	</td></tr>
+	<tr><td>Shipping City</td>
+        <td><?php echo  $this->escape($contact->shipping_city); ?>
+        </td></tr>
+	<tr><td>Shipping Postal code</td>
+        <td><?php echo  $this->escape($contact->shipping_postal_code); ?>
+        </td>
+    </tr>
+	<tr><td>Shipping State</td>
+        <td><?php echo  $this->escape($contact->shipping_state); ?>
+        </td>
+    </tr>
+	<tr><td>Shipping Country</td>
+        <td><?php echo  $this->escape($contact->shipping_country); ?>
+        </td>
+    </tr>
+	<tr><td>Description</td>
+        <td><?php echo  $this->escape($contact->description); ?>
+        </td>
+    </tr>
+	<tr><td>Birthday</td>
+        <?php
+            if(!empty($contact->birthday_date)) { 
+                $timestamp = mktime(0,0,0, 1, $contact->birthday_date, 2000);
+                $birthdayDay = $this->escape($contact->birthday_date) . date('S', $timestamp);
+            } else {
+                $birthdayDay = "-";
+            }
+            if(!empty($contact->birthday_month)) {
+                $birthdayMonth = $this->escape($month[$contact->birthday_month]); 
+            } else {
+                $birthdayMonth = "-";
+            }
+        ?>
+        <td><?php echo   $birthdayDay. " " . $birthdayMonth;  ?>
+        </td>
+    </tr>
+    <tr>
+        <td>Campaign id </td>
+        <td><?php if ($contact->campaign_id) {
+                $campaignName = $this->campaignNameById($contact->campaign_id);
+                echo $this->escape($campaignName);
+            } ?> 
+        </td>
+    </tr>
+	<tr><td>Assigned To</td>
+        <td><?php 
+                $assignedTo = $this->escape($contact->assignedToEmail);
+                echo "<a href=\"mailto:$assignedTo\"> $assignedTo"
+            ?>
+        </td>
+    </tr>
+	<tr><td>Branch</td>
+        <td><?php echo $this->escape($contact->branch_name); ?>
+        </td>
+    </tr>
+	<tr><td>Refers To Account</td>
+        <td>
+            <?php 
+                if (is_numeric($contact->account_id)) {
+                    echo  "<a href=\"" . $this->url(array(
+                        'module'        =>  'default',
+                        'controller'    =>  'account',
+                        'action'        =>  'viewdetails',
+                        'account_id'    =>  $contact->account_id
+                    )) .  "\">" . $this->escape($contact->account_name) . "</a>"; 
+                } else {
+                    echo  $this->escape($contact->account_name); 
+                }
+
+            ?>
+        </td>
+    </tr>
+	</table>

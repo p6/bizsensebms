@@ -1,0 +1,66 @@
+<h1>Users</h1>  
+<?php
+    $this->headTitle('Users');
+	echo $this->message;
+?>
+<fieldset class="fieldset_properties">
+    <legend>
+        <img src="/images/design/search.png"></li>
+                     Search
+     </legend>
+        <?php echo $this->form; ?>
+</fieldset>
+<?php
+    $acl = $this->acl;
+?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'administer users')): ?>
+<a href="/user/add">Create User</a> |
+<a href="/user/roles">Roles</a>
+<?php endif; ?>
+
+<?php
+ if (count($this->paginator)): 
+?>
+
+
+<table class="data_table">
+    <tr>
+        <th class="short">E-mail<?php echo $this->sortButtons("email"); ?></th>
+		<th class="tinycell">Status<?php echo $this->sortButtons("status"); ?></th>
+		<th class="short">First Name<?php echo $this->sortButtons("firstName"); ?></th>
+		<th class="short">Middle Name<?php echo $this->sortButtons("middleName"); ?></th>
+		<th class="short">Last Name<?php echo $this->sortButtons("lastName"); ?></th>
+		<th class="short">Action</th>
+    </tr>
+<?php foreach ($this->paginator as $item): ?>
+<tr>
+    <?php foreach($item as $key=>$value): ?>
+    <?php
+        if ($key == "user_id") {
+            $userId = $value;
+        } elseif ($key == "email") {
+            echo "<td>$value</td>";
+        } elseif ($key == 'status') {
+            if ($value == '1') {
+                echo '<td>Active</td>';
+            } else {
+                echo '<td>Blocked</td>';
+            }
+        } else {
+            echo "<td>$value</td>";
+        }
+    ?>
+<?php endforeach; ?>
+    <td><a href="/user/viewdetails/user_id/<?php echo $userId; ?>">View details</a>, 
+        <a href="/user/editprofile/user_id/<?php echo $userId; ?>">edit</a>
+    </td>
+</tr>
+<?php endforeach; ?>
+<?php endif; ?>
+
+</table>
+
+<span class="pagination"> 
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'search.phtml'); ?>
+</span>

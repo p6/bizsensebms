@@ -1,0 +1,17 @@
+<h2>BizSense site logo administration</h2>
+<?php
+    $this->headTitle('Site Logo Configuration');
+    echo $this->message;
+    $acl = $this->acl;
+?>
+<?php if ($acl->isAllowed($this->currentUser, 'administer bizsense')): ?>
+<p>
+<a href="/admin">Administer</a>
+</p>
+<?php endif; ?>
+
+              
+            
+<div id="form">
+   <?php echo $this->form; ?>
+</div>

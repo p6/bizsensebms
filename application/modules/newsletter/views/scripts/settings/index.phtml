@@ -1,0 +1,59 @@
+<?php
+    $this->headTitle('Settings');
+    $acl = $this->acl;
+?>
+<h2>Settings</h2>
+
+<?php if  ($acl->isAllowed($this->currentUser, 'access newsletter pages')): ?>
+<a href="<?php echo $this->url(array(
+    'module'    =>'newsletter', 
+    'controller'=>'index',
+    'action'    =>'index'
+    )
+  , null, true); ?>">Newsletter</a>
+  
+<?php endif; ?>
+<br/><br/>
+
+<table>
+     <tr>
+        <td>
+            <?php if ($acl->isAllowed($this->currentUser, 'access newsletter pages')): ?>
+            <a href="<?php echo $this->url(
+                array(
+                    'module' => 'newsletter',
+                    'controller' => 'queue',
+                    'action' => 'settings'
+                    ),  'default', true
+                ); ?>">Message queue settings</a>   
+           <?php endif; ?>
+        </td>
+    </tr> 
+    <!--<tr>
+        
+        <td>
+           <?php if ($acl->isAllowed($this->currentUser, 'access newsletter pages')): ?>
+           <a href="<?php echo $this->url(
+                array(
+                    'module' => 'newsletter',
+                    'controller' => 'queue',
+                    'action' => 'index'
+                    ), 'default', true
+                ); ?>">Message queue</a>   
+           <?php endif; ?>
+        </td>
+    </tr> -->
+    <tr>
+        <td>
+           <?php if ($acl->isAllowed($this->currentUser, 'access newsletter pages')): ?>
+            <a href="<?php echo $this->url(
+                array(
+                    'module' => 'newsletter',
+                    'controller' => 'domainblacklist',
+                    'action' => 'index'
+                    ), 'default', true
+                ); ?>">Blacklisted domains</a>   
+           <?php endif; ?>
+        </td>
+     </tr>
+ </table>       

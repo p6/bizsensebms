@@ -1,0 +1,186 @@
+<h2>Ledger Entries</h2>
+<?php
+    $this->headTitle('Ledgers Entries');
+?>
+<?php
+    $ledgerRecord = $this->ledgerRecord;
+    $items = $this->items;
+    $acl = $this->acl;    
+?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'ledger',
+        'action' => 'create',
+    ), 'default', true
+);?>">Create Ledger</a> | 
+<?php endif; ?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'ledger',
+        'action' => 'createledgerentry',
+        'fa_ledger_id' => $ledgerRecord['fa_ledger_id'],
+    ), 'default', true
+);?>">Create Ledger Entry</a> |
+<?php endif; ?>
+
+
+<?php 
+    if ($items) {
+?>
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'ledger',
+        'action' => 'csvexport',
+        'fa_ledger_id' => $ledgerRecord['fa_ledger_id'],
+        'from' => $items['from'],
+        'to' => $items['to'],
+        'notes' => $items['notes']
+    ), 'default', true
+);?>">Export Ledger</a> |
+<?php endif; ?>
+    
+<?php } else { ?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'ledger',
+        'action' => 'csvexport',
+        'fa_ledger_id' => $ledgerRecord['fa_ledger_id']
+    ), 'default', true
+);?>">Export Ledger</a> |
+<?php endif; ?>
+
+<?php } ?>
+
+
+
+<fieldset class="fieldset_properties">
+    <legend>
+        <img src="/images/design/search.png"></li>
+                     Search
+     </legend>
+        <?php echo $this->form; ?>
+</fieldset>
+<p>
+    Viewing ledger 
+    <strong>
+    <?php echo $this->escape($ledgerRecord['name']); ?> 
+    </strong>
+    of group
+    <strong>
+    <?php echo $this->escape($ledgerRecord['fa_group_name']); ?> 
+    </strong>
+    under 
+    <strong>
+    <?php echo $this->escape($ledgerRecord['fa_group_category_name']);?>
+    </strong>
+</p>
+
+<?php if (count($this->paginator)): ?>
+
+<table class="data_table">
+    <tr>
+        <th>Debit</th>
+        <th>Credit</th>
+        <th>Balance</th>
+        <th>Notes</th>
+        <th>Date<?php echo $this->sortButtons("date"); ?></th>
+    </tr>
+<?php 
+    $balance = 0; 
+    $totalDebit = 0;
+    $totalCredit = 0;
+?>
+<?php foreach ($this->paginator as $item): ?>
+<?php
+    $item = $item->toArray();
+?>
+    <tr>
+        <td>
+            <?php 
+                echo $this->escape($item['debit']); 
+                $totalDebit += $item['debit'];
+            ?>
+        </td>
+        <td>
+            <?php 
+                echo $this->escape($item['credit']); 
+                $totalCredit += $item['credit'];
+            ?>
+        </td>
+        <td><?php 
+                $currentBalance = $item['debit'] - $item['credit'];
+                $ledgerModel = new Core_Model_Finance_Ledger($ledgerRecord['fa_ledger_id']);
+                $balanceType = $ledgerModel->getLedgerBalanceTypeById();
+                
+                if ($balanceType == 
+                      Core_Model_Finance_Ledger::LEDGER_BALANCE_TYPE_CREDIT)  {
+                    $balance = $balance - $currentBalance;
+                    echo $balance." Cr"; 
+                }
+                
+                if ($balanceType == 
+                        Core_Model_Finance_Ledger::LEDGER_BALANCE_TYPE_DEBIT) {
+                    $balance = $balance + $currentBalance;
+                    echo $balance." Dr"; 
+                }
+                
+                if ($balanceType == 
+                   Core_Model_Finance_Ledger::LEDGER_BALANCE_TYPE_DEBITCREDIT) {
+                    if ($balance > 0) {
+                        $balance = $balance - $currentBalance;
+                        echo $balance." Cr";
+                    }
+                    else {
+                        $balance = $balance + $currentBalance;
+                        echo $balance." Dr"; 
+                    }
+                }
+                
+             ?>
+        </td>
+        <td><?php echo $this->escape($item['notes']); ?></td>
+        <td><?php echo $this->timestampToHuman($item['transaction_timestamp']); 
+            ?>
+        </td>
+    </tr>
+<?php endforeach; ?>
+</table>
+
+<div class="pagination">
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'search.phtml'); ?>
+</div>
+<div class="div_clear"></div>
+
+<?php
+    echo "<h3>Total Debit = ".$totalDebit."</h3>";
+  
+    echo "<h3>Total Credit = ".$totalCredit."</h3>";
+    
+    if ($balanceType == Core_Model_Finance_Ledger::LEDGER_BALANCE_TYPE_CREDIT) {
+        echo "<h3>Total Credit = ".$balance." Cr</h3>"; 
+    }
+    if ($balanceType == Core_Model_Finance_Ledger::LEDGER_BALANCE_TYPE_DEBIT) {
+        echo "<h3>Total Credit = ".$balance." Dr</h3>"; 
+    }
+    if ($balanceType == 
+                  Core_Model_Finance_Ledger::LEDGER_BALANCE_TYPE_DEBITCREDIT) {
+        if ($balance > 0) {
+            echo "<h3>Total Credit = ".$balance." Cr</h3>"; 
+        }
+        else {
+            echo "<h3>Total Credit = ".$balance." Dr</h3>"; 
+        }
+    }
+?>
+<?php endif; ?>

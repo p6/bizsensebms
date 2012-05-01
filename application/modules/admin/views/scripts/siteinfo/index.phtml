@@ -1,0 +1,13 @@
+<h2>Site Information</h2>
+<?php
+    $this->headTitle('Site Information');
+    $acl = $this->acl;
+?>
+<ul>
+<?php if ($acl->isAllowed($this->currentUser, 'administer bizsense')): ?>
+    <li><a href="/admin/sitelogo">Site Logo</a></li>
+    <li><a href="/admin/sitelogo/documentlogo">Documents Logo</a></li>
+    <li><a href="/admin/siteinfo/footer">Footer</a></li>
+    <li><a href="/admin/siteinfo/seturl">Set URL</a></li>
+<?php endif; ?>    
+</ul>

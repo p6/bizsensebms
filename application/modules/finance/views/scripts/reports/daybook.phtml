@@ -1,0 +1,597 @@
+<h2>Day Book</h2>
+
+<?php
+    $this->headTitle('Day Book');
+    $acl = $this->acl;    
+?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'reports',
+        'action' => 'index',
+    ), 'default', true
+);?>">Reports</a> |
+<?php endif; ?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'reports',
+        'action' => 'csvexportdaybook',
+        'date' => $this->date
+    ), 'default', true
+);?>">Export to csv</a> |
+<?php endif; ?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'reports',
+        'action' => 'pdfdaybook',
+        'date' => $this->date
+    ), 'default', true
+);?>">Export to pdf</a> |
+<?php endif; ?>
+
+
+<fieldset class="fieldset_properties">
+    <legend>
+        <img src="/images/design/search.png"></li>
+                     Search
+     </legend>
+        <?php echo $this->form; ?>
+</fieldset>
+
+
+<br/><br/><br/><br/>
+<table class="data_table">
+    <tr>
+        <th>Date</th>
+        <th>Particulars</th>
+        <th>Type</th>
+        <th>Id</th>
+        <th>Debit Amount</th>
+        <th>Credit Amount</th>
+    </tr>
+
+
+<?php
+    $receiptDetails = $this->receiptDetails;
+    for($i = 0; $i <= sizeof($receiptDetails)-1; $i += 1) {
+?>
+    <tr>
+        <td>
+            <?php echo $this->timestampToHuman($this->escape(
+                    $receiptDetails[$i]['date'])); ?>
+        </td>
+        <td>
+            <?php 
+                if($receiptDetails[$i]['type_id'] != null) {
+                   echo $this->partyHyperlink($this->escape(
+                              $receiptDetails[$i]['type']), 
+                             $this->escape($receiptDetails[$i]['type_id']));
+                }
+                else {
+                   if ($receiptDetails[$i]['mode'] == 0) {
+                        echo $this->cashAccountHyperlink($this->escape(
+                                  $receiptDetails[$i]['mode_account_id']));
+                    }
+                    else {
+                        echo $this->bankaccountHyperlink($this->escape(
+                                  $receiptDetails[$i]['mode_account_id']));
+                    }
+                }
+            ?> 
+        </td>
+        
+        <td>Receipts</td>
+        <td>
+        <?php if ($receiptDetails[$i]['mode'] == 1 &&
+          ($receiptDetails[$i]['type'] == 1 || 
+                                     $receiptDetails[$i]['type'] == 2)  ) { ?>
+            <a href="<?php echo $this->url(array(
+                'module'        =>  'finance', 
+                'controller'    =>  'receipt', 
+                'action'        =>  'details',
+                'receipt_id' => $receiptDetails[$i]['receipt_id']
+                )); ?>"><?php echo $this->escape(
+                                $receiptDetails[$i]['receipt_id']); ?></a>
+        <?php }  ?>
+            
+        <?php if ($receiptDetails[$i]['mode'] == 0 && 
+          ($receiptDetails[$i]['type'] == 1 || 
+                                        $receiptDetails[$i]['type'] == 2)) { ?>
+             <a href="<?php echo $this->url(array(
+                'module'        =>  'finance', 
+                'controller'    =>  'receipt', 
+                'action'        =>  'cashreceiptdetails',
+                'receipt_id' => $receiptDetails[$i]['receipt_id']
+                )); ?>"><?php echo $this->escape(
+                                $receiptDetails[$i]['receipt_id']); ?></a>
+        <?php } ?>
+            
+        <?php if ($receiptDetails[$i]['mode'] == 1 && 
+                                       $receiptDetails[$i]['type'] == 3 ) { ?>
+            <a href="<?php echo $this->url(array(
+                'module'        =>  'finance', 
+                'controller'    =>  'receipt', 
+                'action'        =>  'ichequereceiptdetails',
+                'receipt_id' => $receiptDetails[$i]['receipt_id']
+                )); ?>"><?php echo $this->escape(
+                                $receiptDetails[$i]['receipt_id']); ?></a>
+        <?php }  ?>
+            
+        <?php if ($receiptDetails[$i]['mode'] == 0 && 
+                                         $receiptDetails[$i]['type'] == 3 ) { ?>
+             <a href="<?php echo $this->url(array(
+                'module'        =>  'finance', 
+                'controller'    =>  'receipt', 
+                'action'        =>  'icashreceiptdetails',
+                'receipt_id' => $receiptDetails[$i]['receipt_id']
+                )); ?>"><?php echo $this->escape(
+                                $receiptDetails[$i]['receipt_id']); ?></a>
+        <?php } ?>              
+         </td>
+        <td class="text_align_right">
+            <?php echo $this->escape($receiptDetails[$i]['amount']); ?>
+        </td>
+        <td class="text_align_right"> 0 </td>
+    </tr>
+    <?php } //end of for receipts loop?>
+    
+    
+<?php 
+    $paymentDetails = $this->paymentDetails;
+    for($i = 0; $i <= sizeof($paymentDetails)-1; $i += 1) {
+?>
+    <tr>
+        <td>
+            <?php echo $this->timestampToHuman($this->escape(
+                    $paymentDetails[$i]['created'])); ?>
+        </td>
+        <td>
+            <?php 
+                if ($paymentDetails[$i]['mode'] == 1 &&  $paymentDetails[$i]['type'] == 1) { 
+                    $vendorModel = new Core_Model_Finance_Vendor(
+                                                    $paymentDetails[$i]['type_id']);
+                    echo "Vendor Name = ". $this->escape($vendorModel->getName());
+                } 
+                       
+               if ($paymentDetails[$i]['mode'] == 2 && $paymentDetails[$i]['type'] == 1) {
+                    $vendorModel = new Core_Model_Finance_Vendor(
+                                                    $paymentDetails[$i]['type_id']);
+                    echo "Vendor Name = ". $this->escape($vendorModel->getName());
+             
+               } 
+              
+               if ($paymentDetails[$i]['mode'] == 1 &&  $paymentDetails[$i]['type'] == 2) { 
+                    $vendorModel = new Core_Model_Finance_Vendor(
+                                                    $paymentDetails[$i]['type_id']);
+                    echo "Vendor Name = ". $this->escape($vendorModel->getName());
+              }  
+             
+              if ($paymentDetails[$i]['mode'] == 2 && $paymentDetails[$i]['type'] == 2) {
+                    $vendorModel = new Core_Model_Finance_Vendor(
+                                                    $paymentDetails[$i]['type_id']);
+                    echo "Vendor Name = ". $this->escape($vendorModel->getName());
+               } 
+            
+               if ($paymentDetails[$i]['mode'] == 1 && $paymentDetails[$i]['type'] == 3) {
+                    echo 'TDS Cash';
+               } 
+               
+               if ($paymentDetails[$i]['mode'] == 2 && $paymentDetails[$i]['type'] == 3) {
+                    echo 'TDS Cheque';
+               } 
+             
+               if ($paymentDetails[$i]['mode'] == 1 && $paymentDetails[$i]['type'] == 4) {
+                    $cashAccountModel = new Core_Model_Finance_CashAccount(
+                                               $paymentDetails[$i]['mode_id']);
+                    echo 'Cash Account - '.$this->escape($cashAccountModel->getName());
+               } 
+             
+               if ($paymentDetails[$i]['mode'] == 2 && $paymentDetails[$i]['type'] == 4) {
+                    $bankaccountModel = new Core_Model_Finance_BankAccount(
+                                                    $paymentDetails[$i]['mode_id']);
+                    $bank = $bankaccountModel->getBankName();
+                    $bank .= "-".$bankaccountModel->getAccountNumber();
+                    echo 'Bank Account - '.$this->escape($bank);
+                } 
+             
+             
+                if ($paymentDetails[$i]['mode'] == 1 && $paymentDetails[$i]['type'] == 5) {
+                    $user = new Core_Model_User($paymentDetails[$i]['type_id']);
+                    $fullName = $user->getProfile()->getFullName();
+                    echo 'Salaray to - '.$this->escape($fullName);
+                } 
+             
+             
+                if ($paymentDetails[$i]['mode'] == 2 && $paymentDetails[$i]['type'] == 5) {
+                    $user = new Core_Model_User($paymentDetails[$i]['type_id']);
+                    $fullName = $user->getProfile()->getFullName();
+                    echo 'Salaray to - '.$this->escape($fullName);        
+                } 
+                
+                if ($paymentDetails[$i]['mode'] == 1 && $paymentDetails[$i]['type'] == 6) {
+                    $user = new Core_Model_User($paymentDetails[$i]['type_id']);
+                    $fullName = $user->getProfile()->getFullName();
+                    echo 'Salaray to - '.$this->escape($fullName);
+                } 
+             
+             
+                if ($paymentDetails[$i]['mode'] == 2 && $paymentDetails[$i]['type'] == 6) {
+                    $user = new Core_Model_User($paymentDetails[$i]['type_id']);
+                    $fullName = $user->getProfile()->getFullName();
+                    echo 'Salaray to - '.$this->escape($fullName);     
+                } 
+            ?> 
+        </td>
+        <td>Payments</td>
+        <td>
+            <?php if ($paymentDetails[$i]['mode'] == 1 &&  $paymentDetails[$i]['type'] == 1) { ?>
+            <a href="<?php echo $this->url(array(
+                'module'        =>  'finance', 
+                'controller'    =>  'payment', 
+                'action'        =>  'cashpaymentdetails',
+                'payment_id' => $paymentDetails[$i]['payment_id']
+                )); ?>"><?php echo $this->escape(
+                                $paymentDetails[$i]['payment_id']); ?></a>
+            <?php } ?>
+            
+             <?php
+            
+             if ($paymentDetails[$i]['mode'] == 2 && $paymentDetails[$i]['type'] == 1) {
+             ?>
+             <a href="<?php echo $this->url(array(
+                'module'        =>  'finance', 
+                'controller'    =>  'payment', 
+                'action'        =>  'chequepaymentdetails',
+                'payment_id' => $paymentDetails[$i]['payment_id']
+                )); ?>"><?php echo $this->escape(
+                                $paymentDetails[$i]['payment_id']); ?></a>
+              <?php } ?>
+              
+              <?php if ($paymentDetails[$i]['mode'] == 1 &&  $paymentDetails[$i]['type'] == 2) { ?>
+            <a href="<?php echo $this->url(array(
+                'module'        =>  'finance', 
+                'controller'    =>  'payment', 
+                'action'        =>  'cashpaymentdetails',
+                'payment_id' => $paymentDetails[$i]['payment_id']
+                )); ?>"><?php echo $this->escape(
+                                    $paymentDetails[$i]['payment_id']); ?></a>
+            <?php } ?>
+            
+             <?php
+            
+             if ($paymentDetails[$i]['mode'] == 2 && $paymentDetails[$i]['type'] == 2) {
+             ?>
+             <a href="<?php echo $this->url(array(
+                'module'        =>  'finance', 
+                'controller'    =>  'payment', 
+                'action'        =>  'chequepaymentdetails',
+                'payment_id' => $paymentDetails[$i]['payment_id']
+                )); ?>"><?php echo $this->escape($paymentDetails[$i]['payment_id']); ?></a>
+              <?php } ?>
+            
+            
+             <?php
+                if ($paymentDetails[$i]['mode'] == 1 && $paymentDetails[$i]['type'] == 3) {
+             ?>
+             <a href="<?php echo $this->url(array(
+                'module'        =>  'finance', 
+                'controller'    =>  'payment', 
+                'action'        =>  'tdscashdetails',
+                'payment_id' => $paymentDetails[$i]['payment_id']
+                )); ?>"><?php echo $this->escape($paymentDetails[$i]['payment_id'])?></a>
+             <?php } 
+                if ($paymentDetails[$i]['mode'] == 2 && $paymentDetails[$i]['type'] == 3) {
+             ?>
+             <a href="<?php echo $this->url(array(
+                'module'        =>  'finance', 
+                'controller'    =>  'payment', 
+                'action'        =>  'tdschquedetails',
+                'payment_id' => $paymentDetails[$i]['payment_id']
+                )); ?>"><?php echo $this->escape($paymentDetails[$i]['payment_id'])?></a>
+             <?php } ?>
+             
+             <?php 
+                if ($paymentDetails[$i]['mode'] == 1 && $paymentDetails[$i]['type'] == 4) {
+             ?>
+             <a href="<?php echo $this->url(array(
+                'module'        =>  'finance', 
+                'controller'    =>  'payment', 
+                'action'        =>  'taxcashdetails',
+                'payment_id' => $paymentDetails[$i]['payment_id']
+                )); ?>"><?php echo $this->escape($paymentDetails[$i]['payment_id'])?></a>
+             
+             <?php } ?>
+             
+             <?php 
+                if ($paymentDetails[$i]['mode'] == 2 && $paymentDetails[$i]['type'] == 4) {
+             ?>
+             <a href="<?php echo $this->url(array(
+                'module'        =>  'finance', 
+                'controller'    =>  'payment', 
+                'action'        =>  'taxchequedetails',
+                'payment_id' => $paymentDetails[$i]['payment_id']
+                )); ?>"><?php echo $this->escape($paymentDetails[$i]['payment_id'])?></a>
+             
+             <?php } ?>
+             
+             <?php 
+                if ($paymentDetails[$i]['mode'] == 1 && $paymentDetails[$i]['type'] == 5) {
+             ?>
+             <a href="<?php echo $this->url(array(
+                'module'        =>  'finance', 
+                'controller'    =>  'payment', 
+                'action'        =>  'salarycashdetails',
+                'payment_id' => $paymentDetails[$i]['payment_id']
+                )); ?>"><?php echo $this->escape($paymentDetails[$i]['payment_id'])?></a>
+             
+             <?php } ?>
+             
+             <?php 
+                if ($paymentDetails[$i]['mode'] == 2 && $paymentDetails[$i]['type'] == 5) {
+             ?>
+             <a href="<?php echo $this->url(array(
+                'module'        =>  'finance', 
+                'controller'    =>  'payment', 
+                'action'        =>  'salarychequedetails',
+                'payment_id' => $paymentDetails[$i]['payment_id']
+                )); ?>"><?php echo $this->escape($paymentDetails[$i]['payment_id'])?></a>
+             
+             <?php } ?>
+             
+             <?php 
+                if ($paymentDetails[$i]['mode'] == 1 && $paymentDetails[$i]['type'] == 6) {
+             ?>
+             <a href="<?php echo $this->url(array(
+                'module'        =>  'finance', 
+                'controller'    =>  'payment', 
+                'action'        =>  'salarycashdetails',
+                'payment_id' => $paymentDetails[$i]['payment_id']
+                )); ?>"><?php echo $this->escape($paymentDetails[$i]['payment_id'])?></a>
+             
+             <?php } ?>
+             
+             <?php 
+                if ($paymentDetails[$i]['mode'] == 2 && $paymentDetails[$i]['type'] == 6) {
+             ?>
+             <a href="<?php echo $this->url(array(
+                'module'        =>  'finance', 
+                'controller'    =>  'payment', 
+                'action'        =>  'salarychequedetails',
+                'payment_id' => $paymentDetails[$i]['payment_id']
+                )); ?>"><?php echo $this->escape($paymentDetails[$i]['payment_id'])?></a>
+             
+             <?php } ?>
+         </td>
+        <td class="text_align_right"> 0 </td>
+        <td class="text_align_right">
+            <?php echo $this->escape($paymentDetails[$i]['amount']); ?>
+        </td>
+       
+    </tr>
+    <?php } //end of for payment loop?>
+    
+    
+<?php 
+    $invoiceDetails = $this->invoiceDetails;
+    for($i = 0; $i <= sizeof($invoiceDetails)-1; $i += 1) {
+?>
+    <tr>
+        <td>
+            <?php echo $this->timestampToHuman($invoiceDetails[$i]['date']); ?>
+        </td>
+        <td>
+            <?php 
+                if ($invoiceDetails[$i]['to_type'] == 
+                    Core_Model_Invoice::TO_TYPE_ACCOUNT) {
+                    echo 'Account';
+                } else {
+                    echo "Contact";
+                }
+                echo " <br />";
+                echo $this->partyHyperlink($invoiceDetails[$i]['to_type'], 
+                                      $invoiceDetails[$i]['to_type_id']);
+            ?>
+        </td>
+        <td>Invoice</td>
+        <td>
+            <a href="<?php echo $this->url(
+                array(
+                    'module' => 'default',
+                    'controller' => 'invoice',
+                    'action' => 'viewdetails',
+                    'invoice_id' => $invoiceDetails[$i]['invoice_id'],
+                ), 'default', true
+            ); ?>"><?php echo $invoiceDetails[$i]['invoice_id']; ?></a>
+        </td>
+        <td class="text_align_right"> 0 </td>
+        <td class="text_align_right">
+            <?php
+                $invoiceModel = new Core_Model_Invoice(
+                                    $invoiceDetails[$i]['invoice_id']);
+                $totalAmount = $invoiceModel->getTotalAmount();
+                echo $this->escape($totalAmount);
+            ?>
+        </td>
+        </tr>
+<?php } //end of for invoice loop?>
+
+
+<?php 
+    $salesReturnDetails = $this->salesReturnDetails;
+    for($i = 0; $i <= sizeof($salesReturnDetails)-1; $i += 1) {
+?>
+    <tr>
+        <td>
+            <?php echo $this->timestampToHuman($salesReturnDetails[$i]['date']); ?>
+        </td>
+        <td>
+            <?php 
+                $invoiceModel = new Core_Model_Invoice(
+                        $salesReturnDetails[$i]['invoice_id']);
+                $invoiceRecord = $invoiceModel->fetch();
+                if ($invoiceRecord['to_type'] == 
+                    Core_Model_Invoice::TO_TYPE_ACCOUNT) {
+                    echo 'Account';
+                } else {
+                    echo "Contact";
+                }
+                echo " <br />";
+                echo $this->partyHyperlink($invoiceRecord['to_type'], 
+                                        $invoiceRecord['to_type_id']);
+           ?>
+        </td>
+        <td>Sales Return</td>
+        <td>
+            <a href="<?php echo $this->url(
+                array(
+                 'module' => 'default',
+                 'controller' => 'salesreturn',
+                 'action' => 'viewdetails',
+                 'sales_return_id' => 
+                        $salesReturnDetails[$i]['sales_return_id'],
+              ), 'default', true
+        ); ?>"><?php echo $salesReturnDetails[$i]['sales_return_id'] ;?></a>
+        </td>
+        <td class="text_align_right">
+            <?php
+                 $salesReturnModel = new Core_Model_SalesReturn(
+                        $salesReturnDetails[$i]['sales_return_id']);
+                 $totalAmount = $salesReturnModel->getTotalAmount();
+                echo $this->escape($totalAmount);
+            ?>
+        </td>
+        <td class="text_align_right"> 0 </td>
+        </tr>
+<?php } //end of for sales return loop?>
+
+
+<?php
+    $purchaseDetails = $this->purchaseDetails;
+    for($p = 0; $p <= sizeof($purchaseDetails)-1; $p += 1) {
+?>
+    <tr>
+    <td>
+       <?php 
+          echo $this->timestampToHuman($this->escape($purchaseDetails[$p]['date'])); 
+       ?>
+     </td>
+      <td>
+          <?php 
+            echo $this->vendorHyperlink($this->escape($purchaseDetails[$p]['vendor_id']));
+          ?>
+      </td>
+      <td> Purchase </td>
+      
+      <td>
+            <a href="<?php echo $this->url(
+                array(
+                'module' => 'finance',
+                'controller' => 'purchase',
+                'action' => 'viewdetails',
+                'purchase_id' => $purchaseDetails[$p]['purchase_id'],
+                ), '', true
+            ); ?>"><?php echo $purchaseDetails[$p]['purchase_id'];?></a>
+       </td>
+       <td class="text_align_right">
+            <?php
+                $purchaseModel = new Core_Model_Finance_Purchase(
+                                    $purchaseDetails[$p]['purchase_id']);
+                $totalAmount = $purchaseModel->getTotalAmount();
+                echo $totalAmount;
+            ?>
+       </td>
+       <td class="text_align_right"> 0 </td>
+       </tr>
+<?php } //end of for purchase loop?>
+
+<?php
+    $purchaseReturnDetails = $this->purchaseReturnDetails;
+    for($pr = 0; $pr <= sizeof($purchaseReturnDetails)-1; 
+                                                     $pr += 1) {
+ ?>
+  <tr>
+        <td>
+            <?php echo $this->timestampToHuman(
+                                $purchaseReturnDetails[$pr]['date']); ?>
+        </td>
+        <td>
+            <?php 
+                $purchaseModel = new Core_Model_Finance_Purchase(
+                                    $purchaseReturnDetails[$pr]['purchase_id']);
+                $purchaseReturnRecord = $purchaseModel->fetch();
+                echo $this->vendorHyperlink($this->escape($purchaseReturnRecord['vendor_id']));
+            ?>
+        </td>
+        <td> Purchase Return </td>
+        <td>
+        <a href="<?php echo $this->url(
+            array(
+                'module' => 'default',
+                'controller' => 'purchasereturn',
+                'action' => 'viewdetails',
+                'sales_return_id' => 
+                        $purchaseReturnDetails[$pr]['purchase_return_id'],
+            ), 'default', true
+        ); ?>"><?php echo $this->escape($purchaseReturnDetails[$pr]['purchase_return_id']);?></a>
+        </td>
+        <td class="text_align_right"> 0 </td>
+        <td class="text_align_right">
+        <?php
+            $purchaseReturnModel = new Core_Model_PurchaseReturn(
+                        $purchaseReturnDetails[$pr]['purchase_return_id']);
+            $totalAmount = $purchaseReturnModel->getTotalAmount();
+            echo $this->escape($totalAmount);
+        ?>
+        </td>
+        
+        
+        </tr>
+<?php } //end of for purchase return loop?>
+
+<?php
+    $payslipDetails = $this->payslipDetails;
+    for($p = 0; $p <= sizeof($payslipDetails)-1; $p += 1) {
+ ?>
+    <tr>
+        <td>
+            <?php echo $this->timestampToHuman(
+                                $this->escape($payslipDetails[$p]['date'])); ?>
+        </td>
+        
+        <td>
+            <?php 
+                echo $this->userHyperlink($this->escape($payslipDetails[$p]['employee_id']));
+            ?>
+        </td>
+        
+        <td> Payslip  </td>
+        <td>
+            <a href="<?php echo $this->url(array(
+                'module'        =>  'finance', 
+                'controller'    =>  'payslip', 
+                'action'        =>  'viewdetails',
+                'payslip_id' => $purchaseReturnDetails[$pr]['payslip_id']
+                )); ?>"><?php echo $this->escape($payslipDetails[$p]['payslip_id']);?>
+            </a>
+        </td>
+        <td class="text_align_right">
+            <?php 
+                  $payslipModel = new Core_Model_Finance_Payslip(
+                                    $payslipDetails[$p]['payslip_id']);
+                  echo $this->escape($payslipModel->getPayableSalaryAmount());
+            ?>
+        </td>
+        <td class="text_align_right"> 0 </td>
+    </tr>
+ 
+ <?php } //end of for payslip loop?>
+
+</table>

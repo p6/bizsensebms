@@ -1,0 +1,2471 @@
+[
+    {
+        "url": "default\/update\/index",
+        "privilege": "update bizsense",
+        "assertion_class": ""
+    },
+    {
+        "url": "default\/update\/update",
+        "privilege": "update bizsense",
+        "assertion_class": ""
+    },
+    {
+        "url": "admin\/cache\/clear",
+        "privilege": "update bizsense",
+        "assertion_class": ""
+    },
+    {
+        "url": "admin\/email\/index",
+        "privilege": "administer bizsense",
+        "assertion_class": ""
+    },
+    {
+        "url": "admin\/email\/set",
+        "privilege": "administer bizsense",
+        "assertion_class": ""
+    },
+    {
+        "url": "admin\/siteinfo\/index",
+        "privilege": "administer bizsense",
+        "assertion_class": ""
+    },
+    {
+        "url": "admin\/siteinfo\/footer",
+        "privilege": "administer bizsense",
+        "assertion_class": ""
+    },
+    {
+        "url": "admin\/siteinfo\/seturl",
+        "privilege": "administer bizsense",
+        "assertion_class": ""
+    },
+    {
+        "url": "admin\/org\/index",
+        "privilege": "administer bizsense",
+        "assertion_class": ""
+    },
+    {
+        "url": "admin\/org\/edit",
+        "privilege": "administer bizsense",
+        "assertion_class": ""
+    },
+    {
+        "url": "admin\/org\/viewdetails",
+        "privilege": "administer bizsense",
+        "assertion_class": ""
+    },
+    {
+        "url": "admin\/salutation\/index",
+        "privilege": "administer bizsense",
+        "assertion_class": ""
+    },
+    {
+        "url": "admin\/salutation\/add",
+        "privilege": "administer bizsense",
+        "assertion_class": ""
+    },
+    {
+        "url": "admin\/salutation\/delete",
+        "privilege": "administer bizsense",
+        "assertion_class": ""
+    },
+    {
+        "url": "admin\/email\/testmail",
+        "privilege": "administer bizsense",
+        "assertion_class": ""
+    },
+    {
+        "url": "admin\/salutation\/edit",
+        "privilege": "administer bizsense",
+        "assertion_class": ""
+    },
+    {
+        "url": "admin\/timezone\/set",
+        "privilege":"administer bizsense",
+        "assertion_class": ""
+    },
+    {
+        "url":  "admin\/timezone\/index",
+        "privilege":  "administer bizsense",
+        "assertion_class": ""
+    },
+    {
+        "url":"admin\/status\/index",
+        "privilege": "administer bizsense",
+        "assertion_class": ""
+    },
+    {
+        "url": "admin\/status\/viewlog",
+        "privilege":  "administer bizsense",
+        "assertion_class": ""
+    },
+    {
+        "url": "admin\/status\/clearlog",
+        "privilege":  "administer bizsense",
+        "assertion_class": ""
+    },
+    {
+        "url": "admin\/status\/cron",
+        "privilege":  "administer bizsense",
+        "assertion_class": ""
+    },
+    { 
+        "url":"admin\/sitelogo\/index",
+        "privilege": "administer bizsense",
+        "assertion_class": ""
+    },
+    {
+        "url": "admin\/sitelogo\/set",
+        "privilege": "administer bizsense",
+        "assertion_class": ""
+    },
+    {
+        "url": "admin\/sitelogo\/documentlogo",
+        "privilege":  "administer bizsense",
+        "assertion_class": ""
+    },
+    {
+        "url": "admin\/salesstage\/index",
+        "privilege":  "administer bizsense",
+        "assertion_class": ""
+    },
+    {
+        "url": "admin\/salesstage\/create",
+        "privilege":  "administer bizsense",
+        "assertion_class": ""
+    },
+
+    {
+        "url": "admin\/salesstage\/edit",
+        "privilege":  "administer bizsense",
+        "assertion_class": ""
+    },
+
+    {
+        "url": "admin\/salesstage\/delete",
+        "privilege":  "administer bizsense",
+        "assertion_class": ""
+    },
+    {
+        "url": "admin\/branch\/index",
+        "privilege": "access branch pages",
+        "assertion_class": ""
+    },
+    {
+        "url": "admin\/branch\/viewdetails",
+        "privilege": "access branch pages",
+        "assertion_class": "Core_Model_Branch_Acl_CanAccess"
+    },
+    {
+        "url": "admin\/branch\/create",
+        "privilege":  "administer bizsense",
+        "assertion_class": ""
+    },
+    {
+        "url": "admin\/branch\/edit",
+        "privilege":  "access branch pages",
+        "assertion_class":  "Core_Model_Branch_Acl_CanEdit"
+    },
+    {
+        "url": "default\/jsonstore\/branch",
+        "privilege":  "auth privileges",
+        "assertion_class": ""
+    },
+    {
+        "url": "admin\/branch\/delete",
+        "privilege": "access branch pages",
+        "assertion_class": "Core_Model_Branch_Acl_CanDelete"
+    },
+    {
+        "url": "admin\/index\/index",
+        "privilege": "access administration pages", 
+        "assertion_class": ""
+    },
+    {
+        "url":  "default\/index\/index",
+        "privilege": "auth privileges",
+        "assertion_class": ""
+    },
+    {
+        "url": "default\/user\/logout",
+        "privilege":  "auth privileges",
+        "assertion_class": ""
+    },
+    {
+        "url":  "default\/user\/changepass",
+        "privilege":  "auth privileges",
+        "assertion_class": ""
+    },
+    {
+        "url": "default\/user\/users",
+        "privilege":  "administer users",
+        "assertion_class": ""
+    },
+    {
+        "url": "default\/user\/edit",
+        "privilege":  "administer users",
+        "assertion_class": ""
+    },
+    {
+        "url":  "default\/user\/roles",
+        "privilege":  "administer users",
+        "assertion_class": ""
+    },
+    {
+        "url": "default\/user\/add",
+        "privilege": "administer users",
+        "assertion_class": ""
+    },
+    {
+        "url": "default\/user\/deleterole",
+        "privilege":  "administer users",
+        "assertion_class": ""
+    },
+    {
+        "url": "default\/user\/addrole",
+        "privilege": "administer users",
+        "assertion_class": ""
+    },
+    {
+        "url": "default\/user\/editrole",
+        "privilege":  "administer users",
+        "assertion_class": ""
+    },
+    {
+        "url": "default\/user\/permissions",
+        "privilege": "administer users",
+        "assertion_class": ""
+    },
+    {
+        "url":  "default\/user\/timezone",
+        "privilege":  "administer users",
+        "assertion_class": ""
+    },
+    {
+        "url": "default\/user\/primaryrole",
+        "privilege":  "administer users",
+        "assertion_class": ""
+    },
+    {
+        "url": "default\/user\/viewdetails",
+        "privilege":  "",
+        "assertion_class": "Core_Model_User_Acl_CanAccess"
+    },
+    {
+        "url": "default\/user\/editprofile",
+        "privilege": "administer users",
+        "assertion_class": ""
+    },
+    {
+        "url":  "default\/jsonstore\/primaryrole",
+        "privilege":  "administer users",
+        "assertion_class": ""
+    },
+    {
+        "url":  "default\/user\/jsonstore",
+        "privilege":  "auth privileges",
+        "assertion_class": ""
+    },
+    {
+        "url": "default\/jsonstore\/profile",
+        "privilege": "list users",
+        "assertion_class": ""
+    },
+    {
+        "url": "default\/lead\/index",
+        "privilege": "access lead pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "default\/lead\/jsonstore",
+        "privilege": "access lead pages",
+        "assertion_class": ""
+    },
+    {
+        "url": "default\/lead/viewdetails",
+        "privilege":  "access lead pages",
+        "assertion_class": "Core_Model_Lead_Acl_CanAccess"
+    },
+    {
+        "url": "default\/lead\/notes",
+        "privilege":  "access lead pages",
+        "assertion_class": "Core_Model_Lead_Acl_CanAccess"
+    },
+    {
+        "url":  "default\/lead\/createnote",
+        "privilege":  "access lead pages",
+        "assertion_class": "Core_Model_Lead_Acl_CanAccess"
+    },
+    {
+        "url": "default\/lead\/edit",
+        "privilege":  "access lead pages", 
+        "assertion_class": "Core_Model_Lead_Acl_CanEdit"
+    },
+    {
+        "url": "default\/lead\/assigntobranch",
+        "privilege": "access lead pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "default\/lead\/create",
+        "privilege":  "create leads",
+        "assertion_class": ""
+    },
+    {
+        "url":  "default\/lead\/delete",
+        "privilege":  "access lead pages",
+        "assertion_class": "Core_Model_Lead_Acl_CanDelete"
+    },
+    {
+        "url": "default\/lead\/setleadsource",
+        "privilege":  "administer leads",
+        "assertion_class": ""
+    },
+    {
+        "url":  "default\/lead\/addstatus",
+        "privilege":  "administer leads",
+        "assertion_class": ""
+    },
+    {
+        "url": "default\/lead\/editstatus",
+        "privilege": "administer leads",
+        "assertion_class": ""
+    },
+    {
+        "url":  "default\/lead\/deletestatus",
+        "privilege":  "administer leads",
+        "assertion_class": ""
+    },
+    {
+        "url":  "default\/lead\/editsource",
+        "privilege":  "administer leads",
+        "assertion_class": ""
+    },
+    {
+        "url":  "default\/lead\/addsource",
+        "privilege":  "administer leads",
+        "assertion_class": ""
+    },
+    {
+        
+        "url": "default\/lead\/deletesource",
+        "privilege":  "administer leads",
+        "assertion_class": ""
+    },
+    {
+        "url": "default\/lead\/settings",
+        "privilege":  "administer leads",
+        "assertion_class": ""
+    },
+    {
+        "url": "default\/lead\/setleadstatus",
+        "privilege":  "administer leads",
+        "assertion_class": ""
+    },
+    {
+        "url":  "default\/lead\/convert",
+        "privilege":  "convert own leads",
+        "assertion_class": "Core_Model_Lead_Acl_CanConvert"
+    },
+    {
+        "url":  "default\/lead\/import",
+        "privilege":  "import leads",
+        "assertion_class": ""
+    },
+    {
+       "url":  "default\/lead\/setdefaultassignee",
+        "privilege":  "administer leads",
+        "assertion_class": ""
+    },
+    {
+       "url":  "default\/lead\/viewrelatedcalls",
+        "privilege":  "access activity pages",
+        "assertion_class": ""
+    },
+    {
+       "url":  "default\/lead\/viewrelatedmeetings",
+        "privilege":  "access activity pages",
+        "assertion_class": ""
+    },
+    {
+        "url": "default\/purchase\/index",
+        "privilege":  "access purchase pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "default\/purchase\/viewdetails",
+        "privilege":  "access purchase pages",
+        "assertion_class": ""
+    },
+    {
+        "url": "default\/purchase\/create",
+        "privilege":  "access purchase pages",
+        "assertion_class": ""
+    },
+    {
+        "url": "default\/purchase\/edit",
+        "privilege": "access purchase pages",
+        "assertion_class": ""
+    },
+    {
+        "url": "default\/account\/index",
+        "privilege": "access account pages",
+        "assertion_class": ""
+    },
+    {
+        "url": "default\/account\/jsonstore",
+        "privilege":  "access account pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "default\/account\/viewdetails",
+        "privilege": "access account pages",
+        "assertion_class":  "Core_Model_Account_Acl_CanAccess"
+    },
+    {
+        "url": "default\/account\/edit",
+        "privilege": "access account pages",
+        "assertion_class":  "Core_Model_Account_Acl_CanEdit"
+    },
+    {
+        "url": "default\/account\/delete",
+        "privilege": "access account pages",
+        "assertion_class": "Core_Model_Account_Acl_CanDelete"
+    },
+    {
+        "url":  "default\/account\/contacts",
+        "privilege":  "access account pages",
+        "assertion_class":  "Core_Model_Account_Acl_CanAccess"
+    },
+    {
+        "url":  "default\/account\/assigntobranch",
+        "privilege":  "access account pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "default\/account\/notes",
+        "privilege":  "access account pages",
+        "assertion_class": ""
+    },
+    {
+        "url": "default\/account\/createnote",
+        "privilege":  "access account pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "default\/account\/editnote",
+        "privilege":  "access account pages",
+        "assertion_class": ""
+    },
+    {
+        "url": "default\/account\/deletenote",
+        "privilege": "access account pages",
+        "assertion_class": ""
+    },
+    {
+        "url": "default\/account\/import",
+        "privilege": "access account pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "default\/account\/create",
+        "privilege":  "create accounts",
+        "assertion_class": ""
+    },
+    {
+        "url":  "default\/contact\/index",
+        "privilege":  "access contact pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "default\/contact\/subscribetolist",
+        "privilege":  "access contact pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "default\/contact\/jsonstore",
+        "privilege": "access contact pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "default\/contact\/viewdetails",
+        "privilege": "access contact pages",
+        "assertion_class":  "Core_Model_Contact_Acl_CanAccess"
+    },
+    {   
+        "url":  "default\/contact\/notes",
+        "privilege": "access contact pages",
+        "assertion_class": "Core_Model_Contact_Acl_CanAccess"
+    },
+    {   
+        "url":  "default\/contact\/createnote",
+        "privilege":  "access contact pages",
+        "assertion_class":  "Core_Model_Contact_Acl_CanAccess"
+    },
+    {
+        "url":  "default\/contact\/ssaccount",
+        "privilege":  "access contact pages",
+        "assertion_class":  "Core_Model_Contact_Acl_CanAccess"
+    },
+    {
+        "url":  "default\/contact\/edit",
+        "privilege":  "access contact pages",
+        "assertion_class":  "Core_Model_Contact_Acl_CanEdit"
+    },
+    {
+        "url":  "default\/contact\/delete",
+        "privilege": "access contact pages",
+        "assertion_class":  "Core_Model_Contact_Acl_CanDelete"
+    },
+    {
+        "url":  "default\/contact\/assigntobranch",
+        "privilege": "access contact pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "default\/contact\/create",
+        "privilege":  "create contacts",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "default\/contact\/allcontactjsonstore",
+        "privilege":  "view all contacts",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "default\/contact\/viewrelatedcalls",
+        "privilege":  "access activity pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "default\/contact\/import",
+        "privilege":  "access activity pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "default\/contact\/viewrelatedmeetings",
+        "privilege":  "access contact pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "default\/opportunity\/index",
+        "privilege":  "access opportunity pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "default\/opportunity\/jsonstore",
+        "privilege":  "access opportunity pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "default\/opportunity\/viewdetails",
+        "privilege": "access opportunity pages",
+        "assertion_class":  "Core_Model_Opportunity_Acl_CanAccess"
+    },
+    {
+        "url":  "default\/opportunity\/edit",
+        "privilege":  "access opportunity pages",
+        "assertion_class":  "Core_Model_Opportunity_Acl_CanEdit"
+    },
+    {
+        "url":  "default\/opportunity\/delete",
+        "privilege":  "access opportunity pages",
+        "assertion_class":  "Core_Model_Opportunity_Acl_CanDelete"
+    },
+    {
+        "url":  "default\/opportunity\/assigntobranch",
+        "privilege":  "access opportunity pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "default\/opportunity\/create",
+        "privilege":  "create opportunities",
+        "assertion_class": ""
+    },
+    {
+        "url":  "default\/opportunity\/notes",
+        "privilege":  "access opportunity pages",
+        "assertion_class":  "Core_Model_Opportunity_Acl_CanAccess"
+    },
+    {
+        "url": "default\/opportunity\/createnote",
+        "privilege": "access opportunity pages",
+        "assertion_class": "Core_Model_Opportunity_Acl_CanEdit"
+    },
+    {
+        "url": "reports\/index\/index",
+        "privilege":  "access report pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "reports\/lead\/index",
+        "privilege": "access lead reports",
+        "assertion_class": ""
+    },
+    {
+        "url":  "reports\/lead\/daterange",
+        "privilege":  "access lead reports",
+        "assertion_class": ""
+    },
+    {
+        "url":  "reports\/lead\/csvexport",
+        "privilege": "access lead reports",
+        "assertion_class": ""
+    },
+    {
+        "url":  "reports\/lead\/browse",
+        "privilege":  "access lead reports",
+        "assertion_class": ""
+    },
+    {
+        "url":  "reports\/opportunity\/index",
+        "privilege": "access opportunity reports",
+        "assertion_class": ""
+    },
+    {
+        "url": "reports\/opportunity\/daterange",
+        "privilege":  "access opportunity reports",
+        "assertion_class": ""
+    },
+    {
+        "url": "reports\/opportunity\/csvexport",
+        "privilege":  "access opportunity reports",
+        "assertion_class": ""
+    },
+    {
+        "url":  "reports\/opportunity\/browse",
+        "privilege": "access opportunity reports",
+        "assertion_class": ""
+    },
+    {
+        "url":  "reports\/contact\/index",
+        "privilege":  "access contact reports",
+        "assertion_class": ""
+    },
+    {
+        "url":  "reports\/contact\/daterange",
+        "privilege":  "access contact reports",
+        "assertion_class": ""
+    },
+    {
+        "url":  "reports\/contact\/multipleenable",
+        "privilege":  "access contact reports",
+        "assertion_class": ""
+    },
+    {
+        "url":  "reports\/contact\/csvexport",
+        "privilege":  "access contact reports",
+        "assertion_class": ""
+    },
+    {
+        "url":  "reports\/contact\/browse",
+        "privilege":  "access contact reports",
+        "assertion_class": ""
+    },
+    {
+        "url":  "reports\/contact\/selfservice",
+        "privilege":  "access contact reports",
+        "assertion_class": ""
+    },
+    {
+        "url":  "reports\/account\/index",
+        "privilege": "access account reports",
+        "assertion_class": ""
+    },
+    {
+        "url":  "reports\/account\/daterange",
+        "privilege":  "access account reports",
+        "assertion_class": ""
+    },
+    {
+        "url": "reports\/account\/csvexport",
+        "privilege":  "access account reports",
+        "assertion_class": ""
+    },
+    {
+        "url": "reports\/account\/browse",
+        "privilege":  "access account reports",
+        "assertion_class": ""
+    },
+    {
+        "url": "reports\/quote\/index",
+        "privilege":  "access quote reports",
+        "assertion_class": ""
+    },
+    {
+        "url": "reports\/quote\/daterange",
+        "privilege":  "access quote reports",
+        "assertion_class": ""
+    },
+    {
+        "url": "reports\/quote\/status",
+        "privilege":  "access quote reports",
+        "assertion_class": ""
+    },
+    {
+        "url": "reports\/quote\/contactaccount",
+        "privilege":  "access quote reports",
+        "assertion_class": ""
+    },
+    {
+        "url": "reports\/quote\/assignto",
+        "privilege":  "access quote reports",
+        "assertion_class": ""
+    },
+    {
+        "url":  "default\/product\/index",
+        "privilege":  "access product pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "default\/product\/viewdetails",
+        "privilege":  "access product pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "default\/product\/setprice",
+        "privilege":  "access product pages",
+        "assertion_class": ""
+    },
+    {
+        "url": "default\/product\/jsonstore",
+        "privilege":  "access product pages",
+        "assertion_class": ""
+    },
+    {
+        "url": "default\/jsonstore\/taxtype",
+        "privilege":  "access product pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "default\/product\/create",
+        "privilege":  "create products",
+        "assertion_class": ""
+    },
+    {
+        "url":  "default\/product\/edit",
+        "privilege":  "edit products",
+        "assertion_class": ""
+    },
+    {
+        "url":  "default\/product\/delete",
+        "privilege":  "delete products",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "default\/product\/setgeneral",
+        "privilege":  "access product pages",
+        "assertion_class": ""
+    },
+    {
+        "url": "default\/product\/setsubscribable",
+        "privilege":  "access product pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "admin\/manufacturer\/index",
+        "privilege":  "administer products",
+        "assertion_class": ""
+    },
+    {
+        "url":  "admin\/manufacturer\/add",
+        "privilege":  "administer products",
+        "assertion_class": ""
+    },
+    {
+        "url":  "admin\/manufacturer\/delete",
+        "privilege": "administer products",
+        "assertion_class": ""
+    },
+    {
+        "url":  "admin\/manufacturer\/edit",
+        "privilege":  "administer products",
+        "assertion_class": ""
+    },
+    {
+        "url":  "admin\/pcategory\/index",
+        "privilege":  "administer products",
+        "assertion_class": ""
+    },
+    {
+        "url":  "admin\/pcategory\/add",
+        "privilege": "administer products",
+        "assertion_class": ""
+    },
+    {
+        "url":  "admin\/pcategory\/edit",
+        "privilege":  "administer products",
+        "assertion_class": ""
+    },
+    {
+        "url":  "admin\/pstatus\/index",
+        "privilege":  "administer products",
+        "assertion_class": ""
+    },
+    {
+        "url": "admin\/pstatus\/add",
+        "privilege":  "administer products",
+        "assertion_class": ""
+    },
+    {
+        "url":  "admin\/pstatus\/edit",
+        "privilege":  "administer products",
+        "assertion_class": ""
+    },
+    {
+        "url":  "finance\/tax\/index",
+        "privilege":  "administer products",
+        "assertion_class": ""
+    },
+    {
+        "url":  "finance\/payment\/advancecashpayment",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "default\/leadsource\/index",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {
+        "url": "finance\/tax\/class",
+        "privilege":  "administer products",
+        "assertion_class": ""
+    },
+    {
+        "url": "finance\/payment\/advancechequepayment",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {
+        "url": "default\/leadsource\/create",
+        "privilege":  "access lead pages",
+        "assertion_class": ""
+    },
+    {
+        "url": "activity\/call\/notes",
+        "privilege":  "access call pages",
+        "assertion_class": ""
+    },
+    {
+        "url": "finance\/tax\/addclass",
+        "privilege": "administer products",
+        "assertion_class": ""
+    },
+    {
+        "url": "finance\/payment\/advancecashdetails",
+        "privilege": "access finance pages",
+        "assertion_class": ""
+    },
+    {
+        "url": "default\/leadsource\/edit",
+        "privilege": "access lead pages",
+        "assertion_class": ""
+    },
+    {
+        "url": "activity\/call\/createnotes",
+        "privilege": "access call pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "finance\/tax\/editclass",
+        "privilege":  "administer products",
+        "assertion_class": ""
+    },
+    {
+        "url":  "finance\/tax\/deletetype",
+        "privilege":  "administer products",
+        "assertion_class": ""
+    },
+    {
+        "url":  "finance\/tax\/store",
+        "privilege": "access product pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "admin\/currency\/add",
+        "privilege":  "administer products",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "admin\/currency\/index",
+        "privilege":  "administer products",
+        "assertion_class": ""
+    },
+    {
+        "url":  "admin\/currency\/edit",
+        "privilege":  "administer products",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "admin\/currency\/delete",
+        "privilege":  "administer products",
+        "assertion_class": ""
+    },
+    {
+        "url":  "finance\/tax\/addtype",
+        "privilege":  "administer products",
+        "assertion_class": ""
+    },
+    {
+        "url":  "finance\/tax\/listtype",
+        "privilege": "administer products",
+        "assertion_class": ""
+    },
+    {
+        "url":  "finance\/tax\/edittype",
+        "privilege":  "administer products",
+        "assertion_class": ""
+    },
+    {
+        "url":  "finance\/tax\/viewtypedetails",
+        "privilege":  "administer products",
+        "assertion_class": ""
+    },
+    {
+        "url":  "default\/service\/index",
+        "privilege":  "view service items",
+        "assertion_class": ""
+    },
+    {
+        "url":  "default\/service\/viewdetails",
+        "privilege": "view service items",
+        "assertion_class": ""
+    },
+    {
+        "url":  "default\/service\/edit",
+        "privilege": "edit service items",
+        "assertion_class": ""
+    },
+    {
+        "url":  "default\/service\/delete",
+        "privilege":  "delete service items",
+        "assertion_class": ""
+    },
+    {
+        "url":  "default\/quote\/index",
+        "privilege":  "access quote pages",
+        "assertion_class":  "" 
+    },
+    {
+        "url":  "default\/quote\/create",
+        "privilege": "access quote pages",
+        "assertion_class":  "" 
+    },
+    {
+        "url":  "default\/quote\/edit",
+        "privilege":  "access quote pages",
+        "assertion_class":  "Core_Model_Quote_Acl_CanEdit"
+    },
+    {
+        "url":  "default\/quote\/viewdetails",
+        "privilege": "access quote pages",
+        "assertion_class": "Core_Model_Quote_Acl_CanAccess"
+    },
+    {
+        "url":  "default\/quote\/export",
+        "privilege": "access quote pages",
+        "assertion_class": "Core_Model_Quote_Acl_CanAccess"
+    },
+    {
+        "url": "default\/quote\/delete",
+        "privilege": "",
+        "assertion_class":  "Core_Model_Quote_Acl_CanDelete"
+    },
+    {
+        "url":  "default\/invoice\/create",
+        "privilege":  "create invoices",
+        "assertion_class": ""
+    },
+    {
+        "url":  "default\/invoice\/index",
+        "privilege":  "view invoices",
+        "assertion_class": ""
+    },
+    {
+        "url":  "default\/invoice\/viewdetails",
+        "privilege":  "view invoices",
+        "assertion_class": ""
+    },
+    {
+        "url":  "default\/invoice\/export",
+        "privilege":  "view invoices",
+        "assertion_class": ""
+    },
+    {
+        "url":  "default\/invoice\/delete",
+        "privilege":  "delete invoices",
+        "assertion_class": ""
+    },
+    {
+        "url":  "default\/invoice\/edit",
+        "privilege":  "edit invoices",
+        "assertion_class": ""
+    },
+    {
+        "url":  "default\/invoice\/settings",
+        "privilege": "administer invoices",
+        "assertion_class": ""
+    },
+    {
+        "url":  "admin\/webservice\/index",
+        "privilege":  "administer bizsense",
+        "assertion_class": ""
+    },
+    {   "url":  "admin\/webservice\/viewdetails",
+        "privilege":  "administer bizsense",
+        "assertion_class": ""
+    },
+    {
+        "url": "admin\/webservice\/create",
+        "privilege":  "administer bizsense",
+        "assertion_class": ""
+    },
+    {
+        "url":  "admin\/webservice\/edit",
+        "privilege":  "administer bizsense",
+        "assertion_class": ""
+    },
+    {
+        "url": "admin\/webservice\/delete",
+        "privilege":  "administer bizsense",
+        "assertion_class": ""
+    },
+    {
+        "url":  "admin\/webservice\/selfserviceapp",
+        "privilege":  "administer bizsense",
+        "assertion_class": ""
+    },
+    {
+        "url":  "ticket\/index\/index",
+        "privilege":  "access ticket pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "ticket\/index\/viewdetails",
+        "privilege":  "access ticket pages",
+        "assertion_class": ""
+    },
+    {
+        "url": "ticket\/index\/create",
+        "privilege":  "access ticket pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "ticket\/index\/edit",
+        "privilege":  "access ticket pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "ticket\/index\/delete",
+        "privilege": "access ticket pages",
+        "assertion_class": ""
+    },
+    {
+        "url": "ticket\/status\/index",
+        "privilege":  "access ticket pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "ticket\/status\/create",
+        "privilege": "access ticket pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "ticket\/status\/edit",
+        "privilege": "access ticket pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "ticket\/status\/delete",
+        "privilege":  "access ticket pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "ticket\/settings\/defaultassignee",
+        "privilege":  "access ticket pages",
+        "assertion_class": ""
+    },
+
+    {
+        "url":  "finance\/index\/index",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "finance\/group\/index",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "finance\/ledger\/index",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "finance\/ledger\/entries",
+        "assertion_class": "",
+        "privilege":  "access finance pages"
+    },
+    {
+        "url":  "finance\/payment\/advancechequedetails",
+        "assertion_class": "",
+        "privilege":  "access finance pages"
+    },
+    {
+        "url":  "default\/leadsource\/viewdetails",
+        "assertion_class": "",
+        "privilege":  "access lead pages"
+    },
+    {   
+        "url":  "activity\/meeting\/notes",
+        "assertion_class": "",
+        "privilege":  "access meeting pages"
+    },
+    {
+        "url":  "finance\/payment\/editadvancecash",
+        "assertion_class": "",
+        "privilege":  "access finance pages"
+    },
+    {
+        "url":  "default\/leadsource\/delete",
+        "assertion_class": "",
+        "privilege":  "access lead pages"
+    },
+    {
+        "url":  "activity\/meeting\/createnotes",
+        "assertion_class": "",
+        "privilege":  "access meeting pages"
+    },
+    {   
+        "url":  "finance\/ledger\/create",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "finance\/ledger\/edit",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "finance\/ledger\/delete",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "default\/campaign\/index",
+        "privilege":  "access campaign pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "default\/campaign\/jsonstore",
+        "privilege":  "access campaign pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "default\/campaign\/create",
+        "privilege":  "create campaigns",
+        "assertion_class": ""
+    },
+    {
+        "url":  "default\/campaign\/viewdetails",
+        "privilege":  "view campaigns",
+        "assertion_class": ""
+    },
+    {
+        "url":  "default\/campaign\/edit",
+        "privilege":  "edit campaigns",
+        "assertion_class": ""
+    },
+    {
+        "url":  "default\/campaign\/delete",
+        "privilege":  "delete campaigns",
+        "assertion_class": ""
+    },
+    {
+        "url":  "activity\/task\/index",
+        "privilege":  "access activity pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "activity\/task\/create",
+        "privilege":  "access activity pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "activity\/task\/edit",
+        "privilege":  "access activity pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "activity\/task\/viewdetails",
+        "privilege":  "access activity pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "activity\/task\/delete",
+        "privilege":  "access activity pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "activity\/task\/settings",
+        "privilege":  "access activity pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "activity\/task\/addstatus",
+        "privilege":  "access activity pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "activity\/taskstatus\/index",
+        "privilege":  "access activity pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "activity\/taskstatus\/create",
+        "privilege":  "access activity pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "activity\/taskstatus\/edit",
+        "privilege":  "access activity pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "activity\/taskstatus\/viewdetails",
+        "privilege":  "access activity pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "activity\/taskstatus\/delete",
+        "privilege":  "access activity pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "activity\/call\/index",
+        "privilege":  "access activity pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "activity\/call\/create",
+        "privilege":  "access activity pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "activity\/call\/edit",
+        "privilege":  "access activity pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "activity\/call\/viewdetails",
+        "privilege":  "access activity pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "activity\/call\/delete",
+        "privilege":  "access activity pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "activity\/call\/settings",
+        "privilege":  "access activity pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "activity\/call\/addstatus",
+        "privilege":  "access activity pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "activity\/callstatus\/index",
+        "privilege":  "access activity pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "activity\/callstatus\/create",
+        "privilege":  "access activity pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "activity\/callstatus\/edit",
+        "privilege":  "access activity pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "activity\/callstatus\/viewdetails",
+        "privilege":  "access activity pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "activity\/callstatus\/delete",
+        "privilege":  "access activity pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "activity\/meeting\/index",
+        "privilege":  "access activity pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "activity\/meeting\/create",
+        "privilege":  "access activity pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "activity\/meeting\/edit",
+        "privilege":  "access activity pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "activity\/meeting\/viewdetails",
+        "privilege":  "access activity pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "activity\/meeting\/delete",
+        "privilege":  "access activity pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "activity\/meeting\/settings",
+        "privilege":  "access activity pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "activity\/meeting\/addstatus",
+        "privilege":  "access activity pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "activity\/meetingstatus\/index",
+        "privilege":  "access activity pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "activity\/meetingstatus\/create",
+        "privilege":  "access activity pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "activity\/meetingstatus\/edit",
+        "privilege":  "access activity pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "activity\/meetingstatus\/viewdetails",
+        "privilege":  "access activity pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "activity\/meetingstatus\/delete",
+        "privilege":  "access activity pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "newsletter\/index\/index",
+        "privilege":  "access newsletter pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "newsletter\/index\/test",
+        "privilege":  "access newsletter pages",
+        "assertion_class": ""
+    },
+
+    {
+        "url":  "newsletter\/settings\/index",
+        "privilege":  "access newsletter pages",
+        "assertion_class": ""
+    },
+    {  
+        "url":  "newsletter\/queue\/index",
+        "privilege":  "access newsletter pages",
+        "assertion_class": ""
+    },
+    {  
+        "url":  "newsletter\/queue\/status",
+        "privilege":  "access newsletter pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "newsletter\/queue\/settings",
+        "privilege":  "access newsletter pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "newsletter\/queue\/cancelall",
+        "privilege":  "access newsletter pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "newsletter\/queue\/cancel",
+        "privilege":  "access newsletter pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "newsletter\/list\/index",
+        "privilege":  "access newsletter pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "newsletter\/list\/create",
+        "privilege":  "access newsletter pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "newsletter\/list\/viewdetails",
+        "privilege":  "access newsletter pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "newsletter\/list\/edit",
+        "privilege":  "access newsletter pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "newsletter\/list\/delete",
+        "privilege":  "access newsletter pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "newsletter\/list\/showsubscriberlist",
+        "privilege":  "access newsletter pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "newsletter\/list\/subscriber",
+        "privilege":  "access newsletter pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "newsletter\/list\/subscriberdelete",
+        "privilege":  "access newsletter pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "newsletter\/list\/subscriberedit",
+        "privilege":  "access newsletter pages",
+        "assertion_class": ""
+    },
+
+    {
+        "url":  "newsletter\/list\/import",
+        "privilege":  "access newsletter pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "newsletter\/message\/index",
+        "privilege":  "access newsletter pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "newsletter\/message\/edit",
+        "privilege":  "access newsletter pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "newsletter\/message\/delete",
+        "privilege":  "access newsletter pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "newsletter\/message\/create",
+        "privilege":  "access newsletter pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "newsletter\/message\/text",
+        "privilege":  "access newsletter pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "newsletter\/message\/sendtolists",
+        "privilege":  "access newsletter pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "newsletter\/message\/sendtestmessage",
+        "privilege":  "access newsletter pages",
+        "assertion_class": ""
+    },
+    {
+        "url":  "newsletter\/message\/queuegraph",
+        "privilege":  "access newsletter pages",
+        "assertion_class": ""
+    },
+
+    {   
+        "url":  "finance\/tax\/listtype",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/reports\/ledgersbygroup",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "default\/invoice\/exportservicepdf",
+        "privilege":  "access invoice pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/tax\/addtype",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/tax\/edittype",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/tax\/deletetype",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/bankaccount\/index",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/bankaccount\/create",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/bankaccount\/edit",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/bankaccount\/delete",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/bankaccount\/depositcash",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/bankaccount\/withdrawcash",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/bankaccount\/jsonstore",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/cashaccount\/index",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/cashaccount\/create",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/cashaccount\/edit",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/cashaccount\/jsonstore",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/cashaccount\/delete",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/cashaccount\/delete",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/receipt\/index",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/receipt\/cashreceipt",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/receipt\/cashreceiptdetails",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/receipt\/chequereceipt",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/receipt\/ddreceipt",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/receipt\/delete",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/receipt\/details",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/receipt\/edit",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/receipt\/editcashreceipt",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/receipt\/editichequereceipt",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/receipt\/icashreceipt",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/receipt\/editicashreceipt",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/receipt\/icashreceiptdetails",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/receipt\/ichequereceipt",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/receipt\/ichequereceiptdet",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/receipt\/ichequereceiptdetails",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/vendor\/index",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/vendor\/jsonstore",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/vendor\/create",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/vendor\/delete",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/vendor\/edit",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/vendor\/initializeledger",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/vendor\/viewdetails",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/purchase\/index",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/purchase\/create",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/purchase\/delete",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/purchase\/edit",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/purchase\/viewdetails",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/payment\/index",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/payment\/tdscashdetails",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "default\/salesreturn/index",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/payment\/edittdscash",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "default\/salesreturn\/create",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/payment\/tdscheque",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "default\/salesreturn\/viewdetails",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/payment\/tdschquedetails",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "default\/salesreturn\/edit",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/payment\/edittdscheque",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "default\/salesreturn\/delete",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/payment\/taxchequedetails",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "default\/salesreturn\/export",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/payment\/selectpayment",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/ledger\/jsonstore",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "default\/lead\/allcontactjsonstore",
+        "privilege":  "access lead pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/ledger\/incomejsonstore",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/ledger\/tdsstore",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/ledger\/ledgerstore",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/ledger\/csvexport",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/ledger\/editopeningbalance",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/reports\/csvexporttrialbalance",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },   
+    {   
+        "url":  "finance\/reports\/pdftrialbalance",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },   
+    {   
+        "url":  "finance\/reports\/csvexportdaybook",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },   
+    {   
+        "url":  "finance\/reports\/pdfdaybook",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },   
+
+    {   
+        "url":  "finance\/payslip\/export",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/ledger\/salarystore",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "default\/lead\/allcontactjsonstor",
+        "privilege":  "access lead pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/payment\/cashpaymentdetails",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/payment\/chequepaymentdetails",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/payment\/delete",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/payment\/ecashpayment",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/payment\/echequepayment",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/payment\/editcashpayment",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/payment\/editchequepayment",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/payment\/editexpensescashpayment",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/payment\/editexpenseschequepayment",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/payment\/sccashpayment",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/payment\/scchequepayment",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "default\/account\/initializeledger",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "default\/contact\/initializeledger",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/reports\/index",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/reports\/daybook",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/reports\/groupwisesummary",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/reports\/ledgerwisesummary",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/reports\/outstandings",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/reports\/purchaseregister",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/reports\/salesregister",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/reports\/trialbalance",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/payslip\/create",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/payslip\/delete",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/payslip\/edit",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/payslip\/index",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/payslip\/settings",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/payslip\/viewdetails",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/payment\/taxcash",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/payment\/taxcashdetails",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/payment\/taxcashtails",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/payment\/taxcheque",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/payment\/salarycashpayment",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/payment\/salarycashdetails",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/payment\/salarychequepayment",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/payment\/salarychequedetails",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/payment\/editsalarycash",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/payment\/editsalarycheque",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/payment\/edittaxcash",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/payment\/edittaxcheque",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/financeyear\/index",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/currency\/index",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "default\/user\/initializeledger",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "default\/purchasereturn\/index",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "default\/purchasereturn\/create",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "default\/purchasereturn\/delete",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "default\/purchasereturn\/edit",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "default\/purchasereturn\/viewdetails",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/payment\/tdscash",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "finance\/reports\/csvexportgroupwisesummary",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {
+       "url": "finance\/reports\/csvexportledgerwisesummary",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    { 
+        "url": "finance\/reports\/pdfexport",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    { 
+        "url": "finance\/reports\/pdfsalesregister",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    { 
+        "url": "finance\/reports\/csvexportsalesregistry",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    { 
+        "url": "finance\/reports\/csvexportpurchaseregistry",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    { 
+        "url": "finance\/reports\/pdfpurchaseregistry",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    { 
+        "url": "finance\/reports\/csvexportoutstandings",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    { 
+        "url": "finance\/reports\/pdfoutstandings",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    { 
+        "url": "finance\/reports\/openingbalancesummary",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    { 
+        "url": "finance\/receipt\/export",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    { 
+        "url": "finance\/bankaccount\/reconciliation",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    { 
+        "url": "finance\/bankaccount\/confirm",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    { 
+        "url": "finance\/bankaccount\/returned",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+	{ 
+        "url": "finance\/ledger\/closeaccounts",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+	{ 
+        "url": "finance\/vendor\/store",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    { 
+        "url": "finance\/purchase\/voucherdetails",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    { 
+        "url": "finance\/purchase\/editvoucher",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "default\/quote\/csvexport",
+        "privilege":  "access quote pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "default\/quotestatus\/create",
+        "privilege":  "access quote pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "default\/quotestatus\/delete",
+        "privilege":  "access quote pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "default\/quotestatus\/edit",
+        "privilege":  "access quote pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "default\/quotestatus\/index",
+        "privilege":  "access quote pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "default\/quotestatus\/viewdetails",
+        "privilege":  "access quote pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "default\/quotestatus\/jsonstore",
+        "privilege":  "access quote pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "default\/opportunity\/account",
+        "privilege":  "access opportunity pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "default\/opportunity\/contact",
+        "privilege":  "access opportunity pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "default\/lead\/savesearch",
+        "privilege":  "access lead pages",
+        "assertion_class": ""
+    },
+    {   
+        "url":  "default\/opportunity\/savesearch",
+        "privilege":  "access opportunity pages",
+        "assertion_class": ""
+    },
+    {
+        "url": "default\/savedsearch/create",
+        "privilege":  "auth privileges",
+        "assertion_class": ""
+    },
+    {
+        "url": "default\/savedsearch/delete",
+        "privilege":  "auth privileges",
+        "assertion_class": ""
+    },
+    {
+        "url": "admin\/status\/filepermission",
+        "privilege":  "auth privileges",
+        "assertion_class": ""
+    },
+    {
+        "url": "default\/invoice\/createserviceinvoice",
+        "privilege":  "auth privileges",
+        "assertion_class": ""
+    },
+    {
+        "url": "default\/invoice\/serviceinvoicedetails",
+        "privilege":  "auth privileges",
+        "assertion_class": ""
+    },
+    {
+        "url": "default\/invoice\/editserviceinvoice",
+        "privilege":  "auth privileges",
+        "assertion_class": ""
+    },
+    {
+        "url": "default\/sales\/index",
+        "privilege":  "auth privileges",
+        "assertion_class": ""
+    },
+    {
+        "url": "default\/serviceproduct\/index",
+        "privilege":  "auth privileges",
+        "assertion_class": ""
+    },
+    {
+        "url": "default\/serviceproduct\/create",
+        "privilege":  "create invoices",
+        "assertion_class": ""
+    },
+    {
+        "url": "default\/serviceproduct\/viewdetails",
+        "privilege":  "view invoices",
+        "assertion_class": ""
+    },
+    {
+        "url": "default\/serviceproduct\/edit",
+        "privilege":  "edit invoices",
+        "assertion_class": ""
+    }, 
+    {
+        "url": "default\/serviceproduct\/delete",
+        "privilege":  "delete invoices",
+        "assertion_class": ""
+    },
+    {
+        "url": "default\/serviceproduct\/jsonstore",
+        "privilege":  "auth privileges",
+        "assertion_class": ""
+    },
+    {
+        "url": "default\/relationship\/index",
+        "privilege":  "auth privileges",
+        "assertion_class": ""
+    },
+    {
+        "url": "default\/marketing\/index",
+        "privilege":  "auth privileges",
+        "assertion_class": ""
+    },
+    {
+        "url": "activity\/index\/index",
+        "privilege":  "access activity pages",
+        "assertion_class": ""
+    },
+    {
+        "url": "finance\/payment\/editadvancecheque",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {
+        "url": "default\/leadstatus\/index",
+        "privilege":  "access lead pages",
+        "assertion_class": ""
+    },
+    {
+        "url": "activity\/task\/notes",
+        "privilege":  "access task pages",
+        "assertion_class": ""
+    },
+    {
+        "url": "finance\/ledger\/createledgerentry",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {
+        "url": "default\/leadstatus\/create",
+        "privilege":  "access lead pages",
+        "assertion_class": ""
+    },
+    {
+        "url": "activity\/task\/createnotes",
+        "privilege":  "access task pages",
+        "assertion_class": ""
+    },
+    {
+        "url": "finance\/bankaccount\/transaction",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {
+        "url": "default\/leadstatus\/edit",
+        "privilege":  "access lead pages",
+        "assertion_class": ""
+    },
+    {
+        "url": "finance\/bankaccount\/edittransaction",
+        "privilege":  "access fianance pages",
+        "assertion_class": ""
+    },
+    {
+        "url": "default\/leadstatus\/viewdetails",
+        "privilege":  "access lead pages",
+        "assertion_class": ""
+    },
+    {
+        "url": "finance\/bankaccount\/deletetransaction",
+        "privilege":  "access finance pages",
+        "assertion_class": ""
+    },
+    {
+        "url": "default\/leadstatus\/delete",
+        "privilege":  "access lead pages",
+        "assertion_class": ""
+    },
+    {
+        "url": "finance\/purchase\/vocherentry",
+        "privilege":  "access fianance pages",
+        "assertion_class": ""
+    },
+    {
+        "url": "newsletter\/subscriber\/index",
+        "privilege":  "access newsletter pages",
+        "assertion_class": ""
+    },
+    {
+        "url": "newsletter\/subscriber\/create",
+        "privilege":  "access newsletter pages",
+        "assertion_class": ""
+    },
+    {
+        "url": "newsletter\/subscriber\/edit",
+        "privilege":  "access newsletter pages",
+        "assertion_class": ""
+    },
+    {
+        "url": "newsletter\/subscriber\/viewdetails",
+        "privilege":  "access newsletter pages",
+        "assertion_class": ""
+    },
+    {
+        "url": "newsletter\/subscriber\/delete",
+        "privilege":  "access newsletter pages",
+        "assertion_class": ""
+    },
+    {
+        "url": "newsletter\/subscriber\/jsonstore",
+        "privilege":  "access newsletter pages",
+        "assertion_class": ""
+    },
+    {
+        "url": "newsletter\/subscriber\/reset",
+        "privilege":  "access newsletter pages",
+        "assertion_class": ""
+    },
+    {
+        "url": "newsletter\/report\/queuereport",
+        "privilege":  "access newsletter pages",
+        "assertion_class": ""
+    },
+    {
+        "url": "newsletter\/report\/queuedomains",
+        "privilege":  "access newsletter pages",
+        "assertion_class": ""
+    },
+
+    {
+        "url": "newsletter\/domainblacklist\/index",
+        "privilege":  "access newsletter pages",
+        "assertion_class": ""
+    },
+    {
+        "url": "newsletter\/domainblacklist\/create",
+        "privilege":  "access newsletter pages",
+        "assertion_class": ""
+    },
+    {
+        "url": "newsletter\/domainblacklist\/edit",
+        "privilege":  "access newsletter pages",
+        "assertion_class": ""
+    },
+    {
+        "url": "newsletter\/domainblacklist\/delete",
+        "privilege":  "access newsletter pages",
+        "assertion_class": ""
+    }
+
+]

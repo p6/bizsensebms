@@ -1,0 +1,109 @@
+<h2>Tasks</h2>
+
+<?php
+    $this->headTitle('Tasks');
+    $this->dojoLayer('common');
+    $acl = $this->acl;
+?>
+<div class="clearing">
+</div>
+
+<?php if  ($acl->isAllowed($this->currentUser, 'create tasks')): ?>
+<a href="<?php echo $this->url(array(
+        'module'        => 'activity',
+        'controller'    => 'task',
+        'action'        => 'create'
+        )); ?>">Create task</a>
+&nbsp;|&nbsp;
+<?php endif; ?>
+
+<?php if  ($acl->isAllowed($this->currentUser, 'access task pages')): ?>
+<a href="<?php echo $this->url(array(
+        'module'        => 'activity',
+        'controller'    => 'taskstatus',
+        'action'        => 'index'
+        )); ?>">Task Status</a>
+<?php endif; ?>
+
+
+<div id="form">
+<?php echo $this->form; ?>
+</div>
+<div class="div_clear"></div>
+
+<?php $paginator = ( $this->paginator); ?>
+
+<?php if (count($this->paginator)): ?>
+    <table class="data_table">
+        <tr>
+            <th class="short">Title
+                            <?php echo $this->sortButtons("name"); ?></th>
+            <th class="medium_short">Due date
+                            <?php echo $this->sortButtons("end_date"); ?></th>
+            <th class="medium_short">Status</th>
+            <th class="short">Action</th>
+        </tr>
+    
+<?php foreach ($paginator as $item) {
+    $itemRow = $item->toArray();
+    $task_id = $this->escape($itemRow['task_id']);
+?>
+    <tr>
+        <td>
+            <?php echo $this->escape($itemRow['name']); ?>
+        </td>
+        <td>
+            <?php echo $this->escape(
+                            $this->timestampToHuman($itemRow['end_date'])); ?>
+        </td>
+        <td>
+            <?php 
+                $taskStatusModel = new Core_Model_Activity_Task_Status($itemRow['task_status_id']);
+                $statusRecord = $taskStatusModel->fetch();
+                echo $this->escape($statusRecord['name']); 
+            ?>
+        </td>
+        
+        <td>
+          <?php if  ($acl->isAllowed($this->currentUser, 'view all tasks')): ?>
+           <a href="<?php 
+                echo $this->url(array(
+                    'module'        =>  'activity', 
+                    'controller'    =>  'task', 
+                    'action'        =>  'viewdetails', 
+                    'task_id'    =>  $task_id,
+                ));                    
+            ?>"><span>View</span>
+            </a>
+           <?php endif; ?>
+                &nbsp;
+           <?php if  ($acl->isAllowed($this->currentUser, 'edit all tasks')): ?>
+            <a href="<?php 
+                echo $this->url(array(
+                    'module'        =>  'activity', 
+                    'controller'    =>  'task', 
+                    'action'        =>  'edit', 
+                    'task_id'    =>  $task_id,
+                    )); 
+             ?>"><span>Edit</span>
+                </a>
+            <?php endif; ?>
+            </td>
+    </tr>
+<?php
+    }
+?>
+    </table>
+<?php endif; ?>
+
+<?php
+        if ($this->wasSearched and !count($this->paginator)) {
+            echo "<br />There are no records matching the search criteria";
+        }
+?>
+
+<div class="pagination">
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'search.phtml'); ?>
+</div>
+<div class="div_clear"></div>
+

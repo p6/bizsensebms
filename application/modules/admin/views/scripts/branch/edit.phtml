@@ -1,0 +1,16 @@
+<h2>Branches</h2>
+<?php
+    $acl = $this->acl;
+?>
+<?php if ($acl->isAllowed($this->currentUser, 'access branch pages')): ?>
+    <a href="/admin/branch">Branches</a>
+<?php endif; ?>
+
+<?php 
+    $this->headTitle('Edit branch office details');
+?>
+
+<div id="form">
+   <?php echo $this->form; ?>
+</div>
+<div class="div_clear"></div>

@@ -1,0 +1,32 @@
+<h1>Opening Balance Summary</h1>
+
+<?php
+    $this->headTitle('Opening Balance Summary');
+    $acl = $this->acl;
+?>
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'reports',
+        'action' => 'index',
+    ), 'default', true
+);?>">Reports</a>
+<?php endif; ?>
+<h3>
+<?php
+    $result = $this->total;
+    echo "Total Debit = ".$this->escape($result['debit']);
+    echo "<br/>";
+    echo "Total Credit = ".$this->escape($result['credit']);
+    echo "<br/>";
+    $balance = $result['debit'] - $result['credit'];
+    
+    if ($balance > 0) {
+        echo "Balance = ".$balance." Dr";
+    }
+    else {
+        echo "Balance = ".$balance." Cr";
+    }
+?>
+</h3>

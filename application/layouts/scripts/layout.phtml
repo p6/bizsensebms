@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <?php 
+        echo $this->headTitle(' - BizSense');
+    ?>
+
+    <link rel="stylesheet" type="text/css" href="/css/menu.css" media="screen">
+    <link rel="icon" type="image/png" href="/images/design/shortcut_icon.png" />
+
+    <link rel="stylesheet" href="/css/bizsense.css" type="text/css">
+    <script type="text/javascript" src="/js/BizSense.js" ></script> 
+    
+</head>
+<body class="soria">
+
+    <div id="container">
+    
+        <div id="header">
+        
+            <div id="logo">
+                <?php echo  $this->render('region/logo.phtml'); ?>
+            </div>
+     
+            <div id="greet">
+                <?php  echo $this->render('region/usergreet.phtml'); ?>
+            </div>
+            
+            <div id="header_text">
+                Binary Vibes BizSense
+            </div>
+          
+        </div><!-- end of header -->
+
+		<?php echo $this->render('/menu/navigation.phtml'); ?>
+    	
+    	<div id="sidebar">
+    	    <?php  echo $this->render('region/sidebar.phtml'); ?>
+    	</div>
+    					
+		<div id="content">
+		    <div id="flash_message_container">
+		    <?php
+                if (count($this->messages)) {
+		            foreach ($this->messages as $value) {
+		                echo "<div id=\"flash_message\">";
+				        echo $this->escape($value) . "<br />";
+				        echo "</div>";
+			        }
+                }
+    	    ?>
+            </div><!-- end of flash_message -->
+		    <?php echo $this->layout()->content ?>
+		</div><!-- end of content -->
+			
+	  
+   		<div id="footerr">
+        	<?php  echo $this->render('region/footer.phtml'); ?>
+   		</div>
+   		
+	 </div><!-- end of container -->
+    <?php 
+          echo $this->dojo()->addStylesheetModule('dijit.themes.soria');
+    ?>
+    <script type="text/javascript" src="/js/BizSense/Initialize.js" ></script> 
+    <script type="text/javascript" src="/js/BizSense/Dom.js" ></script> 
+
+    <?php echo $this->headScript(); ?>
+ 
+</body>
+
+</html>

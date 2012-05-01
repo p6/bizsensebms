@@ -1,0 +1,15 @@
+<h2>Edit Tax Type</h2>
+<?php
+    $this->headTitle('Edit tax type');
+?>
+<a href="<?php echo $this->url(array(
+        'module'        =>  'finance',
+        'controller'    =>  'tax',
+        'action'        =>  'listtype'
+    ), null, true
+); ?>">Tax type</a>
+
+<div id="form">
+    <?php  echo $this->form; ?>
+</div>
+<div class="div_clear"></div>

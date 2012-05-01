@@ -1,0 +1,160 @@
+<h2>Receipt Details</h2>
+
+<?php
+    $this->headTitle('Receipt Details');
+    $this->headScript()->appendFile('/js/BizSense/Crud.js');  
+    $acl = $this->acl;
+?>
+
+<?php
+	$receipt = $this->receipt;
+	$receiptId = $this->escape($this->receiptId);
+	$receiptBank = $this->receiptbank;
+?>
+
+<p>
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'receipt',
+        'action' => 'index',
+    ), 'default', true
+);?>">Receipt</a>  |
+<?php endif; ?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'receipt',
+        'action' => 'edit',
+        'receipt_id' => $receiptId
+    ), 'default', true
+);?>">Edit</a> |
+<?php endif; ?>
+
+<?php if  ($acl->isAllowed($this->currentUser, 'access finance pages')): 
+    $deleteUrl = $this->url(
+                    array(
+                        'module' => 'finance',
+                        'controller' => 'receipt',
+                        'action' => 'delete',
+                        'receipt_id' =>$this->escape($receiptId)
+                    )
+                );
+    echo $this->deleteButton($deleteUrl); 
+ endif; ?>
+|
+  
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'receipt',
+        'action' => 'export',
+        'receipt_id' => $receiptId
+    ), 'default', true
+);?>">Export</a>
+<?php endif; ?>
+
+</p>
+
+<table class="data_table">
+    <tr>
+        <td>Party Name</td>
+        <td>
+            <?php 
+                echo $this->partyHyperlink($this->escape(
+                  $receipt['type'], $receipt['type_id']));
+            ?>
+        </td>
+    </tr>
+    <tr>
+        <td>Bank Account</td>
+        <td> 
+            <?php 
+                echo $this->bankaccountHyperlink($this->escape(
+                    $receipt['mode_account_id']));
+            ?>      
+        </td>
+    </tr>
+    <tr>
+        <td>Amount</td>
+        <td class="mediumshort">
+            <?php echo $this->escape($receipt['amount']); ?>
+        </td>
+    </tr>
+	<tr>
+        <td>Date</td>
+        <td>
+           <?php echo $this->escape(
+                            $this->timestampToHuman($receipt['date'])); ?>
+        </td>
+    </tr>
+    <tr>
+        <td>Branch Name</td>
+        <td>
+            <?php echo $this->branchHyperlink($this->escape(
+                        $receipt['branch_id'])); ?>
+        </td>
+    </tr>
+    <tr>
+        <td>Created on</td>
+        <td><?php echo $this->escape(
+                    $this->timestampToHuman($receipt['created'])); ?></td>
+    </tr>
+    <tr>
+        <td>Created by</td>
+        <td><?php echo $this->userHyperlink($this->escape(
+                    $receipt['created_by'])); ?></td>
+    </tr>
+    <tr>
+        <td>Mode of Payment</td>
+        <td><?php 
+            if ($receipt['mode'] == 1 ) {
+                echo "DD/CHEQUE";
+            } 
+            else {
+                echo "CASH";
+            }?>
+        </td>
+    </tr>
+    <tr>
+        <td>Type</td>
+        <td><?php 
+            if ($receipt['type'] == 1 ) {
+                echo "RECEIPT TO SUNDRY CREDITORS";
+            } 
+            else {
+                echo "RECEIPT TOWARDS INDIRECT INCOME";
+            }?>
+        </td>
+    </tr>
+    <tr>
+        <td>Bank Name</td>
+        <td>
+            <?php echo $this->escape($receiptBank['bank_name']); ?>
+        </td>
+    </tr>
+    <tr>
+        <td>Bank Branch</td>
+        <td>
+            <?php echo $this->escape($receiptBank['bank_branch']); ?>
+        </td>
+    </tr>
+    <tr>
+        <td>Instrument Account Number</td>
+        <td>
+            <?php echo $this->escape($receiptBank['instrument_account_no']); ?>
+        </td>
+    </tr>
+    <tr>
+        <td>Instrument Date</td>
+        <td>
+            <?php echo $this->escape(
+                  $this->timestampToHuman($receiptBank['instrument_date'])); ?>
+        </td>
+    </tr>
+</table>
+    

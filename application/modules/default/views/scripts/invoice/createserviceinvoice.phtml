@@ -1,0 +1,76 @@
+<h2>Create service Invoice</h2>
+<?php
+    $this->headTitle('Create service invoice');
+?>
+<a href="<?php 
+     echo $this->url(
+        array(
+            'module' => 'default',
+            'controller' => 'invoice',
+            'action' => 'index'
+           ), NULL, true); ?>">Invoice
+</a>
+
+<?php 
+    $this->dojoLayer('common');
+    $this->headScript()->appendFile('/js/BizSense/Invoice/ServiceItems.js'); 
+?>
+<?php
+    if (isset($this->includeRecreateScript) and $this->includeRecreateScript) {
+        $returnedItemsJavaScript = '';
+        $returnedItemsJavaScript .= 'var returnedItems = ' . $this->returnedItemsJSON . '; ';
+        $returnedItemsJavaScript .= ' var toRecreate = true;';
+
+        $this->headScript()->appendScript($returnedItemsJavaScript);
+        $this->headScript()->appendFile('/js/BizSense/Invoice/RecreateItems.js');
+    } 
+?>
+
+<p class="error_messages">
+<?php
+if (isset($this->itemMessages)) {
+    echo "The following erros occured while submitting the invoice items. 
+        Please correct them and submit the form again. <br /><br />";
+    foreach ($this->itemMessages as $message) {
+        echo $message . "<br />";
+    }        
+}
+?>
+</p>
+<form method="post" action="<?php echo $this->form->getAction(); ?>">
+<table id="items_table" class="data_table">
+    <tr>
+        <th>Item</th>
+        <th>Item Description</th>
+        <th>Price</th>
+        <th>Tax type</th>
+        <th>Total</th>
+        <th>Action</th>
+    </tr>
+    <tr>
+        <td colspan="5"> </td>
+        <td>
+            <input type="button" name="more" value="Add Item" 
+                onclick="addItemRow(null, null, null, null)">
+        </td>
+    </tr>
+</table>
+
+<fieldset class="fieldset_medium">
+<legend>
+Meta data
+</legend>
+<div id="form">
+<?php
+$form = $this->form;
+$elements = $form->getElements();
+foreach ($elements as $element) {
+    echo $element;
+}
+?>
+</div>
+</form>
+</fieldset>
+</form>
+
+<div class="div_clear"></div>

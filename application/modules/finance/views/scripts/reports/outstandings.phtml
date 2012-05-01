@@ -1,0 +1,114 @@
+<h2>Outstandings</h2>
+
+<?php
+    $this->headTitle('Outstandings');
+    $acl = $this->acl;
+?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'reports',
+        'action' => 'index',
+    ), 'default', true
+);?>">Reports</a> |
+<?php endif; ?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'reports',
+        'action' => 'csvexportoutstandings',
+    ), 'default', true
+);?>">Export to csv</a> |
+<?php endif; ?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'reports',
+        'action' => 'pdfoutstandings',
+    ), null, true
+);?>">Export to pdf</a> |
+<?php endif; ?>
+
+
+<h3> From Current Assets </h3>
+<table class="data_table">
+    <tr>
+        <th>Ledger Name</th>
+        <th>Balance</th>
+    </tr>
+
+<?php
+    $categoryModel = new Core_Model_Finance_Group_Category;
+    $categoryRecords = $categoryModel->fetchByName('Current Assets');
+    
+    $groupModel = new Core_Model_Finance_Group;
+    $groupRecord = $groupModel->fetchByCategoryId(
+                                    $categoryRecords['fa_group_category_id']);
+    $ledgerModel = new Core_Model_Finance_Ledger;
+    $ledgerEntryModel = new Core_Model_Finance_Ledger_Entry;
+    $grandtotal = 0;
+    for($g = 0; $g <= sizeof($groupRecord)-1; $g += 1) {
+         $ledgerRecords = $ledgerModel->fetchByGroup($groupRecord[$g]['name']);
+        for($i = 0; $i <= sizeof($ledgerRecords)-1; $i += 1) {
+            $totalBalance = $ledgerEntryModel->getBalanceByLedgerId(
+                                           $ledgerRecords[$i]['fa_ledger_id']);
+            if ($totalBalance != 0) {
+                echo "<tr>";
+                echo "<td>".$this->escape($ledgerRecords[$i]['name'])."</td>";
+                echo "<td class='text_align_right'>".$totalBalance.
+                                                                " Dr"."</td>"; 
+                echo "</tr>";
+                $grandtotal = $grandtotal + $totalBalance;
+            }
+            
+        }
+     }
+?>
+</table>
+
+<h4>Total Current Assets balance = <?php echo $grandtotal." Dr"; ?></h4>
+
+<h3> From Current Liabilities </h3>
+<table class="data_table">
+    <tr>
+        <th>Ledger Name</th>
+        <th>Balance</th>
+    </tr>
+    
+    <?php
+    $categoryModel = new Core_Model_Finance_Group_Category;
+    $categoryRecords = $categoryModel->fetchByName('Current Liabilities');
+    
+    $groupModel = new Core_Model_Finance_Group;
+    $groupRecord = $groupModel->fetchByCategoryId(
+                                    $categoryRecords['fa_group_category_id']);
+                                    
+    $ledgerModel = new Core_Model_Finance_Ledger;
+    $ledgerEntryModel = new Core_Model_Finance_Ledger_Entry;
+    $grandtotal = 0;
+    for($g = 0; $g <= sizeof($groupRecord)-1; $g += 1) {
+        $ledgerRecords = $ledgerModel->fetchByGroup($groupRecord[$g]['name']);
+        for($i = 0; $i <= sizeof($ledgerRecords)-1; $i += 1) {
+          $totalBalance = $ledgerEntryModel->getBalanceByLedgerId(
+                                           $ledgerRecords[$i]['fa_ledger_id']);
+          if ($totalBalance != 0) {
+            echo "<tr>";
+            echo "<td>".$this->escape($ledgerRecords[$i]['name'])."</td>";
+            echo "<td class='text_align_right'>".$totalBalance." Cr"."</td>"; 
+            echo "</tr>";
+            $grandtotal = $grandtotal + $totalBalance;
+          }   
+        }
+     }
+   
+?>
+ 
+</table>
+
+<h4>Total Current Liabilities balance = <?php echo $grandtotal." Cr"; ?></h4>

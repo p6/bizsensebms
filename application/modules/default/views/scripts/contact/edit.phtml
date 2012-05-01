@@ -1,0 +1,14 @@
+<h1>Editing Contact</h1>  
+<?php
+    $this->dojoLayer('common');
+    $this->headTitle('Edit Contact Details');
+    $this->headScript()->appendFile('/js/BizSense/Contact/GetAddresses.js');
+    $this->headScript()->appendFile('/js/BizSense/Account/CopyAddress.js');
+    echo $this->escape($this->message);
+?>
+
+<div id="form">
+   <?php echo $this->form; ?>
+</div>
+<div class="div_clear"></div>
+

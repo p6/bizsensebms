@@ -1,0 +1,60 @@
+<h2>Lead Reports</h2>
+<?php
+    $this->headTitle('Lead report - browse leads');
+?>
+<a href="/reports/lead/">Lead Reports</a> | 
+<a href="/reports/lead/daterange">Date range</a> | 
+<a href="/reports/lead/csvexport/reportId/<?php echo $this->reportId; ?>">Export data to CSV file</a> | 
+
+<div class="clearing">
+</div>
+<?php
+ if (count($this->paginator)): ?>
+
+<p>
+Total leads : <?php echo $this->paginator->getAdapter()->count(); ?>
+</p>
+<table class="data_table">
+<tr>
+    <th>First name</th>
+    <th>Last name</th>
+    <th>Company</th>
+    <th>Created</th>
+    <th>Updated</th>
+    <th>Source</th>
+    <th>Status</th>
+    <th>Assigned To</th>
+    <th>Branch</th>
+</tr>
+<?php foreach ($this->paginator as $item): ?>
+<tr>
+    <?php foreach($item as $key=>$row): ?>
+    <?php
+         if ($key == "lead_id") {
+            $leadId = $row;
+         }
+         if ($key != "lead_id" AND $key != "lead_source_id") {
+
+    ?><td> <?php
+
+            if ($key == "first_name" or $key == "last_name") {
+                echo "<a href=\"/lead/viewdetails/lead_id/$leadId\"> " .  
+                                $this->escape($row)  . "</a>";
+            } elseif ($key == 'created'){
+                echo $this->escape($this->timestampToHuman($row));    
+            } elseif ($key == 'updated') {
+                echo $this->escape($this->timestampToHuman($row));    
+            } else
+            {
+                echo $this->escape($row);
+            }
+          }
+    ?>
+  </td>
+<?php endforeach; ?>
+</tr>
+<?php endforeach; ?>
+</table>
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'search.phtml'); ?>
+<?php endif; ?>
+

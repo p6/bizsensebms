@@ -1,0 +1,91 @@
+<h2>Message Queue Graph</h2>
+<?php
+    $this->dojoLayer('barChart');
+    $this->headTitle('Message Queue Graph');
+    $acl = $this->acl;  
+    $this->dojo()->requireModule('dojo.data.ItemFileReadStore');
+    $this->dojo()->requireModule('dojo.parser');
+    $this->dojo()->setDjConfigOption('parseOnLoad', true);
+        
+    $this->dojo()->requireModule("dojox.charting.Chart2D");
+    $this->dojo()->requireModule("dijit.form.NumberSpinner");
+
+    $this->dojo()->requireModule("dojox.charting.Theme");
+    $this->dojo()->requireModule("dojox.charting.scaler.linear");
+    $this->dojo()->requireModule("dojox.lang.functional");
+    $this->dojo()->requireModule("dojox.charting.themes.PlotKit.orange");
+?>
+<style type="text/css">
+  #seriesInputs .dijitInputField, #seriesInputs .dijitInputField input {
+    width: 30px;
+  }
+</style>
+<?php if ($acl->isAllowed($this->currentUser, 'access newsletter pages')): ?>
+<a href="<?php echo $this->url(array(
+        'module' => 'newsletter',
+        'controller' => 'message',
+        'action' => 'index'
+        ), null, true); ?>">Messages</a> 
+<?php endif; ?>        
+
+<?php
+   $messageUnsent = $this->messageUnsent;
+   $messageSent = $this->messageSent;
+   echo "<h4>Message Unsent - ".$messageUnsent."</h4>";
+   echo "<h4>Message Sent - ".$messageSent."</h4>";
+   echo "<h4> Total Messages = ".($messageUnsent + $messageSent)."</h4>";
+?>
+
+ <script type="text/javascript">
+  var chart1;
+ 
+  // This function creates the chart, and is really all you
+  // need. All other code is to allow you to update it on the
+  // fly.
+  dojo.addOnLoad(function(){
+    chart1 = new dojox.charting.Chart2D("simplechart");
+    chart1.addAxis("y", {vertical: true});
+    chart1.addAxis("x", {
+        labels: [{value: 1, text: "Unsent"}, {value: 2, text: "Sent"},
+                {value: 3, text: ""}]
+        });
+    chart1.addPlot("default", {
+      hAxis: "x",
+      vAxis: "y",
+      type: "Columns",
+      areas: true,
+      gap: 7
+    });
+            
+    chart1.addSeries("Series 1", 
+                [<?php echo $messageUnsent ?>, <?php echo $messageSent ?>,0]);
+    dojo.require("dojox.charting.themes.PlotKit." + 'blue');
+    chart1.setTheme(dojox.charting.themes.PlotKit['blue']);
+    chart1.render();
+   
+  });
+  
+  
+  //Create the inputs that allow you to update the chart
+  //on the fly.
+  function createInputs() {
+    var div = dojo.byId("seriesInputs");
+    var inputs = [];
+    dojo.forEach(seriesData, function(item){
+      dojo.style(input.domNode, "width", "60px");
+      var updateFn = function(){
+        seriesData = [];
+        dojo.forEach(inputs, function(inputWidget){
+          seriesData.push(inputWidget.getValue());
+        });
+        chart1.updateSeries("Series 1", seriesData);
+        chart1.render();
+      };
+      // Update the change when the values are changed.
+      dojo.connect(input, "setValue", updateFn);
+    });
+  }
+  dojo.addOnLoad(createInputs);
+</script>
+
+<div id="simplechart" style="width: 300px; height: 300px;"></div>

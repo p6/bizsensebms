@@ -1,0 +1,56 @@
+<!DOCTYPE html
+PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Error</title>
+</head>
+<body>
+<?php if ($this->fourNotFour): ?>
+    <h1>404 - The page requested cannot be found</h1>
+    <p>
+        Binary Vibes BizSense
+    </p>   
+<?php endif; ?>
+
+
+    <h1>An error occurred</h1>
+    <p>Oops! An error occurred. please try again later.</p>
+
+    <p>
+	The administrator has been notified of this error. Please contact BizSense 
+        administrator for any questions.
+    </p>
+
+<?php
+    $exception = $this->exception; 
+
+    $messageToLog = Zend_Debug::dump($exception, 'error log', false);
+    $logged = $this->fileLogger($messageToLog);
+    /* Turn off debug message in production environment
+     *
+     * To turn off debug message, uncomment the exception line below, 
+     * if $exception is false, debug message will not be printed
+     *
+     */   
+     if ($exception and APPLICATION_ENV === 'development'): 
+?>
+
+    <h1>Debug message for developers</h1>
+    <p>
+        The debug mode is enabled in development environment only. The 
+            debug mode should be turned off in production system.
+    </p>
+    <p>
+    Debug message follows...<br />
+
+<?php                
+    Zend_Debug::dump($exception); 
+?>
+    </p>
+
+<?php endif;  ?>
+</body>
+</html>
+

@@ -1,0 +1,16 @@
+<?php
+ header('Content-type: text/plain');
+$result = $this->result;
+
+
+foreach($result as $value)
+{
+$encodable[] = $value;
+}
+
+$encoded = json_encode($encodable);
+
+$encoded = "{identifier:\"uid\",
+items:" . $encoded;
+echo $encoded . "}";
+

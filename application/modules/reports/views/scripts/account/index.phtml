@@ -1,0 +1,10 @@
+<h2>Account Report</h2>
+<?php
+    $this->headTitle('Account Reports');
+    $acl = $this->acl;
+    $user = $this->currentUser;
+?>
+<?php if ($acl->isAllowed($user,'access account reports')): ?>
+    <a href="/reports/index/index">Reports</a> | 
+    <a href="/reports/account/daterange">Date range</a>
+<?php endif; ?>

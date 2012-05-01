@@ -1,0 +1,21 @@
+<h2>Initialize Contact Ledger</h2>
+<?php
+    $this->headTitle('Initialize Contact Ledger');
+    $acl = $this->acl;    
+?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access contact pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'default',
+        'controller' => 'contact',
+        'action' => 'index',
+    ), 'default', true
+);?>">Contact</a>
+<?php endif; ?>
+
+<div id="form">
+   <?php echo $this->form; ?>
+</div>
+<div class="div_clear"></div>
+

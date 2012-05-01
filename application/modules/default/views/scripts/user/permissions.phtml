@@ -1,0 +1,47 @@
+<h2>Permissions</h2>  
+<?php 
+    $this->dojoLayer('common');
+    $this->headScript()->appendFile('/js/BizSense/User/CheckAll.js'); 
+    $this->headTitle('Set Permission For User Role');
+    $role = $this->roleRecord;
+    $acl = $this->acl;
+?>
+
+<table class="data_table">
+    <tr>
+        <td>Role name</td>
+        <td><?php echo $this->escape($role['name']); ?></td>
+    </tr>
+    <tr>
+        <td>Role description</td>
+        <td><?php echo $this->escape($role['description']); ?></td>
+    </tr>
+</table>
+<p>
+<?php if ($acl->isAllowed($this->currentUser, 'administer users')): ?>
+    <a href="/user/users">Users</a> |
+    <a href="/user/roles">Roles</a> |
+<?php endif; ?>    
+</p>
+<?php
+	echo $this->message;
+	echo $this->filterForm;
+?>
+<div id="form">
+  <dl>
+     <dt>Check All</dt>
+     <dd><input type='checkbox' name='checkall' onclick='checkByDiv(true);'></dd>
+     <dt>Uncheck All</dt>
+     <dd><input type='checkbox' name='checkall' onclick='checkByDiv(false);'></dd>
+</dl>
+</div>
+<div class="clearing"></div>
+<!--<input type="button" class="button" value="Check All" onclick="checkByDiv(true);">
+<input type="button" class="button"  value="Uncheck All" onclick="checkByDiv(false);">
+-->
+<div id="form">
+   <?php echo $this->form; ?>
+</div>
+<div class="div_clear"></div>
+</body>  
+</html> 

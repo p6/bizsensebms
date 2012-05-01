@@ -1,0 +1,31 @@
+<h2>Product status</h2>
+<?php
+    $this->headTitle('Product status');
+?>
+<a href="<?php 
+    echo $this->baseUrl() . "/admin/pstatus/add"; ?>">Create product status</a>
+<br />
+
+<table class="data_table">
+    <tr><th>Category</th><th>Description</th></tr>
+        <?php
+            foreach ($this->paginator as $item){
+                    $item = $item->toArray();
+                echo "<tr>";
+                foreach($item as $key=>$value) {
+                    if ($key == "product_status_id") {
+                       $productStatusId = $value;     
+                    } else {
+                        echo "<td>" . $this->escape($value) . "</td>";
+                    }
+                        
+                }
+                echo "</tr>";
+        
+            }
+           ?>
+    </table>
+<div class="pagination">
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'search.phtml'); ?>
+</div>
+<div class="div_clear"></div>

@@ -1,0 +1,21 @@
+<h2>Edit user's profile</h2>
+<?php
+    $acl = $this->acl;
+?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'administer users')): ?>
+<a href="<?php echo $this->url(array(
+        'module'        =>  'default',
+        'controller'    =>  'user',
+        'action'        =>  'users',
+    ), null, true
+); ?>">Users</a> | 
+<?php endif; ?>
+
+<?php 
+    $this->headTitle('Edit User');
+?>
+<div id="form">
+   <?php echo $this->form; ?>
+</div>
+<div class="div_clear"></div>

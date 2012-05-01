@@ -1,0 +1,84 @@
+<h2>Financial Reports</h2>
+
+<?php
+    $this->headTitle('Financial Reports');
+?>
+
+<br/>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'reports',
+        'action' => 'trialbalance',
+    ), 'default', true
+);?>">Trial Balance</a>
+
+<br/><br/>
+
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'reports',
+        'action' => 'daybook',
+    ), 'default', true
+);?>">Day Book</a>
+
+<br/><br/>
+
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'reports',
+        'action' => 'groupwisesummary',
+    ), 'default', true
+);?>">Group Wise Summary</a>
+
+<br/><br/>
+
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'reports',
+        'action' => 'ledgerwisesummary',
+    ), 'default', true
+);?>">Ledger Wise Summary</a>
+
+<br/><br/>
+
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'reports',
+        'action' => 'salesregister',
+    ), 'default', true
+);?>">Sales Register</a>
+
+<br/><br/>
+
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'reports',
+        'action' => 'purchaseregister',
+    ), 'default', true
+);?>">Purchase Register</a>
+
+<br/><br/>
+
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'reports',
+        'action' => 'outstandings',
+    ), 'default', true
+);?>">Outstandings</a>
+
+<br/><br/>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'reports',
+        'action' => 'openingbalancesummary',
+    ), 'default', true
+);?>">Opening Balance Summary</a>
+

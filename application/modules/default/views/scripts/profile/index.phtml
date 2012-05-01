@@ -1,0 +1,25 @@
+<h2>Profile</h2>
+<?php 
+	$profile = $this->profile;
+	if($profile) {
+    	$userId= $profile->user_id;
+	}
+?>
+<?php 
+    if ($profile) {	 ?>
+
+<a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'user', 'action' => 'changepass'), null, true); ?>">Change Password</a>
+<table class="data_table">
+	<tr><td>First Name</td><td><?php echo $profile->first_name; ?></td></tr>
+	<tr><td>Middle Name</td><td><?php echo $profile->middle_name; ?></td></tr>
+	<tr><td>Last Name</td><td><?php echo $profile->last_name; ?></td></tr>
+	<tr><td>Personal Email</td><td><?php echo $profile->personal_email; ?></td></tr>
+	<tr><td>Work Phone</td><td><?php echo $profile->work_phone; ?></td></tr>
+	<tr><td>Mobile Phone</td><td><?php echo $profile->mobile; ?></td></tr>
+	<tr><td>Home Phone</td><td><?php echo $profile->home_phone; ?></td></tr>
+</table>
+
+<?php 
+    } else {
+	    echo "<br />Profile does not exist yet";
+	}

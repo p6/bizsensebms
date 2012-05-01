@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"; 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head>  
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Edit user</title> 
+</head> 
+<body> 
+  <h1 align="center"><?php echo "Edit user" ?></h1>  
+<?php
+	echo $this->message;
+	echo $this->form;
+
+?>
+<?php
+/*
+        $config = new Zend_Config_Ini('../application/config/config.ini');
+        $db = Zend_Db::factory($config->database);
+
+#	var_dump($_POST);
+	$a = $_POST["row"];
+	print_r($a);
+	//Retrieve username from URL and populate it
+        $uid = $_GET['uid'];
+        $email = $db->fetchOne("SELECT email FROM user WHERE uid = '$uid'");
+	
+	?>
+	<form name="edituser" action="/user/edit" method="post" />
+	Email: <input type="text" name="username" value="<?php echo $email; ?>" /> <br />
+	Roles: <br />
+		<?php
+		$sql = "SELECT name FROM role";
+		$result = $db->fetchAll($sql);
+		foreach ($result as $row) {
+			$role = $row['name'];
+			echo $role;
+			echo "<input type=\"checkbox\" name=\"row[$role]\" value=\"set\" /> <br />";
+		}
+		?>	
+	<input type="submit" name="submit" value="submit" />			
+	</form>
+	<?php
+	
+*/
+?>
+</body>  
+</html> 

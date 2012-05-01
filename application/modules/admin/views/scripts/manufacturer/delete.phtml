@@ -1,0 +1,16 @@
+<h1>Delete manufacturer</h1>
+<?php
+    $this->headTitle('Delete manufacturer');
+    $manufacturer = $this->manufacturer;
+?>
+    <?php if (!empty($currency)): ?>  
+  <table class="data_table">
+        <tr><td>Name</td><td> <?php echo $this->escape($manufacturer['name']); ?></td></tr>
+    </table>
+    <?php endif; ?>
+<?php
+    echo $this->message;
+    echo "<br /> Are you sure you want to delete this manufacturer? The action cannot be undone."; 
+    echo $this->form;
+?>
+  

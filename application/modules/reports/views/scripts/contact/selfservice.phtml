@@ -1,0 +1,105 @@
+<h2>Contact Report - Self Service</h2>
+<?php
+    $this->headTitle('Contact Report - Self Service');
+    $acl = $this->acl;
+    $user = $this->currentUser;
+?>
+
+<?php if ($acl->isAllowed($user,'access contact reports')): ?>
+    <a href="/reports/index/index">Reports</a> | 
+    <a href="/reports/contact">Contact reports</a> |
+    <a href="/reports/contact/daterange">Date range</a> 
+<?php endif; ?>   
+
+<fieldset class="fieldset_properties">
+    <legend>
+        <img src="/images/design/search.png"></li>
+                     Search
+     </legend>
+        <?php echo $this->form; ?>
+</fieldset>
+
+<?php if (count($this->paginator)): ?>
+<p>
+Total contacts : <?php echo $this->paginator->getAdapter()->count(); ?>
+</p>
+
+<table class="data_table">
+    <tr>
+        <th class="short">
+            Select
+        </th>
+        <th class="short">
+            First name <?php echo $this->sortButtons("first_name"); ?>
+        </th>
+        <th class="short">
+            Middle name <?php echo $this->sortButtons("middle_name"); ?>
+        </th>
+        <th class="short">
+            Last name<?php echo $this->sortButtons("last_name"); ?>
+        </th>
+        <th class="short">
+            Account<?php echo $this->sortButtons("account"); ?>
+        </th>
+        <th class="short">
+            Assigned to<?php echo $this->sortButtons("assigned_to"); ?>
+        </th>
+        <th class="short">
+            Branch<?php echo $this->sortButtons("branch"); ?>
+        </th>
+        <th class="short">Action</th>
+    </tr>
+
+<form name="input" action="/reports/contact/multipleenable" method="post">
+<?php foreach ($this->paginator as $item): ?>
+    <tr>
+        <td><input type="checkbox" name="select[]" 
+                                 value="<?php echo $item->contact_id; ?>"></td>
+        <td><?php echo $this->escape($item->first_name);?></td>
+        <td><?php echo $this->escape($item->middle_name);?></td>
+        <td><?php echo $this->escape($item->last_name); ?></td>
+        <td><?php echo $this->escape($item->account_name);?></td>
+        <td><?php echo 
+                $this->userHyperlink($this->escape($item->assigned_to));?></td>
+        <td><?php 
+                echo $this->branchHyperlink($this->escape($item->branch_id)); ?>
+                </td>
+        <td><?php echo "<a href=\"" . $this->url(array(
+                        'module' => 'default', 
+                        'controller' => 'contact', 
+                        'action' => 'viewdetails', 
+                        'contact_id' => $this->escape($item->contact_id)
+                    )
+                ) . "\"> " . "View" . "</a>";
+            ?>
+    </td>
+
+</tr>
+<?php endforeach; ?>
+
+<?php endif; ?>
+
+</table>
+<?php 
+    if ($this->value == 0) {
+        echo "<input type='hidden' name='option' value=1>";
+        echo "<input type=\"submit\" class=\"submit_button\" value=\"Enable\" />";
+    }
+    if ($this->value == 1) {
+        echo "<input type='hidden' name='option' value=0>";
+        echo "<input type=\"submit\" class=\"submit_button\" value=\"Disable\" />";
+    }
+?>
+</form>
+<?php 
+        if ($this->wasSearched and !count($this->paginator)) {
+            echo "<br />There are no records matching the search criteria";
+        }
+?>
+
+<div class="pagination">
+<?php echo $this->paginationControl(
+        $this->paginator, 'Sliding', 'search.phtml'
+    ); ?>
+</div>
+<div class="div_clear"></div>

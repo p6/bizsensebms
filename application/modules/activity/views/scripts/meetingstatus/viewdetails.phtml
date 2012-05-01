@@ -1,0 +1,39 @@
+<h2>Meeting status details</h2>
+<?php
+    $this->headTitle('View meeting details');
+    $this->headScript()->appendFile('/js/BizSense/Crud.js');   
+    $meetingStatusDetails = $this->meetingStatus;
+    $acl = $this->acl;    
+?>
+<?php if ($acl->isAllowed($this->currentUser, 'access meeting pages')): ?>
+<a href="<?php echo $this->url(array(
+        'module'        => 'activity',
+        'controller'    => 'meetingstatus',
+        'action'        => 'index'
+        )); ?>">Meeting Status</a> |
+<?php endif; ?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access meeting pages')):
+    $deleteUrl = $this->url(
+                    array(
+                        'module' => 'activity',
+                        'controller' => 'meetingstatus',
+                        'action' => 'delete',
+                    )
+                );
+                echo $this->deleteButton($deleteUrl); 
+ endif; ?>
+|
+
+<div class="clearing"> </div>
+<table class="data_table">
+   <tr>
+        <td>Name</td>
+        <td><?php echo $this->escape($meetingStatusDetails['name']); ?></td>
+   </tr>
+   <tr>
+        <td>Description</td><td><?php echo $this->escape(
+                                $meetingStatusDetails['description']); ?></td>
+   </tr>
+</table>
+

@@ -1,0 +1,36 @@
+<h1>Warehouses</h1>
+<a href="/admin/warehouse/create">Create Warehouse</a>
+<?php
+ if (count($this->paginator)): ?>
+<table id="data-table">
+<tr>
+    <th>Warehouse<?php echo $this->sortButtons("name"); ?></th>
+    <th>City<?php echo $this->sortButtons("city"); ?></th>
+    <th>Phone<?php echo $this->sortButtons("phone"); ?></th>
+    <th>Branch<?php echo $this->sortButtons("branch"); ?></th>
+    <th>Incharge<?php echo $this->sortButtons("incharge"); ?></th>
+</tr>
+<?php foreach ($this->paginator as $item): ?>
+    <tr>
+        <?php foreach($item as $key=>$value): ?>
+        <?php
+            if ($key == "id") {
+                $warehouseId = $value;
+            } else {
+                if ($key == "name") {
+                    echo "<td>
+                       <a href=\"/admin/warehouse/viewdetails/id/$warehouseId\">
+                       $value</a></td>";
+                } else {
+                    echo "<td>$value</td>";
+                }
+            }
+        ?>
+            <?php endforeach; ?>
+    </tr>
+<?php endforeach; ?>
+<?php endif; ?>
+</table>
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'search.phtml'); ?>
+
+

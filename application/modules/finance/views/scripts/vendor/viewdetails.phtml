@@ -1,0 +1,171 @@
+<h2>Vendor details</h2>
+<?php
+    $this->headTitle('Vendor details');
+    $this->headScript()->appendFile('/js/BizSense/Crud.js');   
+    $vendorId = $this->escape($this->vendorId);
+    $vendorRecord = $this->vendorData;
+    $acl = $this->acl;    
+?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access vendor pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'vendor',
+        'action' => 'index',
+    ), 'default', true
+);?>">Vendor</a>| 
+<?php endif; ?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access vendor pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'vendor',
+        'action' => 'edit',
+        'vendor_id' => $vendorId,
+    ), 'default', true
+);?>">Edit</a> |
+<?php endif; ?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access vendor pages')): 
+    $deleteUrl = $this->url(
+                    array(
+                        'module' => 'finance',
+                        'controller' => 'vendor',
+                        'action' => 'delete',
+                        'vendor_id' =>$this->escape($vendorId)
+                    )
+                );
+                echo $this->deleteButton($deleteUrl); 
+ endif; ?>
+|
+
+<?php 
+    $vendorModel = new Core_Model_Finance_Vendor($vendorId);
+    if ($vendorModel->ledgerExists() != 1) {
+?>
+<?php if ($acl->isAllowed($this->currentUser, 'access vendor pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'vendor',
+        'action' => 'initializeledger',
+        'vendor_id' => $vendorId,
+    ), 'default', true
+);?>">Initialize Ledger</a> |
+<?php endif; ?>
+
+<?php 
+    } 
+    else { 
+   $ledgerId = $vendorModel->getLedgerId() 
+?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access vendor pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'ledger',
+        'action' => 'entries',
+        'fa_ledger_id' => $ledgerId,
+    ), 'default', true
+);?>">View Ledger</a>|
+<?php endif; ?>
+
+<?php } ?>
+
+<table class="data_table">
+    <tr>
+        <td>Name</td>
+        <td class="mediumshort">
+            <?php echo $this->escape($vendorRecord['name']); ?>
+        </td>
+    </tr>
+	<tr>
+        <td>Company Name</td>
+        <td>
+          <?php echo $this->escape($vendorRecord['company_name']); ?>
+        </td>
+    </tr>
+    <tr>
+        <td>Address</td>
+        <td class="mediumshort">
+            <?php echo $this->escape($vendorRecord['addresss_line_1']); ?>
+        </td>
+    </tr>
+	<tr>
+        <td>Address</td>
+        <td>
+          <?php echo $this->escape($vendorRecord['addresss_line_2']); ?>
+        </td>
+    </tr>
+    <tr>
+        <td>Address</td>
+        <td class="mediumshort">
+            <?php echo $this->escape($vendorRecord['addresss_line_3']); ?>
+        </td>
+    </tr>
+	<tr>
+        <td>Address</td>
+        <td>
+          <?php echo $this->escape($vendorRecord['addresss_line_4']); ?>
+        </td>
+    </tr>
+    <tr>
+        <td>State</td>
+        <td class="mediumshort">
+            <?php echo $this->escape($vendorRecord['city']); ?>
+        </td>
+    </tr>
+	<tr>
+        <td>City</td>
+        <td>
+          <?php echo $this->escape($vendorRecord['state']); ?>
+        </td>
+    </tr>
+    <tr>
+        <td>Postal Code</td>
+        <td class="mediumshort">
+            <?php echo $this->escape($vendorRecord['postal_code']); ?>
+        </td>
+    </tr>
+	<tr>
+        <td>Country</td>
+        <td>
+          <?php echo $this->escape($vendorRecord['country']); ?>
+        </td>
+    </tr>
+    <tr>
+        <td>Phone</td>
+        <td>
+          <?php echo $this->escape($vendorRecord['phone']); ?>
+        </td>
+    </tr>
+    <tr>
+        <td>Mobile</td>
+        <td>
+          <?php echo $this->escape($vendorRecord['mobile']); ?>
+        </td>
+    </tr>
+    <tr>
+        <td>Fax</td>
+        <td>
+          <?php echo $this->escape($vendorRecord['fax']); ?>
+        </td>
+    </tr>
+    <tr>
+        <td>E-mail</td>
+        <td>
+          <?php echo $this->escape($vendorRecord['email']); ?>
+        </td>
+    </tr>
+    <tr>
+        <td>Website</td>
+        <td>
+          <?php echo $this->escape($vendorRecord['website']); ?>
+        </td>
+    </tr>
+</table>
+
+

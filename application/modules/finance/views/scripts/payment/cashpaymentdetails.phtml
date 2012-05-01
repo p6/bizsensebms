@@ -1,0 +1,120 @@
+<h2>Cash Payment Details</h2>
+
+<?php
+    $this->headTitle('Cash Payment Details');
+    $this->headScript()->appendFile('/js/BizSense/Crud.js');   
+    $acl = $this->acl;    
+?>
+
+<?php
+	$payment = $this->payment;
+	$paymentId = $this->escape($this->paymentId);
+?>
+
+<p>
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'payment',
+        'action' => 'index',
+    ), 'default', true
+);?>">Payment</a> |
+<?php endif; ?>
+
+<?php
+ if ($payment['type'] == 1) {
+?> 
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'payment',
+        'action' => 'editcashpayment',
+        'payment_id' => $paymentId
+    ), 'default', true
+);?>">Edit</a> |
+<?php endif; ?>
+
+<?php 
+  }
+  else {
+?>
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')): ?>
+<a href="<?php echo $this->url(
+    array(
+        'module' => 'finance',
+        'controller' => 'payment',
+        'action' => 'editexpensescashpayment',
+        'payment_id' => $paymentId
+    ), 'default', true
+);?>">Edit</a> |
+<?php endif; ?>
+<?php } ?>
+
+<?php if ($acl->isAllowed($this->currentUser, 'access finance pages')):
+    $deleteUrl = $this->url(
+                    array(
+                        'module' => 'finance',
+                        'controller' => 'payment',
+                        'action' => 'delete',
+                        'payment_id' =>$this->escape($paymentId)
+                    )
+                );
+                echo $this->deleteButton($deleteUrl); 
+ endif; ?>
+
+</p>
+
+<table class="data_table">
+    <tr>
+        <td>Amount</td>
+        <td class="mediumshort">
+            <?php echo $this->escape($payment['amount']); ?>
+        </td>
+    </tr>
+    <tr>
+        <td>Payment Date</td>
+        <td>
+            <?php echo $this->timestampToHuman($this->escape(
+                              $payment['date'])); ?>
+        </td>
+    </tr>
+    <?php if ($payment['type_id'] != '') {?>
+	<tr>
+        <td>Vendor Name</td>
+        <td>
+            <?php echo $this->vendorHyperlink($this->escape(
+                            $payment['type_id'])); ?>
+        </td>
+    </tr>
+    <?php } ?>
+    <tr>
+        <td>Created on</td>
+        <td><?php echo $this->timestampToHuman($this->escape(
+                        $payment['created'])); ?></td>
+    </tr>
+    <tr>
+        <td>Created by</td>
+        <td><?php echo $this->userHyperlink($this->escape(
+                        $payment['created_by'])); ?></td>
+    </tr>
+    <tr>
+        <td>Party type</td>
+        <td>
+            <?php 
+                if ($payment['type'] == 1) {
+                    echo "PAYMENT TO SUNDRY CREDITORS";
+                } else {
+                    echo "PAYMENT TOWARDS EXPENSES";
+                }
+            ?>
+        </td>
+    </tr>
+    <tr>
+        <td> Notes </td> 
+        <td> <?php echo $this->escape($payment['notes']); ?> </td>  
+    </tr>
+    
+</table>
+    

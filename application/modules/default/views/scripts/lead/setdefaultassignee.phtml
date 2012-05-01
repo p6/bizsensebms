@@ -1,0 +1,40 @@
+<h2>Set Default Lead Assignee</h2>
+<?php
+    $this->headTitle('Set Default Lead Assignee');
+    $acl = $this->acl;
+?>
+<p class="form_message">
+<?php
+	echo $this->message;
+?>
+</p>
+<?php
+
+if ($acl->isAllowed($this->currentUser, 'access lead pages')):
+    printf("<a href=\"%s\">Leads</a> ", 
+        $this->url(
+            array(
+                'module' => 'default', 
+                'controller' => 'lead'
+            ), NULL , TRUE)
+        );
+endif;
+?>
+|
+<?php if ($acl->isAllowed($this->currentUser, 'administer leads')): ?>
+    <a class="icon" href="<?php echo $this->url(
+        array(
+            'module' => 'lead', 
+            'controller' => 'settings', 
+            'action' => 'index'
+        ), null, true
+                        ); ?>">
+        <!--<img style="margin-bottom:0px;margin-right:0px;" 
+            src="/images/design/lead_settings.png" border="0"/> -->
+ <span>Lead settings</span></a>
+<?php endif; ?>
+|
+<div id="form">
+   <?php echo $this->form; ?>
+</div>
+<div class="div_clear"></div>

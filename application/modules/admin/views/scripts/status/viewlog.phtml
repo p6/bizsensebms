@@ -1,0 +1,74 @@
+<h2>View log entries</h2>
+<?php
+    $this->headScript()->appendFile('/js/BizSense/Crud.js');
+    $this->headTitle('View log entries');
+    $acl = $this->acl;
+?>
+<?php if ($acl->isAllowed($this->currentUser, 'administer bizsense')): ?>
+<a href="<?php echo $this->url(array(
+    'module'=>'admin', 
+    'controller'=>'index', 
+    'action'=>'index')); ?>">Administer</a> |
+<?php endif; ?>
+
+<?php 
+if ($acl->isAllowed($this->currentUser, 'administer bizsense')): 
+    $deleteUrl = $this->url(array(
+                    'module' => 'admin',
+                    'controller' => 'status',
+                    'action' => 'clearlog'
+                )
+            );
+    echo $this->confirmButton($deleteUrl, "Clear Log");
+endif; 
+?>
+
+
+
+<fieldset class="fieldset_properties">
+    <legend>
+        <img src="/images/design/search.png"></li>
+            Search
+    </legend>
+<?php echo $this->form; ?>
+</fieldset>
+
+<?php
+    $paginator = $this->paginator;
+    $allowedKeys = array('priority', 'message', 'log_timestamp', 'priority_name');
+?>
+
+<?php
+    if (count($this->paginator)):
+?>
+
+<table class="data_table">
+<tr>
+    <th class="short">Priority
+                        <?php echo $this->sortButtons("priority"); ?></th>
+    <th class="short">Message
+                        <?php echo $this->sortButtons("message"); ?></th>
+    <th class="short">Timestamp
+                        <?php echo $this->sortButtons("timestamp"); ?></th>
+    <th class="short">Priority name
+                        <?php echo $this->sortButtons("priority_name"); ?></th>
+</tr>
+<?php foreach ($this->paginator as $item): ?>
+<?php
+    $itemToPrint = $item->toArray();
+?>
+<tr>
+    <td><?php echo $this->escape($itemToPrint['priority']); ?> </td> 
+    <td><?php echo $this->escape($itemToPrint['message']); ?> </td>
+    <td><?php echo $this->escape($itemToPrint['log_timestamp']); ?> </td>
+    <td><?php echo $this->escape($itemToPrint['priority_name']); ?> </td>
+</tr>
+<?php endforeach; ?>
+</table>
+
+<div class="pagination">
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'search.phtml'); ?>
+</div>
+<div class="div_clear"></div>
+<?php endif; ?>
+

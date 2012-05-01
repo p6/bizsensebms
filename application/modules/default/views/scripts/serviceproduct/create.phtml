@@ -1,0 +1,17 @@
+<h2>Create service product</h2>
+
+<a href="<?php 
+     echo $this->url(
+        array(
+            'module' => 'default',
+            'controller' => 'serviceproduct'
+           ), NULL, true); ?>">Service Products
+</a>
+
+<?php
+    $this->headTitle('Create service product');
+?>
+<div id="form">
+   <?php echo $this->form; ?>
+</div>
+<div class="div_clear"></div>

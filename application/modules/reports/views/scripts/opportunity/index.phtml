@@ -1,0 +1,9 @@
+<h2>Opportunity Report</h2>
+<?php
+    $this->headTitle('Opportunity Reports');
+    $acl = $this->acl;    
+?>
+<?php if ($acl->isAllowed($this->currentUser,'access opportunity reports')): ?>
+    <a href="/reports/index/index">Reports</a> | 
+    <a href="/reports/opportunity/daterange">Date range</a>
+<?php endif; ?>    

@@ -1,0 +1,16 @@
+<?php
+    $this->headTitle('Create Sales Stage');
+?>
+<h2>Sales Stage</h2>
+<a href="<?php 
+    echo $this->url(
+            array(
+                'module' => 'admin', 
+                'controller' => 'salesstage', 
+                'action' => 'index'
+            ), 'default', true
+        );
+    ?>">Sales stage</a>
+<div id="form">
+   <?php echo $this->form; ?>
+</div>
